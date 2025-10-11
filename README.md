@@ -26,13 +26,13 @@
 - **关键字检索**：`search-docs` 工具支持按关键词匹配标题与正文，返回排序后的候选列表。  
 - **全文获取**：默认使用 `doc://local-docs/{+path}` 资源，可通过 `resources/read` 获取 Markdown 原文。  
 - **可配置命名空间**：通过环境变量可自定义资源命名空间与服务名称，利于多知识库并行。  
-- **自定义文档根目录**：支持通过 `DOC_ROOT` 指定任意 Markdown 文档目录，方便复用。  
+- **自定义文档根目录**：默认依次查找运行目录与包内的 `docs/`、`wework/`，也可通过 `DOC_ROOT` 指定任意路径。  
 - **标准 MCP 兼容**：可在 Cursor、MCP Inspector 等支持 MCP 的客户端中直接使用。
 
 ## 系统要求
 
 - Node.js ≥ 18（建议与项目主开发环境保持一致）  
-- 本地 Markdown 文档目录。若目录不在仓库根目录的 `docs/`，请通过 `DOC_ROOT` 指定路径（未找到 `docs/` 时会退回到 `wework/`，保留兼容性）。
+- 本地 Markdown 文档目录；若文档放在默认的 `docs/` 或 `wework/`（无论位于项目根目录还是包内），无需额外配置。
 
 ## 快速开始
 
@@ -51,7 +51,7 @@ npm run mcp:server --silent
 ```
 
 - `--silent` 用于屏蔽 npm 输出，避免干扰 STDIO 通信。  
-- 需要自定义文档目录或命名空间时，可在命令前添加环境变量：
+- 如果文档位于默认目录之外（或需覆盖包内文档），可在命令前添加环境变量：
 
 ```bash
 DOC_ROOT=/path/to/docs DOC_NAMESPACE=my-docs npm run mcp:server --silent
@@ -81,7 +81,7 @@ npx -y doc-hub-mcp
 - **本地分发**：运行 `npm pack` 生成 `doc-hub-mcp-1.0.0.tgz`，在目标机器执行  
   `npx --yes --package ./doc-hub-mcp-1.0.0.tgz doc-hub-mcp`。
 
-执行命令时同样可以追加环境变量，例如：
+执行命令时若需自定义目录或命名空间，可以追加环境变量，例如：
 
 ```bash
 DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
@@ -91,11 +91,11 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 
 ### 环境变量
 
-| 变量名             | 说明                                            | 默认值         |
-| ------------------ | ----------------------------------------------- | -------------- |
-| `DOC_ROOT`         | 指定 Markdown 文档根目录的绝对路径              | `docs/`（若不存在则回退至 `wework/`） |
-| `DOC_NAMESPACE`    | 资源命名空间名称，对应 `doc://<namespace>/...` | `local-docs`   |
-| `MCP_SERVER_NAME`  | MCP 服务在客户端中显示的名称                    | `local-docs-mcp` |
+| 变量名             | 说明                                            | 默认值                          |
+| ------------------ | ----------------------------------------------- | ------------------------------- |
+| `DOC_ROOT`         | 指定 Markdown 文档根目录的绝对路径              | 依次搜索运行目录与包内的 `docs/`、`wework/` |
+| `DOC_NAMESPACE`    | 资源命名空间名称，对应 `doc://<namespace>/...` | `local-docs`                    |
+| `MCP_SERVER_NAME`  | MCP 服务在客户端中显示的名称                    | `local-docs-mcp`                |
 
 ### Cursor 集成示例
 
@@ -107,15 +107,11 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
   "args": [
     "-y",
     "doc-hub-mcp"
-  ],
-  "env": {
-    "DOC_ROOT": "/Users/<user>/KnowledgeBase/api-docs",
-    "DOC_NAMESPACE": "api-docs"
-  }
+  ]
 }
 ```
 
-保存配置后，打开 Cursor 的 MCP 面板重新连接，若状态指示灯由红变绿即表示加载成功。若无需自定义环境变量可移除 `env` 字段。
+保存配置后，打开 Cursor 的 MCP 面板重新连接，若状态指示灯由红变绿即表示加载成功。若需切换自定义目录，再在 `env` 中补充 `DOC_ROOT`、`DOC_NAMESPACE` 等变量。
 
 ## 使用方法
 
@@ -134,6 +130,6 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 ## 故障排查
 
 - **依赖缺失**：确认已执行 `npm install` 且无报错。  
-- **文档目录不存在**：检查 `DOC_ROOT` 指定路径是否存在、权限是否正确（默认尝试 `docs/`，若不存在再回退至旧目录 `wework/`）。  
+- **文档目录不存在**：服务会依次尝试运行目录与包内的 `docs/`、`wework/`；若需其他目录，设置 `DOC_ROOT` 并确保路径可访问。  
 - **端口冲突**：使用 MCP Inspector 时若提示 `Proxy Server PORT IS IN USE at port 6277`，需关闭已有 Inspector 实例或修改其代理端口。  
 - **客户端不显示工具**：确保 Cursor 配置中的 `command`、`args` 均为绝对路径，并已重新连接 MCP。

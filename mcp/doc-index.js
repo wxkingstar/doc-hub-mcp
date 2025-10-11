@@ -1,8 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 const DEFAULT_MAX_RESULTS = 8;
 const DEFAULT_NAMESPACE = 'local-docs';
+const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
+const PACKAGE_ROOT = path.resolve(MODULE_DIR, '..');
 
 function isMarkdownFile(fileName) {
   return fileName.toLowerCase().endsWith('.md');
@@ -200,9 +203,18 @@ export function resolveDocRoot() {
   if (customRoot) {
     return path.resolve(customRoot);
   }
-  const preferred = path.resolve('docs');
-  if (fs.existsSync(preferred)) {
-    return preferred;
+  const candidates = [
+    path.resolve('docs'),
+    path.resolve('wework'),
+    path.join(PACKAGE_ROOT, 'docs'),
+    path.join(PACKAGE_ROOT, 'wework')
+  ];
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
   }
-  return path.resolve('wework');
+  throw new Error(
+    '无法定位文档目录。请通过 DOC_ROOT 环境变量指定 Markdown 文档根路径。'
+  );
 }
