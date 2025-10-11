@@ -31,7 +31,7 @@
 
 ## 系统要求
 
-- Node.js ≥ 18（建议与项目主开发环境保持一致）  
+- Node.js ≥ 20.18（满足 `cheerio@1.1.2` 的引擎要求）  
 - 本地 Markdown 文档目录；若文档放在默认的 `docs/` 或 `wework/`（无论位于项目根目录还是包内），无需额外配置。
 
 ## 快速开始
@@ -132,4 +132,4 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 - **依赖缺失**：确认已执行 `npm install` 且无报错。  
 - **文档目录不存在**：服务会依次尝试运行目录与包内的 `docs/`、`wework/`；若需其他目录，设置 `DOC_ROOT` 并确保路径可访问。  
 - **端口冲突**：使用 MCP Inspector 时若提示 `Proxy Server PORT IS IN USE at port 6277`，需关闭已有 Inspector 实例或修改其代理端口。  
-- **客户端不显示工具**：确保 Cursor 配置中的 `command`、`args` 均为绝对路径，并已重新连接 MCP。
+- **客户端不显示工具**：确认 Cursor 允许执行 `npx`，必要时可改为使用本地脚本绝对路径或显式安装 npm 包。
