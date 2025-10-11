@@ -43,3 +43,4 @@ coverage/
 # 操作系统杂项
 .DS_Store
 Thumbs.db
+.wecom_cookies.json
