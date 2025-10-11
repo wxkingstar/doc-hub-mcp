@@ -78,8 +78,8 @@ npx -y doc-hub-mcp
 常见场景：
 
 - **私有部署**：通过 `npm publish --access restricted` 发布到私有 registry，使用时将 `npm` 配置指向该 registry。  
-- **本地分发**：运行 `npm pack` 生成 `doc-hub-mcp-1.0.0.tgz`，在目标机器执行  
-  `npx --yes --package ./doc-hub-mcp-1.0.0.tgz doc-hub-mcp`。
+- **本地分发**：运行 `npm pack` 生成 `doc-hub-mcp-1.0.1.tgz`，在目标机器执行  
+  `npx --yes --package ./doc-hub-mcp-1.0.1.tgz doc-hub-mcp`。
 
 执行命令时若需自定义目录或命名空间，可以追加环境变量，例如：
 
