@@ -437,12 +437,14 @@ async function main() {
         const doc = await fetchDocContent(node.doc_id);
         const rawHtml = doc.content_html_v2 || doc.content_html || '';
         const remoteUpdatedAt = (() => {
-          const fromHtml = extractLastUpdatedFromHtml(rawHtml);
+          const preferred = timestampToDate(doc.time);
+          if (preferred) {
+            return preferred;
+          }
+          const fromHtml = extractLastUpdatedFromHtml(rawHtml) ?? extractLastUpdatedFromHtml(doc.pageHtml);
           const candidates = [
             fromHtml,
-            extractLastUpdatedFromHtml(doc.pageHtml),
             timestampToDate(doc.extra?.update_time),
-            timestampToDate(doc.time),
             timestampToDate(doc.last_update_time),
             doc.last_update_time_str ? new Date(doc.last_update_time_str) : null
           ].filter(Boolean);
@@ -468,7 +470,7 @@ async function main() {
 
         const remoteDateStr = remoteUpdatedAt ? formatDate(remoteUpdatedAt) : null;
         const localDateStr = localUpdatedAt ? formatDate(localUpdatedAt) : null;
-        if (remoteDateStr && localDateStr && remoteDateStr <= localDateStr) {
+        if (remoteDateStr && localDateStr && remoteDateStr === localDateStr) {
           skippedCount += 1;
           console.log(`跳过：${node.title} —— 远端 ${remoteDateStr} ，本地 ${localDateStr} —— ${BASE_URL}/document/path/${docPathId}`);
           return;

@@ -2,8 +2,10 @@
 title: "获取access_token"
 doc_id: 15074
 category_id: 91039
-source_url: https://developer.work.weixin.qq.com/document/path/15074
+source_url: https://developer.work.weixin.qq.com/document/path/91039
 ---
+最后更新：2024/03/26
+
 ::: warning 
 为了安全考虑，开发者 **请勿** 将 access_token 返回给前端，需要开发者保存在后台，所有访问企业微信api的请求由后台发起
 :::
