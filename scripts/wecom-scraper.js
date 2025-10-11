@@ -10,7 +10,7 @@ import { load } from 'cheerio';
 import sanitize from 'sanitize-filename';
 import { decode } from 'html-entities';
 
-const ROOT_OUTPUT = path.resolve('wework');
+const ROOT_OUTPUT = path.resolve('wecom');
 const BASE_REFERER = 'https://developer.work.weixin.qq.com/document/path/90664';
 const BASE_URL = 'https://developer.work.weixin.qq.com';
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
@@ -101,7 +101,7 @@ function injectLastUpdated(markdown, date) {
   return `最后更新：${formatted}\n\n${markdown}`;
 }
 
-const COOKIE_FILE = path.resolve('.wework_cookies.json');
+const COOKIE_FILE = path.resolve('.wecom_cookies.json');
 
 function importCookiesFromEnv(cookies) {
   if (!cookies) return;
@@ -142,7 +142,7 @@ function importCookiesFromFile(filePath) {
   }
 }
 
-importCookiesFromEnv(process.env.WEWORK_COOKIES || '');
+importCookiesFromEnv(process.env.WECOM_COOKIES || '');
 importCookiesFromFile(COOKIE_FILE);
 
 async function fetchCategories() {
@@ -555,9 +555,9 @@ async function main() {
     console.warn(`
 需要人工完成验证码的人机验证文档数量：${humanCheckDocs.size}`);
     console.warn('请在浏览器中访问任意失败的文档链接完成验证码，然后复制最新的 Cookies。');
-    console.warn('将 Cookies 写入 .wework_cookies.json (数组或字符串) 或设置 WEWORK_COOKIES 环境变量后重新运行脚本。');
+    console.warn('将 Cookies 写入 .wecom_cookies.json (数组或字符串) 或设置 WECOM_COOKIES 环境变量后重新运行脚本。');
     console.warn('例如:');
-    console.warn('  WEWORK_COOKIES="wwrtx.sid=...; wwrtx.sid2=...; wwrtx.ltype=..." npm run scrape:wework');
+    console.warn('  WECOM_COOKIES="wwrtx.sid=...; wwrtx.sid2=...; wwrtx.ltype=..." npm run scrape:wecom');
   }
 }
 

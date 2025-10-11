@@ -26,13 +26,13 @@
 - **关键字检索**：`search-docs` 工具支持按关键词匹配标题与正文，返回排序后的候选列表。  
 - **全文获取**：默认使用 `doc://local-docs/{+path}` 资源，可通过 `resources/read` 获取 Markdown 原文。  
 - **可配置命名空间**：通过环境变量可自定义资源命名空间与服务名称，利于多知识库并行。  
-- **自定义文档根目录**：默认依次查找运行目录与包内的 `docs/`、`wework/`，也可通过 `DOC_ROOT` 指定任意路径。  
+- **自定义文档根目录**：默认依次查找运行目录与包内的 `docs/`、`wecom/`，也可通过 `DOC_ROOT` 指定任意路径。  
 - **标准 MCP 兼容**：可在 Cursor、MCP Inspector 等支持 MCP 的客户端中直接使用。
 
 ## 系统要求
 
 - Node.js ≥ 20.18（满足 `cheerio@1.1.2` 的引擎要求）  
-- 本地 Markdown 文档目录；若文档放在默认的 `docs/` 或 `wework/`（无论位于项目根目录还是包内），无需额外配置。
+- 本地 Markdown 文档目录；若文档放在默认的 `docs/` 或 `wecom/`（无论位于项目根目录还是包内），无需额外配置。
 
 ## 快速开始
 
@@ -93,7 +93,7 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 
 | 变量名             | 说明                                            | 默认值                          |
 | ------------------ | ----------------------------------------------- | ------------------------------- |
-| `DOC_ROOT`         | 指定 Markdown 文档根目录的绝对路径              | 依次搜索运行目录与包内的 `docs/`、`wework/` |
+| `DOC_ROOT`         | 指定 Markdown 文档根目录的绝对路径              | 依次搜索运行目录与包内的 `docs/`、`wecom/` |
 | `DOC_NAMESPACE`    | 资源命名空间名称，对应 `doc://<namespace>/...` | `local-docs`                    |
 | `MCP_SERVER_NAME`  | MCP 服务在客户端中显示的名称                    | `local-docs-mcp`                |
 
@@ -130,6 +130,6 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 ## 故障排查
 
 - **依赖缺失**：确认已执行 `npm install` 且无报错。  
-- **文档目录不存在**：服务会依次尝试运行目录与包内的 `docs/`、`wework/`；若需其他目录，设置 `DOC_ROOT` 并确保路径可访问。  
+- **文档目录不存在**：服务会依次尝试运行目录与包内的 `docs/`、`wecom/`；若需其他目录，设置 `DOC_ROOT` 并确保路径可访问。  
 - **端口冲突**：使用 MCP Inspector 时若提示 `Proxy Server PORT IS IN USE at port 6277`，需关闭已有 Inspector 实例或修改其代理端口。  
 - **客户端不显示工具**：确认 Cursor 允许执行 `npx`，必要时可改为使用本地脚本绝对路径或显式安装 npm 包。

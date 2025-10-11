@@ -7,7 +7,7 @@
     "doc-hub-mcp": "mcp/doc-server.js"
   },
   "scripts": {
-    "scrape:wework": "node scripts/wework-scraper.js",
+    "scrape:wecom": "node scripts/wecom-scraper.js",
     "mcp:server": "node mcp/doc-server.js"
   },
   "dependencies": {

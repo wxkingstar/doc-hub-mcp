@@ -205,9 +205,9 @@ export function resolveDocRoot() {
   }
   const candidates = [
     path.resolve('docs'),
-    path.resolve('wework'),
+    path.resolve('wecom'),
     path.join(PACKAGE_ROOT, 'docs'),
-    path.join(PACKAGE_ROOT, 'wework')
+    path.join(PACKAGE_ROOT, 'wecom')
   ];
   for (const candidate of candidates) {
     if (fs.existsSync(candidate)) {
