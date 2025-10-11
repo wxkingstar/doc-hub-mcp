@@ -106,7 +106,7 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
   "command": "npx",
   "args": [
     "-y",
-    "doc-hub-mcp"
+    "doc-hub-mcp@latest"
   ]
 }
 ```
