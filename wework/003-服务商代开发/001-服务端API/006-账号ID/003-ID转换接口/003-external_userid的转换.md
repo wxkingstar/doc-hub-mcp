@@ -2,8 +2,10 @@
 title: "external_userid的转换"
 doc_id: 42272
 category_id: 97107
-source_url: https://developer.work.weixin.qq.com/document/path/42272
+source_url: https://developer.work.weixin.qq.com/document/path/97107
 ---
+最后更新：2022/11/03
+
 [TOC]
 
 将企业主体下的external_userid转换为服务商主体下的external_userid。

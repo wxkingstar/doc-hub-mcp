@@ -2,8 +2,10 @@
 title: "关闭 Wi-Fi 模块"
 doc_id: 45982
 category_id: 100542
-source_url: https://developer.work.weixin.qq.com/document/path/45982
+source_url: https://developer.work.weixin.qq.com/document/path/100542
 ---
+最后更新：2024/11/13
+
 [[toc]]
 
 <!-- import stopWifi from @wecom/jssdk -->

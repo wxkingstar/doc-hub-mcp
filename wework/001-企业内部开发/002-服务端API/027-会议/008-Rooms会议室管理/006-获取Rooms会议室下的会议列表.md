@@ -2,8 +2,10 @@
 title: "获取Rooms会议室下的会议列表"
 doc_id: 47184
 category_id: 98796
-source_url: https://developer.work.weixin.qq.com/document/path/47184
+source_url: https://developer.work.weixin.qq.com/document/path/98796
 ---
+最后更新：2024/07/22
+
 获取指定Rooms会议室下的会议列表。
 
 **请求方式：** POST（**HTTPS**）

@@ -21,6 +21,10 @@ const limitIndex = args.indexOf('--limit');
 const limitValue = limitIndex >= 0 ? Number(args[limitIndex + 1]) : Number.NaN;
 const DOC_LIMIT = Number.isFinite(limitValue) && limitValue > 0 ? Math.floor(limitValue) : null;
 
+const startIndex = args.indexOf('--start');
+const startValue = startIndex >= 0 ? Number(args[startIndex + 1]) : Number.NaN;
+const DOC_START = Number.isFinite(startValue) && startValue > 0 ? Math.floor(startValue) : 0;
+
 const jar = new CookieJar();
 const axiosInstance = wrapper(axios.create({
   baseURL: BASE_URL,
@@ -419,9 +423,22 @@ async function main() {
 
   walk(tree, ROOT_OUTPUT);
 
-  const tasksToProcess = DOC_LIMIT ? docTasks.slice(0, DOC_LIMIT) : docTasks;
-  if (DOC_LIMIT && docTasks.length > DOC_LIMIT) {
-    console.log(`Processing limited subset ${DOC_LIMIT}/${docTasks.length} docs (use --limit to adjust).`);
+  const totalDocs = docTasks.length;
+  const startOffset = Math.min(Math.max(DOC_START, 0), totalDocs);
+  const endOffset = DOC_LIMIT ? Math.min(startOffset + DOC_LIMIT, totalDocs) : totalDocs;
+  const tasksToProcess = docTasks.slice(startOffset, endOffset);
+  if (DOC_LIMIT && DOC_START) {
+    console.log(
+      `Processing subset ${startOffset + 1}-${endOffset} of ${totalDocs} docs (use --start/--limit to adjust).`
+    );
+  } else if (DOC_LIMIT) {
+    console.log(
+      `Processing limited subset ${endOffset}/${totalDocs} docs (use --limit to adjust).`
+    );
+  } else if (DOC_START) {
+    console.log(
+      `Processing docs ${startOffset + 1}-${endOffset} of ${totalDocs} (use --start to adjust).`
+    );
   }
   const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1200 });
   const humanCheckDocs = new Set();

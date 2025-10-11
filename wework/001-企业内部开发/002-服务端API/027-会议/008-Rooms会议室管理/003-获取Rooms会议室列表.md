@@ -2,8 +2,10 @@
 title: "获取Rooms会议室列表"
 doc_id: 47183
 category_id: 98795
-source_url: https://developer.work.weixin.qq.com/document/path/47183
+source_url: https://developer.work.weixin.qq.com/document/path/98795
 ---
+最后更新：2024/07/22
+
 获取企业下的Rooms会议室列表。
 
 **请求方式：** POST（**HTTPS**）

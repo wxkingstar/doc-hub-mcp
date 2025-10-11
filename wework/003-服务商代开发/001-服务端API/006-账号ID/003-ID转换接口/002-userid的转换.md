@@ -2,8 +2,10 @@
 title: "userid的转换"
 doc_id: 42271
 category_id: 97106
-source_url: https://developer.work.weixin.qq.com/document/path/42271
+source_url: https://developer.work.weixin.qq.com/document/path/97106
 ---
+最后更新：2023/03/30
+
 将企业主体下的明文userid转换为服务商主体下的密文userid。
 
 **请求方式：**POST（**HTTPS**）

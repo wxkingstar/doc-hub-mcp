@@ -2,8 +2,10 @@
 title: "监听 Wi-Fi 列表更新"
 doc_id: 45985
 category_id: 100545
-source_url: https://developer.work.weixin.qq.com/document/path/45985
+source_url: https://developer.work.weixin.qq.com/document/path/100545
 ---
+最后更新：2025/08/19
+
 [[toc]]
 
 <!-- import onGetWifiList from @wecom/jssdk -->

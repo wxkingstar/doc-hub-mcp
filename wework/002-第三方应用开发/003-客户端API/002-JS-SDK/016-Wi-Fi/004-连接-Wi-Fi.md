@@ -2,8 +2,10 @@
 title: "连接 Wi-Fi"
 doc_id: 45983
 category_id: 100628
-source_url: https://developer.work.weixin.qq.com/document/path/45983
+source_url: https://developer.work.weixin.qq.com/document/path/100628
 ---
+最后更新：2024/11/13
+
 [[toc]]
 
 <!-- import connectWifi from @wecom/jssdk -->

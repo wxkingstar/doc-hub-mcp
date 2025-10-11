@@ -2,8 +2,10 @@
 title: "监听 Wi-Fi 连接成功"
 doc_id: 45986
 category_id: 100415
-source_url: https://developer.work.weixin.qq.com/document/path/45986
+source_url: https://developer.work.weixin.qq.com/document/path/100415
 ---
+最后更新：2024/11/13
+
 [[toc]]
 
 <!-- import onWifiConnected from @wecom/jssdk -->

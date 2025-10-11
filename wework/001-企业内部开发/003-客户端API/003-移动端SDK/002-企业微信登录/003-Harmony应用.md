@@ -2,8 +2,10 @@
 title: "Harmony应用"
 doc_id: 59011
 category_id: 101021
-source_url: https://developer.work.weixin.qq.com/document/path/59011
+source_url: https://developer.work.weixin.qq.com/document/path/101021
 ---
+最后更新：2025/07/09
+
 [TOC]
 ## Harmony接入指南
 >**接入说明：**

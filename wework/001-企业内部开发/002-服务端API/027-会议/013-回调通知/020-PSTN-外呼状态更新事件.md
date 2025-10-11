@@ -2,8 +2,10 @@
 title: "PSTN 外呼状态更新事件"
 doc_id: 47142
 category_id: 98774
-source_url: https://developer.work.weixin.qq.com/document/path/47142
+source_url: https://developer.work.weixin.qq.com/document/path/98774
 ---
+最后更新：2023/04/25
+
 对于API创建的会议，当 PSTN 外呼的状态发生变化时，触发该事件。
 
 **示例**

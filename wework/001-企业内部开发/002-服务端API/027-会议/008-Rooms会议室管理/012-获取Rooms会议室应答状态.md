@@ -2,8 +2,10 @@
 title: "获取Rooms会议室应答状态"
 doc_id: 47203
 category_id: 98806
-source_url: https://developer.work.weixin.qq.com/document/path/47203
+source_url: https://developer.work.weixin.qq.com/document/path/98806
 ---
+最后更新：2024/07/22
+
 会议获取其呼叫Rooms会议室的应答状态。
 
 **请求方式：** POST（**HTTPS**）

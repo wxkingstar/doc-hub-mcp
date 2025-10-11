@@ -2,8 +2,10 @@
 title: "代开发应用external_userid转换"
 doc_id: 35303
 category_id: 95195
-source_url: https://developer.work.weixin.qq.com/document/path/35303
+source_url: https://developer.work.weixin.qq.com/document/path/95195
 ---
+最后更新：2022/06/23
+
 企业同时授权了服务商的第三方应用与代开发应用，服务商可使用该接口将代开发应用获取到的external_userid转换为第三方应用的external_userid，从而进行关联映射。若代开发自建应用已升级（升级说明见 [代开发应用安全性升级](#39442)），则获取到的external_userid与第三方应用一致，故无须调用该接口。
 
 **请求方式：**POST（**HTTPS**）

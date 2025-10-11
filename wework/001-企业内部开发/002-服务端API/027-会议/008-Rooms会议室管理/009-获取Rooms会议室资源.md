@@ -2,8 +2,10 @@
 title: "获取Rooms会议室资源"
 doc_id: 47206
 category_id: 98809
-source_url: https://developer.work.weixin.qq.com/document/path/47206
+source_url: https://developer.work.weixin.qq.com/document/path/98809
 ---
+最后更新：2023/05/31
+
 获取企业购买的Rooms会议室资源。
 
 **请求方式：** POST（**HTTPS**）

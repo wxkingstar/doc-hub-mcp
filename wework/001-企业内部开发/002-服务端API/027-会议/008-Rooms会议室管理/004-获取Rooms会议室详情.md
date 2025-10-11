@@ -2,8 +2,10 @@
 title: "获取Rooms会议室详情"
 doc_id: 47181
 category_id: 98793
-source_url: https://developer.work.weixin.qq.com/document/path/47181
+source_url: https://developer.work.weixin.qq.com/document/path/98793
 ---
+最后更新：2024/07/22
+
 根据Rooms会议室 ID 获取该Rooms会议室详细信息。
 
 **请求方式：** POST（**HTTPS**）

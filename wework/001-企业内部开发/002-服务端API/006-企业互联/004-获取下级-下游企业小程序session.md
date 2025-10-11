@@ -2,8 +2,10 @@
 title: "获取下级/下游企业小程序session"
 doc_id: 25574
 category_id: 93355
-source_url: https://developer.work.weixin.qq.com/document/path/25574
+source_url: https://developer.work.weixin.qq.com/document/path/93355
 ---
+最后更新：2023/01/11
+
 [TOC]
 
 上级/上游企业通过该接口转换为下级/下游企业的小程序session

@@ -2,8 +2,10 @@
 title: "获取UserId的变更信息"
 doc_id: 16447
 category_id: 91586
-source_url: https://developer.work.weixin.qq.com/document/path/16447
+source_url: https://developer.work.weixin.qq.com/document/path/91586
 ---
+最后更新：2022/09/16
+
 获取该设备历史的云端通知。目前仅保存3个月的[userid变更事件](#15377)。
 
 **请求包体：**

@@ -2,8 +2,10 @@
 title: "获取Rooms会议室配置项"
 doc_id: 47197
 category_id: 98802
-source_url: https://developer.work.weixin.qq.com/document/path/47197
+source_url: https://developer.work.weixin.qq.com/document/path/98802
 ---
+最后更新：2023/05/30
+
 获取Rooms会议室的配置项。
 
 **请求方式：** POST（**HTTPS**）

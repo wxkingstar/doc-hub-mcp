@@ -2,8 +2,10 @@
 title: "成员UserId变更事件"
 doc_id: 15377
 category_id: 93997
-source_url: https://developer.work.weixin.qq.com/document/path/15377
+source_url: https://developer.work.weixin.qq.com/document/path/93997
 ---
+最后更新：2020/04/16
+
 企业微信userid由系统生成时，可更改一次，变更时推送。
 
 **指令包体：**

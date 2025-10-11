@@ -2,8 +2,10 @@
 title: "Android应用"
 doc_id: 10722
 category_id: 91194
-source_url: https://developer.work.weixin.qq.com/document/path/10722
+source_url: https://developer.work.weixin.qq.com/document/path/91194
 ---
+最后更新：2024/11/27
+
 [TOC]
 ## Android接入指南
 

@@ -2,8 +2,10 @@
 title: "JS-SDK 签名算法"
 doc_id: 14924
 category_id: 90539
-source_url: https://developer.work.weixin.qq.com/document/path/14924
+source_url: https://developer.work.weixin.qq.com/document/path/90539
 ---
+最后更新：2024/11/14
+
 [TOC]
 
 ## 签名算法

@@ -2,8 +2,10 @@
 title: "tmp_external_userid的转换"
 doc_id: 46252
 category_id: 98729
-source_url: https://developer.work.weixin.qq.com/document/path/46252
+source_url: https://developer.work.weixin.qq.com/document/path/98729
 ---
+最后更新：2025/07/01
+
 [TOC]
 
 将应用获取的外部用户临时id`tmp_external_userid`，转换为external_userid。

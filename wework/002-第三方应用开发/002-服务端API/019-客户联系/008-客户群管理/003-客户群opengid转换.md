@@ -2,8 +2,10 @@
 title: "客户群opengid转换"
 doc_id: 31650
 category_id: 94828
-source_url: https://developer.work.weixin.qq.com/document/path/31650
+source_url: https://developer.work.weixin.qq.com/document/path/94828
 ---
+最后更新：2023/12/01
+
 用户在微信里的客户群里打开小程序时，某些场景下可以获取到群的opengid，如果该群是企业微信的客户群，则企业或第三方可以调用此接口将一个opengid转换为客户群chat_id
 
 **请求方式：**POST（**HTTPS**）

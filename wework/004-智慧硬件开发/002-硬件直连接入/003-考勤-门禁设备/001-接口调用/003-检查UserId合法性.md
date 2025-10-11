@@ -2,8 +2,10 @@
 title: "检查UserId合法性"
 doc_id: 16457
 category_id: 93991
-source_url: https://developer.work.weixin.qq.com/document/path/16457
+source_url: https://developer.work.weixin.qq.com/document/path/93991
 ---
+最后更新：2022/09/16
+
 检查userid是否在设备的使用范围内
 
 **请求包体：**

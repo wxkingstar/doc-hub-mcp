@@ -2,8 +2,10 @@
 title: "样式库 WeUI for Work"
 doc_id: 12146
 category_id: 90466
-source_url: https://developer.work.weixin.qq.com/document/path/12146
+source_url: https://developer.work.weixin.qq.com/document/path/90466
 ---
+最后更新：2017/11/01
+
 ## 介绍
 
 WeUI for Work 是基于[WeUI](https://github.com/tencent/weui) 上开发的一套同企业微信原生视觉体验一致的基础样式库，由微信官方设计团队为企业微信内网页量身设计，令用户的使用感知更加统一。在企业微信网页使用 WeUI for Work，有如下优势：

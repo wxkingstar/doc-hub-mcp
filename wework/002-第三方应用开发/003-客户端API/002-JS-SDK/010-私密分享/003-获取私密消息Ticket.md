@@ -2,8 +2,10 @@
 title: "获取私密消息Ticket"
 doc_id: 56727
 category_id: 100763
-source_url: https://developer.work.weixin.qq.com/document/path/56727
+source_url: https://developer.work.weixin.qq.com/document/path/100763
 ---
+最后更新：2025/03/27
+
 [[toc]]
 <!-- import getContext from @wecom/jssdk -->
 ## 旧版jweixin调用

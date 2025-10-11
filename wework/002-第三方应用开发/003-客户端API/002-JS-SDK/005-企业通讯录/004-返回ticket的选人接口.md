@@ -2,8 +2,10 @@
 title: "返回ticket的选人接口"
 doc_id: 30288
 category_id: 94516
-source_url: https://developer.work.weixin.qq.com/document/path/30288
+source_url: https://developer.work.weixin.qq.com/document/path/94516
 ---
+最后更新：2025/03/27
+
 [[toc]]
 
 <!-- import selectPrivilegedContact from @wecom/jssdk -->

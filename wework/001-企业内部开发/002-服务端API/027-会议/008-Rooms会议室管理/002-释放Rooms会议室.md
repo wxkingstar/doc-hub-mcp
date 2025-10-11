@@ -2,8 +2,10 @@
 title: "释放Rooms会议室"
 doc_id: 47180
 category_id: 98792
-source_url: https://developer.work.weixin.qq.com/document/path/47180
+source_url: https://developer.work.weixin.qq.com/document/path/98792
 ---
+最后更新：2023/05/30
+
 通过会议 ID 释放Rooms会议室，支持释放多个Rooms会议室。
 
 **请求方式：** POST（**HTTPS**）

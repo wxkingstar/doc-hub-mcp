@@ -2,8 +2,10 @@
 title: "userid与openid互换"
 doc_id: 11279
 category_id: 90338
-source_url: https://developer.work.weixin.qq.com/document/path/11279
+source_url: https://developer.work.weixin.qq.com/document/path/90338
 ---
+最后更新：2022/01/20
+
 ## userid转openid
 该接口使用场景为企业支付，在使用企业红包和向员工付款时，需要自行将企业微信的userid转成openid。
 

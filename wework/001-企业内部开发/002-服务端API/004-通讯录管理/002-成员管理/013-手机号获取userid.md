@@ -2,8 +2,10 @@
 title: "手机号获取userid"
 doc_id: 16820
 category_id: 95402
-source_url: https://developer.work.weixin.qq.com/document/path/16820
+source_url: https://developer.work.weixin.qq.com/document/path/95402
 ---
+最后更新：2025/08/29
+
 通过手机号获取其所对应的userid。
 
 **请求方式：**POST（**HTTPS**）

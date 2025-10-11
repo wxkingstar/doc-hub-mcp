@@ -2,8 +2,10 @@
 title: "打开个人聊天窗口schema"
 doc_id: 27500
 category_id: 96934
-source_url: https://developer.work.weixin.qq.com/document/path/27500
+source_url: https://developer.work.weixin.qq.com/document/path/96934
 ---
+最后更新：2021/05/10
+
 [TOC]
 
 ## 概述

@@ -2,8 +2,10 @@
 title: "获取下级/下游企业的access_token"
 doc_id: 24919
 category_id: 96814
-source_url: https://developer.work.weixin.qq.com/document/path/24919
+source_url: https://developer.work.weixin.qq.com/document/path/96814
 ---
+最后更新：2025/08/15
+
 获取应用可见范围内下级/下游企业的access_token，该access_token可用于调用下级/下游企业通讯录的只读接口。
 
 **请求方式：** POST（**HTTPS**）

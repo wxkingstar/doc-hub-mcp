@@ -2,8 +2,10 @@
 title: "通讯录userid排序"
 doc_id: 19287
 category_id: 92093
-source_url: https://developer.work.weixin.qq.com/document/path/19287
+source_url: https://developer.work.weixin.qq.com/document/path/92093
 ---
+最后更新：2022/09/05
+
 **请求方式：**POST（**HTTPS**）
 **请求地址：**https://qyapi.weixin.qq.com/cgi-bin/service/contact/sort?provider_access_token=ACCESS_TOKEN
 

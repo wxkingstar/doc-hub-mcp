@@ -2,8 +2,10 @@
 title: "外部联系人openid转换"
 doc_id: 18820
 category_id: 92323
-source_url: https://developer.work.weixin.qq.com/document/path/18820
+source_url: https://developer.work.weixin.qq.com/document/path/92323
 ---
+最后更新：2020/01/12
+
 企业和服务商可通过此接口，将**微信**外部联系人的userid（[如何获取?](#16684)）转为微信openid，用于调用支付相关接口。**暂不支持企业微信外部联系人（ExternalUserid为wo开头）的userid转openid**。
 
 **请求方式：**POST（**HTTPS**）

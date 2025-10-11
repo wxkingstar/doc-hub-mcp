@@ -2,8 +2,10 @@
 title: "取消呼叫Rooms会议室"
 doc_id: 47202
 category_id: 98805
-source_url: https://developer.work.weixin.qq.com/document/path/47202
+source_url: https://developer.work.weixin.qq.com/document/path/98805
 ---
+最后更新：2023/05/30
+
 会议可以通过Rooms会议室 ID 进行取消呼叫操作。
 
 **请求方式：** POST（**HTTPS**）

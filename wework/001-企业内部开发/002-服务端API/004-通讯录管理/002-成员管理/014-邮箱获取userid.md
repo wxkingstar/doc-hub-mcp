@@ -2,8 +2,10 @@
 title: "邮箱获取userid"
 doc_id: 39794
 category_id: 95895
-source_url: https://developer.work.weixin.qq.com/document/path/39794
+source_url: https://developer.work.weixin.qq.com/document/path/95895
 ---
+最后更新：2025/08/29
+
 通过邮箱获取其所对应的userid。
 
 **请求方式：**POST（**HTTPS**）

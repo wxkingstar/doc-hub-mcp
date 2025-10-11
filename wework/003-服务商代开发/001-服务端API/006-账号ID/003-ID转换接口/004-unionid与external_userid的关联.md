@@ -2,8 +2,10 @@
 title: "unionid与external_userid的关联"
 doc_id: 39850
 category_id: 97108
-source_url: https://developer.work.weixin.qq.com/document/path/39850
+source_url: https://developer.work.weixin.qq.com/document/path/97108
 ---
+最后更新：2024/01/24
+
 [TOC]
 
 1. 服务商在微信侧获取unionid后，可通过[unionid查询external_userid](#unionid转换为第三方external_userid)，如果微信用户还不是企业的客户，则返回一个pending_id，该 pending_id 90 天内有效。

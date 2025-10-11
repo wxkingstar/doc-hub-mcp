@@ -2,8 +2,10 @@
 title: "获取选人ticket对应的用户"
 doc_id: 32135
 category_id: 94894
-source_url: https://developer.work.weixin.qq.com/document/path/32135
+source_url: https://developer.work.weixin.qq.com/document/path/94894
 ---
+最后更新：2021/09/02
+
 当企业以[成员授权](#30245)的方式安装了第三方应用，成员在企业微信终端通过[选人jsapi](#30288)选择通讯录，应用获取到selectedTicket后，可调用该接口获取SelectedTicket对应的用户open_userid列表。
 
 **请求方式：**POST（**HTTPS**）

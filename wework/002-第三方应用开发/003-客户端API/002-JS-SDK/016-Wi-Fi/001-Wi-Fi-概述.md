@@ -2,8 +2,10 @@
 title: "Wi-Fi-概述"
 doc_id: 14918
 category_id: 100625
-source_url: https://developer.work.weixin.qq.com/document/path/14918
+source_url: https://developer.work.weixin.qq.com/document/path/100625
 ---
+最后更新：2024/11/20
+
 [[toc]]
 支持搜索周边的 Wi-Fi，同时可以针对指定 Wi-Fi，传入密码发起连接。
 该系列接口为系统原生能力。

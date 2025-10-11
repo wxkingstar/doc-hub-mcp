@@ -2,8 +2,10 @@
 title: "代开发授权应用secret的获取"
 doc_id: 42542
 category_id: 97163
-source_url: https://developer.work.weixin.qq.com/document/path/42542
+source_url: https://developer.work.weixin.qq.com/document/path/97163
 ---
+最后更新：2025/01/02
+
 [TOC]
 
 ## secret的获取

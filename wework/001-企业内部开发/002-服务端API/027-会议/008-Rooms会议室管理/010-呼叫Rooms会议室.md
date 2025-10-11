@@ -2,8 +2,10 @@
 title: "呼叫Rooms会议室"
 doc_id: 47200
 category_id: 98804
-source_url: https://developer.work.weixin.qq.com/document/path/47200
+source_url: https://developer.work.weixin.qq.com/document/path/98804
 ---
+最后更新：2023/05/30
+
 会议可以通过Rooms会议室 ID 呼叫Rooms会议室邀请其入会。
 
 **请求方式：** POST（**HTTPS**）

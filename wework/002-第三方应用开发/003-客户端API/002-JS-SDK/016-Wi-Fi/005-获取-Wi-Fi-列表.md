@@ -2,8 +2,10 @@
 title: "获取 Wi-Fi 列表"
 doc_id: 45984
 category_id: 100629
-source_url: https://developer.work.weixin.qq.com/document/path/45984
+source_url: https://developer.work.weixin.qq.com/document/path/100629
 ---
+最后更新：2024/11/13
+
 [[toc]]
 <!-- import getWifiList from @wecom/jssdk -->
 ## 旧版jweixin调用

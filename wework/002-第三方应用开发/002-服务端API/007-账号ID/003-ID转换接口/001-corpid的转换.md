@@ -2,8 +2,10 @@
 title: "corpid的转换"
 doc_id: 42270
 category_id: 97061
-source_url: https://developer.work.weixin.qq.com/document/path/42270
+source_url: https://developer.work.weixin.qq.com/document/path/97061
 ---
+最后更新：2024/04/02
+
 用于将企业主体的明文corpid转换为服务商主体的密文corpid。
 
 **请求方式：**POST（**HTTPS**）
