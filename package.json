@@ -4,9 +4,11 @@
   "type": "module",
   "description": "Convert WeCom developer HTML docs to Markdown",
   "scripts": {
-    "scrape:wework": "node scripts/wework-scraper.js"
+    "scrape:wework": "node scripts/wework-scraper.js",
+    "mcp:server": "node mcp/doc-server.js"
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
     "axios": "^1.7.7",
     "axios-cookiejar-support": "^6.0.4",
     "cheerio": "^1.1.2",
@@ -15,6 +17,7 @@
     "html-to-markdown": "^1.0.0",
     "p-queue": "^8.0.1",
     "sanitize-filename": "^1.6.3",
-    "tough-cookie": "^5.1.2"
+    "tough-cookie": "^5.1.2",
+    "zod": "^3.25.76"
   }
 }

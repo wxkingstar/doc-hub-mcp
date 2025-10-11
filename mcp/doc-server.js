@@ -1,0 +1,160 @@
+#!/usr/bin/env node
+import { McpServer, ResourceTemplate } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { ErrorCode, McpError } from '@modelcontextprotocol/sdk/types.js';
+import { z } from 'zod';
+import path from 'path';
+import { DocIndex, resolveDocRoot } from './doc-index.js';
+
+async function main() {
+  const docRoot = resolveDocRoot();
+  const index = new DocIndex(docRoot);
+  await index.initialize();
+
+  const server = new McpServer(
+    {
+      name: 'wework-docs',
+      version: '1.0.0'
+    },
+    {
+      instructions:
+        '使用 search-docs 工具检索企业微信开发文档。检索结果会返回 doc://wework/... 资源链接，可通过 resources/read 获取完整内容。'
+    }
+  );
+
+  server.registerTool(
+    'search-docs',
+    {
+      title: '文档检索',
+      description: '根据关键词检索企业微信开发文档，返回匹配的资源链接和摘要。',
+      inputSchema: {
+        query: z.string().min(1, '查询内容不能为空'),
+        limit: z.number().int().min(1).max(10).optional()
+      },
+      outputSchema: {
+        results: z
+          .array(
+            z.object({
+              title: z.string(),
+              path: z.string(),
+              resourceUri: z.string(),
+              snippet: z.string().optional(),
+              score: z.number()
+            })
+          )
+          .default([])
+      }
+    },
+    async ({ query, limit }) => {
+      if (!index.hasDocuments()) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: '当前尚未加载任何文档，无法执行检索。'
+            }
+          ],
+          structuredContent: { results: [] },
+          isError: true
+        };
+      }
+      const results = index.search(query, limit);
+      if (results.length === 0) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `未找到与「${query}」相关的文档。`
+            }
+          ],
+          structuredContent: { results: [] }
+        };
+      }
+      const plainText = results
+        .map(
+          (item, idx) =>
+            `${idx + 1}. ${item.title}\n路径：${item.path}\n链接：${item.resourceUri}\n摘要：${item.snippet ?? '（无摘要）'}`
+        )
+        .join('\n\n');
+      return {
+        content: [
+          {
+            type: 'text',
+            text: plainText
+          }
+        ],
+        structuredContent: { results }
+      };
+    }
+  );
+
+  const docTemplate = new ResourceTemplate('doc://wework/{+path}', {
+    list: async () => ({
+      resources: index.listResources()
+    })
+  });
+
+  server.registerResource(
+    'wework-docs',
+    docTemplate,
+    {
+      title: '企业微信开发文档',
+      description: `本地文档根目录：${path.relative(process.cwd(), docRoot) || '.'}`,
+      mimeType: 'text/markdown'
+    },
+    async (uri, variables) => {
+      const resourcePath = variables?.path;
+      if (!resourcePath) {
+        throw new McpError(ErrorCode.InvalidParams, '缺少 path 参数');
+      }
+      const doc = index.findByResourcePath(resourcePath);
+      if (!doc) {
+        throw new McpError(ErrorCode.InvalidParams, `未找到文档：${resourcePath}`);
+      }
+      return {
+        contents: [
+          {
+            uri: uri.href,
+            mimeType: 'text/markdown',
+            text: doc.content
+          }
+        ]
+      };
+    }
+  );
+
+  const transport = new StdioServerTransport();
+  let closing = false;
+
+  const closePromise = new Promise((resolve, reject) => {
+    server.onclose = () => resolve();
+    server.onerror = error => reject(error);
+    transport.onclose = () => resolve();
+    transport.onerror = error => reject(error);
+  });
+
+  const shutdown = async () => {
+    if (closing) return;
+    closing = true;
+    await server.close().catch(() => {});
+    await transport.close().catch(() => {});
+  };
+
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
+
+  await server.connect(transport);
+  process.stdin.resume();
+  const keepAlive = setInterval(() => {}, 1 << 30);
+  try {
+    await closePromise;
+  } finally {
+    clearInterval(keepAlive);
+    process.stdin.pause();
+  }
+}
+
+main().catch(error => {
+  console.error('MCP 服务启动失败:', error);
+  process.exit(1);
+});
