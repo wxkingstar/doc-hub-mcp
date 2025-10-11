@@ -14,6 +14,7 @@ const ROOT_OUTPUT = path.resolve('wework');
 const BASE_REFERER = 'https://developer.work.weixin.qq.com/document/path/90664';
 const BASE_URL = 'https://developer.work.weixin.qq.com';
 const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+const LAST_UPDATED_REGEX = /最后更新[:：]\s*(\d{4})[./-](\d{1,2})[./-](\d{1,2})/i;
 
 const args = process.argv.slice(2);
 const limitIndex = args.indexOf('--limit');
@@ -35,6 +36,66 @@ axiosInstance.defaults.jar = jar;
 axiosInstance.defaults.withCredentials = true;
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function parseDateParts(year, month, day) {
+  const y = Number(year);
+  const m = Number(month);
+  const d = Number(day);
+  if (!Number.isFinite(y) || !Number.isFinite(m) || !Number.isFinite(d)) {
+    return null;
+  }
+  const date = new Date(Date.UTC(y, m - 1, d));
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+  return date;
+}
+
+function extractLastUpdatedFromHtml(html) {
+  if (!html) return null;
+  const $ = load(html);
+  const text = $('body').text() || '';
+  const match = text.match(LAST_UPDATED_REGEX);
+  if (!match) return null;
+  return parseDateParts(match[1], match[2], match[3]);
+}
+
+function extractLastUpdatedFromMarkdown(markdown) {
+  if (!markdown) return null;
+  const match = markdown.match(LAST_UPDATED_REGEX);
+  if (!match) return null;
+  return parseDateParts(match[1], match[2], match[3]);
+}
+
+function timestampToDate(value) {
+  if (!Number.isFinite(value)) return null;
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric <= 0) return null;
+  const millis = numeric > 1e12 ? numeric : numeric * 1000;
+  const date = new Date(millis);
+  if (Number.isNaN(date.getTime())) return null;
+  return date;
+}
+
+function formatDate(date) {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return '';
+  }
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  return `${year}/${month}/${day}`;
+}
+
+function injectLastUpdated(markdown, date) {
+  if (!date) return markdown;
+  const formatted = typeof date === 'string' ? date : formatDate(date);
+  if (!formatted) return markdown;
+  if (/^最后更新：/m.test(markdown)) {
+    return markdown.replace(/^最后更新：.*$/m, `最后更新：${formatted}`);
+  }
+  return `最后更新：${formatted}\n\n${markdown}`;
+}
 
 const COOKIE_FILE = path.resolve('.wework_cookies.json');
 
@@ -105,14 +166,19 @@ async function fetchDocContent(docId, attempt = 0) {
   };
   const body = new URLSearchParams({ doc_id: String(docId) }).toString();
   try {
+    let pageHtml = '';
     if (attempt === 0) {
-      await axiosInstance.get(`/document/path/${docId}`, { headers: { Referer: BASE_REFERER } });
+      const pageResponse = await axiosInstance.get(`/document/path/${docId}`, { headers: { Referer: BASE_REFERER } });
+      pageHtml = pageResponse?.data ?? '';
       await delay(500);
     }
     const response = await axiosInstance.post('/docFetch/fetchCnt', body, { headers });
     const payload = response.data;
     if (payload?.data) {
-      return payload.data;
+      return {
+        ...payload.data,
+        pageHtml
+      };
     }
     if (payload?.result?.errCode === 500003) {
       throw new Error(`Doc ${docId} fetch error: 500003 人机验证`);
@@ -326,7 +392,7 @@ async function main() {
   console.log('Fetching category tree...');
   const categories = await fetchCategories();
   const tree = buildTree(categories);
-  await fs.emptyDir(ROOT_OUTPUT);
+  await fs.ensureDir(ROOT_OUTPUT);
   console.log('Generating output structure...');
   const docTasks = [];
 
@@ -358,14 +424,56 @@ async function main() {
     console.log(`Processing limited subset ${DOC_LIMIT}/${docTasks.length} docs (use --limit to adjust).`);
   }
   const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1200 });
-  let completed = 0;
   const humanCheckDocs = new Set();
+  let processedCount = 0;
+  let createdCount = 0;
+  let updatedCount = 0;
+  let skippedCount = 0;
+  const totalTasks = tasksToProcess.length;
 
   await queue.addAll(
     tasksToProcess.map(({ node, filePath }) => async () => {
       try {
         const doc = await fetchDocContent(node.doc_id);
         const rawHtml = doc.content_html_v2 || doc.content_html || '';
+        const remoteUpdatedAt = (() => {
+          const fromHtml = extractLastUpdatedFromHtml(rawHtml);
+          const candidates = [
+            fromHtml,
+            extractLastUpdatedFromHtml(doc.pageHtml),
+            timestampToDate(doc.extra?.update_time),
+            timestampToDate(doc.time),
+            timestampToDate(doc.last_update_time),
+            doc.last_update_time_str ? new Date(doc.last_update_time_str) : null
+          ].filter(Boolean);
+          if (candidates.length === 0) return null;
+          return new Date(Math.max(...candidates.map(date => date.getTime())));
+        })();
+        const docPathId = node.category_id || doc.doc_id || node.doc_id;
+
+        const fileExists = await fs.pathExists(filePath);
+        let localContent = '';
+        let localUpdatedAt = null;
+        if (!remoteUpdatedAt) {
+          console.warn(`未在页面中找到最后更新时间：${node.title} —— ${BASE_URL}/document/path/${docPathId}`);
+        }
+        if (fileExists) {
+          try {
+            localContent = await fs.readFile(filePath, 'utf8');
+            localUpdatedAt = extractLastUpdatedFromMarkdown(localContent);
+          } catch (readError) {
+            console.warn(`无法读取本地文档 ${filePath}:`, readError.message);
+          }
+        }
+
+        const remoteDateStr = remoteUpdatedAt ? formatDate(remoteUpdatedAt) : null;
+        const localDateStr = localUpdatedAt ? formatDate(localUpdatedAt) : null;
+        if (remoteDateStr && localDateStr && remoteDateStr <= localDateStr) {
+          skippedCount += 1;
+          console.log(`跳过：${node.title} —— 远端 ${remoteDateStr} ，本地 ${localDateStr} —— ${BASE_URL}/document/path/${docPathId}`);
+          return;
+        }
+
         const processedHtml = preprocessHtml(rawHtml);
         let markdownBody;
         if (doc.content_md && doc.content_md.trim()) {
@@ -377,15 +485,34 @@ async function main() {
           title: JSON.stringify(doc.title || node.title),
           doc_id: node.doc_id,
           category_id: node.category_id,
-          source_url: `${BASE_URL}/document/path/${node.doc_id}`
+          source_url: `${BASE_URL}/document/path/${docPathId}`
         });
-        const cleanedMarkdown = cleanupMarkdown(markdownBody);
+        let cleanedMarkdown = cleanupMarkdown(markdownBody);
+        const effectiveUpdatedAt = remoteDateStr || localDateStr;
+        cleanedMarkdown = injectLastUpdated(cleanedMarkdown, effectiveUpdatedAt);
         const finalContent = `${frontMatter}${cleanedMarkdown}
 `;
         await fs.outputFile(filePath, finalContent, 'utf8');
-        completed += 1;
-        if (completed % 50 === 0 || completed === tasksToProcess.length) {
-          console.log(`Converted ${completed}/${tasksToProcess.length}`);
+        const docLink = `${BASE_URL}/document/path/${docPathId}`;
+        if (fileExists) {
+          updatedCount += 1;
+          const msgParts = [`更新：${node.title}`];
+          if (remoteDateStr) {
+            msgParts.push(`远端 ${remoteDateStr}`);
+          }
+          if (localDateStr) {
+            msgParts.push(`原有 ${localDateStr}`);
+          }
+          msgParts.push(docLink);
+          console.log(msgParts.join(' —— '));
+        } else {
+          createdCount += 1;
+          const msgParts = [`新增：${node.title}`];
+          if (remoteDateStr) {
+            msgParts.push(`远端 ${remoteDateStr}`);
+          }
+          msgParts.push(docLink);
+          console.log(msgParts.join(' —— '));
         }
       } catch (error) {
         const message = error?.message || '';
@@ -393,11 +520,18 @@ async function main() {
           humanCheckDocs.add(node.doc_id);
         }
         console.error(`Failed to process doc ${node.doc_id} (${node.title}):`, message);
+      } finally {
+        processedCount += 1;
+        if (processedCount % 50 === 0 || processedCount === totalTasks) {
+          console.log(`Processed ${processedCount}/${totalTasks}`);
+        }
       }
     })
   );
 
-  console.log('Conversion complete. Total docs:', completed);
+  console.log(
+    `Summary: created ${createdCount}, updated ${updatedCount}, skipped ${skippedCount}, total processed ${processedCount}.`
+  );
   if (humanCheckDocs.size > 0) {
     console.warn(`
 需要人工完成验证码的人机验证文档数量：${humanCheckDocs.size}`);
