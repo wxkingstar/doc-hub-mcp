@@ -8,17 +8,19 @@ import { DocIndex, resolveDocRoot } from './doc-index.js';
 
 async function main() {
   const docRoot = resolveDocRoot();
-  const index = new DocIndex(docRoot);
+  const namespace = (process.env.DOC_NAMESPACE ?? 'local-docs').trim() || 'local-docs';
+  const serverName = process.env.MCP_SERVER_NAME?.trim() || 'local-docs-mcp';
+  const index = new DocIndex(docRoot, namespace);
   await index.initialize();
 
   const server = new McpServer(
     {
-      name: 'wework-docs',
+      name: serverName,
       version: '1.0.0'
     },
     {
       instructions:
-        '使用 search-docs 工具检索企业微信开发文档。检索结果会返回 doc://wework/... 资源链接，可通过 resources/read 获取完整内容。'
+        `使用 search-docs 工具检索本地文档。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
     }
   );
 
@@ -26,7 +28,7 @@ async function main() {
     'search-docs',
     {
       title: '文档检索',
-      description: '根据关键词检索企业微信开发文档，返回匹配的资源链接和摘要。',
+      description: '根据关键词检索本地 Markdown 文档，返回匹配的资源链接和摘要。',
       inputSchema: {
         query: z.string().min(1, '查询内容不能为空'),
         limit: z.number().int().min(1).max(10).optional()
@@ -88,17 +90,17 @@ async function main() {
     }
   );
 
-  const docTemplate = new ResourceTemplate('doc://wework/{+path}', {
+  const docTemplate = new ResourceTemplate(`doc://${namespace}/{+path}`, {
     list: async () => ({
       resources: index.listResources()
     })
   });
 
   server.registerResource(
-    'wework-docs',
+    namespace,
     docTemplate,
     {
-      title: '企业微信开发文档',
+      title: '本地文档集合',
       description: `本地文档根目录：${path.relative(process.cwd(), docRoot) || '.'}`,
       mimeType: 'text/markdown'
     },

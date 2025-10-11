@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const DEFAULT_MAX_RESULTS = 8;
+const DEFAULT_NAMESPACE = 'local-docs';
 
 function isMarkdownFile(fileName) {
   return fileName.toLowerCase().endsWith('.md');
@@ -54,8 +55,9 @@ function clampLimit(limit) {
 }
 
 export class DocIndex {
-  constructor(rootDir) {
+  constructor(rootDir, namespace = DEFAULT_NAMESPACE) {
     this.rootDir = rootDir;
+    this.namespace = namespace;
     this.docs = [];
     this.docByPath = new Map();
   }
@@ -124,7 +126,7 @@ export class DocIndex {
 
   listResources() {
     return this.docs.map(doc => ({
-      uri: `doc://wework/${doc.resourcePath}`,
+      uri: this.buildResourceUri(doc.resourcePath),
       name: doc.title,
       description: doc.description,
       mimeType: 'text/markdown'
@@ -164,7 +166,7 @@ export class DocIndex {
     return results.slice(0, maxResults).map(({ doc, score }) => ({
       title: doc.title,
       path: doc.relativePath,
-      resourceUri: `doc://wework/${doc.resourcePath}`,
+      resourceUri: this.buildResourceUri(doc.resourcePath),
       snippet: this.buildSnippet(doc, terms),
       score
     }));
@@ -187,12 +189,20 @@ export class DocIndex {
     const snippet = doc.plainText.slice(start, end).trim();
     return `${start > 0 ? '…' : ''}${snippet}${end < doc.plainText.length ? '…' : ''}`;
   }
+
+  buildResourceUri(resourcePath) {
+    return `doc://${this.namespace}/${resourcePath}`;
+  }
 }
 
 export function resolveDocRoot() {
   const customRoot = process.env.DOC_ROOT;
   if (customRoot) {
     return path.resolve(customRoot);
+  }
+  const preferred = path.resolve('docs');
+  if (fs.existsSync(preferred)) {
+    return preferred;
   }
   return path.resolve('wework');
 }

@@ -1,8 +1,11 @@
 {
-  "name": "wework-doc-scraper",
+  "name": "doc-hub-mcp",
   "version": "1.0.0",
   "type": "module",
-  "description": "Convert WeCom developer HTML docs to Markdown",
+  "description": "Local Markdown document search MCP server",
+  "bin": {
+    "doc-hub-mcp": "mcp/doc-server.js"
+  },
   "scripts": {
     "scrape:wework": "node scripts/wework-scraper.js",
     "mcp:server": "node mcp/doc-server.js"
