@@ -1,0 +1,64 @@
+{
+  "name": "wecom-feishu-openapi-mcp",
+  "display_name": {
+    "en": "WeCom & Feishu OpenAPI MCP Plugin",
+    "zh": "企业微信 & 飞书 OpenAPI 文档聚合 MCP 插件"
+  },
+  "description": "This MCP plugin provides enterprise-grade OpenAPI documentation aggregation for WeCom and Feishu, enabling unified context search and completion for interface definitions, request parameters, response structures, and permission requirements. Ideal for enterprise integration, workflow automation, and bot/agent development.",
+  "description_zh": "本插件为 Model Context Protocol（MCP）提供了企业级 OpenAPI 文档能力，自动聚合并标准化 企业微信 与 飞书 的开放接口文档。通过统一上下文调用、搜索和补全，开发者可在无需频繁查阅官网文档的情况下，快速获取接口定义、请求参数、响应结构及权限要求。适用于构建企业内部集成、自动化工作流、Bot/Agent 开发等高频 API 使用场景。",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "wxkingstar",
+  "repository": "https://github.com/wxkingstar/doc-hub-mcp",
+  "homepage": "https://github.com/wxkingstar/doc-hub-mcp",
+  "icon": "https://raw.githubusercontent.com/wxkingstar/doc-hub-mcp/main/assets/icon.png",
+  "tags": [
+    "wecom",
+    "feishu",
+    "lark",
+    "openapi",
+    "api",
+    "mcp",
+    "mcp-plugin",
+    "mcp-tools",
+    "mcp-api",
+    "integration",
+    "api-docs",
+    "developer-tools",
+    "workflow-automation",
+    "enterprise",
+    "china",
+    "saas",
+    "bot-development",
+    "api-reference"
+  ],
+  "schema_version": "1",
+  "capabilities": {
+    "openapi": {
+      "schemas": [
+        {
+          "name": "WeCom OpenAPI",
+          "url": "https://raw.githubusercontent.com/wxkingstar/doc-hub-mcp/main/openapi/wecom.openapi.json"
+        },
+        {
+          "name": "Feishu OpenAPI",
+          "url": "https://raw.githubusercontent.com/wxkingstar/doc-hub-mcp/main/openapi/feishu.openapi.json"
+        }
+      ]
+    }
+  },
+  "server": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "doc-hub-mcp@latest"
+    ],
+    "timeout": 5000
+  },
+  "contact": {
+    "name": "wxkingstar",
+    "url": "https://github.com/wxkingstar",
+    "email": "dev@yourcompany.com"
+  },
+  "visibility": "public"
+}
