@@ -167,12 +167,19 @@ export class DocIndex {
     return this.docByPath.get(normalized);
   }
 
-  search(query, limit = DEFAULT_MAX_RESULTS) {
+  search(query, limit = DEFAULT_MAX_RESULTS, source) {
     const terms = tokenize(query);
     if (terms.length === 0) return [];
     const maxResults = clampLimit(limit);
     const results = [];
     for (const doc of this.docs) {
+      if (source) {
+        const sourceLower = source.toLowerCase();
+        const pathLower = doc.relativePath.toLowerCase();
+        if (!pathLower.startsWith(sourceLower + path.sep) && !pathLower.startsWith(sourceLower + '/')) {
+          continue;
+        }
+      }
       let score = 0;
       for (const term of terms) {
         const titleLower = doc.title.toLowerCase();

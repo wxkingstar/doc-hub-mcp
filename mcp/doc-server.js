@@ -29,7 +29,7 @@ async function main() {
     },
     {
       instructions:
-        `使用 search-docs 工具检索本地文档。当前文档库来源：${sourceDescription}，默认包含企业微信与飞书开放平台资料，更新时间截至 2025-10-12。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
+        `使用 search-docs 工具检索本地文档。当前文档库来源：${sourceDescription}，默认包含企业微信与飞书开放平台资料，更新时间截至 2025-10-12。可通过 source 参数（wecom/feishu）指定文档来源以提高检索精确性。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
     }
   );
 
@@ -38,10 +38,11 @@ async function main() {
     {
       title: '文档检索',
       description:
-        `根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12，源目录：${sourceDescription}），返回匹配的资源链接和摘要。`,
+        `根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12，源目录：${sourceDescription}）。支持通过 source 参数指定文档来源（wecom/feishu），提高检索精确性。`,
       inputSchema: {
         query: z.string().min(1, '查询内容不能为空'),
-        limit: z.number().int().min(1).max(10).optional()
+        limit: z.number().int().min(1).max(10).optional(),
+        source: z.enum(['wecom', 'feishu']).optional().describe('可选：指定文档来源，wecom=企业微信，feishu=飞书开放平台')
       },
       outputSchema: {
         results: z
@@ -57,7 +58,7 @@ async function main() {
           .default([])
       }
     },
-    async ({ query, limit }) => {
+    async ({ query, limit, source }) => {
       if (!index.hasDocuments()) {
         return {
           content: [
@@ -70,13 +71,14 @@ async function main() {
           isError: true
         };
       }
-      const results = index.search(query, limit);
+      const results = index.search(query, limit, source);
       if (results.length === 0) {
+        const sourceHint = source ? `（限定来源：${source === 'wecom' ? '企业微信' : '飞书开放平台'}）` : '';
         return {
           content: [
             {
               type: 'text',
-              text: `未找到与「${query}」相关的文档。`
+              text: `未找到与「${query}」相关的文档${sourceHint}。`
             }
           ],
           structuredContent: { results: [] }
