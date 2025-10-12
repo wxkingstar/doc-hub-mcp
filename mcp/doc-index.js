@@ -5,8 +5,23 @@ import { fileURLToPath } from 'url';
 const DEFAULT_MAX_RESULTS = 8;
 const MAX_LIMIT = 20;
 const DEFAULT_NAMESPACE = 'local-docs';
-const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
-const PACKAGE_ROOT = path.resolve(MODULE_DIR, '..');
+
+// 兼容 ESM 和 CJS 环境
+let MODULE_DIR;
+let PACKAGE_ROOT;
+if (typeof import.meta !== 'undefined' && import.meta.url) {
+  // ESM 环境
+  MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
+  PACKAGE_ROOT = path.resolve(MODULE_DIR, '..');
+} else if (typeof __dirname !== 'undefined') {
+  // CJS 环境
+  MODULE_DIR = __dirname;
+  PACKAGE_ROOT = path.resolve(__dirname, '..');
+} else {
+  // 降级方案：使用 process.cwd()
+  MODULE_DIR = process.cwd();
+  PACKAGE_ROOT = process.cwd();
+}
 
 function isMarkdownFile(fileName) {
   return fileName.toLowerCase().endsWith('.md');
