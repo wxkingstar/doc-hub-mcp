@@ -1,6 +1,6 @@
 {
   "name": "doc-hub-mcp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "Local Markdown document search MCP server",
   "bin": {
