@@ -3,6 +3,7 @@
   "version": "1.0.9",
   "type": "module",
   "description": "Local Markdown document search MCP server",
+  "module": "src/index.ts",
   "bin": {
     "doc-hub-mcp": "mcp/doc-server.js"
   },
