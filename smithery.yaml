@@ -1,43 +1,5 @@
 # Smithery MCP 服务器配置
 # 文档：https://smithery.ai/docs/build/project-config/smithery-yaml
 
-# 使用容器运行时
-runtime: "container"
-
-# Docker 构建配置
-build:
-  dockerfile: "Dockerfile"
-  dockerBuildPath: "."
-
-# 启动命令配置
-startCommand:
-  type: "http"
-
-  # 配置模式定义（JSON Schema）
-  # 注意：环境变量通过 MCP HTTP 协议的查询参数传递
-  configSchema:
-    type: "object"
-    properties:
-      DOC_ROOT:
-        type: "string"
-        title: "文档根目录"
-        description: "指定 Markdown 文档根目录的绝对路径（支持冒号分隔的多个路径）。留空将自动使用容器内的 wecom/ 和 feishu/ 目录"
-      DOC_NAMESPACE:
-        type: "string"
-        title: "文档命名空间"
-        description: "资源命名空间名称，对应 doc://<namespace>/... 的资源 URI"
-        default: "local-docs"
-      MCP_SERVER_NAME:
-        type: "string"
-        title: "服务器名称"
-        description: "MCP 服务在客户端中显示的名称"
-        default: "doc-hub"
-
-  # 示例配置（用于测试）
-  exampleConfig:
-    DOC_NAMESPACE: "local-docs"
-    MCP_SERVER_NAME: "doc-hub"
-
-# 环境变量（容器启动时设置）
-env:
-  NODE_ENV: "production"
+# 使用 TypeScript 运行时（Smithery CLI 会自动构建和运行）
+runtime: "typescript"
