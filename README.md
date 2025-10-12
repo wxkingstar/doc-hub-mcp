@@ -1,6 +1,6 @@
 # 文档检索 MCP 服务
 
-> 提供离线、本地的 Markdown 文档检索能力，可直接接入支持 Model Context Protocol (MCP) 的 IDE、Agent 或调试工具。
+> 提供离线、本地的 Markdown 文档检索能力，可直接接入支持 Model Context Protocol (MCP) 的 IDE、Agent 或调试工具。目前支持**企业微信**和**飞书**
 
 ## 目录
 
