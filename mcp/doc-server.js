@@ -10,7 +10,7 @@ async function main() {
   const docRoot = resolveDocRoot();
   const rootPaths = Array.isArray(docRoot) ? docRoot : [docRoot];
   const namespace = (process.env.DOC_NAMESPACE ?? 'local-docs').trim() || 'local-docs';
-  const serverName = process.env.MCP_SERVER_NAME?.trim() || 'local-docs-mcp';
+  const serverName = process.env.MCP_SERVER_NAME?.trim() || 'doc-hub';
   const index = new DocIndex(rootPaths, namespace);
   await index.initialize();
   const sourceLabels = index.getSourceLabels();
