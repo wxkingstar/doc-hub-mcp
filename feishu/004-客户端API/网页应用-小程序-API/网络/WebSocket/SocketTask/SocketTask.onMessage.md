@@ -1,0 +1,44 @@
+---
+title: "SocketTask.onMessage"
+source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/network/websocket/sockettask/onmessage
+---
+最后更新于 2025-03-12
+
+# SocketTask.onMessage(function callback)
+
+监听 WebSocket 接受到服务器的消息事件
+
+## 支持说明
+
+应用能力 | Android | iOS | PC | Harmony | 预览效果
+--- | --- | --- | --- | --- | ---
+小程序 | **✓** | **✓** | **✓** | V7.39.0+ | [预览](https://applink.feishu.cn/client/mini_program/open?appId=cli_9dff7f6ae02ad104&path=page%2FAPI%2Fpages%2Fweb-socket%2Fweb-socket)
+网页应用 | **X** | **X** | **X** | **X** | /
+
+## 输入
+无
+
+## 输出
+回调函数返回对象的属性：
+
+名称 | 数据类型 | 描述
+--- | --- | ---
+data | string｜arraybuffer | 服务器返回的消息  
+**Notice**：iOS 端：飞书[V5.2.0](https://open.feishu.cn/document/uYjL24iN/uAjMuAjMuAjM/version-compatibility)及以上版本支持arraybuffer
+
+## 示例代码
+
+<md-download-code href="https://open.feishu.cn/document/uYjL24iN/uYDM04iNwQjL2ADN" mobileDisplay="none">下载示例代码</md-download-code>
+
+<div style="display: flex">
+          [预览小程序](https://applink.feishu.cn/client/mini_program/open?appId=cli_9dff7f6ae02ad104&path=page%2FAPI%2Fpages%2Fweb-socket%2Fweb-socket)
+
+</div> 
+
+```js
+const socketTask = tt.connectSocket({"url":"wss://echo.websocket.org"});
+socketTask.onMessage(function(res) {
+    console.log(JSON.stringify(res));
+});
+
+```

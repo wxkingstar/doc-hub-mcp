@@ -21,13 +21,29 @@ const URI_MAP_URL = 'https://open.feishu.cn/document_portal/v1/document_portal/v
 const DOCUMENT_DETAIL_URL = 'https://open.feishu.cn/api/tools/document/detail';
 
 const args = process.argv.slice(2);
-const limitIndex = args.indexOf('--limit');
-const limit = limitIndex >= 0 ? Number(args[limitIndex + 1]) : NaN;
-const MAX_DOCS = Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : null;
 
-const concurrencyIndex = args.indexOf('--concurrency');
-const concurrencyValue = concurrencyIndex >= 0 ? Number(args[concurrencyIndex + 1]) : NaN;
-const CONCURRENCY = Number.isFinite(concurrencyValue) && concurrencyValue > 0 ? Math.min(Math.floor(concurrencyValue), 16) : 6;
+function readNumericOption(name, defaultValue = null) {
+  const dashed = `--${name}`;
+  const eqArg = args.find((value) => value.startsWith(`${dashed}=`));
+  if (eqArg) {
+    const parsed = Number(eqArg.split('=')[1]);
+    if (Number.isFinite(parsed) && parsed > 0) return Math.floor(parsed);
+  }
+  const spacedIndex = args.indexOf(dashed);
+  if (spacedIndex >= 0 && args[spacedIndex + 1] !== undefined) {
+    const parsed = Number(args[spacedIndex + 1]);
+    if (Number.isFinite(parsed) && parsed > 0) return Math.floor(parsed);
+  }
+  const npmValue = Number(process.env[`npm_config_${name}`]);
+  if (Number.isFinite(npmValue) && npmValue > 0) {
+    return Math.floor(npmValue);
+  }
+  return defaultValue;
+}
+
+const MAX_DOCS = readNumericOption('limit');
+const concurrencyRaw = readNumericOption('concurrency');
+const CONCURRENCY = concurrencyRaw ? Math.min(concurrencyRaw, 16) : 6;
 
 const axiosInstance = axios.create({
   headers: {
@@ -280,6 +296,8 @@ function transformContent(raw, locale) {
   result = applyTransformers(SECONDARY_TRANSFORMERS, result, locale);
   result = applyTransformers(PRIMARY_TRANSFORMERS, result, locale);
   result = result.replace(/\n\s*\n[\s]+/g, '\n\n');
+  result = result.replace(/(!?\[[^\]]*\]\()\/\//g, '$1https://');
+  result = result.replace(/^\s*基本\s*\|\s*\r?\n\s*---\s*\|\s*---(\r?\n?)/gm, (_match, newline) => `名称 | 值\n---|---${newline || ''}`);
   return result.trim();
 }
 

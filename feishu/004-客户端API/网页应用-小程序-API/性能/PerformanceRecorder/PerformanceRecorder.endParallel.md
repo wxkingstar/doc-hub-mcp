@@ -1,0 +1,49 @@
+---
+title: "PerformanceRecorder.endParallel"
+source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/performance/PerformanceRecorder/endparallel
+---
+最后更新于 2023-04-18
+
+# PerformanceRecorder.endParallel(number recordID)
+完成一段异步操作的记录，仅在 [性能分析模式](https://open.feishu.cn/document/uYjL24iN/uEzMzUjLxMzM14SMzMTN/gadget-debugging/performance-analysis) 下生效。
+## 支持说明
+
+应用能力 | Android | iOS | PC | 预览效果
+--- | --- | --- | --- | ---
+小程序 | V6.1.0+ | V6.1.0+ | V6.1.0+ | /
+网页应用 | **✕** | **✕** | **✕** | /
+
+## 输入
+| 名称 | 数据类型 | 必填 | 默认值 | 描述 |
+| -- | -- | -- | -- | -- |
+| recordID | number | 是 |  | [PerformanceRecorder.startParallel()](https://open.feishu.cn/document/uYjL24iN/uAjMuAjMuAjM/performance/PerformanceRecorder/startparallel) 返回的 recordID |
+## 输出
+无
+## 示例代码
+仅在 [性能分析模式](https://open.feishu.cn/document/uYjL24iN/uEzMzUjLxMzM14SMzMTN/gadget-debugging/performance-analysis) 下生效。
+```javascript
+const p = tt.getPerformanceRecorder && tt.getPerformanceRecorder();
+// parallel 表示可并行的，开始一段可以和其他异步逻辑并行的异步操作的记录
+const parallelID = p && p.startParallel({
+  name: 'myIntervalSetData',
+  type: 'efgh',
+  extra: {
+    d: 4,
+    e: 5,
+    f: 6
+  }
+})
+this.setData({
+  list: new Array(40).fill(0).map((item) => {
+    return {
+      a: randomString(2),
+      b: randomString(18),
+      c: randomString(40),
+      d: randomString(30)
+    }
+  })
+}, () => {
+  // 完成一段异步操作的记录
+  p && p.endParallel(parallelID)
+});
+```

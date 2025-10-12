@@ -18,11 +18,11 @@ API 调试台提供一键获取用户 ID 的能力，你可以通过可视化操
 2. 在 **查询参数** 页签，将 **receive_id_type** 按需设置为 **user_id**、**open_id** 或 **union_id**，然后点击 **快速复制 user_id**、**快速复制 open_id** 或 **快速复制 union_id**。
       若需获取 user_id，需在 **权限配置** 页签另外开通「**获取用户 User ID**」权限。
 
-![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/01db3212166ba3c4cff5676d019bbd2e_GgP97y4WB1.png?height=774&lazyload=true&maxWidth=500&width=747)
+![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/01db3212166ba3c4cff5676d019bbd2e_GgP97y4WB1.png?height=774&lazyload=true&maxWidth=500&width=747)
 
 2. 在弹窗中，搜索或选择指定用户，并点击 **复制成员 ID**，获取指定 ID。
 
-![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cafe235d091a4551c7da7544b20c0b97_1nKvIuWzq3.png?height=640&lazyload=true&maxWidth=500&width=806)
+![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/cafe235d091a4551c7da7544b20c0b97_1nKvIuWzq3.png?height=640&lazyload=true&maxWidth=500&width=806)
 
 ## 方法二：调用 OpenAPI 获取三种 ID
 
@@ -49,20 +49,20 @@ API 调试台提供一键获取用户 ID 的能力，你可以通过可视化操
 
 支持 user_id、open_id 和 union_id 三种类型。
 
-![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/01d96f77d423d00e4aebe1af55e8f505_9tRL1cni0Z.png?height=1350&lazyload=true&maxWidth=600&width=1722)
+![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/01d96f77d423d00e4aebe1af55e8f505_9tRL1cni0Z.png?height=1350&lazyload=true&maxWidth=600&width=1722)
 
 4. 切换至 **请求体** Tab，将请求体中的示例 ID 删除，并修改为需要查询的手机号或 Email。
 
-![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/00c1a952000cf88c4418ff2753672156_gXTNDjPRHQ.png?height=758&lazyload=true&maxWidth=600&width=956)
+![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/00c1a952000cf88c4418ff2753672156_gXTNDjPRHQ.png?height=758&lazyload=true&maxWidth=600&width=956)
 
 5. 点击右侧 **开始调试**，调用成功后，在下方**响应体**中即可获取到查询的 User ID。
 响应体中返回的用户 ID 类型由查询参数中设置的 **user_id_type** 参数决定。
 
-![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/41950e9764d855d63ffcd4c0579ff678_rULBYCzNSR.png?height=1474&lazyload=true&maxWidth=600&width=2336)
+![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/41950e9764d855d63ffcd4c0579ff678_rULBYCzNSR.png?height=1474&lazyload=true&maxWidth=600&width=2336)
 
 ## 方法三：管理后台查看 User ID
 适用于具备**企业管理员**权限的用户。
 
 企业管理员登录 [管理后台](https://admin.feishu.cn/) ，在 **组织架构** > **成员与部门** 中查看用户详情，字段 **用户 ID** 的值即为 User ID。
 
-![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a7975ccffb96200dfac4f629ae2f9c39_Ry0srM48a5.png?height=1322&lazyload=true&maxWidth=600&width=2658)
+![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/a7975ccffb96200dfac4f629ae2f9c39_Ry0srM48a5.png?height=1322&lazyload=true&maxWidth=600&width=2658)
