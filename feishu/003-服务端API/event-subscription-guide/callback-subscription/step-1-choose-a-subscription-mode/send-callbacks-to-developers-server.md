@@ -1,0 +1,194 @@
+<!--
+title: 将回调发送至开发者服务器
+id: 7488979370367025156
+fullPath: /uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/step-1-choose-a-subscription-mode/send-callbacks-to-developers-server
+updatedAt: 1749089829000
+source: https://open.feishu.cn/document/event-subscription-guide/callback-subscription/step-1-choose-a-subscription-mode/send-callbacks-to-developers-server
+-->
+# 将回调发送至开发者服务器
+
+你可以自建一个服务器，通过 Webhook 模式接收飞书开放平台的回调订阅通知，该模式需要你提供服务器的公网访问地址，在回调触发时飞书开放平台会向该公网访问地址发送 HTTP POST 请求，请求内包含回调数据。
+
+## 步骤一（可选）：配置加密策略
+
+你可以根据企业数据安全要求，配置加密策略，以加密传输回调数据并校验请求来源是否有风险。加密策略内包含 **Encrypt Key**、**Verification Token** 两个参数，**Encrypt Key** 用于加密传输回调请求，**Verification Token** 用于校验请求是否来自飞书开放平台。
+
+### Encrypt Key
+
+该参数用于实现回调订阅请求的加密传输。
+
+- 如果配置 Encrypt Key，飞书开放平台向请求地址推送回调数据时会进行加密，加密推送能够提高数据安全性，建议你配置该参数。
+- 如果未配置 Encrypt Key，飞书开放平台向请求地址推送回调数据时不会加密处理，直接明文推送。
+
+加密推送的回调示例如下，你的本地服务器接收到加密回调体后，需要进行解密处理。解密步骤参考[接收回调](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/receive-and-handle-callbacks)。
+
+```
+{
+    "encrypt": "FIAfJPGRmFZWkaxPQ1XrJZVbv2JwdjfLk4jx0k/U1deAqYK3AXOZ5zcHt/cC4ZNTqYwWUW/EoL+b2hW/C4zoAQQ5CeMtbxX2zHjm+E4nX/Aww+FHUL6iuIMaeL2KLxqdtbHRC50vgC2YI7xohnb3KuCNBMUzLiPeNIpVdnYaeteCmSaESb+AZpJB9PExzTpRDzCRv+T6o5vlzaE8UgIneC1sYu85BnPBEMTSuj1ZZzfdQi7ZW992Z4dmJxn9e8FL2VArNm99f5Io3c2O4AcNsQENNKtfAAxVjCqc3mg5jF0123123flX1UOF5fzJ0sApG2OEn9wfyPDRBsApn9o+fceF9hNrYBGsdtZrZYyGG387CGOtKsuj8e2E8SNp+Pn4E9oYejOTR+ZNLNi+twxaXVlJhr6l+RXYwEiMGQE9zGFBD6h2dOhKh3W84p1GEYnSRIz1+9/Hp66arjC7RCrhuW5OjCj4QFEQJiwgL123123VsL03CxxFZarzxzffryrWUG3VkRdHRHbTsC34+ScoL5MTDU1QAWdqUC1T7xT0lCvQELaIhBTXAYrznJl6PlA83oqlMxpHh0gZBB1jFbfoUr7OQbBs1xqzpYK6Yjux6diwpQB1zlZErYJUfCqK7G/zI9yK/60b4HW0123+123123=" 
+}
+```
+
+#### 适用场景
+
+- 应用校验收到的回调推送是来自飞书开放平台，而非伪造。
+- 应用防止被重放攻击。重放攻击是指飞书开放平台推送给应用的回调被第三方截获，然后再把回调原封不动的多次发送给应用。这样可能会对应用造成数据安全隐患，也可能会影响应用服务器的性能。
+
+配置 Encrypt Key 后，你本地的服务器可以基于 Encrypt Key 进行签名校验，以保证应用接收到的都是飞书开放平台推送的合法回调。有关签名校验的详细介绍，请参考[接收回调](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/receive-and-handle-callbacks)。
+
+#### 加密原理
+
+回调请求的内容采用 AES-256-CBC 加密。加密原理如下：
+1. 使用 SHA256 对 `Encrypt Key` 进行哈希，得到密钥 `key`。
+1. 使用 PKCS7Padding 方式将回调内容进行填充。
+1. 生成 16 字节的随机数作为初始向量 `iv`。
+1. 使用 `iv` 和 `key` 对回调内容加密，得到 `encrypted_event`。
+1. 应用收到的密文为 `base64(iv+encrypted_event)`。
+
+### Verification Token
+
+Verification Token 是应用的验证标识。开发者后台会为应用自动生成 Verification Token，当飞书开放平台推送回调数据时，会携带 Verification Token 值，你可以据此 Token 验证推送的回调是否属于当前应用。
+
+### 操作步骤
+
+1. 登录[开发者后台](https://open.feishu.cn/app)。
+2. 在应用列表中点击具体应用，进入应用管理详情页面。
+3. 在左侧导航栏，选择 **开发配置** > **事件与回调**。
+4. 进入 **加密策略** 页签，配置 Encrypt Key 或者 Verification Token。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/02b6fe2f9807808b72f3de94f7fc1563_i6cItWH2Q1.png?height=678&lazyload=true&maxWidth=600&width=1726)
+    
+    - 点击 **重置** 图标，可重置参数值。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ef8631fc14a2dfb524bf40474bf6264f_dIjdcS2MLF.png?height=360&lazyload=true&maxWidth=400&width=864)
+    
+    - 点击 **编辑** 图标，可编辑参数值。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b16cd182a907ae4ef11ed77a9e37e31b_sLXAWHdkaT.png?height=334&lazyload=true&maxWidth=400&width=876)
+        
+## 步骤二：设置订阅方式
+
+1. 登录 [开发者后台](https://open.feishu.cn/app)。
+2. 进入指定应用，并在应用详情页的左侧导航栏，选择 **开发配置** > **事件与回调**。
+3. 在 **事件与回调** 页面，点击 **回调配置** 页签。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/13534219423244201b0576f81887187f_eZvkcFYQqM.png?height=1184&lazyload=true&maxWidth=600&width=2882)
+
+4. 在 **订阅方式** 右侧，点击编辑按钮。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/019e0fdba947bca8bfc2be77b0a6e66b_VRCc1gNs6H.png?height=722&lazyload=true&maxWidth=600&width=1756)
+
+5. 选择 **将回调发送至开发者服务器**，配置 **请求地址** 并点击 **保存**。
+
+    :::note
+    每个应用内只能配置一个回调请求地址，且需要保证该地址为 IPv4 公网地址，后续该应用订阅的所有回调，均会在触发时向请求地址发送回调数据。
+    :::
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1c46118115a9c69ae4bf6a491c1f57d3_huXsvrsaFp.png?height=542&lazyload=true&maxWidth=600&width=1630)
+
+	填写地址并保存时，飞书服务器会向该请求地址发送一个用于校验地址有效性的 HTTP POST 请求，请求格式为 JSON、带 `challenge` 参数。在请求地址所属的开发者服务器内，需要接收该 HTTP POST 请求，并在 1 秒内返回包含 `challenge` 参数的响应体，成功完成校验后才可以保存。如何处理并响应 HTTP POST 请求，参见下文 **响应 POST 校验请求** 章节。
+
+### 响应 POST 校验请求
+
+根据飞书应用是否配置了 Encrypt Key，响应 POST 校验请求的方式分为以下两种。
+
+
+
+#### 方式一：应用未配置 Encrypt Key
+
+飞书服务器发送的校验请求体如下所示。
+
+```json
+{ 
+    "challenge": "1b6aef1a-401f-406a-be41-f48911eabcef",    // 需要在响应中原样返回的值。
+    "token": "xxxxxx",    // 即应用的 Verification Token，通过该值你可以判断请求是否来自飞书开放平台的指定应用。
+    "type": "url_verification"    // 固定值，表示这是一个验证请求。
+}
+```
+
+参数说明如下表所示。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">参数</md-th>
+<md-th style="width:20%">类型</md-th>
+<md-th style="width:60%">描述</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>challenge</md-td>
+<md-td>String</md-td>
+<md-td>用于验证的字段，需在响应体中原样返回该值。
+
+示例值：1b6aef1a-401f-406a-be41-f48911eabcef</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>token</md-td>
+<md-td>String</md-td>
+<md-td>应用验证标识 **Verification Token**。你可以通过该 Token 验证请求是否属于当前应用。
+  
+在 **开发者后台** > **应用详情页** > **开发配置** > **事件与回调** > **安全设置** 模块，可查看应用的 **Verification Token**。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>type</md-td>
+<md-td>String</md-td>
+<md-td>回调类型。用于校验的回调类型固定取值为 `url_verification`，表示当前请求是在验证 URL 合法性。</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+当请求地址收到该 POST 校验请求时，需要提取出 `challenge` 值，并在 1 秒内返回包含 `challenge` 值的响应数据。响应体示例如下：
+
+```json
+{ 
+    "challenge": "1b6aef1a-401f-406a-be41-f48911eabcef"
+}
+```
+
+#### 方式二：应用配置了 Encrypt Key
+
+如果应用配置了 Encrypt Key，则会推送加密后的请求。请求体如下所示。
+
+```json
+{
+    "encrypt": "ds3da3sj32421lkkld4xxxx" // 加密字符串。
+}
+```
+
+你需要在接收请求的服务器内解密 `encrypt` 字符串，并在 1 秒内返回提取出的 `challenge` 值。解密方式可参见[接收回调](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/receive-and-handle-callbacks)。
+
+- 解密后的数据结构如下所示。
+
+	```json
+    { 
+        "challenge": "1b6aef1a-401f-406a-be41-f48911eabcef",    // 需要在响应中原样返回的值。
+        "token": "xxxxxx",    // 即应用的 Verification Token，通过该值你可以判断请求是否来自飞书开放平台的指定应用。
+        "type": "url_verification"    // 固定值，表示这是一个验证请求。
+    }
+    ```
+
+- 响应体示例如下所示。
+
+	```json
+    { 
+        "challenge": "1b6aef1a-401f-406a-be41-f48911eabcef"
+    }
+    ```
+
+### 示例代码
+
+飞书开放平台针对常见的编程语言，提供了 **将回调发送至开发者服务器** 订阅方式的示例代码。你可以点击下方链接，查看对应语言的示例代码。
+
+**编程语言** | **示例代码**                                                                                                                                       |
+| -------- | ---- |
+| Java     | [集成 Servlet 容器，将回调发送至开发者服务器](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/java-sdk-guide/handle-callback#3548bd4b) |
+| Python   | [将回调发送至开发者服务器](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/python--sdk/handle-callbacks#335ab2f1) |
+| Golang   | [将回调发送至开发者服务器](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback#335ab2f1) |
+| Node.js  | [将回调发送至开发者服务器](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/handling-callbacks#335ab2f1) |

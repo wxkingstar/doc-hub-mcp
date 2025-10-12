@@ -1,0 +1,60 @@
+<!--
+title: 安全合规说明
+id: 7536155912254160900
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/specification-description/security-compliance-instructions
+updatedAt: 1755768705000
+source: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/specification-description/security-compliance-instructions
+-->
+# 安全合规说明
+请严格遵守以下规则，否则飞书有权禁止违规组件运行。
+
+## 关于权限
+
+1. 请严格按照官方规范使用系统权限，保证权限申请合理，且申请的权限范围最小。
+1. 在用户同意飞书隐私政策前，不能采集用户的任何个人隐私数据，也不能调用任何隐私权限 API。
+
+## 关于安全
+
+1. 禁止对飞书平台的相关代码进行hook操作。
+2. 禁止添加和组件业务无关的私有操作，像hook系统接口、dump用户设置这类行为皆不允许。
+3. 没有得到客户或飞书的许可，禁止把飞书相关信息私自上传到远程服务器。
+4. 禁止SDK及相关集成逻辑将敏感信息打印到日志里，比如用户行为日志、用户个人信息、组织信息等。
+5. 如果要使用Java hook、Native hook、VirtualApp、Appication代理等不常用的技术，在集成之前要明确说明使用场景，防止和飞书的安全检测冲突。
+6. 在iOS平台，禁止使用系统库中已经标记为废弃的类或API（例如UIAlertView，开启multi scene时调用会直接导致闪退，可以用UIAlertViewController替换）。
+7. 在 Android 平台在线模式下，不支持引入任何Gradle插件参与编译。
+8. 在 Android 平台，只应当配置与组件业务相关的Proguard规则，不得配置全局规则。
+
+## 其他问题
+
+1. 外部开发者的前期准备
+
+| 准备项         | 子项         | 来源        |        
+| --------- | --------------- | -------   | ----------- | --------- |
+|开发环境配置- Android |Java |开发者自行申请 | 
+|开发环境配置- Android |Gradle & AGP |开发者自行申请 | 
+|开发环境配置- iOS |开发者账号 |开发者自行申请 | 
+|开发环境配置- iOS |Xcode |开发者自行申请 | 
+|开发环境配置- iOS |Ruby |开发者自行申请 | 
+|开发环境配置- iOS |Python |开发者自行申请 | 
+|集成 |原生集成插件 |联系飞书项目经理提供 | 
+|集成 |租户差异化的信息数据需接入飞书的[配置平台](https://open.larkoffice.com/document/native-integration/open-capability/capability-components/setting-ability/android-setting-?from=from_parent_docs) |开发者组织结构化后自行接入 | 
+   
+2. 把原有的App或SDK集成到飞书专版时面临的主要困难
+
+	主要困难点在于双方代码依赖库的版本冲突。若遇到版本冲突，需将代码依赖版本更换为飞书的版本，随后重新测试功能是否正常。
+	
+    在集成过程中，若存在租户差异化的信息数据，则必须接入飞书[配置平台](https://open.larkoffice.com/document/native-integration/open-capability/capability-components/setting-ability/android-setting-?from=from_parent_docs)。
+    
+2. 怎样评估集成开发的工期
+
+	功能耗时主要在三方面：
+
+	1.	对外部开发者的原有代码进行剥离改造，使其成为可被外部调用的SDK。
+	2.	当外部开发者的原有代码依赖库与飞书版本发生冲突时，需解决该冲突。
+	3.	在飞书原生集成工具包中开展功能开发以及测试迭代流程。
+
+	具体时间需由外部开发者（服务商或企业开发者）基于飞书开放文档进行时间评估。通常，将一个中等复杂度的SDK集成并稳定交付所需时间约为45天，请预留好项目时间。
+
+4. 如果有鸿蒙和PC端集成的需求，怎么评估是否可行
+	
+    飞书原生集成目前可满足鸿蒙及PC端的集成需求，此功能未涵盖在原生集成标准交付范围内，会产生一定费用。如有相关需求，请联系飞书销售或项目经理，沟通集成的可行性。

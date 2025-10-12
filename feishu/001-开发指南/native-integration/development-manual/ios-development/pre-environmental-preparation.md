@@ -1,0 +1,79 @@
+<!--
+title: 前置环境准备
+id: 7273741289253781508
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/ios-development/pre-environmental-preparation
+updatedAt: 1710741653000
+source: https://open.feishu.cn/document/native-integration/development-manual/ios-development/pre-environmental-preparation
+-->
+# 前置环境准备
+
+## 开发工具
+
+### Xcode
+
+版本要求
+使用Objective-C开发的工程不需要指定Xcode版本，当您希望在原生组件中使用Swift进行组件开发时，请跟随飞书开发环境的Xcode构建版本进行构建：
+
+| 飞书版本 | Xcode版本 |
+| ---- | ------- |
+| 5.22 | 14.1    |
+| 6.1  | 14.1    |
+| 6.9  | 14.1    |
+
+## 开发环境配置
+
+### Ruby
+
+- 版本要求：
+Ruby （>=2.7.0）
+- 依赖：
+使用cocoapods, fastlane包，已在IDE工程初始模版Gemfile中进行配置。
+- 安装注意事项：
+IDE工程中的gems源为：https://gems.ruby-china.com ，请确认网络环境是否可以访问并下载ruby依赖
+
+### Python
+
+- 版本要求：
+Python3 (>=3.5.0)
+- 依赖
+    - pip (>=21.0)
+    - requests (>=2.26.0)
+    - PyMobileProvision (>=1.2)
+- 安装注意事项
+PyMobileProvision用于检测离线模式下mobileprovision文件是否可用于debug的鉴权，安装方式：
+```
+pip install PyMobileProvision
+```
+
+## 开发规范
+-   遵循iOS对应的官方代码风格、命名格式
+- 资源命名添加服务商、客户相关前缀标识，防止和飞书资源冲突
+- iOS 源码OC类禁止使用BD，LK开头
+- 使用飞书标准日志能力，在相关接口入口、出口位置打日志标记
+- 三方依赖库需要对齐飞书版本，开发过程通过集成工具的【冲突检测】功能提前进行检测
+## 更新日志
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 15%;">版本号</md-th>
+      <md-th style="width: 35%;">Release Note</md-th>
+    </md-tr>
+  </md-thead>
+  
+ <md-tbody>
+     <md-tr>
+      <md-td>1.0.0</md-td>
+      <md-td> 增加iOS开发规范</md-td>
+    </md-tr>
+</md-tbody>  
+  
+  <md-tbody>
+     <md-tr>
+      <md-td>1.0.0</md-td>
+      <md-td> 新增环境配置说明</md-td>
+    </md-tr>
+</md-tbody>
+  
+</md-table>
+::: 

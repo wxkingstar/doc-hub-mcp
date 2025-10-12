@@ -1,0 +1,15 @@
+<!--
+title: 视图层概述
+id: 7041893010220843009
+fullPath: /uYjL24iN/uQzNuQzNuQzN/overview
+updatedAt: 1731565888000
+source: https://open.feishu.cn/document/client-docs/gadget/framework/ui-layer/overview
+-->
+# 概述
+
+小程序框架的视图层用于把逻辑层的数据反映成视图，同时将视图层的事件发送给逻辑层。视图层主要由 TTML 与 TTSS 编写，结合 SJS 脚本语言构建页面结构，通过组件进行展示。相关说明如下：
+
+- TTML 用于描述页面的结构。
+- TTSS 用于描述页面的样式。
+- SJS 是小程序的一套脚本语言，结合 TTML 可以构建出页面的结构。
+- 组件（Component）是视图的基本组成单元。

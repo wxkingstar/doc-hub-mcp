@@ -1,0 +1,135 @@
+<!--
+title: 复选框
+id: 7475195771685519362
+fullPath: /tools-and-resources/design-specification/component---data-entry/checkbox
+updatedAt: 1742375620000
+source: https://open.feishu.cn/document/design-specification/component---data-entry/checkbox
+-->
+# 复选框
+复选框是从一组选项中选择一项或多项选项的组件。
+
+
+## 使用规则
+
+- 在一组可选项中进行一项或多项选择时可使用
+- 单独使用可以表示两种状态之间的切换，和开关控件类似。区别在于切换开关会直接触发状态改变，而复选一般用于状态标记，需要和提交操作配合
+  
+  
+
+## 组成要素
+
+:::html
+<img src="////sf3-cn.feishucdn.com/obj/open-platform-opendoc/6d8ff182107b0ca3f51c94af003aa6cc_42bm3cDWfS.png"
+        alt="图片" style="max-height: 200px;">
+:::
+1. **复选框**：可进行勾选的控件
+1. **选项描述**：针对该选项的具体描述内容
+
+可根据实际情况对内容进行增删改，比如添加图片或头像，搭配使用，丰富信息表达。
+选项较多时可使用父级复选框，全选所有项目提升操作效率。
+
+建议使用选项竖排排版的方式，如遇特殊情况（选项文本过短、空间较小时），可按需进行选项横排排版。
+  
+  
+
+## 控件类型
+
+### 使用场景
+
+用户从一组选项中选择或取消一项或多项选项。例如选择发送对象、选择部门或人员。
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+     <md-td><img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ebb86c9ac1dcb600a75d6228498a80c6_KqNcDmd47G.png"
+        alt="图片"></md-td>
+    </md-tr>
+	<md-tr>
+     <md-td><img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/44541afa5f1c4e9dabe08f99de0a8501_IjTab0K1J4.png"
+        alt="图片"></md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+单独使用可以表示两种状态之间的切换。例如日历中创建或编辑日程时，可选择是否全天进行会议。
+
+:::html
+<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/27fbc4121215305c4a8b87de90fbfbda_01R4pvsNDD.png"
+        alt="图片" style="max-width: 800px;">
+:::
+
+  
+
+### 状态说明
+
+复选框有未选中、已选中、部分选中三个状态，所有状态均有明确区分。
+其中部分选中态，适用于父级复选框，表示在子集中有部分已选和部分未选的选项，常用于树结构或者列表中。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a32dbd63532d542ed73a083248c4bed6_pQAdWCLkgY.png?height=616&lazyload=true&maxWidth=800&width=2048)
+
+<br>
+点击部分选中态，切换成已选中态，再点击已选中态，切换成未选中态。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/285aa33c84daad72ddd5cc0d81c21c08_qz0ZafkQTt.png?height=484&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 点击区域
+
+复选框及描述内容整体可以进行点击，热区最小高度 22px，实际高度由内容决定。
+复选框独立使用，热区尺寸为 16px*16px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f026b22cf14cbc8594ca7d69f491e707_YbIOtjIAB8.png?height=402&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 尺寸说明
+
+复选框尺寸固定为 16px*16px，圆角为 Radius-XS **，** 不随页面尺寸变化而变化。
+描述文字为 14 px。
+复选框距离描述文字的间距建议为 8 px，若无法满足场景，可以 4px 的步幅进行放大。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bcbec1de67abc1859759720b630ea056_d9Qjvg01rW.png?height=402&lazyload=true&maxWidth=800&width=2048)
+
+<br>
+建议使用选项竖排排版的方式，选项之间间距建议为 8px。
+如遇特殊情况（选项文本过短、空间较小时），可按需横排排版，选项之间间距建议为 24px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a24b7053b9f358c191b97c132139fd46_P7VjYjzyx3.png?height=586&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 位置说明
+
+建议使用选项竖排的排版方式。遇特殊情况，如选项文本过短、空间较小时，可按需横向排版。
+复选框与单行选项描述内容垂直居中对齐。
+当选项描述内容字符较多时，可折行显示。复选框与多行文本的描述内容有 2 种对齐方式。
+复选框与首行文本上下居中对齐，适用于大部分场景。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bbbac7ac3ed79e9ad8721482c8eea538_swF2SaqXH1.png?height=592&lazyload=true&maxWidth=800&width=2048)
+
+<br>
+复选框与文本段落整体上下居中对齐，适用于列表、表格场景。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/890f55c5c5b1bff507090a9f9ea7e171_5m3KXVzPiA.png?height=572&lazyload=true&maxWidth=800&width=2048)

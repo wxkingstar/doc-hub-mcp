@@ -1,0 +1,40 @@
+<!--
+title: 模拟器
+id: 6966054360435769347
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/feishu-developer-tools-gadget-simulator
+updatedAt: 1645952308000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-gadget-in-tools/gadget-debugging/feishu-developer-tools-gadget-simulator
+-->
+# 飞书开发者工具-小程序模拟器
+程序调试主要有模拟器和调试工具
+
+## 模拟器
+在开发者工具中模拟小程序在飞书App中的展现效果，对于大部分的 API 均能够在模拟器上呈现出准确的视觉状态。
+
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/172224c266eaf48c38d0e1626f4881cb_7iQFnQPe26.png)
+
+## 顶部工具栏
+从左到右，模拟器顶部的功能包括：
+- 设备尺寸：可以选择预设的iOS或Android设备尺寸，或定义新的设备，用于测试适配性
+- 缩放比例：控制应用的显示缩放比例
+- 旋转：用于调整横屏和竖屏的效果
+- 工具箱（仅小程序）：打开/关闭模拟器的工具菜单
+
+### 工具箱中支持模拟的设备操作
+- 前后台切换、[位置](/ssl:ttdoc/uYjL24iN/uUTOz4SN5MjL1kzM)、[扫码](/ssl:ttdoc/uYjL24iN/uYzNx4iN3EjL2cTM)、[权限](/ssl:ttdoc/uYjL24iN/uITMuITMuITM)、[截屏](/ssl:ttdoc/uYjL24iN/uMjNwEjLzYDMx4yM2ATM)、[罗盘](/ssl:ttdoc/uYjL24iN/uIzNx4iM3EjLycTM)、[Wi-Fi](/ssl:ttdoc/uYjL24iN/ugjNx4CO2EjL4YTM)、[加速度计](/ssl:ttdoc/uYjL24iN/ukjNx4SO2EjL5YTM)
+- 模拟部分开放接口：
+	- 选择用户联系人 [chooseContact](/ssl:ttdoc/uYjL24iN/uMTM04yMxQjLzEDN)
+	- 选择用户会话 [chooseChat](/ssl:ttdoc/uYjL24iN/uMTN3QjLzUzN04yM1cDN)
+	- 二次验证安全密码 [startPasswordVerify](/ssl:ttdoc/uYjL24iN/ugTO3IjL4kzNy4CO5cjM)
+	- 获取飞书启动参数 [getHostLaunchQuery](/ssl:ttdoc/uYjL24iN/ugzM4UjL4MDO14COzgTN)
+	- 获取某个会话的信息 [getChatInfo](/ssl:ttdoc/uYjL24iN/uEDN2UjLxQjN14SM0YTN)
+- 未读消息：模拟触发未读消息 [onChatBadgeChange](/ssl:ttdoc/uYjL24iN/uQDN2UjL0QjN14CN0YTN)
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3d1e2b42a761fc125b236a4cd061a810_SuTSwRFyKW.png)
+
+### 底部状态栏
+- 底部工具栏：可切换显示页面路径、页面参数和场景值。
+- 自动刷新：勾选后可以在保存代码时自动编译小程序。

@@ -1,0 +1,256 @@
+<!--
+title: 日期选择器
+id: 7475195771685535746
+fullPath: /tools-and-resources/design-specification/component---data-entry/date-picker
+updatedAt: 1742375620000
+source: https://open.feishu.cn/document/design-specification/component---data-entry/date-picker
+-->
+# 日期选择器
+日期选择器，是输入或选择日期的控件，当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/831cca8191a5dedf95ffede16e74cee0_rfZlpSP5x1.png?height=1193&lazyload=true&maxWidth=800px&width=2048)
+
+
+
+
+
+## 使用规则
+
+提供默认触发器，可按需定制触发器。默认触发器展示已选日期/时间，支持一键清除。
+默认触发器中必须有占位文案，如选择的目的或展示默认时间。
+可嵌入时间选择器来提供同时选择日期与时间的能力。
+
+
+:::html
+<md-alert>**不适用：**
+- 用户仅需要选择时间值，而非日期，请使用「时间选择器」
+- 日期或日期范围选项过少（一般少于 7 个）或指定日期选择范围的场景，请使用「下拉选择」</md-alert>
+:::
+
+  
+  
+
+## 日期格式
+
+- 日期格式可根据需求进行格式预设，如 MM / DD、MM-DD、MM.DD 等
+- 可供用户输入或选择 YYYY/MM/DD（2018/06/14）、YYYY/MM（2018/06）或 YYYY（2018） 格式日期
+- 日期选择也可供用户输入或选择一系列日期，选择起始日期和终止日期如：2018/06/14 到 2018/07/05
+- 日期选择的格式根据地区自动进行调整，即中国地区是 YYYY/MM/DD，美国是 DD/MM/YYYY
+- 与时间选择组合使用时，可精确选择到 YYYY/MM/DD HH:mm:ss 的日期时间
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ad413175ff2526a0f6e1c8a18c130af8_qeatfb8xHC.png?height=1836&lazyload=true&maxWidth=800px&width=2048)
+  
+  
+
+## 组成要素
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9e1b55fd75944f369846910b3432f1b9_Y5x2EF4tB3.png?height=1070&lazyload=true&maxWidth=800px&width=2048)
+
+**日期选择器由以下 5 部分组成：**
+1. **触发器**
+	- 提供了占位文案或提供一个默认时间。
+	- 点击后唤起日历选择器，再次点击则收起。
+
+2. **日期输入区**
+	- 唤起日历面板时默认聚焦在输入区，提供输入日期能力。
+
+3. **导航区**
+    - 定位当前日历面板，可切换年/月。
+    - 月份选择器：提供 12 个月份供选择。
+    - 年份选择器：按需提供可选年份。
+    - 左箭头：选择上一个月份。若当前所在月为该年的初始月（如 2018 年 1 月），将选择上一年最后一个月（即 2017 年 12 月）
+    - 右箭头：选择下一个月份。若当前所在月为该年的最终月（如 2019 年 12 月），将选择下一年第一个月（即 2020 年 1 月）
+    - 三角箭头：点击后展开年份面板，选择年份。
+    - 下箭头：点击响应年份选择，年 / 月无交互行为时，下箭头需去除。
+
+4. **日历面板**
+	- 星期展示：显示一周七天，不可交互。
+	- 日期选项：今日日期项高亮标记，非本月的日期变灰来降低视觉重量，可按需求调整可选日期，如禁止选择部分日期。
+
+5. **底栏（可选）**
+	- 可选配操作栏，按需增加快捷选项提高用户的操作效率，如放置「今天、明天、时间选择器、到期提醒」等选项。
+	- 当需要增加一些常用选项时，如「最近一周」、「最近一月」可选用底栏进行选项外显。
+	- 如外显常用选项过多超出面板宽度，此时应考虑使用选择框做选项收纳（ 参考使用示列）
+	- 底栏间隔线采用通栏样式，以区分日期和选项操作，底部可根据需求搭配不同类型选项与选择框。当底栏出现多项有关联选项时，间隔线应使用非通栏样式 （ 参考使用示列）
+	- 可搭配为「取消」与「确定」
+	- 点击「取消」时，操作将中止，已完成输入的字段保持不变。
+	- 点击「确定」时，日历面板将关闭，所选日期和时间将显示在触发器中。
+  
+  
+
+## 控件类型
+
+### 单日期选择
+
+选择单个日期，（ 允许同时选择具体时间 ）选择单个月份/年份
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/da17700a7101fc8898e0208d8b7ec637_u4NwDxCJG6.png?height=1070&lazyload=true&maxWidth=800px&width=2048)
+
+
+### 范围日期选择
+选择一段日期范围，（ 允许同时选择具体时间 ）选择单个月份/年份
+
+<br>
+**双面板**
+
+当日期范围两端的日期必须被同时选择时使用。双面板允许反向选择日期区间，以日期早晚为判断条件，偏早日期为开始时间，偏晚日期为结束时间。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9e412554b69c94f1e26b7342ffd954ca_UD1GrLunaj.png?height=1070&lazyload=true&maxWidth=800px&width=2048)
+
+<br>
+**单面板组合**
+
+当日期范围两端的时间无需被同时选择时使用。配备两个单面板日期选择器，两者之间必须有数据联动。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/14973cc85fecf4b7e20fa3ec2d5078ba_liR68sHPcK.png?height=854&lazyload=true&maxWidth=800px&width=2048)
+
+
+### 范围日期+时间选择
+
+当日期范围两端的日期必须被同时选择时使用，选择一段日期范围同时选择具体时间。底栏和【确定】按钮为必选。
+
+确定按钮初始状态为 Disable 状态。当结束日期早于开始日期时，自动判定靠前的日期为起始日期。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/10790a28cff2798060f2a9e6739a87f7_ij8zXXy0mn.png?height=1070&lazyload=true&maxWidth=800px&width=2048)
+
+
+### 状态说明
+
+日期状态包含 6 种：
+可选日期、不可选日期、今日选中、当前选中日期、Hover 可选日期、当前选中范围。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/94cc112a2102b246561c363e182e722d_ZmcyeiQ01l.png?height=402&lazyload=true&maxWidth=800px&width=2048)
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9abc3a31422125110d0b88d3df460fc2_xGFZxyE5OK.png?height=598&lazyload=true&maxWidth=800px&width=1280)
+
+
+### 组件交互
+
+**输入内容一键清空**
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7bebd43700c7aba639a821bedbbeac98_8mRsyLqrbb.png?height=402&lazyload=true&maxWidth=600px&width=2048)
+
+
+**单面板** - 选择「日期/月份/年份」
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/941c9ac1f8f41739b03eb23863c748eb_Hj7aoi0uLR.png?height=950&lazyload=true&maxWidth=600px&width=2048)
+
+**双面板** - 选择「日期范围」
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3da621a532b00cfad956688162b244b0_7c6O1lGbJy.png?height=3596&lazyload=true&maxWidth=600px&width=2048)
+
+**双面板** - 选择「日期时间范围」
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7657979af0d221fbb25a460e17059b78_um0FShe7dj.png?height=3588&lazyload=true&maxWidth=600px&width=2048)
+
+**双面板** - 切换「年份/月份」
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2717460a6fe97900a7ff2e1c36646863_9Zi7rP8Jnm.png?height=1994&lazyload=true&maxWidth=600px&width=2048)
+
+
+- **日历面板展开**
+    - 点击触发器展开日历面板。
+- **日历面板收起**
+    - 唤若没有底栏，选择日期后即收起日历面板，并提交数据，触发器展示已选日期。
+    - 若有底栏，并在底栏放置了「确定」、「取消」按钮，则点击「确定」收起日历面板，并提交数据，点击「取消」仅收起日历面板不提交数据。
+    - 点击选择器外区域与点击「取消」效果一致，仅收起日历面板，不提交数据。
+- **输入日期**
+	- 日期：m≤12，d≤当月最大天数（1、3、5、7、8、10、12 月最大天数 31 天，2、4、6、9、11 月最大天数 30 天，2 月 28 天）
+	
+    - 时间：h≤24，m≤60，s≤60
+    - 非数字字符无法输入，格式不对则无效，退出编辑无效内容被清空，恢复输入框原始状态。如上一次有有效日期输入，恢复上一次日期记录。
+    - 输入日期的同时，日历面板响应用户的输入，自动定位。
+    - 选择器输入日期默认显示格式为 YYYY/MM/DD，支持按用户预设格式显示，如“YYYY/MM/DD、YYYY.MM.DD”等，参考「日期格式」注释
+    - 支持格式规则：	
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>**输入格式**</md-td>
+     <md-td>**处理规则**</md-td>
+     <md-td>**输入值举例**</md-td>
+     <md-td>**输入值处理为**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>
+- yyyy/mm/dd
+- yyyy/mm/dd hh:mm:ss</md-td>
+     <md-td>正常情况（默认回填格式）</md-td>
+     <md-td>2022/09/28 18:16:00</md-td>
+     <md-td>不变</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>
+- yyyy/m/dd
+- yyyy/mm/d
+- yyyy/m/d
+- yyyy/mm/dd h:m:ss
+- yyyy/mm/dd hh:m:ss
+- yyyy/mm/dd hh:mm:s
+- yyyy/mm/dd hh:m:s</md-td>
+     <md-td>将日期中 m、d 自动补充为 0m、0d 并回填。<br>将时间中 h、m 或 s 自动补充为 0h、0m、0s 并回填</md-td>
+     <md-td>2022/9/2 8:6:0</md-td>
+     <md-td>2022/09/02 08:06:00</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>
+- yyyy-mm-dd 
+- yyyy-mm-dd hh:mm:ss</md-td>
+     <md-td>回填为默认格式，即 yyyy/mm/dd或 yyyy/mm/dd hh:mm:ss</md-td>
+     <md-td>2022-09-28 18:16:00</md-td>
+     <md-td>2022/09/28 18:16:00</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>
+- m=0, m>12d=0，d>当月最大天数 
+- h=0, h>24m=0, m>60s=0, s>60</md-td>
+     <md-td>若输入前无数据，则清空选项。<br>若输入前有数据，则回到此数据</md-td>
+     <md-td>2022/14/36 26:26:70</md-td>
+     <md-td>无效</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+- **选择日期**
+    - **单面板：**
+    - 点击日历面板中的日期来选择日期。
+    - 选择日期后，遵循日历面板的收起行为。
+    - **双面板：**
+    - 在选择开始日期之后，悬停的日期变为浅蓝色以提供正在选择范围的视觉反馈。
+    - 选择结束日期时，遵循日历面板的收起行为。
+    - 允许正反选择日期区间，偏早日期为开始时间，偏晚日期为结束时间。
+    - 修改已有日期区间，不论顺选、反选，当起始与结束时间点选完成，区间值更新生效。只选择单日非日期区间时，日期值不更新。
+    - 始终显示相邻月份，左右箭头分别对应上个月、下个月相邻月份切换。
+    - 点击下箭头，双面板切换至年份单面板，年份选择完毕切换至月份，月份选择完回到日期双面板。
+    - 精确点击年份或月份入口，对应切换至单面板，选择年份或月份后，回到双面板。
+- **选择年份或月份**
+    - 点击下箭头，日历面板切换为年视图，选择年份后自动切换为月视图。点选月份后面板收起，回到日视图。
+    - Hover 年份或月份，文字入口出现蓝色高亮示意可点选。
+    - 单独点选年份或月份，可直接切换到所选视图，选择完毕回到日视图。
+    - 点击双箭头：以年份为单位进行切换。
+- **清除日期**
+    - 键盘手动删除
+    - Hover「输入区」点击右边的「清除图标」
+<br>
+

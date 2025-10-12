@@ -1,0 +1,305 @@
+<!--
+title: 图片
+id: 7453076566151675932
+fullPath: /uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/image
+updatedAt: 1743153501000
+source: https://open.feishu.cn/document/feishu-cards/card-json-v2-components/content-components/image
+-->
+# 图片组件
+
+飞书卡片支持图片组件。你可调用[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口或在搭建工具的图片组件中上传图片，获取图片的 key 传入图片组件中，使卡片内容更丰富。
+
+本文档介绍图片组件的 JSON 2.0 结构，要查看历史 JSON 1.0 结构，参考[图片](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/image)。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3373c8abfbe10a4fd850d45048fb5c97_TV8acJELCy.png?height=436&lazyload=true&maxWidth=300&width=626)
+
+## 注意事项
+
+-   在 JSON 2.0 结构中，图片组件的 `size` 属性不再支持传入 `stretch_without_padding` 实现通栏效果，你需设置 `margin` 属性为负数实现通栏效果：
+
+    ```json
+    {
+      "schema": "2.0", // 卡片 JSON 结构的版本。默认为 1.0。要使用 JSON 2.0 结构，必须显示声明 2.0。
+      "body": {
+        "elements": [
+          {
+            "tag": "img",
+            "img_key": "img_v3_0238_073f1823-df2b-4377-86c6-e293f183622j",
+            "scale_type": "crop_center",
+            "margin": "4px -12px"
+          }
+        ]
+      }
+    }
+    ```
+为保证图片在聊天窗口中呈现的清晰度，建议你在组件中上传的图片遵从以下规范：
+
+- 图片尺寸在 1500 × 3000 px 的范围内。
+- 图片大小不超过 10 M。
+- 图片的 `高度:宽度` 不超过 `16:9`。
+
+## JSON 结构
+
+图片组件的完整 JSON 2.0 结构如下所示：
+```json
+{
+  "schema": "2.0", // 卡片 JSON 结构的版本。默认为 1.0。要使用 JSON 2.0 结构，必须显示声明 2.0。
+  "body": {
+    "elements": [
+      {
+        "tag": "img",
+        "element_id": "custom_id", // 操作组件的唯一标识。JSON 2.0 新增属性。用于在调用组件相关接口中指定组件。需开发者自定义。
+        "margin": "0px 0px 0px 0px", // 组件的外边距。JSON 2.0 新增属性。默认值 "0"，支持范围 [-99,99]px。
+        "img_key": "img_v3_0238_073f1823-df2b-4377-86c6-e293f18abcef", // 图片的 Key。可通过上传图片接口或在搭建工具中上传图片后获得。
+        "alt": {
+          // 光标悬浮（hover）在图片上时展示的说明。
+          "tag": "plain_text",
+          "content": ""
+        },
+        "title": {
+          // 图片标题。
+          "tag": "plain_text",
+          "content": ""
+        },
+        "corner_radius": "5px", // 图片的圆角半径。
+        "scale_type": "crop_top", // 图片的裁剪模式，当 size 字段的比例和图片的比例不一致时会触发裁剪。
+        "size": "100px 100px", // 图片尺寸。仅在 scale_type 字段为 crop_center 或 crop_top 时生效。
+        "transparent": false, // 是否为透明底色。默认为 false，即图片为白色底色。
+        "preview": false, // 点击后是否放大图片。默认值为 true。
+        // 历史属性
+        "mode": "large", // 图片尺寸模式。
+        "custom_width": "300px", // 自定义图片的最大展示宽度。
+        "compact_width": false // 是否展示为紧凑型的图片。
+      }
+    ]
+  }
+}
+```
+
+## 字段说明
+
+图片组件的字段说明如下表。
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th>名称</md-th>
+      <md-th>必须</md-th>
+      <md-th>类型</md-th>
+      <md-th>默认值</md-th>
+      <md-th style="width: 40%;">描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>tag</md-td>
+      <md-td>是</md-td>
+      <md-td>String</md-td>
+      <md-td>无</md-td>
+      <md-td>组件的标签，图片组件的固定取值为 img。</md-td>
+    </md-tr>
+    
+<md-tr>
+      <md-td>element_id</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>空</md-td>
+      <md-td>操作组件的唯一标识。JSON 2.0 新增属性。用于在调用[组件相关接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)中指定组件。在同一张卡片内，该字段的值全局唯一。仅允许使用字母、数字和下划线，必须以字母开头，不得超过 20 字符。</md-td></md-tr>
+    
+    
+  <md-tr>
+      <md-td>margin</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>0</md-td>
+      <md-td>组件的外边距。JSON 2.0 新增属性。值的取值范围为 [-99,99]px。可选值：
+- 单值，如 "10px"，表示组件的四个外边距都为 10 px。
+- 双值，如 "4px 0"，表示组件的上下外边距为 4 px，左右外边距为 0 px。使用空格间隔（边距为 0 时可不加单位）。
+- 多值，如 "4px 0 4px 0"，表示组件的上、右、下、左的外边距分别为 4px，12px，4px，12px。使用空格间隔。</md-td>
+    </md-tr>
+    
+    
+    
+    
+    
+    
+    <md-tr>
+      <md-td>img_key</md-td>
+      <md-td>是</md-td>
+      <md-td>String</md-td>
+      <md-td>/</md-td>
+      <md-td>图片资源的 Key。你可以调用[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口或在搭建工具中上传图片，获取图片的 key。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>alt</md-td>
+      <md-td>是</md-td>
+      <md-td>Struct</md-td>
+      <md-td>/</md-td>
+      <md-td>悬浮（hover）在图片上时展示的说明文案。示例值：
+```json
+"alt": {
+        "tag": "plain_text",
+        "content": "悬浮（hover）在图片上时展示的说明文案，不需要可以传空"
+      }
+```</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>title</md-td>
+      <md-td>否</md-td>
+      <md-td>Struct</md-td>
+      <md-td>/</md-td>
+      <md-td>图片标题。示例值：
+```json
+"title": {
+        "tag": "plain_text",
+        "content": "图片标题"
+      }
+```</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>corner_radius</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>/</md-td>
+      <md-td>图片的圆角半径。取值遵循以下格式：
+-   [0,∞]px
+-   [0,100]%</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>scale_type</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>crop_center</md-td>
+      <md-td>图片的裁剪模式，当 `size` 字段的比例和图片的比例不一致时会触发裁剪。</md-td>
+可取值：
+- crop_center：居中裁剪
+- crop_top：顶部裁剪
+- fit_horizontal：完整展示不裁剪    </md-tr>
+    <md-tr>
+      <md-td>size</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>/</md-td>
+      <md-td>图片尺寸。仅在 `scale_type` 字段为 crop_center 或 crop_top 时生效。可取值：
+- **stretch**：超大图，适用于高宽比小于 `16:9` 的图片。
+- **large**：大图，尺寸为 160 × 160，适用于多图混排。
+- **medium**：中图，尺寸为 80 × 80，适用于图文混排的封面图。
+- **small**：小图，尺寸为 40 × 40，适用于人员头像。
+- **tiny**：超小图，尺寸为 16 × 16，适用于图标、备注。
+- **[1,1000]px [1,1000]px**：自定义图片尺寸，单位为像素，中间用空格分隔。
+
+ **注意**：
+在 JSON 2.0 结构中，图片组件的 `size` 属性不再支持传入 `stretch_without_padding` 实现通栏效果，你需设置 `margin` 属性为负数实现通栏效果：
+```json
+{
+  "tag": "img",
+  "img_key": "img_v3_0238_073f1823-df2b-4377-86c6-e293f183622j",
+  "scale_type": "crop_center",
+  "margin": "4px -12px"
+}
+``` </md-tr>
+    <md-tr>
+      <md-td>transparent</md-td>
+      <md-td>否</md-td>
+      <md-td>Boolean</md-td>
+      <md-td>false</md-td>
+      <md-td>是否为透明底色。默认为 false，即图片为白色底色。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>preview</md-td>
+      <md-td>否</md-td>
+      <md-td>Boolean</md-td>
+      <md-td>true</md-td>
+      <md-td>点击后是否放大图片。
+- true：点击图片后，弹出图片查看器放大查看当前点击的图片。
+- false：点击图片后，响应卡片本身的交互事件，不弹出图片查看器。        
+
+**提示**：如果你为卡片配置了跳转链接`card_link`参数，可将该参数设置为 `false`，后续用户点击卡片上的图片也能响应 card_link 链接跳转。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+
+:::
+
+### 历史字段说明
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th>参数</md-th>
+      <md-th>是否必须</md-th>
+      <md-th>类型</md-th>
+      <md-th>默认值</md-th>
+      <md-th style="width: 50%;">描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>mode</md-td>
+      <md-td>否</md-td>
+      <md-td>String</md-td>
+      <md-td>/</md-td>
+      <md-td>图片显示模式。取值：
+-   **crop_center**：居中裁剪模式，对长图会限高，并居中裁剪后展示。
+-   **fit_horizontal**：平铺模式，宽度撑满卡片完整展示上传的图片。
+-   **stretch**：自适应。图片宽度撑满卡片宽度，当图片 `高:宽` 小于 `16:9` 时，完整展示原图。当图片 `高:宽` 大于 `16:9` 时，顶部对齐裁剪图片，并在图片底部展示 **长图** 脚标。
+-   **large**：大图，尺寸为 160 × 160，适用于多图混排。
+-   **medium**：中图，尺寸为 80 × 80，适用于图文混排的封面图。
+-   **small**：小图，尺寸为 40 × 40，适用于人员头像。
+-   **tiny**：超小图，尺寸为 16 × 16，适用于图标、备注。
+
+**注意**：设置该参数后，会覆盖 `custom_width` 参数。更多信息参见[消息卡片设计规范](/ssl:ttdoc/ukTMukTMukTM/ugDOwYjL4gDM24CO4AjN)。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>custom_width</md-td>
+      <md-td>否</md-td>
+      <md-td>int</md-td>
+      <md-td>/</md-td>
+      <md-td>自定义图片的最大展示宽度，支持在 278px ~ 580px 范围内指定最大展示宽度。默认情况下图片宽度与图片组件所占区域的宽度一致。
+
+**注意**：该参数在飞书 V4.0 以上版本生效。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>compact_width</md-td>
+      <md-td>否</md-td>
+      <md-td>Boolean</md-td>
+      <md-td>false</md-td>
+      <md-td>是否展示为紧凑型的图片。如果配置为 `true`，则展示最大宽度为 278px 的紧凑型图片。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+
+:::
+
+## Demo 示例
+
+以下 JSON 2.0 结构的示例代码可实现如下图所示的卡片效果：
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3373c8abfbe10a4fd850d45048fb5c97_04zjYIt2OP.png?height=436&lazyload=true&maxWidth=300&width=626)
+
+```JSON
+{
+  "schema": "2.0",
+  "body": {
+    "direction": "vertical",
+    "padding": "12px 12px 12px 12px",
+    "elements": [
+      {
+        "tag": "img",
+        "img_key": "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg",
+        "preview": true,
+        "transparent": false,
+        "scale_type": "crop_center",
+        "size": "stretch",
+        "alt": {
+          "tag": "plain_text",
+          "content": "示例图片"
+        },
+        "corner_radius": "5%",
+        "margin": "0px 0px 0px 0px",
+        "element_id": "demoimg01"
+      }
+    ]
+  }
+}
+```

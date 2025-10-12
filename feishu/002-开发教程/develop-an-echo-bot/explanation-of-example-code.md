@@ -1,0 +1,540 @@
+<!--
+title: 示例代码解释
+id: 7452622721024360449
+fullPath: /uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/explanation-of-example-code
+updatedAt: 1753413586000
+source: https://open.feishu.cn/document/develop-an-echo-bot/explanation-of-example-code
+-->
+# 示例代码解释
+
+本教程提供了自动回复机器人 Demo 的多语言示例代码， 通过本文你可以了解各语言的业务代码逻辑。点击[此链接](https://github.com/larksuite/lark-samples/tree/main/echo_bot)前往 GitHub 查看源码。
+
+:::note
+要获取其他接口的调用示例代码，可在 API 调试台调用接口成功后，复制调试台自动生成的示例代码，详情参考[在调试台发起 API 调用](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/how-to-call-a-server-side-api/introduction#42c7c09a)。
+:::
+## Java 示例代码
+
+业务代码路径：`echo_bot/java/src/main/java/com/lark/oapi/Main.java`，代码实现逻辑说明如下。
+
+1. 构建 API Client 用于调用 OpenAPI。
+2. 使用 EventDispatcher 注册事件处理器，接收[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件（onP2MessageReceiveV1），并解析数据。
+3. 检查消息类型是否为纯文本消息（text），是则进行下一步，不是则提示用户需要发送文本消息。
+4. 通过判断条件 `if (event.getEvent().getMessage().getChatType().equals("p2p"))` 区分单聊与群聊。
+    
+    - 如果是单聊（p2p），则调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口向对应用户发送消息。
+    - 如果是群聊，则调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口，回复用户在群组内 @机器人的消息。
+
+5. 配置长连接功能，并关联事件处理器。
+    
+    长连接用于建立项目与开放平台的数据连接通道，用于订阅、接收事件。功能介绍参考[使用长连接接收事件](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#d286cc88)。
+
+代码与注释：
+
+```java
+package com.lark.oapi;
+
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.lark.oapi.core.utils.Jsons;
+import com.lark.oapi.event.EventDispatcher;
+import com.lark.oapi.service.im.ImService;
+import com.lark.oapi.service.im.v1.enums.MsgTypeEnum;
+import com.lark.oapi.service.im.v1.enums.ReceiveIdTypeEnum;
+import com.lark.oapi.service.im.v1.model.CreateMessageReq;
+import com.lark.oapi.service.im.v1.model.CreateMessageReqBody;
+import com.lark.oapi.service.im.v1.model.CreateMessageResp;
+import com.lark.oapi.service.im.v1.model.P2MessageReceiveV1;
+import com.lark.oapi.service.im.v1.model.ReplyMessageReq;
+import com.lark.oapi.service.im.v1.model.ReplyMessageReqBody;
+import com.lark.oapi.service.im.v1.model.ReplyMessageResp;
+import com.lark.oapi.service.im.v1.model.ext.MessageText;
+
+public class Main {
+
+    private static final String APP_ID = System.getenv("APP_ID");
+    private static final String APP_SECRET = System.getenv("APP_SECRET");
+    /**
+     * 创建 LarkClient 对象，用于请求OpenAPI。
+     * Create LarkClient object for requesting OpenAPI
+     */
+    private static final Client client = new Client.Builder(APP_ID, APP_SECRET).build();
+
+    /**
+     * 注册事件处理器。
+     * Register event handler.
+     */
+    private static final EventDispatcher EVENT_HANDLER = EventDispatcher.newBuilder("", "")
+            /**
+             * 注册接收消息事件，处理接收到的消息。
+             * Register event handler to handle received messages.
+             * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
+             */
+            .onP2MessageReceiveV1(new ImService.P2MessageReceiveV1Handler() {
+                @Override
+                public void handle(P2MessageReceiveV1 event) throws Exception {
+                    System.out.printf("[ onP2MessageReceiveV1 access ], data: %s\n",
+                            Jsons.DEFAULT.toJson(event.getEvent()));
+                    /**
+                     * 解析用户发送的消息。
+                     * Parse the message sent by the user.
+                     */
+                    String content = event.getEvent().getMessage().getContent();
+                    Map<String, String> respContent;
+                    try {
+                        respContent = new Gson().fromJson(content, new TypeToken<Map<String, String>>() {
+                        }.getType());
+                    } catch (JsonSyntaxException e) {
+                        respContent = Map.of("text", "解析消息失败，请发送文本消息\nparse message failed, please send text message");
+                    }
+
+                    /**
+                     * 检查消息类型是否为文本
+                     * Check if the message type is text
+                     */
+                    if (!event.getEvent().getMessage().getMessageType().equals("text")) {
+                        respContent = Map.of("text", "解析消息失败，请发送文本消息\nparse message failed, please send text message");
+                    }
+
+                    /**
+                     * 构建回复消息
+                     * Build reply message
+                     */
+                    String replyContent = new MessageText.Builder()
+                            .textLine("收到你发送的消息: " + respContent.get("text"))
+                            .textLine("Received message: " + respContent.get("text"))
+                            .build();
+
+                    if (event.getEvent().getMessage().getChatType().equals("p2p")) {
+                        CreateMessageReq req = CreateMessageReq.newBuilder()
+                                .receiveIdType(ReceiveIdTypeEnum.CHAT_ID.getValue())
+                                .createMessageReqBody(CreateMessageReqBody.newBuilder()
+                                        .receiveId(event.getEvent().getMessage().getChatId())
+                                        .msgType(MsgTypeEnum.MSG_TYPE_TEXT.getValue())
+                                        .content(replyContent)
+                                        .build())
+                                .build();
+
+                        /**
+                         * 使用SDK调用发送消息接口。 Use SDK to call send message interface.
+                         * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+                         */
+                        try {
+                            CreateMessageResp resp = client.im().message().create(req);
+                            if (resp.getCode() != 0) {
+                                System.out.println(String.format("logId: %s, error response: \n%s",
+                                        resp.getRequestId(), Jsons.DEFAULT.toJson(resp.getError())));
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        /**
+                         * 使用SDK调用回复消息接口。 Use SDK to call send message interface.
+                         * https://open.feishu.cn/document/server-docs/im-v1/message/reply
+                         */
+                        ReplyMessageReq req = ReplyMessageReq.newBuilder()
+                                .messageId(event.getEvent().getMessage().getMessageId())
+                                .replyMessageReqBody(ReplyMessageReqBody.newBuilder()
+                                        .content(replyContent)
+                                        .msgType("text")
+                                        .build())
+                                .build();
+                        try {
+                            // 发起请求
+                            ReplyMessageResp resp = client.im().message().reply(req);
+                            if (resp.getCode() != 0) {
+                                System.out.println(String.format("logId: %s, error response: \n%s", resp.getRequestId(), Jsons.DEFAULT.toJson(resp.getError())));
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+
+                }
+            })
+            .build();
+
+    /**
+     * 启动长连接，并注册事件处理器。
+     * Start long connection and register event handler.
+     */
+    private static final com.lark.oapi.ws.Client wsClient = new com.lark.oapi.ws.Client.Builder(APP_ID, APP_SECRET)
+            .eventHandler(EVENT_HANDLER).build();
+
+    public static void main(String[] args) {
+        System.out.println("Starting bot...");
+        wsClient.start();
+    }
+}
+```
+
+## Python 示例代码
+
+业务代码路径：`echo_bot/python/main.py`，代码实现逻辑说明如下。
+
+1. 构建 API Client 用于调用 OpenAPI。
+2. 注册事件处理器，接收[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件（onP2MessageReceiveV1），并解析数据。
+3. 检查消息类型是否为纯文本消息（text），是则进行下一步，不是则提示用户需要发送文本消息。
+4. 通过判断条件 `if data.event.message.chat_type == "p2p":` 区分单聊与群聊。
+    
+    - 如果是单聊（p2p），则调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口向对应用户发送消息。
+    - 如果是群聊，则调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口，回复用户在群组内 @机器人的消息。
+
+5. 配置长连接功能，并关联事件处理器。
+    
+    长连接用于建立项目与开放平台的数据连接通道，用于订阅、接收事件。功能介绍参考[使用长连接接收事件](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#d286cc88)。
+
+代码与注释：
+
+```python
+import lark_oapi as lark
+from lark_oapi.api.im.v1 import *
+import json
+
+
+# 注册接收消息事件，处理接收到的消息。
+# Register event handler to handle received messages.
+# https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
+def do_p2_im_message_receive_v1(data: P2ImMessageReceiveV1) -> None:
+    res_content = ""
+    if data.event.message.message_type == "text":
+        res_content = json.loads(data.event.message.content)["text"]
+    else:
+        res_content = "解析消息失败，请发送文本消息\nparse message failed, please send text message"
+
+    content = json.dumps(
+        {
+            "text": f'收到你发送的消息：{res_content}\nReceived message:{res_content}'
+        }
+    )
+
+    if data.event.message.chat_type == "p2p":
+        request = (
+            CreateMessageRequest.builder()
+            .receive_id_type("chat_id")
+            .request_body(
+                CreateMessageRequestBody.builder()
+                .receive_id(data.event.message.chat_id)
+                .msg_type("text")
+                .content(content)
+                .build()
+            )
+            .build()
+        )
+        # 使用发送OpenAPI发送消息
+        # Use send OpenAPI to send messages
+        # https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+        response = client.im.v1.message.create(request)
+
+        if not response.success():
+            raise Exception(
+                f"client.im.v1.message.create failed, code: {response.code}, msg: {response.msg}, log_id: {response.get_log_id()}"
+            )
+    else:
+        request: ReplyMessageRequest = (
+            ReplyMessageRequest.builder()
+            .message_id(data.event.message.message_id)
+            .request_body(
+                ReplyMessageRequestBody.builder()
+                .content(content)
+                .msg_type("text")
+                .build()
+            )
+            .build()
+        )
+        # 使用回复OpenAPI回复消息
+        # Use send OpenAPI to send messages
+        # https://open.larkoffice.com/document/server-docs/im-v1/message/reply
+        response: ReplyMessageResponse = client.im.v1.message.reply(request)
+        if not response.success():
+            raise Exception(
+                f"client.im.v1.message.reply failed, code: {response.code}, msg: {response.msg}, log_id: {response.get_log_id()}"
+            )
+
+
+# 注册事件回调
+# Register event handler.
+event_handler = (
+    lark.EventDispatcherHandler.builder("", "")
+    .register_p2_im_message_receive_v1(do_p2_im_message_receive_v1)
+    .build()
+)
+
+
+# 创建 LarkClient 对象，用于请求OpenAPI, 并创建 LarkWSClient 对象，用于使用长连接接收事件。
+# Create LarkClient object for requesting OpenAPI, and create LarkWSClient object for receiving events using long connection.
+client = lark.Client.builder().app_id(lark.APP_ID).app_secret(lark.APP_SECRET).build()
+wsClient = lark.ws.Client(
+    lark.APP_ID,
+    lark.APP_SECRET,
+    event_handler=event_handler,
+    log_level=lark.LogLevel.DEBUG,
+)
+
+
+def main():
+    #  启动长连接，并注册事件处理器。
+    #  Start long connection and register event handler.
+    wsClient.start()
+
+
+if __name__ == "__main__":
+    main()
+```
+
+## Go 示例代码
+
+业务代码路径：`echo_bot/go/main.go`，代码实现逻辑说明如下。
+
+1. 构建 API Client 用于调用 OpenAPI。
+2. 通过 dispatcher.NewEventDispatcher 注册事件处理器，接收[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件（onP2MessageReceiveV1），并解析数据。
+3. 检查消息类型是否为纯文本消息（text），是则进行下一步，不是则提示用户需要发送文本消息。
+4. 通过判断条件 `if *event.Event.Message.ChatType == "p2p"` 区分单聊与群聊。
+    
+    - 如果是单聊（p2p），则调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口向对应用户发送消息。
+    - 如果是群聊，则调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口，回复用户在群组内 @机器人的消息。
+
+5. 配置长连接功能，并关联事件处理器。
+    
+    长连接用于建立项目与开放平台的数据连接通道，用于订阅、接收事件。功能介绍参考[使用长连接接收事件](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#d286cc88)。
+
+代码与注释：
+
+```go
+package main
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "os"
+
+        lark "github.com/larksuite/oapi-sdk-go/v3"
+        larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+        "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+        larkim "github.com/larksuite/oapi-sdk-go/v3/service/im/v1"
+        larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
+)
+
+func main() {
+        app_id := os.Getenv("APP_ID")
+        app_secret := os.Getenv("APP_SECRET")
+
+        /**
+         * 创建 LarkClient 对象，用于请求OpenAPI。
+         * Create LarkClient object for requesting OpenAPI
+         */
+        client := lark.NewClient(app_id, app_secret)
+
+        /**
+         * 注册事件处理器。
+         * Register event handler.
+         */
+        eventHandler := dispatcher.NewEventDispatcher("", "").
+                /**
+                 * 注册接收消息事件，处理接收到的消息。
+                 * Register event handler to handle received messages.
+                 * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
+                 */
+                OnP2MessageReceiveV1(func(ctx context.Context, event *larkim.P2MessageReceiveV1) error {
+                        fmt.Printf("[OnP2MessageReceiveV1 access], data: %s\n", larkcore.Prettify(event))
+                        /**
+                         * 解析用户发送的消息。
+                         * Parse the message sent by the user.
+                         */
+                        var respContent map[string]string
+                        err := json.Unmarshal([]byte(*event.Event.Message.Content), &respContent)
+                        /**
+                         * 检查消息类型是否为文本
+                         * Check if the message type is text
+                         */
+                        if err != nil || *event.Event.Message.MessageType != "text" {
+                                respContent = map[string]string{
+                                        "text": "解析消息失败，请发送文本消息\nparse message failed, please send text message",
+                                }
+                        }
+
+                        /**
+                         * 构建回复消息
+                         * Build reply message
+                         */
+                        content := larkim.NewTextMsgBuilder().
+                                TextLine("收到你发送的消息: " + respContent["text"]).
+                                TextLine("Received message: " + respContent["text"]).
+                                Build()
+
+                        if *event.Event.Message.ChatType == "p2p" {
+                                /**
+                                 * 使用SDK调用发送消息接口。 Use SDK to call send message interface.
+                                 * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+                                 */
+                                resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+                                        ReceiveIdType(larkim.ReceiveIdTypeChatId). // 消息接收者的 ID 类型，设置为会话ID。 ID type of the message receiver, set to chat ID.
+                                        Body(larkim.NewCreateMessageReqBodyBuilder().
+                                                MsgType(larkim.MsgTypeText).            // 设置消息类型为文本消息。 Set message type to text message.
+                                                ReceiveId(*event.Event.Message.ChatId). // 消息接收者的 ID 为消息发送的会话ID。 ID of the message receiver is the chat ID of the message sending.
+                                                Content(content).
+                                                Build()).
+                                        Build())
+
+                                if err != nil || !resp.Success() {
+                                        fmt.Println(err)
+                                        fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+                                        return nil
+                                }
+
+                        } else {
+                                /**
+                                 * 使用SDK调用回复消息接口。 Use SDK to call send message interface.
+                                 * https://open.feishu.cn/document/server-docs/im-v1/message/reply
+                                 */
+                                resp, err := client.Im.Message.Reply(context.Background(), larkim.NewReplyMessageReqBuilder().
+                                        MessageId(*event.Event.Message.MessageId).
+                                        Body(larkim.NewReplyMessageReqBodyBuilder().
+                                                MsgType(larkim.MsgTypeText). // 设置消息类型为文本消息。 Set message type to text message.
+                                                Content(content).
+                                                Build()).
+                                        Build())
+                                if err != nil || !resp.Success() {
+                                        fmt.Printf("logId: %s, error response: \n%s", resp.RequestId(), larkcore.Prettify(resp.CodeError))
+                                        return nil
+                                }
+                        }
+
+                        return nil
+                })
+
+        /**
+         * 启动长连接，并注册事件处理器。
+         * Start long connection and register event handler.
+         */
+        cli := larkws.NewClient(app_id, app_secret,
+                larkws.WithEventHandler(eventHandler),
+                larkws.WithLogLevel(larkcore.LogLevelDebug),
+        )
+        err := cli.Start(context.Background())
+        if err != nil {
+                panic(err)
+        }
+}
+```
+
+## Node.js 示例代码
+
+业务代码路径：`echo_bot/nodejs/index.js`，代码实现逻辑说明如下。
+
+1. 构建 API Client 用于调用 OpenAPI。
+2. 构建 wsClient 用于构建长连接。
+    
+    长连接用于建立项目与开放平台的数据连接通道，用于订阅、接收事件。功能介绍参考[使用长连接接收事件](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#d286cc88)。
+
+3. 通过 EventDispatcher 注册事件处理器，接收[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件（onP2MessageReceiveV1），并解析数据。
+4. 检查消息类型是否为纯文本消息（text），是则进行下一步，不是则提示用户需要发送文本消息。
+5. 通过判断条件 `if (chat_type === 'p2p')` 区分单聊与群聊。
+    
+    - 如果是单聊（p2p），则调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口向对应用户发送消息。
+    
+    - 如果是群聊，则调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口，回复用户在群组内 @机器人的消息。
+
+6. 启动长连接并关联事件处理器。
+
+代码与注释：
+
+```javascript
+import * as Lark from '@larksuiteoapi/node-sdk';
+
+/**
+ * 配置应用基础信息和请求域名。
+ * App base information and request domain name.
+ */
+const baseConfig = {
+  // 应用的 AppID, 你可以在开发者后台获取。 AppID of the application, you can get it in the developer console.
+  appId: process.env.APP_ID,
+  // 应用的 AppSecret，你可以在开发者后台获取。 AppSecret of the application, you can get it in the developer console.
+  appSecret: process.env.APP_SECRET,
+  // 请求域名，如：https://open.feishu.cn。 Request domain name, such as https://open.feishu.cn.
+  domain: process.env.BASE_DOMAIN,
+};
+
+/**
+ * 创建 LarkClient 对象，用于请求OpenAPI, 并创建 LarkWSClient 对象，用于使用长连接接收事件。
+ * Create LarkClient object for requesting OpenAPI, and create LarkWSClient object for receiving events using long connection.
+ */
+const client = new Lark.Client(baseConfig);
+const wsClient = new Lark.WSClient(baseConfig);
+
+/**
+ * 注册事件处理器。
+ * Register event handler.
+ */
+const eventDispatcher = new Lark.EventDispatcher({}).register({
+  /**
+   * 注册接收消息事件，处理接收到的消息。
+   * Register event handler to handle received messages.
+   * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
+   */
+  'im.message.receive_v1': async (data) => {
+    const {
+      message: { chat_id, content, message_type, chat_type },
+    } = data;
+
+    /**
+     * 解析用户发送的消息。
+     * Parse the message sent by the user.
+     */
+
+    let responseText = '';
+
+    try {
+      if (message_type === 'text') {
+        responseText = JSON.parse(content).text;
+      } else {
+        responseText = '解析消息失败，请发送文本消息 \nparse message failed, please send text message';
+      }
+    } catch (error) {
+      // 解析消息失败，返回错误信息。 Parse message failed, return error message.
+      responseText = '解析消息失败，请发送文本消息 \nparse message failed, please send text message';
+    }
+
+    if (chat_type === 'p2p') {
+      /**
+       * 使用SDK调用发送消息接口。 Use SDK to call send message interface.
+       * https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
+       */
+      await client.im.v1.message.create({
+        params: {
+          receive_id_type: 'chat_id', // 消息接收者的 ID 类型，设置为会话ID。 ID type of the message receiver, set to chat ID.
+        },
+        data: {
+          receive_id: chat_id, // 消息接收者的 ID 为消息发送的会话ID。 ID of the message receiver is the chat ID of the message sending.
+          content: JSON.stringify({ text: `收到你发送的消息:${responseText}\nReceived message: ${responseText}` }),
+          msg_type: 'text', // 设置消息类型为文本消息。 Set message type to text message.
+        },
+      });
+    } else {
+      /**
+       * 使用SDK调用回复消息接口。 Use SDK to call send message interface.
+       * https://open.feishu.cn/document/server-docs/im-v1/message/reply
+       */
+      await client.im.v1.message.reply({
+        path: {
+          message_id: data.message.message_id, // 要回复的消息 ID。 Message ID to reply.
+        },
+        data: {
+          content: JSON.stringify({ text: `收到你发送的消息:${responseText}\nReceived message: ${responseText}` }),
+          msg_type: 'text', // 设置消息类型为文本消息。 Set message type to text message.
+        },
+      });
+    }
+  },
+});
+
+/**
+ * 启动长连接，并注册事件处理器。
+ * Start long connection and register event handler.
+ */
+wsClient.start({ eventDispatcher });
+```

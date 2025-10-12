@@ -1,0 +1,62 @@
+<!--
+title: 预览与发布卡片
+id: 7312637705938796546
+fullPath: /ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/preview-and-save-cards
+updatedAt: 1724163133000
+source: https://open.feishu.cn/document/deprecated-guide/message-card/preview-and-save-cards
+-->
+# 预览与发布卡片
+
+当你完成消息卡片的构建后，可以通过搭建工具向飞书客户端发送卡片预览。当预览卡片无问题后，可以选择导出卡片，将卡片 JSON 文件保存到本地。如果需要发送消息卡片，则需要在工具内保存并发布卡片。
+:::warning
+该文档为历史消息卡片文档，已不再维护。了解对应新版文档，参考[预览与发布卡片](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/preview-and-publish-cards)。
+:::
+## 预览卡片
+
+1. 登录[消息卡片搭建工具](https://open.feishu.cn/tool/cardbuilder)。
+2. 在工具右上角，点击 **向我发送预览**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3be8befbef573d395278c0036a21672e_u6QQ4thA0J.png?height=882&lazyload=true&maxWidth=600&width=2882)
+
+3. 使用登录搭建工具的用户账号，登录飞书客户端，接收卡片预览消息。
+    
+    如果是可交互的消息卡片，可以在该消息中测试交互组件的可用性。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/32674d321490656c338d68b6e7266d8f_J5IxlHDnbB.png?height=250&lazyload=true&maxWidth=600&width=1360)
+
+## 导出卡片
+
+1. 登录[消息卡片搭建工具](https://open.feishu.cn/tool/cardbuilder)。
+2. 在工具右上角，点击 **导出卡片**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/72a77c41196aba14688ede475f3f8f4c_lsPqI1QfA8.png?height=984&lazyload=true&maxWidth=600&width=2882)
+
+3. 配置本地文件的信息，并保存。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a91a032838d120d1bc6eb9bad71e470e_TB6guSJE0l.png?height=762&lazyload=true&maxWidth=600&width=1754)
+
+## 保存并发布卡片
+
+1. 登录[消息卡片搭建工具](https://open.feishu.cn/tool/cardbuilder)。
+2. 在工具右上角，点击 **保存并发布**。
+    
+    你也可以点击 **保存**，将卡片保存在 **我的卡片** 列表，当后续需要发布时再打开该卡片并进行发布。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ae69944398005079adeff81c078393b2_3AFYmwTTq3.png?height=970&lazyload=true&maxWidth=600&width=2882)
+
+## 管理已保存的卡片
+
+1. 在消息卡片搭建工具内，进入 **我的卡片** 列表。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bd0f78e8f49a40b999f86d72fc7063f1_QYkR82jxxi.png?height=1404&lazyload=true&maxWidth=600&width=2882)
+
+2. 在 **我的卡片** 页面内，支持以下操作。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/58298a13c53c512ef76ecd0bcc4caecb_VCXSaOUuuN.png?height=1414&lazyload=true&maxWidth=600&width=2882)
+    
+    - 如上图①区域，查看卡片组与卡片列表，支持点击 **编辑**，调整卡片或卡片组的排序、名称或进行删除。
+    - 如上图②区域，查看我的卡片列表以及卡片的发布状态。鼠标悬浮在指定卡片上，支持复制卡片 ID、导出卡片或删除卡片。
+        - 已保存并发布的卡片 ID 可用于发送消息，具体操作参见[使用卡片 ID 发送消息](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/send-message-card/send-message-using-card-id)。
+        - 已发布且已用于线上发送消息的卡片，无法被删除。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/76a657e71ba8b1ed2625014d6b8b5814_K382Dk1Z0r.png?height=770&lazyload=true&maxWidth=400&width=630)

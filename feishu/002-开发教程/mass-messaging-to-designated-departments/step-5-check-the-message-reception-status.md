@@ -1,0 +1,12 @@
+<!--
+title: 步骤五：查看消息接收情况
+id: 7249288981966487553
+fullPath: /home/mass-messaging-to-designated-departments/step-5-check-the-message-reception-status
+updatedAt: 1687858110000
+source: https://open.feishu.cn/document/mass-messaging-to-designated-departments/step-5-check-the-message-reception-status
+-->
+# 步骤五：查看消息接收情况
+
+在批量发送消息的目标部门内，使用该部门下的任一用户信息登录飞书客户端，查看由应用机器人发送的`test content`测试消息。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0a73f82d6bad2eaa985bb6659530c8fb_mW865w56VO.png?height=684&lazyload=true&maxWidth=600&width=2878)

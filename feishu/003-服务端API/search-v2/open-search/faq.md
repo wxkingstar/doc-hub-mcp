@@ -1,0 +1,13 @@
+<!--
+title: 常见问题
+id: 7180232943963701252
+fullPath: /uAjLw4CM/ukTMukTMukTM/search-v2/faq
+updatedAt: 1678425490000
+source: https://open.feishu.cn/document/server-docs/search-v2/open-search/faq
+-->
+# 常见问题
+
+- 数据源 `state` 为 1（未上线状态）时，无法在飞书搜索中看到对应的 tab，也无法在“综合”中搜索到。可以参考[修改数据源](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/search-v2/data_source/patch) 将 `state` 改成 0（上线状态）。
+- 如果重复创建数据项，会覆盖。
+- 数据源的可见性和与之绑定的应用有关：如果应用下线，则数据源也会变为不可见状态。
+- 创建schema时，如果用户定义了名为`_create_time`,`_update_time`,`_title`的字段，实际上是指定了创建数据项请求中`metadata`中的`create_time`,`update_time`,`title`字段的搜索能力；也就是说在索引数据项时，这些字段的信息在`metadata`中填入，而不是在`structured_data`中。

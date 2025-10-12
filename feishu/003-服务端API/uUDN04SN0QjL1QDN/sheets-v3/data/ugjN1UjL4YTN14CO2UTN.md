@@ -1,0 +1,360 @@
+<!--
+title: 支持写入数据类型
+id: 6907569744330686465
+fullPath: /ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN
+updatedAt: 1744616843000
+source: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-types-supported-by-sheets
+-->
+# 支持写入的数据类型
+本文档介绍 V2 版本接口支持写入的数据类型。
+
+## 版本说明
+v2 版本的接口是指在接口的 HTTP URL 含有 `v2` 标识的接口。如[增加行列](/ssl:ttdoc/ukTMukTMukTM/uUjMzUjL1IzM14SNyMTN)的 URL `/sheets/v2/spreadsheets/:spreadsheet_token/dimension_range` 中含有 `v2`，标识该接口为 v2 版本接口。
+
+## 字符串
+
+```
+"string"
+```
+
+## 数字
+
+```
+123
+```
+## 日期
+
+
+ 
+1. 调用[设置单元格样式 ](/ssl:ttdoc/ukTMukTMukTM/ukjMzUjL5IzM14SOyMTN)接口，将单元格设置为日期格式，请求体示例如下所示：
+
+```json
+{
+  "appendStyle": {
+    "range": "vJFUIq!A1:A10",
+    "style": {
+      "formatter": "yyyy/MM/dd"
+    }
+  }
+}
+```
+
+2. 调用[向单个范围写入数据](/ssl:ttdoc/ukTMukTMukTM/uAjMzUjLwIzM14CMyMTN)，写入浮点类型的数据，请求体示例如下所示：
+  
+```json
+{
+  "valueRanges": [
+    {
+      "range": "vJFUIq!A1:A10",
+      "values": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          42101
+        ]
+      ]
+    }
+  ]
+}
+```
+  
+  
+其中，整数部分为自 1899 年 12 月 30 日以来的天数；小数部分为该时间占 24 小时的份额。如上述示例，写入后日期展示如下图所示：
+  
+  
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c598f964ca602b69dd3ed11bdfb40885_dZM5cD74rz.png?height=442&lazyload=true&maxWidth=200&width=219)
+
+## 链接
+
+### 无文本链接
+
+```
+"http://www.dd.com"
+```
+
+### 带文本的链接
+
+```json
+{
+    "text": "文本",
+    "link": "http://www.dd.com",
+    "type": "url"
+}
+```
+
+## 邮箱
+
+```
+"aaa@aa.com"
+```
+
+## @人
+:::note
+当写入 @人 类型时，其处理将以异步方式进行。
+:::
+
+
+- @ 人仅支持 @ 同一租户的用户。
+- 使用该类型，单次请求最多支持同时 @ 50人。
+
+| 字段               | 描述                                                                                         |
+|--------------------|----------------------------------------------------------------------------------------------|
+| notify             | 是否发送飞书消息，没有阅读权限的用户不会收到飞书消息                                           |
+| grantReadPermission| 是否赋予该用户阅读权限（仅在独立表格中支持该字段）；仅当拥有文档分享权限时可用                 |
+| textType           | 指定 `text` 字段传入的内容，可选 `email`，`openId`，`unionId`                                |
+| text               | 需要 @ 的人的信息，由 `textType` 指定                                                         |
+
+
+```json
+{
+    "type": "mention",
+    "text": "aaa@aa.com",
+    "textType": "email",
+    "notify": true,
+    "grantReadPermission": true
+}
+```
+
+## 公式
+
+text字段为对应的公式，暂不支持跨表引用公式（IMPORTRANGE）
+
+```json
+{
+    "type": "formula",
+    "text": "=A1"
+}
+```
+
+## @文档
+
+textType:固定为fileToken
+
+text:文档token
+
+objType:文档类型，可选sheet,doc,slide,bitable,mindnote
+
+```json
+{
+    "type": "mention",
+    "textType": "fileToken",
+    "text": "shtxxxx",
+    "objType": "sheet"
+}
+```
+
+## 下拉列表
+
+values为数组，可填bool,string,number类型。string类型数据不能包含","。使用前需要先使用[设置下拉列表](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/set-dropdown)接口设置下拉列表。
+
+```json
+{
+    "type": "multipleValue",
+    "values": [
+        1,
+        "test"
+    ]
+}
+```
+
+## 局部样式
+
+### segmentStyle
+
+bold：是否加粗
+
+Italic：是否斜体
+
+strikeThrough：是否含有删除线
+
+underline：是否含有下划线
+
+foreColor：字体颜色，16进制rgb颜色
+
+fontSize：字体大小，最小字号9，最大字号36
+
+```json
+{
+    "bold": true,
+    "italic": true,
+    "strikeThrough": true,
+    "underline": true,
+    "foreColor": "#ff00ff",
+    "fontSize": 30
+}
+```
+
+### 写入带局部样式的数据
+
+#### 字符串
+
+```json
+{
+    "text": "string",
+    "type": "text",
+    "segmentStyle": {
+        "bold": true,
+        "italic": true,
+        "strikeThrough": true,
+        "underline": true,
+        "foreColor": "#ff00ff",
+        "fontSize": 20
+    }
+}
+```
+
+#### 数字
+
+不支持局部样式
+
+#### 链接
+
+支持对链接中不同字符串写入不同样式。foreColor字段不生效，固定为蓝色；underline字段不生效，固定含有下划线；
+
+```json
+{
+    "text": "文本",
+    "link": "http://www.dd.com",
+    "type": "url",
+    "texts": [
+        {
+            "text": "文",
+            "segmentStyle": {
+                "bold": true,
+                "italic": true,
+                "strikeThrough": true,
+                "underline": true,
+                "foreColor": "#ffffff",
+                "fontSize": 20
+            }
+        },
+        {
+            "text": "本",
+            "segmentStyle": {
+                "bold": true,
+                "italic": false,
+                "strikeThrough": true,
+                "underline": true,
+                "foreColor": "#ffffff",
+                "fontSize": 10
+            }
+        }
+    ]
+}
+```
+
+#### 邮箱
+
+支持对邮箱中不同字符串写入不同样式。foreColor字段不生效，固定为蓝色；underline字段不生效，固定含有下划线；
+
+```json
+{
+    "type": "url",
+    "text": "aa@bytedance.com",
+    "texts": [
+        {
+            "text": "aa",
+            "segmentStyle": {
+                "bold": true,
+                "italic": true,
+                "strikeThrough": true,
+                "underline": true,
+                "foreColor": "#ffffff",
+                "fontSize": 20
+            }
+        },
+        {
+            "text": "@bytedance.com",
+            "segmentStyle": {
+                "bold": true,
+                "italic": false,
+                "strikeThrough": true,
+                "underline": true,
+                "foreColor": "#ffffff",
+                "fontSize": 10
+            }
+        }
+    ]
+}
+```
+
+
+
+#### @人
+
+:::note
+当写入 @人 类型时，其处理将以异步方式进行。
+:::
+
+
+- @ 人仅支持 @ 同一租户的用户。
+- 使用该类型，单次请求最多支持同时 @ 50人。
+
+| 字段               | 描述                                                                                         |
+|--------------------|----------------------------------------------------------------------------------------------|
+| notify             | 是否发送飞书消息，没有阅读权限的用户不会收到飞书消息                                           |
+| grantReadPermission| 是否赋予该用户阅读权限（仅在独立表格中支持该字段）；仅当拥有文档分享权限时可用                 |
+| textType           | 指定 `text` 字段传入的内容，可选 `email`，`openId`，`unionId`                                |
+| text               | 需要 @ 的人的信息，由 `textType` 指定                                                         |
+| segmentStyle               | 仅支持对整体设置局部样式；foreColor字段不生效，固定为蓝色                                                         |
+
+
+
+
+```json
+{
+    "type": "mention",
+    "text": "aaa@aa.com",
+    "textType": "email",
+    "notify": true,
+    "grantReadPermission": true,
+    "segmentStyle": {
+        "bold": true,
+        "italic": true,
+        "strikeThrough": true,
+        "underline": true,
+        "foreColor": "#ff00ff",
+        "fontSize": 30
+    }
+}
+```
+
+#### @文档
+
+textType:固定为fileToken
+
+text:文档token
+
+objType:文档类型，可选sheet,doc,slide,bitable,mindnote
+
+foreColor字段不生效，固定为蓝色；
+
+```json
+{
+    "type": "mention",
+    "textType": "fileToken",
+    "text": "shtxxxx",
+    "objType": "sheet",
+    "segmentStyle": {
+        "bold": true,
+        "italic": true,
+        "strikeThrough": true,
+        "underline": true,
+        "foreColor": "#ff00ff",
+        "fontSize": 30
+    }
+}
+```
+
+#### 下拉列表
+
+不支持局部样式
+
+

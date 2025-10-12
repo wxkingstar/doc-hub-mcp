@@ -1,0 +1,44 @@
+<!--
+title: 步骤一：创建测试应用
+id: 7238816139734056963
+fullPath: /home/quick-access-to-contact-api/step-1-create-a-test-application
+updatedAt: 1717577114000
+source: https://open.feishu.cn/document/quick-access-to-contact-api/step-1-create-a-test-application
+-->
+# 步骤一：创建测试应用
+
+
+在使用飞书OpenAPI之前，你必须先创建一个应用。本文介绍如何创建应用，并配置其对应的测试应用。
+
+## 一、创建应用
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 在开发者后台首页，单击 **创建企业自建应用**，然后填写应用名称和应用描述，最后单击 **创建**。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/82a78b7e89e4904d64157103c70bf706_2hnMhdXfLF.png?height=1374&lazyload=true&maxWidth=400&width=1180)
+
+3. 在左侧导航栏单击进入 **测试企业和人员** 页面，单击 **创建测试企业**，填写 **测试企业名称**、**手机号**、**验证码**，单击 **确认创建**。
+
+:::note
+为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了 [测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions) 。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+:::
+  
+![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/d32b7e26986042e2a984a18152bbf32f~tplv-goo7wpa0wc-image.image?height=600&lazyload=true&maxWidth=400&width=1192)
+  
+4. 在创建完成的测试企业操作栏，单击 **关联应用**，即可为当前应用自动生成测试版本。
+  
+    ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/f19b51b1b3b74f1e8d0768ea5070d0ff~tplv-goo7wpa0wc-image.image?height=660&lazyload=true&maxWidth=600&width=2252)
+
+5. 在左侧导航栏，单击应用名称右侧的切换图标并选择 **切换至测试版本**。
+  
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/78ecf3f949d70d4b4b2fe7551520298e_idGESZwPPc.png?height=302&lazyload=true&maxWidth=400&width=1070)
+              
+## 二、开通应用权限
+              
+在 **权限管理** > **API 权限** 页面，搜索并开通以下权限。
+
+* **contact:contact**：更新通讯录
+* **contact:contact.base:readonly**：获取通讯录基本信息
+
+

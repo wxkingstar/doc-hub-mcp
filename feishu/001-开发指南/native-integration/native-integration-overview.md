@@ -1,0 +1,203 @@
+<!--
+title: 原生集成概述
+id: 7273741289253732356
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/native-integration-overview
+updatedAt: 1741074197000
+source: https://open.feishu.cn/document/native-integration/native-integration-overview
+-->
+# 原生集成概述
+:::html
+<md-alert type="tip">
+原生集成是额外付费功能，依赖独立的专版客户端集成，若有相关需求场景，可联系飞书售前咨询。
+</md-alert>
+:::
+> 
+## 原生集成简介
+原生集成是指飞书开放了多个业务场景，提供配套工具，让三方能力能够在飞书内被调用，且达到原生代码的体验。原生集成提高了飞书的开放性和灵活性，可以满足客户更多原生定制的集成场景。
+
+以下为三种原生集成常见场景。更多其他原生集成场景，可联系飞书售前同学下单咨询。
+
+- 场景一：客户有自研的业务能力，期望封装成SDK集成进飞书使用；如自研登录键盘、人脸识别、邮箱、Tab导航栏、工作台应用等；
+- 场景二：客户采买了三方安全SDK，期望集成进飞书客户端，管控移动应用的信息安全，实现all in one的体验；如三方EMM SDK、三方SDP SDK；
+- 场景三：监管合规等要求，客户代码不能出网，期望内网集成交付；如大型金融银行客户。
+
+
+## 方案优势
+### 支持客户自研产品集成进飞书，原生代码及业务all in one，享受丝滑体验
+
+原生集成开放多种业务场景，支持客户将自研的原生代码产品与飞书客户端集成。通过对SDK的功能封装，保障了客户对自研代码业务的自主可控性，客户可享受安全且丝滑的原生体验。
+
+以下示例三种常见的自研产品集成案例，客户如有相关场景，可联系飞书售前咨询下单。
+
+**示例一**：
+- 飞书登录替换为客户的安全键盘、人脸识别、手势密码等登录SDK，客户侧对登录自主可控，保障安全且体验丝滑。
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cc01712c899b13c673cda5b787d16cb5_ePk9MC63TW.png?height=2160&lazyload=true&maxWidth=800&width=4458)
+<br><br>
+
+**示例二**：
+- 飞书tab导航场景开放，支持将客户自有应用，集成进飞书tab导航栏；
+- 支持客户替换原有飞书邮箱功能为自研邮件，享受all in one的原生工作体验。
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3515832b8bfe2de105592f0d8d988b15_YdTvZW7nP9.png?height=2160&lazyload=true&maxWidth=600&width=3014)
+<br><br>
+
+**示例三：** 
+- 飞书app桌面应用长按，支持调起客户的业务功能，如支持客户自研的二维码SDK，点击进入飞书工作台，打开对应应用的二维码详情页面。
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c000bf69cb3f7e6cda9352deeb219e99_ckaEvSGwwC.png?height=2160&lazyload=true&maxWidth=600&width=3014)
+  
+
+### 支持三方安全SDK集成，多重安全策略配置，防止业务数据泄漏
+
+客户采购的三方安全类SDK，可集成进飞书客户端。可在飞书客户端开启时启用安全策略，也可在打开应用时建立通道启用，支持按照客户业务逻辑灵活开发配置。通过多重SDK的安全策略配置，防止终端业务数据泄漏，提升业务安全系数。如：EMM SDK、SDP SDK、Atrust SDK、VPN SDK等。
+
+以下示例两种常见的三方安全产品，更多示例此处不一一展示，客户如有相关场景，可联系飞书售前咨询下单。
+
+
+**示例一：** 
+- 支持客户集成EMM SDK，管控飞书侧截屏录屏、防三方调用、数据加密等安全策略，保障移动终端的过程数据安全
+ 
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f704e0e95318bd9f31ab17d6a8293486_n7eDHc8leC.png?height=1064&lazyload=true&maxWidth=650&width=2481)
+<br><br>
+
+**示例二：** 
+- 支持客户集成SDP SDK，针对配置了鉴权白名单的应用，会通过代理转发，实现访问内网资源能力。整体基于“零信任”理念，将企业业务应用从互联网上“隐身”，避免被扫描和攻击，提升业务安全系数。
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b6168b8d269710d9afe7d460d769a4a1_FWaQQNtWmc.png?height=1714&lazyload=true&maxWidth=700&width=4880)
+
+### 配套标准开发工具及优质服务，支持在线、离线多种模式出包，合规且高效
+
+飞书提供IOS和Android双端的插件开发配套工具及服务，方便客户侧高效开发、调用飞书的开发场景能力，及时版本迭代更新。支持在线模式飞书环境出包，以及离线模式客户环境出包，满足客户不同出包诉求。
+- 配套工具：为了三方厂商/客户能够更高效的使用飞书原生集成能力，管理项目进度，飞书提供了原生集成工具及控制台。
+    - 工具一：提供原生集成工具，协助开发者直接调用飞书的开放能力，集成开发测试；
+    - 工具二：提供原生集成控制台，协助项目管理者，基于开发的代码组装产品，交付客户。
+- 配套服务：为了保障客户高效集成，顺利交付，进度可追踪，飞书提供了配套的技术服务和打包交付服务。
+    - 服务一：提供底层技术服务，开放多种能力组件、协议组件，支持客户多种集成场景；
+    - 服务二：提供客户端打包交付服务，满足客户出包、项目交付全流程服务。
+    
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/763352143ca475b2b3135fc61ff0a357_nu0GwoxTTN.png?height=2160&lazyload=true&width=7282)
+
+
+
+## 开放场景
+开发者在上述原生集成工具上开发的过程中，会根据自身诉求，调用实现不同的飞书开放能力，主要分为协议组件和能力组件两种类型：
+### 协议组件
+协议组件是指API协议，客户提供实现，飞书调用。具体支持的协议组件类型及说明见下方表格。其他不支持的新场景，请联系飞书技术顾问。
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 15%;">协议组件</md-th>
+       <md-th style="width: 50%;">能力说明</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+     <md-tr>
+      <md-td>[WebContainer](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/webcontainer/android)</md-td>
+      <md-td>飞书网页容器提供了回调接口，用于在打开和关闭 web 页面时进行处理。同时，该组件还支持定制错误页的内容和处理按钮点击事件</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[JS API扩展](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/js-api-extension/android-js-api-ex)</md-td>
+      <md-td>实现该API，可以将自有的原生集成的业务逻辑、能力，暴露给基于飞书小程序、H5开发的页面，供其通过JsBridge调用</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[原生集成应用](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/native-integrated-application/andr)</md-td>
+      <md-td>通过开放平台的流程创建应用并开启本地组件集成，开发者可以实现原生集成应用与飞书的无缝集成，提供更丰富的功能和更便捷的用户体验。这样可以增强应用的可用性，提升用户的工作效率和体验质量</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[生命周期](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/life-cycle/android-life-cycle)</md-td>
+      <md-td>飞书应用的生命周期相关回调包括应用启动、进入前台、进入后台和飞书账号登录、登出等事件。开发者可以注册相应的回调函数，以便在这些事件发生时执行特定的业务逻辑</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[扫码能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/scanning-ability/android-scanning-)</md-td>
+      <md-td>当用户在飞书中扫描二维码时，飞书会触发扫码回调事件。开发者可以注册相应的回调函数来处理该事件，并获取扫码结果</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[Tab容器](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/tab-container/android-tab-containe)</md-td>
+      <md-td>开发者可以根据自身业务需求，在飞书应用中增加自定义的 Tab，提供更丰富和个性化的功能和内容展示。这有助于提升用户体验和工作效率，使应用更加易于访问</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[消息菜单容器](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/message-menu-container/android-message-menu-container)</md-td>
+      <md-td>通过该API，开发者可以在飞书消息长按菜单中，集成自定义业务功能</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[桌面快捷菜单](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/desktop-shortcut-menu/android-desktop-shortcut-menu)</md-td>
+      <md-td>通过该API，开发者可以在桌面飞书图标长按弹出的快捷方式菜单中，集成自定义业务功能</md-td>
+    </md-tr>
+</md-tbody>
+</md-table>
+::: 
+### 能力组件
+能力组件是指API能力，飞书提供实现，客户调用。具体支持的能力组件类型及说明见下方表格。其他不支持的新场景，请联系飞书技术顾问。
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 15%;">能力组件</md-th>
+       <md-th style="width: 50%;">能力说明</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+     <md-tr>
+      <md-td>[Applink能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/applink-capability/android-appli)</md-td>
+      <md-td>通过该API能力，可以调用飞书的页面跳转、路由能力</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[存储KV能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/storage-kv-capability/android-st)</md-td>
+      <md-td>通过调用飞书的 KV 存储 API ，开发者可以实现数据的读取、写入、更新和删除等操作。这样可以方便地管理和维护应用所需的数据，并确保数据的一致性和可用性</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[埋点能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/event-tracking-capabilities/andr)</md-td>
+      <md-td>通过该API能力，可以调用飞书的埋点统计能力，将业务数据上报到埋点平台</md-td>
+    </md-tr> 
+    <md-tr>
+      <md-td>[Logger能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/logger-capability/android-logger)</md-td>
+      <md-td>通过调用飞书的打印日志 API，开发者可以指定日志的级别、内容和其他相关信息。
+此外，飞书还支持日志回捞功能，开发者可以通过相应的API检索和获取之前记录的日志信息。这样可以方便地进行日志分析、故障排查和性能优化等工作</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[Passport能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/passport-capability/android-pass)</md-td>
+      <md-td>通过该API能力，可以调用飞书passport部分能力，比如获取用户登录状态、did等</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[网页能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/web-capabilities/android-web-cap)</md-td>
+      <md-td>通过使用该 API 能力，开发者可以实现在飞书的 H5 容器中设置自定义的 cookie，或追加自定义的 User Agent 信息。这样可以为开发者提供更多的灵活性和个性化定制的能力，以满足不同的业务需求和用户体验要求</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[客户端OpenAPI能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/client-openapi-capabilities/andr)</md-td>
+      <md-td>通过调用飞书开放平台的 OpenAPI 能力，开发者的原生应用可以调用飞书开放平台接口，实现更丰富和个性化的功能</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>[Setting能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/setting-ability/android-setting-)</md-td>
+      <md-td>通过该API能力，可以获取飞书的动态setting配置；只在SaaS可用，私有化不支持</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>[消息能力](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/message-capabilities/android-message-capabilities)</md-td>
+      <md-td>通过该API能力，开发者可以发送文件到飞书聊天、获取飞书消息中包含的资源</md-td>
+    </md-tr>
+</md-tbody>
+</md-table>
+::: 
+
+## 开发测试流程
+
+原生集成是额外付费功能，依赖独立的专版客户端集成，如有需求可联系飞书售前。客户下单原生集成后可使用配套工具开发。整体详细开发操作指南请查看[开发指南](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/android-development/pre-environmental-preparation)，简略流程如下：
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/74d32ba660c04d9fe3123fc9518862c1_Tvi1G9ZdMu.png?height=464&lazyload=true&width=1499)
+
+**Step1：创建工程**
+
+- 在飞书原生集成工具上，登录飞书提供的账号和开发环境后，创建开发项目。
+
+**Step2：组件开发**
+- 客户基于飞书开放的协议组件、能力组件等开放场景，进行自研代码的开发。
+
+**Step3：组件自测及上架**
+- 客户侧研发将已开发的功能代码本地构建出测试包，进行自测。
+
+ **Step4：测试交付**
+- 在线模式：客户基于已经开发完成的组件，代码会推送到飞书环境，在飞书控制台组建成完整产品，并创建需要交付的项目，关联送审，测试出包交付。详见[客户案例](https://open.feishu.cn/solutions/detail/Desay%20SV)。
+- 离线模式：客户基于已经开发完成的组件，构建出飞书母包，在客户内网独立构建出包测试交付，应用不出内网环境。
+
+<br>

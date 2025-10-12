@@ -1,0 +1,107 @@
+<!--
+title: 步骤三：下载并运行示例代码
+id: 7231869788154134532
+fullPath: /home/todos-daily-reminder-of-weekly-report/download-and-run-the-sample-code
+updatedAt: 1691748376000
+source: https://open.feishu.cn/document/historical-version/todos-daily-reminder-of-weekly-report/download-and-run-the-sample-code
+-->
+# 步骤三：下载并运行示例代码
+
+在本步骤，你将下载并运行教程提供的示例代码。示例代码使用 Python 语言编写，请确保你已安装 Python 运行环境。
+
+## 步骤一：下载示例代码
+1. 执行以下命令，下载示例代码到本地。
+   * Mac OS 或 Linux执行以下命令。
+      ```Shell
+      curl https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/912b6ef66e15ba449e7109add3e9df20_DqBQio8Uhb.zip -o todo_reminder.zip
+      unzip todo_reminder.zip
+      cd todo_reminder/python
+      ```
+
+   * Windows执行以下命令。
+      ```Shell
+      curl https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/912b6ef66e15ba449e7109add3e9df20_DqBQio8Uhb.zip -o todo_reminder.zip
+      todo_reminder.zip
+      cd todo_reminder/python
+      ```
+
+2. 修改`.env`文件中的凭证信息。
+  
+	- 方式一：在命令行通过 **vi/vim** 打开并编辑配置文件。命令示例：`vim .env`。
+
+	- 方式二：在本地设备中手动打开`/todo_reminder/python`文件夹，找到对应的`.env`文件，使用常用的文本编辑器打开并编辑。
+
+
+	应用凭证获取方式：
+
+    * **APP_ID** 和 **APP_SECRET** 应用凭证信息可以在[开发者后台](https://open.feishu.cn/app)的 **凭证与基础信息** 页查看。
+
+       	![image.png](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/8c19f0519ab84dc2a20b280266b43e15~tplv-goo7wpa0wc-image.image?height=1024&lazyload=true&maxWidth=600&width=2690)
+        
+  	* **WIKI_SPACE_ID** 可以在知识库 **设置** 页面获取。
+		
+  		![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/966a9cbddc04045f663190df8769f1b4_1J9dCIRYan.png?height=1232&lazyload=true&maxWidth=600&width=1476)
+
+        
+  	* **WIKI_NODETOKEN** 可以在文档页面获取。
+  		
+  		![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/313b4f8bcc7093e645299d0587bf9a9f_GHXxWy8wq9.png?height=924&lazyload=true&maxWidth=600&width=2054)
+
+
+
+
+	私有化部署时要修改`.env`文件中 **FEISHU_HOST** 为私有化部署所用的域名。
+
+  
+3. 打开`reminder.cron`修改cron表达式的参数。
+      
+  	以下cron表达式表示：每周一和周五上午九点进入   `/home/app`   目录，运行   reminder.py   文件。
+          
+ 	```Python
+    # Notice at every weekday at 9:00
+    0 9 * * 1-5 cd /home/app && /usr/local/bin/python reminder.py >> reminder.log 2>&1
+    ```
+
+
+## 步骤二：运行示例代码
+你可以参考以下两种方式运行示例代码。
+
+### Docker运行
+如果您已有[Docker](https://www.docker.com/)环境，那么直接执行以下命令即可。
+* Mac OS或Linux执行以下命令：
+   ```Shell
+   sh exec.sh
+   ```
+
+* Windows执行以下命令：
+   ```Shell
+   .\exec.ps1
+   ```
+
+
+### 本地运行
+1. 执行以下命令，创建并激活Python虚拟环境。
+   * Mac OS 或 Linux执行以下命令。
+      ```Shell
+      python3 -m venv venv
+      . venv/bin/activate
+      ```
+
+   * Windows执行以下命令。
+      ```Shell
+      python3 -m venv venv
+      venv\Scripts\activate
+      ```
+
+2. 执行以下命令，安装代码依赖。
+   ```Shell
+   pip3 install -r requirements.txt
+   ```
+
+3. 依赖安装成功后，执行以下命令运行示例代码。
+   ```Shell
+   python3 reminder.py
+   ```
+
+
+

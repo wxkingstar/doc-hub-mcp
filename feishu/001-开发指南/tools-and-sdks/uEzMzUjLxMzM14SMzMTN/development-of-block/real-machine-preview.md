@@ -1,0 +1,46 @@
+<!--
+title: 真机预览
+id: 7148643924512112668
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/development-of-block/real-machine-preview
+updatedAt: 1716466446000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-block/real-machine-preview
+-->
+# 真机预览
+
+Block 已在飞书文档和工作台中应用，开发者工具提供了 Block 在飞书文档、工作台 PC 及移动端的预览功能。
+
+## 云文档预览
+
+当宿主选择是云文档时，开发者可以提供一个文档链接用于预览。若不提供则工具会创建一篇测试文档。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/435f3e4ad83152bf9df90229b1fa55ad_UZROdvLxI5.png?height=764&lazyload=true&maxWidth=380&width=886)
+
+点击 **立即预览** 后，开发者工具会打开该文档，通过文档加号菜单可插入需要预览的 Block，并点击 **调试构造器** 即可预览本地 Creator 代码，或 **读取本地资源** 预览本地 Block 代码。
+
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/324e4790154c8a78145afccb03c9d342_csLJPYShQz.png?height=1226&lazyload=true&maxWidth=480&width=1640)
+
+## 工作台预览
+
+当宿主选择是工作台时，开发者点击 **立即预览** 按钮即可在PC 端或移动端预览。此时开发者的飞书客户端会收到消息卡片，点击后即可预览 Block。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e664e640cf0c1748283fa082f86fd34c_Xu5gjxwqlm.png?height=440&lazyload=true&maxWidth=380&width=932)
+
+## 上传
+
+:::warning
+基于小组件渲染速度考虑，小组件的代码包需小于 10 MB。
+:::
+
+点击 **上传** 按钮，并填写版本号信息即可上传 Block 程序包。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f6102d868385aebd909e210230ad039d_bxsAkJMMxP.png?height=1480&lazyload=true&maxWidth=380&width=972)
+
+上传完成后，前往 **飞书开放平台**，点击 **应用功能**，选择 **小组件** ，并选择刚才上传的版本。完成填写后需要发布应用才可生效。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f7330b6dfbcdb52b095ce3b7188f6cc2_tZZyoKH1yq.png?height=1285&lazyload=true&maxWidth=580&width=1640)

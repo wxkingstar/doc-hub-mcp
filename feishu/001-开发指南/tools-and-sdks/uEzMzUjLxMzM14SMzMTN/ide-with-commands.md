@@ -1,0 +1,208 @@
+<!--
+title: 飞书开发者工具-命令行
+id: 6974742353937104897
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/ide-with-commands
+updatedAt: 1706845611000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/ide-with-commands
+-->
+# 飞书开发者工具-命令行
+飞书开发者工具（命令行形式）是由官方推出，供开发者基于飞书开放能力开发生态应用和企业自建应用的开发工具，当前提供了新建项目、登录、登出、代码包上传、真机预览、反馈等功能，更多特性也在持续迭代中。
+
+开发者在安装完命令行工具后，即可在终端使用 opdev 命令。
+比如：
+
+- 使用 opdev login 登录飞书账号
+- 使用 opdev preview 预览正在开发的小程序；
+- 使用 opdev upload 上传正在开发的小程序；
+
+通过阅读下面的文档，你可以快速了解本工具的安装和日常使用方式。
+
+## 安装  
+
+命令行安装，直接复制以下脚本在终端中运行
+
+```shell
+npm install @lark-opdev/cli@latest -g -f
+```
+
+:::warning
+使用命令行安装需要依赖 Node.js。安装方式请参考 [Node.js](https://nodejs.org)，安装 Node.js 的同时会自动安装 npm。
+:::
+
+- Node.js 版本检查
+```shell 
+ $ node -v  
+``` 
+
+- NPM 版本检查
+```shell
+$ npm -v
+```
+
+### 验证是否安装成功
+
+任选上面两种方式安装之后，请在命令行终端执行以下指令检查是否成功安装:
+```shell
+$ opdev help
+```
+安装正常将看到如下输出：
+```shell   
+opdev: Feishu Open Platform Developer Toolset
+
+USAGE
+  $ opdev [COMMAND]
+
+COMMANDS
+Account related
+  login     Login with feishu account
+  logout    Log out of the Feishu account
+  ....
+```
+
+也可用==opdev version==命令来检查工具版本：
+
+```js
+$ opdev --version
+2.19.1
+```
+
+如在安装过程中你可能会遇到如下问题，请先查看下列 **FAQ** 
+
+- [在安装的过程中遇到“permission denied”报错](/ssl:ttdoc/uYjL24iN/ugDM0YjL4ADN24COwQjN#Q%EF%BC%9A%E5%9C%A8%E5%AE%89%E8%A3%85%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E2%80%9Cpermission%20denied%E2%80%9D%E6%8A%A5%E9%94%99%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F)
+
+- [在安装的过程中需要“xcodebuild”](/ssl:ttdoc/uYjL24iN/ugDM0YjL4ADN24COwQjN#Q%EF%BC%9A%E5%9C%A8%E5%AE%89%E8%A3%85%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%9C%80%E8%A6%81%E2%80%9Cxcodebuild%E2%80%9D%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F)
+
+- [在 macOS 系统下运行独立安装包提示“不受信任的开发者”怎么办？](/ssl:ttdoc/uYjL24iN/ugDM0YjL4ADN24COwQjN#75e3d677)
+
+## 功能介绍
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;飞书开发者工具围绕应用项目提供项目预览、上传、反馈等功能，也支持用户登录、登出和租户切换等账号管理能力
+
+### 指令操作
+
+#### help（查看帮助信息）
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有命令都可以使用 ==help== 显示相关帮助信息  
+```shell
+# 查看帮助信息
+$ opdev help
+
+# 查看单个命令帮助信息，如上传命令
+$ opdev upload --help
+```
+
+#### login（登录飞书账号）
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;登录态是使用上传小程序、预览小程序、模拟器内登录等相关操作的前提条件。该命令会打开你的默认浏览器进行登录。若你的浏览器上存有飞书开放平台的登录状态，会默认登录到当前企业用户下，否则需要进行扫码登录。
+
+```shell
+$ opdev login
+```
+
+#### logout（登出）
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退出当前账号可执行
+
+```shell
+$ opdev logout
+```
+
+#### tenant switch（租户切换）
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在当前登录账号下切换租户（v1.2.0 + 支持）
+
+```shell
+$ opdev tenant switch
+```
+
+#### preview（预览）
+
+小程序预览    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;移动端用飞书扫描预览二维码打开小程序预览界面，PC 端通过“开发者小助手”机器人下发的预览消息卡片进入界面。
+
+> 小程序预览依赖以下条件：
+> 1. 通过==opdev login==指令或者模拟器界面已经完成飞书账号登录；  
+> 2. 在应用项目中的配置==project.config.json==填写了正确的 appId，appId 的获取参考[文档](/ssl:ttdoc/home/develop-a-gadget-in-5-minutes/create-a-custom-app)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行预览的指令如下：
+```shell
+$ opdev preview [project-path] --platform=mobile
+# 或者
+$ opdev preview [project-path] -p mobile
+```
+
+##### 预览时指定启动页面
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;预览时指定启动页面和启动参数（v1.2.0+支持)
+
+```shell
+opdev preview [project-path] --platform=mobile --startPage 'page/index/index?title="hello"'
+# 或者
+opdev preview [project-path] -p mobile -s 'page/index/index?title="hello"'
+```
+
+#### upload（上传）
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开发完成后上传小程序代码包至开发者后台。
+
+
+> 代码包上传依赖以下条件：
+> 1. 通过==opdev login==指令或者模拟器界面已经完成飞书账号登录；  
+> 2. 在应用项目中的配置==project.config.json==填写了正确的 appId，appId 的获取参考[文档](/ssl:ttdoc/home/develop-a-gadget-in-5-minutes/create-a-custom-app#2.%20%E6%9F%A5%E7%9C%8B%E5%BA%94%E7%94%A8%E7%9A%84%20App%20ID)    
+> 
+> 备注：v1.4.0 及以上版本支持小组件的上传，不需要提供 platform
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指令如下：
+```shell
+$ opdev upload [project-path] --platform=pc --version=版本号 --description=描述
+# 或者
+$ opdev upload [project-path] -p pc -v 版本号 -d 描述
+# 必须填写合法的版本号，例如：1.0.0，并且要大于上一次的版本
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上传移动端主导航栏小程序至开发者后台
+
+```shell
+$ opdev upload [project-path] --type=gadget-nav --platform=mobile --version=版本号 --description=描述
+# 或者
+$ opdev upload [project-path] -t gadget-nav -p mobile -v 版本号 -d 描述
+```
+
+#### feedback（反馈）
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 开发过程中遇到问题需要寻求帮助时可以通过这个指令打开反馈入口
+
+```shell
+$ opdev feedback
+```
+
+
+#### token
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在无法调用`login`的场景，工具提供了`token`命令，允许用户使用 Token 携带用户信息，以调用`preview`、`upoad`等命令。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先创建 Token:
+```shell
+opdev token create
+# Token generated successfully:
+# 00000000-0000-0000-0000-000000000000
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后根据上面生成的 token，设置环境变量：
+
+```shell
+export OPDEV_TOKEN=00000000-0000-0000-0000-000000000000
+export OPDEV_ENV=feishu #可选设置，默认为feishu
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后使用 ==preview==，==upload== 命令：
+
+```shell
+opdev preview ./ -p mobile
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者在命令前加上环境变量直接使用：
+```shell
+OPDEV_TOKEN=xxx-xxx-xxx  OPDEV_ENV=feishu opdev preview ./ -p mobile
+```
+
+> 注意：
+> * 在设置了 ==OPDEV_TOKEN== 环境变量之后，当前终端中的 ==opdev login|logout|whoami|token|tenant== 命令将失效，其他终端不受影响。
+> * token 会过期，失效之后请重新获取。
+

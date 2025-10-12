@@ -1,0 +1,60 @@
+<!--
+title: 步骤五：创建日程
+id: 7254822274065907714
+fullPath: /home/quickly-build-a-feishu-calendar-schedule/step-5-create-an-agenda
+updatedAt: 1698396916000
+source: https://open.feishu.cn/document/quickly-build-a-feishu-calendar-schedule/step-5-create-an-agenda
+-->
+# 步骤五：创建日程
+
+在确认指定时间段内用户或者会议室空闲后，即可调用[创建日程](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create)接口，在日历内创建日程。
+
+## 操作步骤
+
+1. 打开[API调试台](https://open.feishu.cn/api-explorer)工具。
+
+2. 在左侧 **API 列表** 中，选择 **日历** > **日程管理** > **创建日程**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/efbdbebc67be92c94d7a986d2dd6955f_uO6nNCzS9m.png?height=1364&lazyload=true&maxWidth=600&width=2882)
+
+3. 完成以下参数配置，并点击 **开始调试**。
+    
+    - **请求头**：系统已默认为 **Authorization** 字段填写了 **tenant_access_token**。
+    
+    - **路径参数**：在 **calendar_id** 字段内填写应用主日历 ID（步骤三中保存的`calendar_id`）。
+    
+    - **查询参数**：保持默认配置即可。
+    
+    - **请求体**：JSON 格式的请求体示例以及参数说明如下。
+        
+
+        - 在实际使用时注意清除`//`注释内容，以保证 JSON 格式正确。
+        
+        - 本示例配置仅设置了必填字段和部分非必填字段，你在实际调用时，可根据需要动态调整参数配置。
+        
+        
+        ```
+        {
+          "summary": "测试日程",    // 自定义日程标题，用于标识日程。
+          "description": "日程描述",    // 自定义日程描述。
+          "start_time": {    // 设置日程的开始时间。
+            "timestamp": "1689069600",    // 秒级时间戳。
+            "timezone": "Asia/Shanghai"    // 时区名称。
+          },
+          "end_time": {    // 设置日程的结束时间。
+            "timestamp": "1689073200",    // 秒级时间戳。
+            "timezone": "Asia/Shanghai"    // 时区名称。
+          },
+          "visibility": "default",    // 日程公开范围。此处配置为默认权限，即跟随日历权限，默认仅向他人显示是否“忙碌”。
+          "attendee_ability": "can_see_others",    // 日程参与人权限。此处配置为无法编辑日程、无法邀请其它参与人、可以查看参与人列表。
+          "free_busy_status": "busy"    // 日程占用的忙闲状态，新建日程默认为忙碌（busy）。
+        }
+        ```
+        
+    调用成功后回显信息如下所示。
+    
+:::note
+你需要保存回显信息中的日程 ID（`event_id`），后续用于为日程添加用户或会议室，以及管理该日程。
+:::
+    
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c0e6a0f64a4712acf77b89b1d958c32c_scIG0Lx2b2.png?height=1078&lazyload=true&maxWidth=600&width=2242)

@@ -1,0 +1,232 @@
+<!--
+title: 抽屉
+id: 7477479883707285505
+fullPath: /tools-and-resources/design-specification/component----feedback/drawer
+updatedAt: 1742375642000
+source: https://open.feishu.cn/document/design-specification/component----feedback/drawer
+-->
+# 抽屉
+
+侧拉窗是屏幕侧边承载信息的容器。
+
+
+## 使用规则
+
+- 抽屉从窗体右边滑入，挤压或覆盖住部分父窗体内容。 用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到到原任务。
+- 当需要一个附加的面板来控制父窗体内容，这个面板在需要时呼出。比如，控制界面展示样式，往界面中添加内容。
+- 当需要在当前任务流中插入临时任务，创建或预览附加内容。比如展示协议条款，创建子对象。
+  
+  
+
+## 组成要素
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9bbf78ed9bbf47c506688116b64a28af_4jwZN5dKyo.png?height=3465&lazyload=true&width=3561)</md-td>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9e6761bdb0a61bd3facfc02bc7f33d15_6Nw45kh4xa.png?height=1732&lazyload=true&width=1780)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+由标题区、内容区、操作区组成的，位于页面右侧。标题区固定吸顶，为常驻区。操作区固定吸底，不是常驻区，可以根据选择是否存在。
+
+
+1. **标题**：标题区支持配置标题，标题应清晰传达当前模态弹窗的目的
+1. **描述** **（可选）** **：** 标题区支持配置描述，可以是简短的正文说明，也可以作为辅助信息展示
+1. **关闭（可选）：** 标题区支持操作右上角关闭按钮关闭抽屉
+1. **内容：** 内容区按照需求展示对应信息，可配置文本、表单、表格等
+1. **容器** 用于承载标题、内容和操作的区域
+1. **按钮（可选）：** 操作区为配置区、支持配置按钮文案及数量
+  
+  
+
+## 控件类型
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 80%;">说明</md-th>
+    </md-tr>
+    <md-tr>
+      <md-td>模态抽屉</md-td>
+      <md-td>
+-  对于有表单、有必选操作的场景，建议配置成模态侧拉窗，通过点击叉号或者相关操作按钮关闭，点击页面空白处无效。
+-  点击按钮是否会触发二次确认，可根据实际场景进行设置。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>非模态抽屉</md-td>
+      <md-td>
+-   对于无强制操作、只展示信息的场景，建议配置成非模态侧拉窗，点击页面空白处、右上方叉号或者其他操作按钮均可关闭。如非必填输入项有内容变动，建议实时保存并变更结果。
+-  如特殊场景下需将含表单的侧拉窗配成非模态，则建议保留数据实时生效。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+分为覆盖型抽屉和挤压型抽屉，在PC场景下，抽屉会随着窗口的大小在覆盖性抽屉和挤压型抽屉间变化。
+
+
+### 覆盖型抽屉
+
+常用于展示详情信息、筛选、或表单输入信息等场景。抽屉下方会出现#000000 55%的蒙层
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/13ac0641d5ef34de8b62bb3461413ccb_747tajC6Yk.png?height=1176&lazyload=true&maxWidth=800&width=2049)
+
+
+### 挤压型抽屉
+
+建议在需要左右联动、或内容需常驻页面右侧时使用。如查看内容评论等。挤压型抽屉与内容为同一层级，同层级通常无投影，可根据实际场景选择。
+
+挤压型抽屉建议使用小尺寸，尺寸过大会对正文内容的适配要求很高，不建议出现其他尺寸。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0203dbadaff864b256203277878308bb_K6ZCP0b5dV.png?height=1176&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 组件结构
+
+#### 标题区
+
+遵循标题规则，可根据实际进行配置。标题区可包含标题内容、展示信息、导航和操作。
+- 标题文本建议不超过 20 个字符，辅助信息建议不超过一行。
+- 标题区展示文字按钮，遵循按钮原则（按钮可选配图标），此类按钮最多展示三个，剩下放更多按钮里面。按钮文字个数建议四个字以内。
+- 标题区同时存在标题和辅助信息时，操作按钮及关闭按钮建议统一与标题顶对齐。
+- 具体排版需根据实际情况进行调整。如标题区元素较多、文字内容较长、或者有多个按钮时，建议选择中尺寸或大尺寸侧拉窗。
+
+<br>
+下图从上到下依次为基础、带标签、图标按钮、辅助信息、头像、Tabs 样式的抽屉
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/df6fe9d688fca8a760f1c73e8ee57b13_pit1l5StyB.png?height=2661&lazyload=true&maxWidth=800&width=2048)
+
+
+
+
+#### 内容区
+
+标题区固定吸顶，为常驻区。操作区固定吸底，内容区滚动时标题区与内容区域间距为 0px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a38b22556fd4660f7aec79d0edeb6d9a_s1ETHyiCY9.png?height=1746&lazyload=true&maxWidth=800&width=2048)
+
+
+#### 操作区
+
+操作区为配置区、支持配置按钮文案及数量。
+操作区固定吸底，不随侧拉窗内容区滚动。
+按钮区有2种对齐方式，跟根据实际场景选择。
+
+1. 右对齐，主操作居右
+1. 左对齐，主操作居左
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8c163321342ddb08cef76c4773b7658b_C9ydUKcfzj.png?height=844&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 使用场景
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>**覆盖型抽屉**</md-td>
+     <md-td>**挤压型抽屉**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>建议用于展示详情信息、筛选、或表单输入信息等场景。</md-td>
+     <md-td>建议在需要左右联动、或内容需常驻页面右侧时使用。如查看内容评论等。 </md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/db27aa6e5e4ab419bbbc1d86757f6e01_Pwskl3TB8j.png?height=3600&lazyload=true&width=5762)</md-td>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e691da363e3611ad1bd70bf6207921f6_n0oOhCMemI.png?height=3602&lazyload=true&width=5760)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+
+## 通用样式规则
+
+### 抽屉尺寸
+
+- 抽屉尺寸共 3 种，分别是小尺寸（固定宽度为 350px）、中尺寸（固定宽度为 480px）、大尺寸（固定宽度为 680px）。抽屉限定宽度，高度与窗口等高。支持滚动操作。可根据场景做适当调整。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c2e4787129a8d1a41788d99f1511aa70_rg0OdHw6qn.png?height=1162&lazyload=true&maxWidth=800&width=2048)
+
+<br>
+- 所有尺寸的抽屉，没有操作区的情况下，内容区与上下左右间距为一致
+- **间距可根据实际情况调整，但建议 Web 间距 24，PC 间距为 20**
+    - Web 的间距为 24
+    - PC 间距为 20
+- 有操作区，内容区和操作区间距为0px
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6283bbd860a1429dbe095dbaf5739ff4_2kPZuLab3z.png?height=781&lazyload=true&width=802)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2a04e43c1127d3273fbd53906cdb678f_6FdCfPqDsF.png?height=781&lazyload=true&width=802)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bfd4bf23e74406ccf47f8efc5355998a_osLZ8w8a9O.png?height=781&lazyload=true&width=802)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 标题尺寸
+
+- 标题区高度建议与导航菜单/头部区域高度一致，跟根据实际进行配置。
+    - 导航栏高度为 56px ，PC端对话框为 68px
+    - 标题与按钮顶对齐
+    - 带头像的标题，按钮和操作与头像水平对齐
+
+- 标题上下间距为 16px，与标签间距为 4px，标题区与右边操作区、按钮区最小间距为 40px，标题超出区域部分换行，按钮操作与第一行文本水平对齐
+    - 标题：16px medium，N900
+    - 描述文本或者辅助信息：14px Regular，N600
+    - 操作：遵循文字按钮规范，可根据选择颜色，按钮默认展示三个，超出三个，则第三个按钮展示为更多按钮样式，超出的按钮收在更多里面，按钮文字个数建议四个中文字符以内。
+    - 图标按钮：大小 20px，颜色 N600，遵循按钮规范，建议控制在 3 个内
+    - 头像：头像大小为 40px，与右边标题间距为 8px
+    - 标题与 tab 的间距为 16px，tab 尺寸为中尺寸
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/43a9dbdd736a75e7506194d5b441c1d1_gqK43zxSHv.png?height=2274&lazyload=true&maxWidth=600&width=2048)
+  
+
+### 状态说明
+
+按钮默认展示三个，超出三个，则第三个按钮展示为更多按钮样式，超出的按钮收在更多里面
+若 Tabs 页签宽度超出容器，则剩余页签收入“更多”中，Hover 展开下拉菜单进行选择
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7918f2c18acdd4fe5e6e4aa7b17c4dd9_wxtcUAbcvu.png?height=1753&lazyload=true&maxWidth=600&width=2048)
+  
+
+### 操作区
+
+配置内容和整体区域居中对齐。建议操作区内容距离上下左右间距为24px。特殊场景可根据线调整
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3ac3e7c7ad9ef27276f3a86927885f4d_cRkAFbj47S.png?height=569&lazyload=true&maxWidth=600&width=2048)

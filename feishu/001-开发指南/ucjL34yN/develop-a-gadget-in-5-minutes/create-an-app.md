@@ -1,0 +1,56 @@
+<!--
+title: 步骤一：创建应用
+id: 7036724259775512577
+fullPath: /home/develop-a-gadget-in-5-minutes/create-an-app
+updatedAt: 1702277887000
+source: https://open.feishu.cn/document/develop-gadgets-(not-recommended)/develop-a-gadget-in-5-minutes/create-an-app
+-->
+# 步骤一：创建应用
+
+飞书小程序的开发基于飞书开放平台应用，因此在正式开发小程序之前，你需要创建一个应用并为应用开通小程序能力。
+
+:::note
+本文以企业自建应用为例进行介绍。关于商店应用的开发流程详情，你可参见[商店应用开发流程](/ssl:ttdoc/uMzNwEjLzcDMx4yM3ATM/ugzNwEjL4cDMx4CO3ATM)。
+:::
+
+
+## 步骤一：创建应用
+:::html
+<md-td>
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 在开发者后台首页，单击 **创建企业自建应用**，然后填写应用名称和应用描述，最后单击 **创建**。
+  
+	<img src="https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/ac8587a6984946978b4d2f826e926afc~tplv-goo7wpa0wc-image.image?lazyload=true&width=2552&height=1736" style="width:70%"/>
+  
+3. 依次选择 **添加应用能力** > **按能力添加** > **小程序**，然后单击 **添加能力** 启用小程序。
+
+	<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e7a19dbfece69ddab9ba393e4e0b972e_xwzpIO7aUq.png?lazyload=true&width=2292&height=1414" style="width:70%"/>
+
+</md-td>
+:::
+## （可选）步骤二：创建并切换至测试版应用
+
+为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+
+:::html
+<md-td>
+1. 在左侧导航栏单击进入 **测试企业和人员** 页面，单击 **创建测试企业**，填写 **测试企业名称**、**手机号**、**验证码**，单击 **确认创建**。
+
+	<img src="https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/dc74dca16da2445b0996f0d00e8584af_P0P8gaPatc.png?lazyload=true&width=1192&height=600" style="width:40%"/>
+
+2. 在创建完成的测试企业操作栏，单击 **关联应用**，即可为当前应用自动生成测试版本。
+
+	<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0f9208ec71810a84b46eb111266523db_96fe7rEWeS.png?lazyload=true&width=2206&height=658" style="width:70%"/>
+
+3. 在左侧导航栏，单击应用名称右侧的切换图标并选择 **切换至测试版本**。
+  
+	<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e23b21c4d7d3f905a98a4bea78de381a_pSIBTR5E9d.png?lazyload=true&width=1368&height=538" style="width:70%"/>
+
+4. 在测试应用中，单击添加应用能力，然后添加小程序能力。
+  
+	<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/76142837929a1c141d43b3525c36ebe4_TBiq9S0fjh.png?lazyload=true&width=2474&height=1508" style="width:70%"/>
+  
+</md-td>
+:::
+

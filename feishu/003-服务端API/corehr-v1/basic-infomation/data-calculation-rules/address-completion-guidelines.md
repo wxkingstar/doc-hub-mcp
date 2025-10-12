@@ -1,0 +1,59 @@
+<!--
+title: 地址填写指南
+id: 7416182490740490242
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines
+updatedAt: 1726715750000
+source: https://open.feishu.cn/document/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines
+-->
+# 地址填写指南
+本文档旨在为用户提供指导，以正确填写不同国家/地区的地址信息，介绍地址相关字段的含义与使用方式。
+## 通用地址字段说明
+### 地理库
+- country_region：必填项，指定地址所在的国家或地区。
+- region：必填项，指定地址所在的省份/州等
+- city_v2：必填项，指定地址所在的城市或城镇。
+- district_v2：指定地址所在的区县，仅中国香港要求必须填写。
+### address_line_X
+用于存储地址详细信息的字段，address_line_1对于大多数国家/地区是必填项，但在一些国家/地区可能是选填项，其余address_line_X均为选填项。具体用途可能因国家/地区而异：
+
+- address_line_1：通常用于详细地址或街道地址
+- address_line_2：通常用于补充地址信息，如门牌号、街道号等
+- ...
+ 
+不同国家/地区有不同的 address_line 字段由于各国的地址格式和组成部分存在差异。
+### local_address_line_X
+用于存储使用当地文字或字符集的地址信息，主要用于使用非拉丁字母的国家/地区。local_address_line_1是否必填因国家/地区而异，其余local_address_line_X均为选填项。
+### postal_code
+邮政编码，是否必填因国家/地区而异。
+## 地址填写规则示例
+### 中国 (China)
+
+| 地址填写字段        | 英文名           | 中文名        | 是否必填         |排序|
+| --------- | -------------------- | ----- | ----------- | --------- |-----|
+|country_region|Country/Region|国家 / 地区|是|1|
+|region|Province/City|省份|是|2|
+|city_v2|City|城市|是|7|
+|district_v2|District|区县|否|8|
+|local_address_line_1 | Address Line - Chinese | 详细地址 - 中文 | 是 |9|
+|address_line_1 | Address Line - Western Script | 详细地址 - 拼音或英文 | 否 |10|
+|postal_code|Postal Code|邮政编码|是|11|
+地址结构为：**4 级地理库（国家、省份、城市、区县）**+**详细地址（local_address_line_1）**+**邮政编码**
+## 注意事项
+当传入请求包含 local_address_line_X 或 address_line_X，而该国家/地区定义的字段中不包含这些字段时，系统将忽略这些字段传入的值。这意味着：
+
+- 只有在国家/地区特定规则中定义的字段才会被处理
+- 传入未定义的字段不会导致错误，但这些字段的值将不会被使用
+## 常见问题
+### Q：local_address_line_X与address_line_X的区别是什么？
+- local_address_line_X 使用本地文字，而 address_line_X 通常使用拉丁字母。
+- 例如，在波斯尼亚和黑塞哥维那，有使用斯拉夫文的 local_address_line 字段。
+- 只有中国、日本等少数国家/地区包含local_address_line_X字段。
+### Q：字段的“排序”表示什么？
+当某些展示场景需要展示全地址的时候，系统会根据字段的排序拼接完整地址。
+### Q：完整的地址结构是怎样的？
+完整的地址结构为：**n 级地理库（国家、省份、城市、区县）**+**详细地址（local_address_line_1/address_line_1）**+**邮政编码**
+
+地址结构因国家/地区而不同，差异包括地理库级别、是否包含邮政编码等。
+## 附录：完整的国家/地区地址字段列表
+[飞书人事-地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)
+提供了不同国家/地区关于 address_line_X 和 local_address_line_X 等字段的详细说明。

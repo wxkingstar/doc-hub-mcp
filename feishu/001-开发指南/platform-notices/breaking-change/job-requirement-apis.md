@@ -1,0 +1,21 @@
+<!--
+title: 招聘需求相关接口新增「人员类型字段」用于替换历史字段「职位性质」
+id: 7293051632157786113
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/job-requirement-apis
+updatedAt: 1709279248000
+source: https://open.feishu.cn/document/platform-notices/breaking-change/job-requirement-apis
+-->
+# 招聘需求相关接口增加「人员类型」用于替换「职位性质」字段
+
+
+##  **变更说明**
+为满足租户对「人员类型（全职/实习/劳务/外包/顾问）」的自定义需求，以及和飞书管理后台、飞书人事的联动需求，会针对开放平台的部分接口进行修改。（在「获取招聘需求信息」、「创建招聘需求」、「更新招聘需求」、「获取招聘需求列表」中新增「人员类型字段」用于替换历史字段「职位性质」，请切换至新字段，切换前请咨询招聘团队，保证已在灰度中，可参考如下文档 [招聘需求自定义「人员类型」枚举值 - 功能说明](https://bytedance.feishu.cn/wiki/Ua64wiA86igIlVk9gHScJuNinZf?hide_fa_guide=yes)
+
+##  **功能名称**
+招聘需求「职位性质」字段切换为「人员类型」，支持自定义，并联动飞书管理后台 及飞书人事
+
+##  解决方案
+使用飞书人事的 「人员类型」（employee_type）替换 「职位性质」（recruitment_type)，切换有灰度控制，灰度阶段两个字段可以平替，切换前请咨询招聘团队确认租户灰度情况
+
+## 计划上线/生效日期
+2024-4-15

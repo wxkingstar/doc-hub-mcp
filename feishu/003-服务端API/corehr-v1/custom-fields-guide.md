@@ -1,0 +1,186 @@
+<!--
+title: 自定义字段说明
+id: 7411130584009687044
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide
+updatedAt: 1751869640000
+source: https://open.feishu.cn/document/corehr-v1/custom-fields-guide
+-->
+# 自定义字段说明
+当系统预置对象的字段无法满足数据需求时，可以通过飞书人事创建自定义字段
+> 说明：人事对象可分为预置对象和自定义对象
+> -   系统预置对象：飞书人事开箱时预置生成，不需要租户再创建
+> -   自定义对象：当用户在「设置」-「人员档案信息配置」-「个人信息」功能中添加自定义分组时，默认会创建一个与分组同名的自定义对象，自定义对象的 object_api_name 会按照 "custom_obj_xxx" 格式生成
+
+
+历史接口设计中存在以下两种命名格式，其含义是一致的。具体每个接口的定义，请参考各接口文档。
+```json
+{
+    "field_name": "xxxx",
+    "vaule": ""
+}
+```
+```json
+{
+	"custom_api_name": "xxxx",
+	"vaule": ""
+}
+```
+
+
+### **调用方式**
+
+**Step 1 ：** 调用「[获取飞书人事对象列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)」，查询自定义字段所属对象的 object_api_name
+> 说明：该接口中会返回预置对象和自定义对象
+
+
+**Step 2 ：** 根据对象的 object_api_name 调用「[获取自定义字段列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)」，获取字段的 custom_api_name
+
+常见系统对象:
+
+| 对象名称   | 对应的api name               |
+| ------ | -------------------- |
+| 个人信息  | person          |
+| 证件     | national_id          |
+| 地址     | address              |
+| 银行账户   | bank_account         |
+| 紧急联系人  | emergency_contact    |
+| 家庭成员   | dependent            |
+| 公民身份信息 | citizenship_status   |
+| 教育经历   | education            |
+| 工作经历   | work_experience      |
+| 资料附件   | personal_profile     |
+| 个人附加信息 | person_info_chn      |
+| 工作信息   | employment           |
+| 任职记录   | job_data             |
+| 离职信息   | offboarding_info     |
+| 试用期信息  | probation_management |
+| 部门     | department
+
+**Step 3 ：** 根据 object_api_name , custom_api_name 调用「[获取字段详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)」，获得字段详情
+
+### **示例**
+
+场景：「个人信息」对象下创建了一个自定义分组「个人证书」，需要查询「个人证书」下「职业证书等级」字段的枚举值有哪些。
+
+## 自定义字段如何传值
+飞书人事提供的很多 OpenAPI 都支持写入自定义字段的数据，例如入职、异动、员工信息、组织信息等，以「[员工信息-信息创建个人信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)」为例：
+- 设置了请求体 **「custom_fields」**，以field_name、value 的结构写入具体数据
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fe107bf84a430ca5e17deef80099ebb3_Jep9LXRvYw.png?height=1334&lazyload=true&maxWidth=852&width=2852)
+
+
+###  员工
+
+#### 雇佣信息&个人信息
+| 字段类型   | 类型值 |  value 格式  |
+| -----| ---- | --------------- | 
+|文本 | 1 | 单行文本：`"value": "\"handsome\""`，多行文本：`"value": "\"line1\\nline2\""`，多语文本：`"value":"\"[{\\\"lang\\\":\\\"zh-CN\\\",\\\"value\\\":\\\"123\\\"},{\\\"lang\\\":\\\"en-US\\\",\\\"value\\\":\\\"abc\\\"}]\""` |
+|布尔 | 2 | `"value": "true"` |
+|数字 | 3 | 	`"value": "1"` |
+|选项 | 4 | 单选`"value": "\"danxuana_7293641346149138452__c\""`， 多选`"value": "[\"duoxuana_7293641346149138452__c\",\"duoxuanb_7293641346149138452__c\"]"` |
+|查找 | 5 | 人员单选`"value": "\"7352793336239654444\""`，人员多选`"value": "[\"7352793336239654444\",\"7352501158509790764\"]"`|
+|时间日期 | 7 | `"value": "\"2023-01-01\""` |
+|附件 | 8 | `"value": "\"[{\\\"file_id\\\":\\\"6628e93d61997169cff733a3_7d2c3508b84a4ea2b734b43691840783\\\"}]\""`|
+#### 添加人员&更新人员
+| 字段类型   | 类型值 |  value 格式  |
+| -----| ---- | --------------- | 
+|文本 | 1 | 单行文本：`"value": "handsome"`，多行文本：`"value": "\"line1\\nline2\""`，多语文本：`"value":"\"[{\\\"lang\\\":\\\"zh-CN\\\",\\\"value\\\":\\\"123\\\"},{\\\"lang\\\":\\\"en-US\\\",\\\"value\\\":\\\"abc\\\"}]\""` |
+|布尔 | 2 | `"value": "true"` |
+|数字 | 3 | 	`"value": "1"` |
+|选项 | 4 | 单选`"value": "\"danxuana_7293641346149138452__c\""`， 多选`"value": "[\"duoxuana_7293641346149138452__c\",\"duoxuanb_7293641346149138452__c\"]"` |
+|查找 | 5 | 人员单选`"value": "7352793336239654444"`，人员多选`"value": "[\"7352793336239654444\",\"7352501158509790764\"]"`|
+|时间日期 | 7 | `"value": "2023-01-01"` |
+|附件 | 8 | `"value": "[{\"file_id\":\"68678691a283e1722f60d548_02fbd88c9dc843989ef82707467668fc\",\"mime_type\":\"jpg\",\"name\":\"test.jpg\",\"size\": 24459}]"`|
+
+注：附件类型字段中，“size” 的单位为字节（b）。
+
+### 入职
+
+创建/更新待入职接口 - 传入自定义字段
+
+
+| 字段类型  | type值       |  value 格式           |
+| -----|---- | --------------- | 
+|文本 | 1 |单语单行： `"value":"["这是单行文本"]"`（不支持多语单行、多语多行、多语多行） |
+|布尔 | 2 |`"value": "true"`  |
+|数字 | 3 |`"value": "12"` |
+|选项 | 4 |单选：`"value": "custom_enum_22__c_option1__c"`，多选：`"value":"["enum_api_name_1","enum_api_name_2"]"`  |
+|查找 | 5 |人员（单选）：`"value": "7182460042611050039"`，人员（多选）：`"value":"["7182460042611050039","7182460042611050039"]"` |
+|时间日期 | 7 |`"value": "2023-1-1"` |
+|附件 | 8 | `"value": "[{\"file_id\":\"67496da5128e75b20cf65270_a4b16106b8ac4b5b8b771d2d36e404f1\"},{\"file_id\":\"6628e93d61997169cff733a3_7d2c3508b84a4ea2b734b43691840783\"}]"`|
+
+注：通过standard_update_fields，和custom_update_fields指定要更新的字段，如果结构体中这个指定的字段没有值，就会清空
+
+
+### 异动
+发起异动 - 传入自定义字段（不支持清空操作）
+| 字段类型   | type值     |  value 格式           |
+| ------ | --- | --------------- | 
+|文本 | 1 | `"value":"这是一段单行文本"` |
+|布尔 | 2 | `"value":"true"` |
+|数字 | 3 | `"value":"2334.00"` |
+|选项 | 4 | 单选：`"value": "enum_api_name"`，多选：`"value":"["enum_api_name_1","enum_api_name_2"]"` |
+|时间日期 | 7 | `"value":"2023-01-24"` |
+
+
+
+###  离职
+操作员工离职 - 传入自定义字段（不支持清空操作）
+
+| 字段类型 |  type值    |  value 格式           |
+| - | ---- | --------------- | 
+|文本 | 1 | `"value":"这是一段单行文本"` |
+|布尔 | 2 | `"value":"true"` |
+|数字 | 3 | `"value":"2334.00"` |
+|选项 | 4 |单选：`"value": "custom_enum_22__c_option1__c"`，多选：`"value":"["enum_api_name_1","enum_api_name_2"]"` |
+|查找 | 5 |人员（单选）：`"value": "7182460042611050039"`，人员（多选）：`"value":"["7182460042611050039","7182460042611050039"]"` |
+|时间日期 | 7 |`"value":"2023-01-24"` |
+
+
+### 部门
+创建/更新 传入自定义字段（不支持清空操作）
+
+ 字段类型   | 类型值 |  value 格式  |
+| -----| ---- | --------------- | 
+|文本 | 1 | 单行文本：`"value": "\"这是一段单行文本\""`，多行文本：`"value":"\"这是多行文本第一行\\n这是多行文本第二行\""` |
+|布尔 | 2 | `"value": "true"` |
+|数字 | 3 | `"value": "2334.00"` |
+|选项 | 4 | 单选`"value": "\"custom_field_66__c_option2\""`， 多选`"value": "[\"duoxuana_7293641346149138452__c\",\"duoxuanb_7293641346149138452__c\"]"` |
+|查找 | 5 | 人员单选`"value": "\"7352793336239654444\""`，人员多选`"value": "[\"7352793336239654444\",\"7352501158509790764\"]"`|
+|时间日期 | 7 | `"value":"\"2023-01-24 00:00:00\""` |
+
+
+### 岗位、职务、自定义组织
+创建/更新 传入自定义字段（不支持清空操作）
+
+ 字段类型   | 类型值 |  value 格式  |
+| -----| ---- | --------------- | 
+|单语文本 | 1 | 单行文本：`"value": "这是一段单行文本"`，多行文本：`"value":"这是多行文本第一行\\n这是多行文本第二行"` |
+|多语单行文本 | 1 | 单行文本：`"value": "[{\"lang\":\"zh-CN\",\"value\":\"部门2\"}]"` |
+|多语多行文本 | 1 | 单行文本：`"value":"[{\"lang\":\"en-US\", \"value\":\"这是英文第一行\\n这是英文第二行\"},{\"lang\":\"zh-CN\",\"value\":\"这是中文第一行\\n这是中文第二行\"}]"` |
+|布尔 | 2 | `"value": "true"` |
+|数字 | 3 | `"value": "2334.00"` |
+|选项 | 4 | 单选`"value": "custom_field_66__c_option2"`， 多选`"value": "[\"duoxuana_7293641346149138452__c\",\"duoxuanb_7293641346149138452__c\"]"` |
+|查找 | 5 | 人员单选`"value": "7352793336239654444"`，人员多选`"value": "[\"7352793336239654444\",\"7352501158509790764\"]"`|
+|时间日期 | 7 | `"value":"2023-01-24 00:00:00"` |
+
+
+## 自定义分组数据如何传值
+目前飞书人事仅支持在「人员档案配置」-「个人信息」功能下创建自定义分组，因此仅「个人信息」相关的 OpenAPI 支持更新自定义分组的数据（即：「创建个人信息」、「更新个人信息」）。以[「更新个人信息」](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/patch)为例：
+
+- 注意事项：
+	> - 自定义分组的数据是**覆盖式更新**
+
+
+-   **传输示例：**
+    > -   更新 2 条「个人证书」数据，第一条是更新数据；第二条是新建一条数据
+    > -   自定义分组「个人证书」对应的 object_api_name = custom_obj_6
+    > -   自定义分组内包含的 2 个自定义字段「职业证书名称」、「职业证书类型」，对应的 custom_api_name 分别为 custom_field_1、custom_field_2
+      ```json
+      "custom_fields": [
+        {
+          "field_name": "custom_obj_6",
+          "value": "[{\"custom_field_1\":\"证书名称一\",\"custom_field_2\":\"enum_api_name_1\",\"wk_id\":\"6863326262618752111\"},{\"custom_field_1\":\"证书名称二\",\"custom_field_2\":\"enum_api_name_2\"}]"
+        }
+      ]
+      ```

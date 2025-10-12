@@ -1,0 +1,292 @@
+<!--
+title: 日历资源介绍
+id: 7062619112195325956
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction
+updatedAt: 1712717869000
+source: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/introduction
+-->
+# 日历资源介绍
+
+日历资源包括日历本身的资源以及日历包含的日程资源。日历本身可以创建多个，并且每个日历拥有标题、颜色、类型以及公开范围等属性。同时，针对每一个日历，都支持查询其中的日程忙闲信息。你可通过开放平台提供的创建、订阅以及查询等一系列 API，管理日历资源、查询日程忙闲。
+
+## 基本概念
+
+在正式使用 API 之前，你需要先了解以下基本概念。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width: 20%">概念</md-th>
+<md-th style="width: 80%">介绍</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>身份</md-td>
+<md-td>身份分为用户身份和应用身份。用户或应用（需开启机器人能力）均可以创建或订阅一个或多个日历。
+<md-alert type="tip" icon="none">开放平台设计了访问凭证（access_token）机制，以确保 API 调用的安全性。详情可参见[获取访问凭证](/ssl:ttdoc/ukTMukTMukTM/uMTNz4yM1MjLzUzM)。你在实际调用 API 时，需要使用访问凭证来表明当前的身份。</md-alert>
+</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>日历</md-td>
+<md-td>飞书日历主要分为主日历、共享日历两类。此外也支持同步第三方日历（例如 [Exchange](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction)）。
+- 主日历：用户或者应用（需开启机器人能力）默认拥有的日历，与用户或应用同名，且不可删除。
+- 共享日历：由用户或应用（需开启机器人能力）创建的日历，在创建时可自定义名称、描述以及公开范围等属性。
+  
+日历支持调整公开范围，因此你可以将指定的日历作为个人私密日历使用，或者是公开日历与团队内其他成员共享使用。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>订阅</md-td>
+<md-td>用户可以订阅公开的日历。订阅后，用户可以查看或管理该日历中的日程，实现团队协作与沟通。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>工作时间</md-td>
+<md-td>用户在客户端日历设置中自定义的工作时间，用于标记工作时间段与非工作时间段。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>忙闲</md-td>
+<md-td>日历在某一时间段内的忙碌、空闲信息。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>事件</md-td>
+<md-td>日历资源包含一个日历变更事件，通过订阅该事件，你可以及时获取用户日历变更情况，并做出相应的业务处理。</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+## 使用限制
+
+单个用户或者单个应用可订阅的日历数量上限为 1000。
+
+## 字段说明
+
+日历资源本身包含的属性说明如下。
+
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 20%;">名称</md-th>
+      <md-th style="width: 20%;">类型</md-th>
+      <md-th style="width: 50%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >calendar_id</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历 ID，是日历实体的唯一标识，只读字段。你可以通过该 ID 查询、删除或者更新日历信息。<br>
+          
+**示例值**："feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"<br>
+          
+**获取方式**：
+- [创建共享日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create)
+- [查询主日历信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)
+- [查询日历列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)
+- [搜索日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)
+
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >summary</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历标题。
+          
+**示例值**："测试日历"
+          
+**数据校验规则**：<br>
+- **最大长度**：`255` 字符
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >description</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历描述。
+          
+**示例值**："使用开放接口创建日历"
+          
+**数据校验规则**：
+- **最大长度**：`255` 字符
+
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >color</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >int</md-text>
+        </md-td>
+        <md-td>
+日历颜色，取值通过颜色 RGB 值的 int32 表示，其中，24 ~ 31 位为透明度，16 ~ 23 位为红，8 ~ 15 位为绿，0 ~ 7 位为蓝。例如，-11034625 表示 RGB 值 (87, 159, 255)。
+          
+**注意**：
+- 日历颜色会映射到飞书客户端色板上最接近的一种颜色进行展示。
+- 该颜色仅对当前身份生效（当前身份由调用 API 时的访问凭证决定）。
+          
+**示例值**：-11034625
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >summary_alias</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历备注名。
+          
+**注意**：添加或修改备注名仅对当前身份生效（当前身份由调用 API 时的访问凭证决定）。
+          
+**示例值**："日历备注名"
+          
+**数据校验规则**：
+- **最大长度**：`255` 字符
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >type</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历类型，只读字段。
+          
+**可选值有**：
+- `primary`：用户或应用的主日历
+- `shared`：由用户或应用创建的共享日历
+- `google`：用户绑定的谷歌日历
+- `resource`：会议室日历
+- `exchange`：用户绑定的Exchange日历
+- `unknown`：未知类型
+
+**示例值**：`primary`
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >permissions</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+日历公开范围。<br>
+          
+**可选值有**：
+- `private`：私密
+- `show_only_free_busy`：仅展示忙闲信息
+- `public`：他人可查看日程详情
+
+**示例值**：`show_only_free_busy`<br>
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >role</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >string</md-text>
+        </md-td>
+        <md-td>
+当前身份（当前身份由调用 API 时的访问凭证决定）对于该日历的访问权限，只读字段。<br>
+          
+**可选值有**：
+- `free_busy_reader`：游客，只能看到忙碌、空闲信息
+- `reader`：订阅者，可查看所有日程详情
+- `writer`：编辑者，可创建及修改日程
+- `owner`：管理员，可管理日历及共享设置
+- `unknown`：未知权限
+          
+**示例值**：`owner`
+          
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >is_deleted</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >boolean</md-text>
+        </md-td>
+        <md-td>
+对于当前身份（当前身份由调用 API 时的访问凭证决定），日历是否已经被标记为删除。只读字段。<br>
+          
+          
+**示例值**：false
+          
+        </md-td>
+</md-tr>
+    
+<md-tr>
+        <md-td>
+        <md-text type="field-name" >is_third_party</md-text>
+        </md-td>
+        <md-td>
+        <md-text type="field-type" >boolean</md-text>
+        </md-td>
+        <md-td>
+当前日历是否是第三方数据。三方日历及日程只支持读，不支持写入，即该字段为只读字段。<br>
+          
+          
+**示例值**：false
+         
+        </md-td>
+</md-tr>
+    
+  </md-tbody>
+</md-table>
+:::
+
+##  数据示例
+
+```json
+{
+    "calendar_id": "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn",
+    "color": -11034625,
+    "description": "使用开放接口创建日历",
+    "permissions": "private",
+    "role": "owner",
+    "summary": "测试日历",
+    "summary_alias": "日历备注名",
+    "type": "primary",
+    "is_deleted": false,
+    "is_third_party": false
+}
+```
+

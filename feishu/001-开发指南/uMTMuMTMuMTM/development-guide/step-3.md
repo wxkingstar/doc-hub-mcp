@@ -1,0 +1,85 @@
+<!--
+title: 步骤三（可选）：配置应用免登流程
+id: 7129326641579868163
+fullPath: /uYjL24iN/uMTMuMTMuMTM/development-guide/step-3
+updatedAt: 1706851584000
+source: https://open.feishu.cn/document/client-docs/h5/development-guide/step-3
+-->
+# 步骤三（可选）：配置应用免登流程
+
+在开放平台创建好自建应用后，即可在本地开发相应的 Web 项目。如果你希望应用在飞书客户端内被访问时，可以获取客户端登录用户的信息，实现免登访问应用，则可以为应用配置免登流程。本文主要介绍应用免登的工作流程，以及实现免登的 [requestAccess](/ssl:ttdoc/uYjL24iN/uUzMuUzMuUzM/requestaccess) 接口相关的常见问题。
+
+:::note
+**示例代码**
+<br>
+关于如何在 Web 项目中实现应用免登，开放平台提供了相应的网页应用开发教程。开发教程中包含完整的网页应用示例代码，你可以查看代码介绍、体验开发流程，从而帮助你了解和使用应用免登能力。详情参见[网页应用免登](/ssl:ttdoc/home/quickly-create-a-login-free-web-app/introduction-to-sample-code)。
+<br><br>
+**以用户身份调用OpenAPI**
+<br>
+如果需要获取用户的user_access_token调用OpenAPI，代表以该用户身份来执行/访问数据，那么额外还涉及到增量授权链路，参见 [端内网页应用增量授权接入指南](/ssl:ttdoc/uYjL24iN/uMTMuMTMuMTM/development-guide/webapp-incremental-authorization-access-guide)。
+:::
+
+## 免登流程
+
+如果用户已登录飞书客户端，则可以直接访问客户端内的网页应用，无需二次登录。在实际开发应用的过程中，你可以通过如下流程图获取已登录用户的信息。
+
+![web_app_login_cn.jpg](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4ff9e594b006622ed56d5197583494be_abpf7otKDg.jpg?height=1236&lazyload=true&maxWidth=750&width=1816)
+
+流程说明：
+
+- 上图中的 App ID 和 App Secret 为整个流程仅需的输入信息。
+    
+    App ID 和 App Secret 参数位于[开发者后台](https://open.feishu.cn/app)中该应用的详情页面**凭证与基础信息**。
+
+- 上图中飞书客户端和接入方服务端，与认证中心的数据交换通过 HTTP 请求完成。
+    
+    涉及数据交换的步骤序号：1~2、4~5、8~9、10~11。
+
+- 上图中接入方前端与飞书客户端的数据交换（步骤序号：3~6）通过 JSAPI 调用完成。
+
+- 上图中接入方前端与接入方服务端的数据交换（步骤序号：7、12）在你的网页应用框架内自行完成。
+
+[requestAccess](/ssl:ttdoc/uYjL24iN/uUzMuUzMuUzM/requestaccess) 兼容示例代码：
+```
+if (window.tt.requestAccess) {
+  window.tt.requestAccess({
+    // 网页应用 App ID
+    appID: "cli_xxx",
+    scopeList: [],
+    success: (res) => {
+      // 用户授权后返回预授权码
+      const { code } = res;
+    },
+    fail: (error) => {
+      // 需要额外根据errno判断是否为 客户端不支持requestAccess导致的失败
+      const { errno, errString } = error;
+      if (errno === 103) {
+        // 客户端版本过低，不支持requestAccess，需要改为调用requestAuthCode
+        callRequestAuthCode();
+      } else {
+        // 用户拒绝授权或者授权失败
+      }
+    },
+  });
+} else { // JSSDK版本过低，不支持requestAccess，需要改为调用requestAuthCode
+  callRequestAuthCode();
+}
+
+function callRequestAuthCode() {
+  window.tt.requestAuthCode({
+    // 网页应用 App ID
+    appId: "cli_xxx",
+    success: (res) => {
+      // 用户免登录后返回预授权码
+      const { code } = res;
+    },
+    fail: (error) => {
+      // 免登失败，返回相应的errno和errString
+      const { errno, errString } = error;
+    },
+  });
+}
+```
+:::note
+网页应用**前端**实现免登流程需要**服务端**配合。建议你合理安排前端和服务端开发人员共同参与。
+:::

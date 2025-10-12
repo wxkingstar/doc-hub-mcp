@@ -1,0 +1,188 @@
+<!--
+title: 开始使用
+id: 7472308462216462364
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-quick-start
+updatedAt: 1739789346000
+source: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-quick-start
+-->
+# 开始使用
+
+:::warning
+！！！旧版SDK已不再维护，请尽快升级到[新版SDK](/ssl:ttdoc/uYjL24iN/uYDO3YjL2gzN24iN3cjN/introduction)。
+:::
+
+## 组件介绍
+你可以 [点击这里](https://open.feishu.cn/web-component/docs-component/?source=open_platform) 查看云文档组件的介绍并在线体验。
+:::note
+- 网页组件只适用于自建应用，暂不支持商店应用。
+- 网页组件适用于普通web网页，不建议在小程序webview中调用此组件
+:::
+
+## 步骤一：确认组件鉴权类型
+
+云文档网页组件支持用户身份和应用身份两种不同的鉴权方式，请根据业务场景选择其中的一种：
+
+- 如果以用户身份鉴权，则将会以登录用户的身份打开云文档，如果用户没有该云文档的读写权限，则无法操作云文档。
+
+- 如果以应用身份鉴权，则会以应用身份打开云文档，不会校验登录用户是否有读写该云文档的权限。需要提前为应用授予云文档的读写权限，操作方式参见[如何为应用开通云文档相关资源的权限](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。应用身份授权时，访问量受 100 次/分钟限制，且组件不支持 “编辑”、“评论”、“点赞” 等功能。
+
+## 步骤二：创建应用并申请权限
+
+1. 登录[开发者后台](https://open.feishu.cn/app/)。
+2. 点击 **创建企业自建应用**。
+3. 创建成功之后，进入应用详情页，在 **凭证与基础信息** 功能页获取应用的 App ID。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8e1af4302c862a1ee8875d4d2424fc41_2GGZ2xoeiB.png?height=366&lazyload=true&maxWidth=600&width=2610)
+    
+4. 在 **开发配置 > 权限管理** 功能页，为应用申请 API 权限。
+
+	点击 **开通权限**，在右侧弹出的界面内选择指定身份，再开通权限。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d063dbf27ea65696d9f96344b205f0b8_mihZ9Mazwl.png?height=1528&lazyload=true&maxWidth=600&width=2330)
+
+	点击申请权限，搜索权限：**查看、评论、编辑和管理云空间中所有文件(drive:drive)**，并根据上文 **步骤一：确认组件鉴权类型** 选择身份类型：如果是用户身份，则添加用户身份权限；如果是应用身份，则添加应用身份权限，添加权限后点击 **确认开通权限**。
+
+	如果需要使用云文档组件中的查看成员名片信息或搜索数据功能，则按需申请以下权限：**获取成员名片信息（component:user_profile）**、**搜索数据（component:selector）**，身份类型选择 **用户身份权限 user_access_token**。
+	
+    
+5. （可选）发布应用。 
+
+	如果以上申请的权限在当前租户管理员设置的权限等级是免审权限，则可以申请后直接生效。如果以上申请的权限为需要审核权限，则必须发布应用使配置生效。
+    
+    1. 在应用详情页左侧进入 **应用发布 > 版本管理与发布** 功能页。
+    2. 点击 **创建版本**。
+
+		![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/262335c6bf6833243c30d83c9d8a470d_Jeb9sNPu00.png?height=842&lazyload=true&maxWidth=600&width=2882)
+        
+    3. 在 **版本详情** 页面，配置应用的版本号、能力、更新说明、可用范围等信息，并在页面底部点击 **保存**。
+    4. 在弹窗内点击 **确认发布**。
+
+		提交后需要等待企业管理员审核，审核通过后应用将发布成功，申请的 API 权限才会正式生效。
+ 
+
+## 步骤三：调用组件
+
+### 1. 引入组件库
+
+在网页 html 中引入飞书网页组件SDK：
+```html
+<!--在网页 html 中-->
+<script src="https://lf3-cdn-tos.bytegoofy.com/obj/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.2.21.js"></script>
+```
+
+### 2. SDK鉴权
+详细鉴权流程请参见[组件SDK鉴权流程](/ssl:ttdoc/uYjL24iN/uUDO3YjL1gzN24SN4cjN)。支持用户身份和应用身份两种鉴权方式。参见上文 **步骤一：确认组件鉴权类型** 中的鉴权方式选择。如果以用户方式鉴权，获取 access_token时传入user_access_token，如果以应用方式鉴权，获取 access_token时传入 app_access_token
+::: warning
+应用身份授权时，访问量受 100 次/分钟限制，且组件不支持 “编辑”、“评论”、“点赞” 等功能。
+:::
+调用如下方法完成组件鉴权：
+```js
+window.webComponent.config({
+  openId,    // 当前登录用户的open id，要确保与生成 signature 使用的 user_access_token 相对应，使用 app_access_token 时此项不填。
+  signature, // 签名
+  appId,     // 应用 appId
+  timestamp, // 时间戳（毫秒）
+  nonceStr,  // 随机字符串
+  url,       // 参与签名加密计算的url
+  jsApiList, // 指定要使用的组件，请根据对应组件的开发文档填写。如云文档组件，填写['DocsComponent']
+  lang,      // 指定组件的国际化语言：en-英文、zh-中文、ja-日文
+}).then(res=>{
+  // 可以在这里进行组件动态渲染
+})
+```
+
+### 3. 渲染组件
+在完成鉴权后，通过render方法渲染组件：
+::: warning
+使用时需要给文档设置一个固定高度，否则会全量加载文档，有性能问题
+:::
+```js
+window.webComponent.config({
+  // ...
+}).then(res => {
+  // 动态渲染，返回组件实例。
+  myComponent = window.webComponent.render(
+    'DocsComponent',
+    { 
+      // 初始化配置 建议传入，可避免抖动等问题。必须写在src参数前面
+      featureConfig: JSON.stringify(featureConfig),
+      src: 'https://feishu.feishu.cn/docs/doccndIw0JiqrG5GtVB0e9joaVf',
+      minHeight: '500px',
+      width: '100%',
+    },
+    document.querySelector('#your-mount-point'), // 将组件挂在到哪个元素上
+  )
+})
+
+// 销毁组件
+myComponent.unmount()
+```
+组件支持的参数：
+| 属性名         | 类型           | 默认值         | 描述        |
+| --------- | --------------- | -------   | ----------- | --------- |
+|`src` | `string` | - | 文档对应 URL |
+|`theme` | `string`  | light | 组件主题色(不支持mobile)<br> **可选值有：**<br> &nbsp;&nbsp;- light <br>&nbsp; - dark |
+|`width` | `string | number`  | 100% | 组件宽度 |
+|`height` | `string | number` | auto | 组件高度 |
+|`minHeight` | `string | number` | 当 height 为 auto 时，默认值为 500 px | 组件最小高度 |
+
+
+## 功能配置
+详细配置请参见[云文档组件功能配置](/ssl:ttdoc/uYjL24iN/uYDO3YjL2gzN24iN3cjN/feature-config)。
+```js
+myComponent.config.setFeatureConfig({
+  HEADER: {
+    enable: false, //  隐藏头部
+  },
+  MODAL: {
+    outerMask: true,
+  },
+});
+```
+
+## 异常捕获
+> 业务方需要保证鉴权有效性，当出现鉴权失败等问题时，需要进行**重新鉴权**。
+```ts
+// 捕获 sdk 鉴权错误
+window.webComponent.onAuthError(function (error: Error) {
+  console.error('auth error callback', error)
+})
+
+// 捕获组件内部错误
+myComponent.onError(function (error: Error) {
+  console.error('custom error:', error)
+})
+
+interface Error {
+  code: string;
+  msg: string;
+}
+
+// 云文档组件的错误码 code
+enum ERROR_TYPE { 
+	NO_PERMISSION = '4',       // 无阅读权限 
+	NOTE_DELETED = '1002',     // 文档删除 
+	NOT_FOUND = '1004',        // 找不到文档 
+	NETWORK_ERR = '-8',        // 加载时网络错误 
+	REQUEST_FAIL = '1',        // 请求后端发生错误
+   NOT_SUPPORT = '-100',    // 不支持该地址
+   LOAD_ERROR = '-500',     // 加载错误
+}
+```
+
+## 调用接口
+```js
+// 例子：打开文档详情
+myComponent.invoke.documentInfo(true).then(function(response) {
+  const { code, msg } = response;
+  // ...
+});
+```
+
+## 事件监听
+```js
+// 例子：监听文档标题变化
+myComponent.event.onTitleChange(function(title) {
+  console.log(`new title: ${title}`);
+});
+```

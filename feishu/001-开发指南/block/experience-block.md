@@ -1,0 +1,21 @@
+<!--
+title: 体验小组件
+id: 6989248828936044546
+fullPath: /uAjLw4CM/uYjL24iN/block/guide/experience-block
+updatedAt: 1657872319000
+source: https://open.feishu.cn/document/client-docs/block/experience-block
+-->
+# 体验小组件
+
+
+:::html
+<md-alert type="tip">
+预览需保证飞书客户端是 **4.8.0** 及其以上版本。
+</md-alert>
+:::
+
+| **类型** | **预览**                 |
+| ------ | ------ | ---------------------- | ---------- |
+| 扫码体验   | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/62149cafceb008e52bc2b5b53360df0c_wemFyhaY2w.png?lazyload=true&width=260&height=260) |
+| 跳转体验   | [点击查看预览](https://applink.feishu.cn/client/block/workplace/open?appId=cli_a180fc58feb8d00b&blockTypeId=blk_610a40455f800004c32b6bb6&sourceData=%7B%22tab%22%3A%22api%22%7D) |
+

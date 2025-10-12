@@ -1,0 +1,41 @@
+<!--
+title: 步骤一：创建并配置应用
+id: 6997733381623611393
+fullPath: /home/synchronize-corporate-organizational-structure-to-feishu/determine-which-api-to-call
+updatedAt: 1693825336000
+source: https://open.feishu.cn/document/synchronize-corporate-organizational-structure-to-feishu/determine-which-api-to-call
+-->
+# 步骤一：创建并配置应用
+
+通过本步骤您将创建一个测试应用，并开通应用权限，用于后续调用 API。
+
+## 操作步骤
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 在开发者后台首页，单击 **创建企业自建应用**，填写应用名称、描述以及图标信息，然后单击 **创建**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8024a7e2fd42054b4653d54fc884ae54_ZVvF9Not68.png?height=1526&lazyload=true&maxWidth=600&width=2512)
+
+3. 关联测试企业，生成测试版本的应用。
+
+    1. 在应用详情页左侧导航栏，进入 **测试企业和人员** 页面，并在页面右上角单击 **创建测试企业**。
+        
+
+        为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+
+    2. 在 **创建测试企业** 对话框，填写 **测试企业名称**、**手机号**、**验证码**，并单击 **确认创建**。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/85af43ae4f1337a78e80d3608c590449_p0BPJMy5w1.png?height=1378&lazyload=true&maxWidth=600&width=3572)
+
+    3. 创建测试企业后，在 **操作** 列，单击 **关联应用**。
+    
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/341586fdf85d2297f0eb9ef2e85a1b09_dxjotnxATZ.png?height=552&lazyload=true&maxWidth=600&width=2950)
+
+    4. 测试企业关联应用后，在页面顶部切换企业应用为测试版应用。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d934d17429ce3722de3fafa4ae4356e_JZgDfZmmlD.png?height=804&lazyload=true&maxWidth=600&width=3576)
+
+5. 在 **开发配置** > **权限管理** 页面，为应用添加`更新通讯录`权限。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/90b55a50fd97f4e9aefee1b0d96c3a67_JXS5ZPc4av.png?height=1264&lazyload=true&maxWidth=600&width=2874)

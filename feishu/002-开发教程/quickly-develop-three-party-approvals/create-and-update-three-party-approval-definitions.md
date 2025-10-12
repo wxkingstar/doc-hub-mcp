@@ -1,0 +1,142 @@
+<!--
+title: 步骤四：同步三方审批数据
+id: 7122074496182796290
+fullPath: /home/quickly-develop-three-party-approvals/create-and-update-three-party-approval-definitions
+updatedAt: 1711528837000
+source: https://open.feishu.cn/document/quickly-develop-three-party-approvals/create-and-update-three-party-approval-definitions
+-->
+# 步骤四：同步三方审批数据
+
+创建三方审批定义后，你需要调用[同步三方审批实例](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口，将用户在三方审批系统内发起的审批流数据（包括审批实例、审批任务、审批抄送数据等），同步至飞书审批中。
+
+## 操作步骤
+
+1. 登录 [API 调试台](https://open.feishu.cn/api-explorer/)。
+
+2. 在左侧 **API 列表** 中，选择 **审批** > **三方审批实例** > **同步三方审批实例**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b1ced11119d2f72f6818e09d900743da_IsFr5Hhceg.png?height=1452&lazyload=true&maxWidth=600&width=2882)
+
+3. 完成以下参数配置，并点击 **开始调试**。
+    
+    - **请求头**：**Authorization** 字段以默认配置了应用访问凭证 **tenant_access_token**。
+    
+    - **请求体**：示例配置以及参数说明请参见以下JSON 示例代码。
+        
+        注意事项：
+        
+        - 你可以点击 **请求体** 内的 **恢复示例值**，查看系统提供的示例请求体。
+        
+        - 在实际使用以下 JSON 示例代码时，需要注意将`//`开头的注释文字去掉后再使用。
+        
+        - 关于接口完整参数的配置说明，参见[同步三方审批实例](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)。
+        
+        - 你需要保存当前请求体的 JSON 内容，后续当审批状态更新后，需要重新调用该接口更新审批实例、审批任务的状态。
+        - 用户 user_id 获取方式参见[如何获取 User ID、Open ID 和 Union ID？](/ssl:ttdoc/home/user-identity-introduction/open-id)。
+        
+        
+        ```JSON
+        {
+          "approval_code": "9D706BA5-9E9F-416E-96CB-53FEF8B9xxxx", // 审批定义 code， 创建审批定义返回的 approval_code 值，此处填写“步骤三：创建三方审批定义”内获取到的 approval_code。
+          "instance_id": "3162634", // 由你自定义的审批实例唯一标识，需要确保同租户下数值唯一。
+          "status": "PENDING", // 审批实例的状态。
+          "links": { // 审批实例的链接集合，用于在飞书审批中跳转回三方系统。PC 端链接（pc_link）和移动端链接（mobile_link）必须填一个。
+            "pc_link": "http://applink.feishu.cn/sso/common?xxx",
+            "mobile_link": "http://applink.feishu.cn/sso/common?xxx"
+          },
+          "title": "@i18n@1", // 该审批的名称。这里使用 @i8n@ 定义 key，然后在 i18n_resources 参数中，为该 key 赋 value。
+          "form": [ // 用户提交审批时填写的表单数据。这里使用 @i8n@ 定义 key，然后在 i18n_resources 参数中，为该 key 赋 value。
+            {
+              "name": "@i18n@2",
+              "value": "@i18n@3"
+            }
+          ],
+          "user_id": "454dg7x4", // 审批发起人的 user_id。
+          "user_name": "李健",
+          "start_time": "1688022000000", // 审批实例发起时间。Unix 毫秒时间戳。
+          "update_time": "1688022600000", // 审批实例最近更新时间。Unix 毫秒时间戳。
+          "end_time": 0, // 审批实例结束时间。未结束的审批为 0 值。Unix 毫秒时间戳。
+          "update_mode": "REPLACE", // 设置审批实例的更新方式。示例值 REPLACE 表示每次更新数据时，全量替换历史数据。
+          "task_list": [ // 审批任务列表。
+            {
+              "task_id": "112253", // 任务ID。审批实例内的唯一标识，用于更新任务时定位数据。
+              "user_id": "454dg7x4", // 审批任务中的审批人 user_id。
+              "links": { // 审批任务中使用的跳转链接，用于跳转回三方系统。PC 端链接（pc_link）和移动端链接（mobile_link）必须填一个。
+                "pc_link": "http://www.example.com",
+                "mobile_link": "http://www.example.com"
+              },
+              "status": "PENDING", // 审批任务的状态。
+              "title": "同意审批", // 审批任务名称。
+              "create_time": "1688022000000", // 任务创建时间。Unix 毫秒时间戳。
+              "end_time": 0, // 任务结束时间，未结束的任务为 0 值。Unix 毫秒时间戳。
+              "update_time": "1688022600000", // 任务最近更新时间。Unix 毫秒时间戳。
+              "action_context": "123456", // 操作上下文。用于回调请求中传递上下文数据。
+              "action_configs": [ // 任务操作配置。
+                {
+                  "action_type": "APPROVE", // 操作类型。
+                  "action_name": "@i18n@1", // 操作名称。这里使用 @i8n@ 定义 key，然后在 i18n_resources 参数中，为该 key 赋 value。
+                  "is_need_reason": true, // 是否需要填写审批意见。true 表示审核时需要填写审批意见。
+                  "is_reason_required": true, // 审批意见是否必填。
+                  "is_need_attachment": true // 是否支持上传附件。
+                }
+              ]
+            }
+          ],
+          "cc_list": [ // 审批抄送列表。
+            {
+              "cc_id": "1231243", // 抄送 ID，审批实例内的唯一标识。
+              "user_id": "454dg7x4", // 抄送人的 user_id。
+              "links": { // 抄送信息的跳转链接，用于跳转回三方系统。PC 端链接（pc_link）和移动端链接（mobile_link）必须填一个。
+                "pc_link": "http://www.example.com",
+                "mobile_link": "http://www.example.com"
+              },
+              "read_status": "READ", // 抄送的阅读状态。
+              "title": "抄送任务", // 抄送任务名称。
+              "create_time": "1688022000000", // 抄送发起时间。
+              "update_time": "1688022600000" // 抄送最近更新时间。
+            }
+          ],
+          "i18n_resources": [ // 国际化文案配置。
+            {
+              "locale": "zh-CN", // 示例配置中仅配置了中文文案。
+              "is_default": true, // 是否作为默认语言。
+              "texts": [
+                {
+                  "key": "@i18n@1",
+                  "value": "测试审批"
+                },
+                {
+                  "key": "@i18n@2",
+                  "value": "天"
+                },
+                {
+                  "key": "@i18n@3",
+                  "value": "2023-06-29"
+                }
+              ]
+            }
+          ]
+        }
+        ```
+        
+调用成功的回显信息如下图所示。
+    
+:::note
+你需要保存实例 ID（`instance_id`）、任务 ID（`task_id`）参数值，后续可用于校验三方审批实例。     
+:::
+    
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/272b37ff31effa9376af49b2e3ba6c8e_e5i4O0JsLL.png?height=1092&lazyload=true&maxWidth=600&width=2252)
+    
+使用审批人或者抄送人的用户信息登录飞书客户端，在 **工作台** > **审批** > **审批中心**，可以查看对应的审批任务与抄送信息。
+    
+- 在 **已发起** 中，查看审批实例信息。
+        
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/23c232ed8c43387ce055cc1f22f3e5ea_QN2joUF9fU.png?height=970&lazyload=true&maxWidth=600&width=1238)
+
+- 在 **待办** 或 **已办** 中，查看审批任务信息。
+        
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/258ff3a948913cc41faba96ab19f8eb4_tgv31St0RD.png?height=1006&lazyload=true&maxWidth=600&width=1230)
+
+- 在 **抄送我** 中，查看抄送的审批信息。
+        
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f6d8b2119ed0eda6272c93fa05729328_npUM74GucR.png?height=1020&lazyload=true&maxWidth=600&width=1240)

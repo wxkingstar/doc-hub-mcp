@@ -1,0 +1,35 @@
+<!--
+title: 名词解释
+id: 7231766347977392131
+fullPath: /uAjLw4CM/uYjL24iN/docs-add-on/02-cloud-doc-block-noun-explanation
+updatedAt: 1686207327000
+source: https://open.feishu.cn/document/client-docs/docs-add-on/02-cloud-doc-block-noun-explanation
+-->
+# 名词解释
+
+文档提供两种类型的小组件让开发者自由实现应用，还提供多个附属视图增强小组件的能力。
+
+## 组件类型
+
+| 名称    | **描述**                                        | **图示**                                                                                                                                                                                                                                                |
+| ----- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 正文小组件 | 正文小组件属于正文内容，作为一个内容块功能与体验与其他内容块（如：思维导图、流程图）一致。 | ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2bb1227e6c1d0665c1c01d607e88ac29_WsEqDaC8P2.png?lazyload=true&width=2880&height=1800) |
+| 悬浮小组件 | 悬浮小组件是独立于云文档内容的模块，可以自由拖动定义大小不受正文干扰。           | ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/81b4579e347afacddf826ffefc1e7489_04OrFBh08P.png?lazyload=true&width=1459&height=900) |
+  
+
+## 附属视图
+- 附属视图以正文小组件作为载体，调用 API 约束会跟随主体。
+- 只有正文小组件类型可以启动附属视图。
+- 附属视图需要在 app.json 内提前进行声明，并调用相关 API 进行展示和隐藏。具体操作，请参考 [app.json 配置说明](/ssl:ttdoc/uAjLw4CM/uYjL24iN/docs-add-on/03-cloud-doc-block-rapid-development-guide/appjson-configuration-instructions)
+
+名称     | **描述**             | **图示**                                                                                                                                                                                                                                                | 使用方式                                                                                                                                                                                                                         |
+| ------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 全屏视图   | 全屏视图，可以让视图充满整体可视区域 | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b8a950367b483ba7bcc09d37b08e57b8_ywwb5wVuid.png?lazyload=true&width=3574&height=1854) | 在 app.json 声明 contributes.fullscreen，并使用 [Service.Fullscreen](/ssl:ttdoc/uAjLw4CM/uYjL24iN/docs-add-on/05-api-doc/basic-data-reference---base/Service.Fullscreen.enterFullscreen) API进行展示和隐藏                                                                                               |
+| 悬浮卡片视图 | 可以让正文小组件浮出正文内容     | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ed82aa7368e9ae19ab7e6f074570f6f0_DRHlQjOXLH.png?lazyload=true&width=1282&height=798) | 在 app.json 声明 contributes.floatCard，并使用 [Service.FloatCard](/ssl:ttdoc/uAjLw4CM/uYjL24iN/docs-add-on/05-api-doc/basic-data-reference---base/Service.FloatCard.enterFloatCard) API进行展示和隐藏                                                                                                 |
+| 弹窗视图   | 展示一个弹窗             | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bf1d2d45411b6cca33d87a0f8052d351_cMcKFNXHla.png?lazyload=true&width=1660&height=766) | 在 app.json 申明 contributes.popup，并使用 [View.Action.showPopup](/ssl:ttdoc/uAjLw4CM/uYjL24iN/docs-add-on/05-api-doc/basic-data-reference---base/View.Action.showPopup) API进行展示和隐藏  |
+| 模态框视图  | 展示一个模态框            | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f382e55f4cae736c8a29b369e36f5072_9nb2LuOIXB.png?lazyload=true&width=1682&height=844) | 在 app.json 申明 contributes.modal，并使用 [View.Action.openModal](/ssl:ttdoc/uAjLw4CM/uYjL24iN/docs-add-on/05-api-doc/basic-data-reference---base/View.Action.openModal) API进行展示和隐藏
+> **弹窗视图和模态框视图有何区别？我该如何选择？**
+>
+> 大多数情况下，建议使用模态框视图。模态框视图会自动拥有关闭按钮，标题和背景蒙层。
+>
+> 如果您不需要这些能力，则可以使用弹窗视图。弹窗视图的所有展示内容都由小组件开发者来绘制。

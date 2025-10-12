@@ -1,0 +1,42 @@
+<!--
+title: 页面生命周期
+id: 6907569742384840706
+fullPath: /uYjL24iN/ugjNzUjL4YzM14CO2MTN
+updatedAt: 1692954122000
+source: https://open.feishu.cn/document/client-docs/gadget/framework/logic-layer/page-lifecycle
+-->
+# 页面生命周期
+
+在打开小程序页面时，会有相应的生命周期函数回调，包括 onLoad、onShow、onReady、onHide、onUnload。你可以根据实际所需，在匹配的生命周期回调函数中实现自定义页面逻辑。
+ 
+:::note
+常见的页面路由场景以及对应的路由前后页面的生命周期回调函数，参见[路由方式](/ssl:ttdoc/uYjL24iN/uUDNuUDNuUDN#b4d88247)。
+:::
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/22c11128b722d82a4a7d6f2c29c49b7f_f9cXrGWB9L.png?height=1612&lazyload=true&maxWidth=600&width=1640)
+
+## 生命周期函数
+
+### onLoad(Object query)
+
+该函数在页面初始化时触发，一个页面只会调用一次。
+
+query 来源于 [tt.navigateTo](/ssl:ttdoc/uYjL24iN/uYTOz4iN5MjL2kzM) 和 [tt.redirectTo](/ssl:ttdoc/uYjL24iN/ucTOz4yN5MjL3kzM) 等接口 url 字段的参数部分（例如：`path?key1=value1&key2=value2`），基础库会将该部分字符串内容解析为 Object。
+
+### onShow()
+
+该函数在页面显示或切入前台时触发。
+
+### onReady()
+
+该函数在页面初次渲染完成时触发，一个页面只会调用一次，代表页面已经准备好，可以和视图层进行交互。
+
+对界面的设置，例如 [tt.setNavigationBarTitle](/ssl:ttdoc/uYjL24iN/uATNy4CM1IjLwUjM) 接口，需要在 onReady 之后设置。
+
+### onHide()
+
+该函数在页面隐藏或切入后台时触发。例如 [tt.navigateTo](/ssl:ttdoc/uYjL24iN/uYTOz4iN5MjL2kzM) 到其他页面或切换底部 tab 等。
+
+### onUnload()
+
+该函数在页面卸载时触发。例如 [tt.redirectTo](/ssl:ttdoc/uYjL24iN/ucTOz4yN5MjL3kzM) 或 [tt.navigateBack](/ssl:ttdoc/uYjL24iN/uADM04CMwQjLwADN) 到其他页面等。

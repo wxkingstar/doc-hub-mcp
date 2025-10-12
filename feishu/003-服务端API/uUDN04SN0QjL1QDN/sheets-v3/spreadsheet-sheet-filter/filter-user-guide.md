@@ -1,0 +1,285 @@
+<!--
+title: 筛选指南
+id: 6966945328390635522
+fullPath: /ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide
+updatedAt: 1719483700000
+source: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/filter-user-guide
+-->
+# 筛选指南
+筛选指在电子表格工作表指定范围中，为指定列（col）设置筛选条件。本文档介绍飞书开放平台电子表格中筛选能力相关的参数和方法列表。
+
+
+:::note
+本文档介绍电子表格直接在工作表中创建、获取筛选等能力。要查看在筛选视图中的筛选条件说明，参考[筛选视图的筛选条件指南](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
+:::
+## 注意事项
+
+- 筛选范围内的第一行不参与筛选。
+- 单个工作表最多可指定一个筛选范围。
+
+## 筛选参数
+
+本小节介绍筛选中涉及的主要参数及其描述。
+
+### 筛选范围 range
+
+筛选范围用于设置筛选的应用范围，使用 `range` 参数表示。支持以下五种写法。
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 25%;">range 写法</md-th>
+      <md-th style="width: 25%;">描述</md-th>
+      <md-th style="width: 15%;">示例</md-th>
+      <md-th>图示</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>&lt;sheetId&gt;</md-td>
+      <md-td>填写实际的工作表 ID，表示将筛选应用于整表。</md-td>
+      <md-td>0bdf12</md-td>
+      <md-td>/</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>&lt;sheetId&gt;!&lt;开始行&gt;:&lt;结束行&gt;</md-td>
+      <md-td>填写工作表 ID 和行数区间，表示将筛选应用于整行。</md-td>
+      <md-td>0bdf12!1:2</md-td>
+      <md-td>
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/94218c55f4bdb9c5b9af4a595c449007_W5EaNJW9QA.png?height=323&lazyload=true&maxWidth=222&width=1327)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>&lt;sheetId&gt;!&lt;开始列&gt;:&lt;结束列&gt;</md-td>
+      <md-td>填写工作表 ID 和列的区间，表示将筛选应用于整列。</md-td>
+      <md-td>0bdf12!A:B</md-td>
+      <md-td>      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c6a46f088f63e2f4c81dc6bc41811b2c_ZkQTxGQ1m5.png?height=596&lazyload=true&maxWidth=222&width=534)</md-td>
+</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>&lt;sheetId&gt;!&lt;开始单元格&gt;:&lt;结束单元格&gt;</md-td>
+      <md-td>填写工作表 ID 和单元格区间，表示将筛选应用于单元格选定的区域中。</md-td>
+      <md-td>0bdf12!A1:B5</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/76498891d78bff326b0bcffe43427fa9_fUFkCG77Vw.png?height=484&lazyload=true&maxWidth=222&width=722)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>&lt;sheetId&gt;!&lt;开始单元格&gt;:&lt;结束列&gt;</md-td>
+           <md-td>填写工作表 ID 和起始单元格和结束列索引，表示将筛选应用于 ID 为 &lt;sheetId&gt; 的工作表中从开始单元格所在行到结束行的行范围、开始单元格所在列到结束列的列范围圈定的区域。</md-td>
+      <md-td>0bdf12!A2:B</md-td>
+      <md-td>
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f727b1806cd1a5cbe6ceb74ecb6c2ed5_pyYMAKxMfB.png?height=564&lazyload=true&maxWidth=222&width=537)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+
+
+### 筛选条件 condition
+
+筛选条件 `condition` 参数用于设置筛选条件，结构如下所示。
+```jsOn
+{
+  "filter_type": "number", // 筛选类型。枚举值参考下文。
+  "compare_type": "less", // 比较类型。枚举值由 filter_type 决定。具体可参考下文。
+  "expected": [ // 筛选值。具体可参考下文。
+    "50%"
+  ]
+}
+```
+筛选条件 `condition` 中的筛选类型 `filter_type` 参数支持以下五种。每种筛选类型需要填写对应的比较类型（compare_type）和比较的值（expected）。具体说明如下所示。
+
+#### ***多值筛选 multiValue***
+
+多值筛选指筛选特定的值。当筛选类型为多值时：
+- compare_type：不填
+- expected：要展示的值。数组类型，数组长度需大于 0 且小于等于筛选范围的行数。每个值的字符长度不得超过 50,000 个。
+```json
+{
+  "condition": {
+    "filter_type": "multiValue",
+    "expected": ["100", "200", "300"]  // 筛选出数据为 100，200, 和 300 的单元格
+  }
+}
+```
+
+#### ***数字筛选 number***
+
+数字筛选指筛选符合特定数值条件的数据。当筛选类型为数字时，比较类型 compare_type 参数的枚举和对应的 expected 限制如下表所示。
+| compare_type 枚举 | 描述   | expected 数组长度限制 |
+| --------------- | ---- | --------------- |
+| equal           | 等于   | 1               |
+| notEqual        | 不等于  | 1               |
+| greater         | 大于   | 1               |
+| greaterOrEqual  | 大于等于 | 1               |
+| less            | 小于   | 1               |
+| lessOrEqual     | 小于等于 | 1               |
+| between         | 介于   | 2               |
+| notBetween      | 不介于  | 2               |
+```json
+{
+  "condition": {  // 筛选数值为 100 的单元格
+    "filter_type": "number",
+    "compare_type": "equal",
+    "expected": ["100"]
+  },
+  "condition": { // 筛选数值在 100 和 200 之间的单元格，包括 100 和 200
+    "filter_type": "number",
+    "compare_type": "between",
+    "expected": ["100", "200"]
+  }
+}
+```
+
+#### ***文本筛选 text***
+
+文本筛选指筛选符合特定文本条件的数据。当筛选类型为文本时：
+- expected：文本字符。数组类型，数组长度为 1。文本字符的长度不得超过 1,000。
+- compare_type 参数的枚举如下所示：
+
+| compare_type 枚举 | 描述   |
+| --------------- | ---- |
+| beginsWith      | 开头是  |
+| notBeginsWith   | 开头不是 |
+| endsWith| 结尾是  |
+| notEndsWith     | 结尾不是 |
+| contains| 包含   |
+| notContains     | 不包含  |
+
+```json
+{
+  "condition": { // 筛选文本数据中包含“已完成”的单元格
+    "filter_type": "text",
+    "compare_type": "contains",
+    "expected": ["已完成"]
+  }
+}
+```
+
+#### ***颜色筛选 color***
+
+颜色筛选指筛选具有特定颜色属性的数据。当筛选类型为颜色时：
+- expected：颜色的十六进制代码，如 ["#ffffff"]。数组类型，数组长度为 1。
+- 比较类型 compare_type 参数的枚举如下表所示。
+
+| compare_type 枚举 | 描述    |
+| --------------- | ----- |
+| backColor       | 背景颜色 |
+| foreColor       | 字体颜色  |
+```json
+{
+  "condition": { // 筛选背景颜色为 #ffffff 的单元格
+    "filter_type": "color",
+    "compare_type": "backColor",
+    "expected": ["#ffffff"]
+  }
+}
+```
+
+#### 清除所有筛选 ***clear***
+
+清除某一列的筛选条件。compare_type 和 expected 均不用填写。
+```json
+{
+  "condition": { // 清除当前列所有筛选
+    "filter_type": "clear",
+  }
+}
+```
+
+## 方法列表
+
+以下为筛选的方法列表。其中，“商店”代表应用商店应用；“自建”代表企业自建应用，了解更多应用相关信息，参考[应用类型简介](/ssl:ttdoc/home/app-types-introduction/overview)。了解调用服务端 API 的流程，参考[流程概述](/ssl:ttdoc/uMzNwEjLzcDMx4yM3ATM/ugzNwEjL4cDMx4CO3ATM)。
+:::html
+<md-table>
+    <md-thead>
+<tr>
+    <md-th style="width: 35%;"><b>方法 (API)</md-th>
+    <md-th style="width: 30%;"><b>权限要求（满足任一）</md-th>
+    <md-th style="width: 20%;"><b>访问凭证</md-th>
+    <md-th style="width: 10%;"><b>商店</md-th>
+    <md-th style="width: 10%;"><b>自建</md-th>
+</tr>
+    </md-thead>
+    <md-tbody>
+<md-tr>
+    <md-td>
+<md-text type="field-name">`POST` [创建筛选](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/create) /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter</md-text>
+    </md-td>
+    <md-td>
+<md-perm name="drive:drive" desc="查看、评论、编辑和管理云空间中所有文件
+" support_app_types="custom,isv" tags="">查看、评论、编辑和管理云空间中所有文件</md-perm>
+ <md-perm name="sheets:spreadsheet" desc="查看、评论、编辑和管理电子表格" support_app_types="custom,isv" tags="">查看、评论、编辑和管理电子表格</md-perm>
+    </md-td>
+    <md-td>
+<md-tag type="token-tenant">tenant_access_token</md-tag>
+<md-tag type="token-user">user_access_token</md-tag>
+    </md-td>
+    <md-td>**✓**</md-td>
+    <md-td>**✓**</md-td>
+</md-tr>
+<md-tr>
+    <md-td>
+<md-text type="field-name">`PUT` [更新筛选](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/update) /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter</md-text>
+    </md-td>
+    <md-td>
+<md-perm name="drive:drive" desc="查看、评论、编辑和管理云空间中所有文件
+" support_app_types="custom,isv" tags="">查看、评论、编辑和管理云空间中所有文件</md-perm>
+ <md-perm name="sheets:spreadsheet" desc="查看、评论、编辑和管理电子表格" support_app_types="custom,isv" tags="">查看、评论、编辑和管理电子表格</md-perm>
+    </md-td>
+    <md-td>
+<md-tag type="token-tenant">tenant_access_token</md-tag>
+<md-tag type="token-user">user_access_token</md-tag>
+    </md-td>
+    <md-td>**✓**</md-td>
+    <md-td>**✓**</md-td>
+</md-tr>
+
+
+
+<md-tr>
+    <md-td>
+<md-text type="field-name">`GET` [获取筛选](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/get) /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter</md-text>
+    </md-td>
+    <md-td>
+<md-perm name="drive:drive" desc="查看、评论、编辑和管理云空间中所有文件" support_app_types="custom,isv" tags="">查看、评论、编辑和管理云空间中所有文件</md-perm>
+            <md-perm name="drive:drive:readonly" desc="查看、评论和下载云空间中所有文件" support_app_types="custom,isv" tags="">查看、评论和下载云空间中所有文件</md-perm>
+            <md-perm name="sheets:spreadsheet" desc="查看、评论、编辑和管理电子表格" support_app_types="custom,isv" tags="">查看、评论、编辑和管理电子表格</md-perm>
+            <md-perm name="sheets:spreadsheet:readonly" desc="查看、评论和导出电子表格" support_app_types="custom,isv" tags="">查看、评论和导出电子表格</md-perm>
+      
+    </md-td>
+    <md-td>
+<md-tag type="token-tenant">tenant_access_token</md-tag>
+<md-tag type="token-user">user_access_token</md-tag>
+    </md-td>
+    <md-td>**✓**</md-td>
+    <md-td>**✓**</md-td>
+</md-tr>
+
+
+
+<md-tr>
+    <md-td>
+<md-text type="field-name">`DELETE` [删除筛选](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/delete) /open-apis/sheets/v3/spreadsheets/:spreadsheet_token/sheets/:sheet_id/filter</md-text>
+    </md-td>
+    <md-td>
+<md-perm name="drive:drive" desc="查看、评论、编辑和管理云空间中所有文件
+" support_app_types="custom,isv" tags="">查看、评论、编辑和管理云空间中所有文件</md-perm>
+ <md-perm name="sheets:spreadsheet" desc="查看、评论、编辑和管理电子表格" support_app_types="custom,isv" tags="">查看、评论、编辑和管理电子表格</md-perm>
+    </md-td>
+    <md-td>
+<md-tag type="token-tenant">tenant_access_token</md-tag>
+<md-tag type="token-user">user_access_token</md-tag>
+    </md-td>
+    <md-td>**✓**</md-td>
+    <md-td>**✓**</md-td>
+</md-tr>
+
+
+
+
+    </md-tbody>
+</md-table>
+
+:::

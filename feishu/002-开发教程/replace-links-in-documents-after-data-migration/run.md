@@ -1,0 +1,73 @@
+<!--
+title: 步骤二：下载并运行示例代码
+id: 7113874263316774916
+fullPath: /home/replace-links-in-documents-after-data-migration/run
+updatedAt: 1702880686000
+source: https://open.feishu.cn/document/replace-links-in-documents-after-data-migration/run
+-->
+# 步骤二：下载并运行示例代码
+在本步骤中，你需要先下载示例代码，然后将测试应用的应用凭证信息配置在代码中，最后运行代码。
+
+## 下载示例代码并配置应用凭证
+
+1. 执行以下命令，下载示例代码。
+      ```Shell
+      curl https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/23b78c84fbc59b1696e04e5d3875baff_FiF1C5ogTW.zip -o link_quick_start.zip
+      ```
+2.  解压示例代码。
+  	* **Mac/Linux** 用户执行以下命令。
+  		```Shell
+      unzip link_quick_start.zip
+      ```
+   	* **Windows** 用户可以直接使用解压缩工具进行解压。
+
+3. 在示例代码所在目录，执行以下命令，进入 python 目录。
+      ```Shell
+      cd link_quick_start/python
+      ```
+
+2. 修改`.env`文件中的应用凭证数据为实际应用凭证信息。
+   ```Shell
+    APP_ID=cli_9fxxxx00b
+    APP_SECRET=EX6xxxxOF
+    ```
+    
+      你可在 [开发者后台](https://open.feishu.cn/app) 的 **凭证与基础信息** 页查看应用凭证信息。
+      
+      ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a662043459028b27a15c4a879dc76bc8_Vk2paLY0cB.png?height=516&lazyload=true&maxWidth=600&width=2326)
+
+      :::note
+      私有化部署时，要修改`.env`文件中 **LARK_HOST** 为私有化部署所用的域名。
+      :::
+
+## 启动本地服务
+
+1. 执行以下命令，创建并激活 Python 虚拟环境。
+   * **Mac/Linux** 用户执行以下命令。
+      ```Shell
+      python3 -m venv venv
+      . venv/bin/activate
+      ```
+
+   * **Windows** 用户执行以下命令。
+      ```Shell
+      python3 -m venv venv
+      venv\Scripts\activate
+      ```
+
+4. 执行以下命令，安装代码依赖。
+   ```Shell
+   pip3 install -r requirements.txt
+   ```
+
+5. 依赖安装成功后，执行以下命令，运行示例代码。
+   ```Shell
+   python3 link.py
+   ```
+
+   示例代码运行时，会依次调用教程 [简介](/ssl:ttdoc/home/replace-links-in-documents-after-data-migration/introduction#948a9895) 中提到的所有接口，你可以在控制台查看调用过程。
+   
+   成功运行的结果如下图所示：
+   :::html
+   <img src="https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/357cdff133c944e5837a6e98f6e8edfe~tplv-goo7wpa0wc-image.image?lazyload=true&width=1806&height=1688" style="width:60%">
+   :::

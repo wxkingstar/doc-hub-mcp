@@ -1,0 +1,65 @@
+<!--
+title: 配置网页跳转浏览器打开
+id: 7313818714843480092
+fullPath: /uYjL24iN/uMTMuMTMuMTM/web-app-open-ability/configure-webpage-to-open-in-browser
+updatedAt: 1734493522000
+source: https://open.feishu.cn/document/develop-web-apps/web-app-open-ability/configure-webpage-to-open-in-browser
+-->
+# 配置网页跳转浏览器打开
+通过在桌面端网页URL 中拼接参数`lk_jump_to_browser=true`，当飞书桌面端点击该页面时，会自动跳转到浏览器打开。
+通过在移动端网页URL 中拼接参数`lk_mobile_jump_to_browser=true`，当飞书移动端点击该页面时，会自动跳转到浏览器打开。
+
+配置示例：**桌面端** `https://open.feishu.cn/?lk_jump_to_browser=true`， 
+**移动端** `https://open.feishu.cn/?lk_mobile_jump_to_browser=true`。
+
+
+
+## 支持说明
+
+当前能力在不同飞书客户端的版本支持情况如下。
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 20%;">是否需要鉴权</md-th>
+      <md-th style="width: 20%;">Android</md-th>
+       <md-th style="width: 20%;">iOS</md-th>
+      <md-th style="width: 20%;">PC</md-th>
+      <md-th style="width: 20%;">预览效果</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+
+
+    <md-tr>
+      <md-td>不需要</md-td>
+      <md-td><md-version>V7.11</md-version></md-td>
+      <md-td><md-version>V7.11</md-version></md-td>
+      <md-td><md-version>V7.7</md-version></md-td>
+     <md-td><md-preview-app type="webApp" disable="true" fontSize="14">预览</md-preview-app></md-td> 
+</md-tr>  
+</md-tbody>
+</md-table>
+:::
+
+## 使用场景
+- 如果希望用户在飞书工作台、主导航、搜索等场景点击网页应用后，直接跳转到浏览器打开，那么可以在网页应用的**桌面端首页**URL中拼接参数`lk_jump_to_browser=true`来实现
+- 如果希望用户在飞书工作台、主导航、搜索等场景点击网页应用后，直接跳转到浏览器打开，那么可以在网页应用的**移动端首页**URL中拼接参数`lk_mobile_jump_to_browser=true`来实现
+- 如果网页应用的大部分页面都需要在飞书内新标签页打开（可通过[开发者后台-网页应用-桌面端主页的打开方式=飞书内新标签页打开](/ssl:ttdoc/uYjL24iN/uMTMuMTMuMTM/development-guide/step1)进行配置），但是其中某个页面B 必须依赖浏览器的插件才能使用，那么可以通过window.open 或 <a> 打开页面B，并且在页面B的URL中拼接参数`lk_jump_to_browser=true`时，页面B会跳转到浏览器中打开。
+  
+  
+:::note
+网页中通过window.location.href 在当前页面内刷新为新页面，则新页面将继续在当前页内打开，拼接`lk_jump_to_browser=true` 也无法生效。
+:::
+
+## 注意事项
+添加 `lk_jump_to_browser=true` 参数的网页一定跳转浏览器打开，判断优先级会高于其他配置。举例说明：
+- 如果用户在飞书设置中配置了链接打开方式：优先在飞书新标签页打开，需要打开的目标网页中拼接了 `lk_jump_to_browser=true` 参数，则仍然会跳转浏览器打开，该参数优先级高于用户设置的网页打开方式。
+- 如果网页应用 A 中通过 window.open 或 <a> 跳转新页面 B，该页面 B 拼接了 `lk_jump_to_browser=true` 参数，则 B 一定会跳转浏览器打开，该参数优先级高于网页应用 A 在开发者后台中配置的 **在飞书内新标签页打开** 的配置。
+- 如果 [打开网页应用 Applink](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-an-h5-app) 或 [打开普通网页Applink](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url)，打开的目标网页链接中拼接了 `lk_jump_to_browser=true` 参数，则仍然会跳转浏览器打开，该参数优先级高于 Applink 进入飞书端内打开。
+
+
+:::note
+`lk_jump_to_browser=true` 参数目前暂不支持在飞书独立窗口中生效。后续将逐步支持。
+:::

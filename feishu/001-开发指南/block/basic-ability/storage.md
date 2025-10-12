@@ -1,0 +1,26 @@
+<!--
+title: 本地缓存
+id: 6989248828928098305
+fullPath: /uAjLw4CM/uYjL24iN/block/guide/basic-ability/storage
+updatedAt: 1657871845000
+source: https://open.feishu.cn/document/client-docs/block/basic-ability/storage
+-->
+# 本地缓存
+
+每个小组件 (Block) 都可以有自己的本地缓存，可以通过以下 API 对本地缓存进行读写和清理。
+
+-   [setStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/setstorage) 
+-   [getStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/getstorage) 
+-   [removeStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/removestorage) 
+-   [clearStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/clearstorage) 
+-   [getStorageInfo](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/getstorageinfo) 
+
+## 隔离策略
+
+-   每个小组件的 storage 会以「用户ID维度 + blockTypeID维度」进行自动隔离，无法相互访问。
+-   每个「用户ID维度 + blockTypeID维度」的 storage 上限为10MB。
+-   更细维度的隔离策略（比如 blockID 维度），需要业务自行管理。
+
+## 清理策略
+
+目前本地缓存的清理都必须**依赖业务**通过[removeStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/removestorage)或[clearStorage](/ssl:ttdoc/uAjLw4CM/uYjL24iN/block/api/data-cache/clearstorage)处理。

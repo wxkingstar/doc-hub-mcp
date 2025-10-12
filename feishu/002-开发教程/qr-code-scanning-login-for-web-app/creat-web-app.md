@@ -1,0 +1,46 @@
+<!--
+title: 步骤一：创建应用
+id: 7103422385130848259
+fullPath: /home/qr-code-scanning-login-for-web-app/creat-web-app
+updatedAt: 1716779847000
+source: https://open.feishu.cn/document/qr-code-scanning-login-for-web-app/creat-web-app
+-->
+# 步骤一：创建测试应用
+
+通过本步骤你将创建一个测试应用，用于构建网页应用。
+
+## 操作步骤
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+2. 在开发者后台首页，单击 **创建企业自建应用**，然后填写应用名称和应用描述，最后单击 **创建**。
+3. 在左侧导航栏选择 **测试企业和人员**，并在页面右上角单击 **创建测试企业**。
+
+:::note
+为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+:::
+
+4. 在 **创建测试企业** 对话框，填写 **测试企业名称**、**手机号**、**验证码**，单击 **确认创建**。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/71de54ba12625b91a327b2b1436b9171_dw02wmXEtK.png?height=580&lazyload=true&maxWidth=400&width=1184)
+
+5. 创建完成后，在 **操作** 列单击 **关联应用**。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2a65993cefe78bf69910a89ee70830f0_uNEDbdnznS.png?height=524&lazyload=true&maxWidth=600&width=2194)
+    
+6. 在页面顶部，切换应用为测试版本。
+
+:::note
+该方式仅适用于应用的 **所有者**，如果你当前的身份是应用的**管理员**、**开发者**、**运营**，则需要在页面右上角切换为测试企业账号，再使用测试版本应用。
+:::
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8b844e0ca55d66f0a7b682094647fc90_FrV8vTISWE.png?height=418&lazyload=true&maxWidth=600&width=1228)
+
+7. 在左侧导航栏选择 **添加应用能力**，并在 **网页应用** 卡片内单击 **添加**。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d1900e794820e2ee558c660a17037eb_DoHcew5txk.png?height=922&lazyload=true&maxWidth=600&width=1796)
+    
+8. 添加后，进入网页应用配置页面，在 **网页应用配置** 区域设置主页地址。
+
+	本教程提供的示例代码对应的网页应用主页地址为 `http://127.0.0.1:3001/qrLogin`，因此需要将该地址预先填写到 **桌面端主页**、**移动端主页** 输入框内。此外，打开方式选择任一方式即可。
+	
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e484e412aa7e37e38601758aed9607e3_thmegtTBFx.png?height=1280&lazyload=true&maxWidth=600&width=1674)

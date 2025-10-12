@@ -1,0 +1,92 @@
+<!--
+title: 配置组件模版和样式
+id: 6907569523176587265
+fullPath: /uYjL24iN/ukTOukTOukTO
+updatedAt: 1693277020000
+source: https://open.feishu.cn/document/client-docs/gadget/component-component/custom-components/component-templates-and-styles
+-->
+# 配置组件模版和样式
+
+自定义组件类似于页面，拥有自己的 `ttml` 模版和 `ttss` 样式。本文介绍如何配置自定义组件的  `ttml` 模版和 `ttss` 样式。
+
+## 配置组件模版
+
+自定义组件的模版与组件数据结合后，会生成节点树，节点数将被插入到组件的引用位置上。在组件模板中提供了 `<slot>` 节点，可通过该节点承载组件引用时提供的子节点。示例配置如下：
+
+- 自定义组件模板示例
+
+	```html
+    <!-- 自定义组件模板 -->
+    <view class="component-wrapper">
+      <view>组件内部节点</view>
+      <slot></slot>
+    </view>
+    ```
+
+- 引用自定义组件的页面模板示例
+
+    ```html
+    <!-- 引用自定义组件的页面模版 -->
+    <view>
+      <my-component>
+        <view>组件 slot 内容</view>
+      </my-component>
+    </view>
+    ```
+
+::: note
+在模版中引用到的自定义组件及其对应的节点名需要在 `json` 文件中显式定义，否则会被当作一个无意义的节点。
+:::
+
+### 模版数据绑定
+
+自定义组件模板可以使用数据绑定（与普通的 `ttml` 模板类似），通过数据绑定可以向子组件的属性传递动态数据。
+
+示例配置如下所示，其中，组件的属性 `data-a` 和 `data-b` 将收到页面传递的数据。页面可以通过 `setData` 来改变绑定的数据字段。
+
+```html
+<!-- 引用自定义组件的页面模版 -->
+<view>
+  <my-component
+    data-a="{{ data1 }}"
+    data-b="{{ data2 }}">
+    <view>组件 slot 内容</view>
+  </my-component>
+</view>
+```
+
+
+### 组件的 slot 节点
+
+在组件的 `ttml` 中可以包含 `slot` 节点，该节点用于承载组件使用者提供的 `ttml` 结构。默认情况下，一个组件的 `ttml` 中只能有一个 `slot` 节点。当需要使用多个 `slot` 节点时，需要使用不同的 `name` 来区分。示例配置如下所示：
+
+```html
+<!-- 自定义组件模板 -->
+<view class="wrapper">
+  <slot name="before"></slot>
+  <view>Content is here</view>
+  <slot name="after"></slot>
+</view>
+```
+
+实际使用时，需要用 `slot` 属性来将节点插入到不同的 `slot` 上。
+
+```html
+<!-- 引用自定义组件的页面模版 -->
+<view>
+  <my-component>
+    <!-- 这部分内容将被放置在组件 <slot name="before"> 的位置上 -->
+    <view slot="before">这里是插入到组件slot name="before"中的内容</view>
+
+    <!-- 这部分内容将被放置在组件 <slot name="after"> 的位置上 -->
+    <view slot="after">这里是插入到组件slot name="after"中的内容</view>
+  </my-component>
+</view>
+```
+
+## 组件样式
+
+组件对应 `ttss` 文件的样式，只对组件 `ttml` 内的节点生效。编写组件样式时，需要注意以下几点：
+
+- 继承样式（如 `font` 、`color`）时，会从组件外继承到组件内。
+- 除继承样式外，`app.ttss` 中的样式、组件所在页面的的样式对自定义组件无效。

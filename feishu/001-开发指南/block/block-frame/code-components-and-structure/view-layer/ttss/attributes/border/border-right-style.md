@@ -1,0 +1,84 @@
+<!--
+title: border-right-style
+id: 6989248889124093954
+fullPath: /uAjLw4CM/uYjL24iN/block/block-frame/view-layer/ttss/attributes/border/border-right-style
+updatedAt: 1657871782000
+source: https://open.feishu.cn/document/client-docs/block/block-frame/code-components-and-structure/view-layer/ttss/attributes/border/border-right-style
+-->
+# border-right-style
+
+## 介绍
+
+用于设置右边框的样式。
+
+## 语法
+
+```css
+border-right-style: none;
+
+border-right-style: hidden;
+
+border-right-style: dotted;
+
+border-right-style: dashed;
+
+border-right-style: solid;
+
+border-right-style: double;
+
+border-right-style: groove;
+
+border-right-style: ridge;
+
+border-right-style: inset;
+
+border-right-style: outset;
+```
+
+### 取值
+
+-   `none`
+
+无边框。无边框属性时，边框宽度（无论宽度设置多少）将变为 0。
+
+-   `hidden`
+
+与`"none"`相同。不过应用于表时除外，对于表，`hidden`用于解决边框冲突。
+
+-   `dotted`
+
+点状边框。在大多数浏览器中呈现为实线。
+
+-   `dashed`
+
+虚线。在大多数浏览器中呈现为实线。
+
+-   `solid`
+
+实线。
+
+-   `double`
+
+双线。两条线的宽度再加上这两条线之间的空间等于`border-width`。`TTSS`规范并没有说其中一条线是否比另一条粗或者两条线是否应该是一样的粗，也没有指出线之间的空间是否应当比线粗，所有这些都由用户决定。
+
+-   `groove`
+
+3D 凹槽边框。其效果取决于`border-color`的值。
+
+-   `ridge`
+
+3D 垄状边框。其效果取决于`border-color`的值。
+
+-   `inset`
+
+3D inset 边框。其效果取决于`border-color`的值。
+
+-   `outset`
+
+3D outset 边框。其效果取决于`border-color`的值。
+
+## 标准化语法
+
+```css
+border-right-style: none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset
+```

@@ -1,0 +1,271 @@
+<!--
+title: 配置应用数据权限
+id: 7260317745510858754
+fullPath: /home/introduction-to-scope-and-authorization/configure-app-data-permissions
+updatedAt: 1749454097000
+source: https://open.feishu.cn/document/api-call-guide/calling-process/configure-app-data-permissions
+-->
+# 配置应用数据权限
+
+应用的数据权限是指以**应用身份**（**tenant_access_token**）访问业务资源时可获取的数据范围。当应用申请了应用身份权限（例如，通讯录、飞书人事企业版）后，还需要配置相应的数据权限并提交审核，待审核通过后权限生效，才可以成功调用 API 获取数据，否则调用 API 时会返回权限错误。
+
+关于不同权限类型的介绍，参考 [申请 API 权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+
+## 数据权限介绍
+
+企业自建应用和商店应用均支持配置数据权限，但支持配置数据权限的 API 不同，方式也不同。
+
+### 自建应用的数据权限
+
+为自建应用申请 **通讯录**、**组织架构**、**任务**、**邮箱**、**飞书人事（企业版）**、**妙记** 或 **Payroll** 业务域的部分 API 权限时，需要配置数据权限。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">数据权限类型</md-th>
+<md-th style="width:50%">权限描述</md-th>
+<md-th style="width:30%">管理方式</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+	
+<md-tr>
+<md-td>[通讯录](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/resources)</md-td>
+<md-td>以应用身份调用通讯录 API 时，应用可以获取到的通讯录数据范围。例如，以应用身份调用通讯录 API 查询用户 A 的信息时，需要应用具备用户 A 的数据权限。
+
+默认情况下，通讯录权限范围与应用的[可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)一致。
+  
+<md-alert>关于通讯录权限范围的更多概念介绍，参见[权限范围资源介绍](/ssl:ttdoc/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。</md-alert>  
+</md-td>
+<md-td>- 方式一：由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置通讯录权限范围。
+
+- 方式二：由企业管理员在[管理后台](https://www.feishu.cn/admin)配置指定应用的通讯录权限范围。	
+</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>[组织架构](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/directory-v1/overview)</md-td>
+<md-td>以应用身份调用组织架构 API 时，应用可获取的组织架构成员数据范围。例如，以应用身份调用组织架构 API 查询更新员工信息时，需要应用具备该员工的数据权限。
+  
+默认情况下，组织架构数据权限范围未配置。添加相应 API 权限后需要手动配置数据权限范围。
+  
+<md-alert>组织架构数据权限范围仅支持指定员工范围，不支持指定部门范围，即固定包含了企业内所有部门的数据访问权限。</md-alert></md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置组织架构权限范围。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>[飞书人事（企业版）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/overview)</md-td>
+<md-td>以应用身份调用飞书人事（企业版）API 时，应用可以获取到的数据范围。例如，以应用身份调用飞书人事（企业版）API 查询部门 B 的信息时，需要应用具备部门 B 的数据权限。
+
+默认情况下，飞书人事（企业版）数据权限范围为空，即未配置权限范围。</md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置飞书人事（企业版）数据权限范围。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>[任务](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/overview)</md-td>
+<md-td>以应用身份调用任务 API 时，应用可获取的任务或清单的数据范围。例如，以应用身份调用任务 API 查询清单详情时，需要应用具备该清单归属人的数据权限。
+
+默认情况下，任务数据权限范围未配置。添加相应 API 权限后需要手动配置数据权限范围。</md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置任务数据权限范围。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>[邮箱](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/create)</md-td>
+<md-td>以应用身份调用邮箱 API 时，应用可获取邮箱相关资源的数据范围。例如，以应用身份调用邮箱 API 查询指定公共邮箱时，需要应用具备该公共邮箱的数据权限。
+
+默认情况下，邮箱数据权限范围未配置。添加相应 API 权限后需要手动配置数据权限范围。</md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置邮箱数据权限范围。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>[妙记](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/minutes-v1/minute-media/get)</md-td>
+<md-td>以应用身份调用妙记 API 时，应用可获取妙记相关资源的数据范围。例如，以应用身份调用妙记 API 获取妙记信息时，需要应用具备公开该妙记的所有者的数据权限。
+
+默认情况下，妙记数据权限范围未配置。添加相应 API 权限后需要手动配置数据权限范围。</md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置妙记数据权限范围。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>[Payroll](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity_detail/list)</md-td>
+<md-td>以应用身份调用 Payroll API 时，应用可获取 Payroll 相关资源的数据范围。例如，以应用身份调用 Payroll API 查询发薪明细时，需要应用具备对应薪资组的数据权限。
+
+默认情况下，Payroll 数据权限范围未配置。添加相应 API 权限后需要手动配置数据权限范围。</md-td>
+<md-td>由应用所有者、管理员或者开发角色在[开发者后台](https://open.feishu.cn/app)的应用内配置 Payroll 数据权限范围。</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+:::note
+应用一旦被授予相应的数据权限，即可增删改查这些数据，所以当应用开发者配置数据权限后，需要发布应用并等待应用审核人员通过审核，方可生效数据权限。
+:::
+
+### 商店应用的数据权限
+
+商店应用仅支持企业管理员配置 **通讯录** 的数据权限，不支持配置其他开放能力的数据权限。应用开发者可以调用[获取通讯录授权范围](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list)查看应用的数据权限。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">数据权限类型</md-th>
+<md-th style="width:50%">权限描述</md-th>
+<md-th style="width:30%">管理方式</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+	
+<md-tr>
+<md-td>通讯录权限范围</md-td>
+<md-td>以应用身份调用通讯录 API 时，应用可以获取到的通讯录数据范围。例如，以应用身份调用通讯录 API 查询用户 A 的信息时，需要应用具备用户 A 的数据权限。</md-td>
+<md-td>由企业管理员在管理后台配置指定应用的通讯录权限范围。</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+## 企业自建应用
+
+为企业自建应用申请通讯录、组织架构或飞书人事（企业版）等 API 权限时，涉及配置应用数据权限范围，不同业务下配置数据权限的方式也不同，具体步骤如下所述。
+
+:::note
+如果你使用应用的[测试企业与人员](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)能力，将应用切换为测试版本进行开发联调，则应用默认具有全员范围的通讯录权限，飞书人事（企业版）的权限范围在配置后直接生效，便于测试阶段的调试工作。
+:::
+
+1. 在为企业自建应用[开通 API 权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)时，如需配置应用身份权限可访问的数据范围，会自动进行跳转，如下图所示。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4285fbafa8edd2c22574615f2f94148a_cwdUHkxPe3.png?height=847&lazyload=true&maxWidth=600&width=1280)
+    
+    如需管理已开通的 API 权限的数据范围，可登录[飞书开发者后台](https://open.feishu.cn/app)，在自建应用的 **开发配置** > **权限管理** 页面，单击权限列表 **可访问的数据范围** 列右侧的 **配置**，进入数据权限配置页面。
+    
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4c9beedbfdce1d82723b476682387fe0_wcm7z8NUta.png?height=523&lazyload=true&maxWidth=600&width=1280)
+    
+2. 在 **“应用身份权限”可访问的数据范围** 界面，完成数据权限配置。
+    
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d47e5c0887f777b65f6c80751f1c4f06_IlVvW0DNwV.png?height=1110&lazyload=true&maxWidth=600&width=1280)
+    
+    - 在界面左侧（上图 ① 区域），展示申请 API 权限对应的业务列表，单击可切换到对应业务配置数据权限。
+	- 在界面右上方（上图 ② 区域），展示当前业务所申请的应用身份权限信息。
+	- 在界面右下方（上图 ③ 区域），配置当前业务权限可访问的数据范围。
+    
+3. 在 **权限可访问的数据范围** 区域单击 **配置**。
+   
+   不同业务域的配置方式不同，具体说明如下：
+
+    :::html
+    <md-table>
+    <md-thead>
+    <md-tr>
+    <md-th style="width:20%">业务域</md-th>
+    <md-th style="width:80%">配置说明</md-th>
+    </md-tr>
+    </md-thead>
+    <md-tbody>
+
+    <md-tr>
+    <md-td>通讯录</md-td>
+    <md-td>选择并配置指定的数据范围，默认情况下，通讯录的数据权限范围为 **与应用的可用范围一致**。
+   - **与应用的可用范围一致**：通讯录权限范围与应用的可用范围一致。关于应用可用范围的详细介绍，参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。
+   - **部分成员**：选择该范围后，你还需要手动选择部门或成员，以确认通讯录权限范围。
+   - **全部成员**：企业内所有成员与部门的数据权限。
+
+   <md-alert>企业管理员可以在[管理后台](https://feishu.cn/admin)的工作台中找到指定应用，修改应用的通讯录权限范围。</md-alert>  
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/41b4e738f592f593f8f5a8cb2e48cabe_uyxbDTMN9x.png?height=384&lazyload=true&maxWidth=500&width=1280)
+    </md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>组织架构</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有成员与部门的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的员工数据权限。
+   <md-alert>
+   - 支持设置的筛选条件以实际页面可获取到的数据为准。例如配置为 `成员 包含 与应用的可用范围一致`，表示应用可访问的成员权限范围与应用的可用范围一致。关于应用可用范围的详细介绍，参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。
+   - 组织架构数据权限范围仅支持指定员工范围，不支持指定部门范围，即固定包含了企业内所有部门的数据访问权限。  
+   </md-alert> 
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/71b1e9a554ab498d1c2899021b5e9bd9_6omfKy7wDN.png?height=676&lazyload=true&maxWidth=500&width=1262)
+    </md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>飞书人事（企业版）</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有成员与部门的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的员工或部门的数据权限。
+
+   <md-alert>支持设置的筛选条件以实际页面可获取到的数据为准。例如，在 **资源分类-员工** 内设置 `雇员状态 等于 在职` 的筛选条件，表示应用仅可获取飞书人事（企业版）中在职员工的数据权限。</md-alert>
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4cc519d4f386b17c1fbe293a032e37e8_lBq5yGqQ3b.png?height=686&lazyload=true&maxWidth=500&width=1270)</md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>任务</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有任务的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的任务数据权限。
+   <md-alert>支持设置的筛选条件以实际页面可获取到的数据为准。例如，在 **资源分类-受限查询任务详情** 内设置 `任务归属人 包含 与应用的可用范围一致` 的筛选条件，表示应用可访问的任务归属人的数据范围与应用的可用范围一致。关于应用可用范围的详细介绍，参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。</md-alert>
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/01c5dd3a5fbeb3f1072313b101ee3b00_v2gizsnPAE.png?height=626&lazyload=true&maxWidth=500&width=1272)
+    </md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>邮箱</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有邮箱的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的邮箱数据权限。
+
+   <md-alert>支持设置的筛选条件以实际页面可获取到的数据为准。例如，在 **资源分类-用户邮箱管理** 内设置 `用户范围 包含 与应用的可用范围一致` 的筛选条件，表示应用可访问的用户邮箱数据范围与应用的可用范围一致。关于应用可用范围的详细介绍，参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。</md-alert>
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d1db642056c6989dd16ea1127b3aca4c_vWmB5eqQ3p.png?height=678&lazyload=true&maxWidth=500&width=1260)
+    </md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>妙记</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有妙记的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的妙记数据权限。
+
+   <md-alert>支持设置的筛选条件以实际页面可获取到的数据为准。例如，在 **资源分类-妙记基本信息** 内设置 `公开妙记的所有者 包含 与应用的可用范围一致` 的筛选条件，表示应用可访问的公开妙记的所有者的数据范围与应用的可用范围一致。关于应用可用范围的详细介绍，参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。</md-alert>
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c55c20b8df17eb156144a11f54657fa3_mSsp8RWPlp.png?height=628&lazyload=true&maxWidth=500&width=1268)
+    </md-td>
+    </md-tr>
+
+    <md-tr>
+    <md-td>Payroll</md-td>
+    <md-td>选择并配置指定的数据范围：
+   - **全员**：企业内所有 Payroll 的数据权限。
+   - **按条件筛选**：手动设置筛选条件，仅获取符合筛选条件的 Payroll 数据权限。
+
+   <md-alert>支持设置的筛选条件以实际页面可获取到的数据为准。例如，在 **资源分类-发薪明细** 内设置 `薪资组 等于 xxx薪资组` 的筛选条件，表示应用可访问指定薪资组内的发薪明细。</md-alert>
+
+   ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f4825f52d7bb9d1be1fdef1e12e904cf_9rauRjbReh.png?height=267&lazyload=true&maxWidth=500&width=1280)
+    </md-td>
+    </md-tr>
+
+    </md-tbody>
+    </md-table>
+   	:::
+    
+<br>
+
+4. 完成配置后单击 **保存**。
+
+
+
+## 商店应用
+
+商店应用仅支持企业管理员在[管理后台](https://feishu.cn/admin)的工作台中找到指定应用，修改应用的通讯录权限范围。
+
+:::note
+应用开发者可以调用[获取通讯录授权范围](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list)查看应用的数据权限。
+:::
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/093d937d12197ace5d05c9d65de881f6_Ft065pZ5SZ.png?height=738&lazyload=true&maxWidth=600&width=1968)

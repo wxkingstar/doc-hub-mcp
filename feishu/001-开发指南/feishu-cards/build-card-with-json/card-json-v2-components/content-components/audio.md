@@ -1,0 +1,704 @@
+<!--
+title: 音频
+id: 7536119055556640796
+fullPath: /uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/audio
+updatedAt: 1754987682000
+source: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/audio
+-->
+# 音频
+
+卡片的音频组件支持播放 OPUS 格式的音频。本文档介绍音频组件的 JSON 结构和字段说明，并提供音频组件的示例代码和效果。
+
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c8d2b7af7d28bfd14285f719f790a137_R3o2txLTAt.png?height=582&lazyload=true&maxWidth=324&width=624)
+
+## 前提条件
+
+使用音频组件前，你需先调用[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口，获取音频的 `file_key`，再传入音频组件中，使卡片具备音频播放能力。调用上传文件接口时，需确保：
+- 指定文件类型（`file_type`）为 OPUS。音频文件仅支持 OPUS 编码，对于其他格式的音频文件，请转为 OPUS 格式后上传，具体方式可参考[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)文档中 `file_type` 的字段说明。
+- 指定音频时长（`duration`），且确保与实际时长一致。否则会导致播放进度展示不准确。
+- 调用上传文件接口的应用与之后发送卡片的应用需保持一致。
+
+## 注意事项
+
+- 音频组件仅支持 JSON 2.0 版本的卡片。
+- 音频组件仅支持通过撰写卡片 JSON 代码的方式使用，暂不支持在卡片搭建工具上构建使用。
+- 音频组件仅支持飞书 V7.49 及以上版本的客户端。在低于该版本的飞书客户端上，音频组件的内容将默认展示为一句“请升级至最新版本客户端，以查看内容”的占位图。你也可通过卡片的 `fallback` 字段自定义组件的降级展示方式。
+- 包含音频组件的卡片不支持转发。你需要在卡片 JSON 的 `config` 配置中指定 `enable_forward` 为 `false`，否则会导致卡片发送失败。
+- 包含音频组件的卡片暂不支持使用 [发送仅特定人可见的消息卡片](/ssl:ttdoc/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN) 接口发送。
+
+## JSON 结构
+
+```json
+{
+  "schema": "2.0",
+  "config": {
+    "update_multi": true,
+    "enable_forward": false, // 是否支持转发。此处必须设为 false，否则卡片将发送失败。
+    "style": { // 在此添加并配置 style 字段。 详情参考 颜色枚举值-使用 RGBA 语法自定义颜色 文档。
+      "color": {
+        "border-color": { // 分别为飞书客户端浅色主题和深色主题添加 RGBA 语法，支持添加多个自定义颜色对象。
+          "light_mode": "rgba(5,157,178,0.52)", // 浅色主题下的自定义颜色语法。
+          "dark_mode": "rgba(78,23,108,0.49)" // 深色主题下的自定义颜色语法。
+        },
+        "bg-color": {
+          "light_mode": "rgba(31,35,41,0.08)",
+          "dark_mode": "rgba(235,235,235,0.08)"
+        },
+        "fill-color": {
+          "light_mode": "rgba(122,53,240,0.7)",
+          "dark_mode": "rgba(184,143,254,0.7)"
+        }
+      }
+    }
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "audio", // 音频组件的标签。
+        "element_id": "custom_id", // 操作组件的唯一标识。用于在调用组件相关接口中指定组件。需开发者自定义。
+        "margin": "0px 0px 0px 0px", // 组件的外边距，默认值 "0"，支持范围 [-99,99]px。
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxx", // 音频文件 key。参考本文档前提条件中的说明获取。
+        "i18n_file_key": { // 多语言音频文件 key，配置多语言卡片时使用。详情参考配置卡片多语言文档。
+          "zh_cn": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxx1",
+          "en_us": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxx2"
+        },
+        "audio_id": "1", // 音频实例唯一标识。卡片发生更新时，具有相同 audio_id 和 file_key 的音频组件，播放状态不受影响。
+        "disabled": false, // 是否禁用该组件，禁用后无法操作组件。
+        "disabled_tips": { // 禁用提示。禁用组件后，用户操作组件时的文案提醒。
+          "tag": "plain_text",
+          "content": "已禁用"
+        },
+        "show_progress_bar": true, // 是否显示进度条。
+        "show_time": true, // 是否显示时间。
+        "time_display": "default", // 时间的展示方式。
+        "time_position": "end", // 时间的位置。
+        "border": { // 组件的边框设置，默认不显示边框。
+          "color": "border-color", // 边框颜色，支持颜色枚举值和 RGBA 语法自定义颜色。
+          "corner_radius": "8px" // 边框圆角设置，单位为 px。
+        },
+        "style": "normal", // 音频播放按钮的样式。
+        "padding": "12px", // 组件外侧边缘到内部元素间的内边距。
+        "background_style": "bg-color", // 背景色样式。支持 default、支持颜色枚举值和 RGBA 语法自定义颜色。
+        "fill_color": "fill-color", // 按钮、进度条和时间的填充颜色。支持颜色枚举值和 RGBA 语法自定义颜色。 
+        "width": "default", // 组件的宽度。
+        "fallback": {
+          // 自定义音频组件的降级文案。默认为“请升级至最新版本客户端，以查看内容。”
+          "tag": "fallback_text", // 降级文案的标签。
+          "text": {
+            "content": "自定义降级文案", // 自定义降级文案的具体内容。
+            "tag": "plain_text" // 降级文案内容类型的标签。
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+## 字段说明
+
+音频组件的字段说明如下表。
+
+
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 15%;">名称</md-dt-th>
+<md-dt-th style="width: 10%;">必须</md-dt-th>
+<md-dt-th style="width: 15%;">类型</md-dt-th>
+<md-dt-th style="width: 10%;">默认值</md-dt-th>
+<md-dt-th style="width: 40%;">说明</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">tag</md-text>
+</md-dt-td>
+<md-dt-td>是</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>组件的标签，音频组件的固定取值为 `audio`。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">element_id</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>操作组件的唯一标识。用于在调用[组件相关接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create)中指定组件。在同一张卡片内，该字段的值全局唯一。仅允许使用字母、数字和下划线，必须以字母开头，不得超过 20 字符。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">margin</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>0</md-dt-td>
+<md-dt-td>组件的外边距。值的取值范围为 [-99,99]px。可选值：
+- 单值，如 "10px"，表示组件的四个外边距都为 10 px。
+- 双值，如 "4px 0"，表示组件的上下外边距为 4 px，左右外边距为 0 px。使用空格间隔（边距为 0 时可不加单位）。
+- 多值，如 "4px 0 4px 0"，表示组件的上、右、下、左的外边距分别为 4px，12px，4px，12px。使用空格间隔。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">file_key</md-text>
+</md-dt-td>
+<md-dt-td>是</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>音频文件 key，需调用 [上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create) 接口获取，同时确保：
+- 指定待上传的文件类型（`file_type`）为 OPUS。
+- 传入音频时长（`duration`），且确保与实际时长一致。
+- 调用上传文件接口的应用与之后发送卡片的应用一致。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">i18n_file_key</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Object</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>如果卡片配置了多语言，可通过该字段指定多语言卡片的音频文件 key，参考 [配置卡片多语言](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/configure-multi-language-content)。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">audio_id</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>音频实例唯一标识。卡片发生更新时，具有相同 `audio_id`、相同 `file_key` 的音频组件，播放状态不受影响。
+  
+  
+**注意**：
+- 在同一张卡片内，该字段的值全局唯一。
+- 若不指定，则卡片内部会默认生成随机值，卡片在发生更新时将停止当前音频播放。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">disabled</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Boolean</md-text>
+</md-dt-td>
+<md-dt-td>false</md-dt-td>
+<md-dt-td>是否禁用音频组件。可选值：
+- `true`：禁用操作组件
+- `false`：组件保持可用状态
+
+![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9dc254532028bb9dad0e4eafeefd5439_lZsDdNKxv1.png?height=229&lazyload=true&maxWidth=300&width=764)
+
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">disabled_tips</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Object</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>禁用音频组件后，用户在 PC 端鼠标悬浮组件时、或移动端点击组件时的文案提醒。默认无提醒。
+
+![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4c57db6a19a5e5c8f1f3ac115c2ba53a_vkS0hBSHWB.png?height=159&lazyload=true&maxWidth=300&width=768)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">tag</md-text>
+</md-dt-td>
+<md-dt-td>是</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>提示文案的标签。固定取值为 `plain_text`。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">content</md-text>
+</md-dt-td>
+<md-dt-td>是</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>提示文案的内容。如“已禁用”。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">show_progress_bar</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Boolean</md-text>
+</md-dt-td>
+<md-dt-td>true</md-dt-td>
+<md-dt-td>是否显示进度条。可选值：
+- `true`：显示
+- `false`：不显示
+  
+下图为不显示进度条的示意图：
+
+![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a2fe565583b1581297862911bddbfc38_7Le9Aa5jbQ.png?height=216&lazyload=true&maxWidth=300&width=764)</md-dt-td>
+</md-dt-tr>
+  <md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">show_time</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Boolean</md-text>
+</md-dt-td>
+<md-dt-td>true</md-dt-td>
+<md-dt-td>是否显示音频总时长和当前已播放时长。可选值：
+- `true`：显示
+- `false`：不显示
+  
+  
+下图为不显示时长的示意图：
+
+![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/59db6e7005f6455c66cc2ba115a12162_340cCdPEAx.png?height=220&lazyload=true&maxWidth=300&width=770)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">time_display</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>default</md-dt-td>
+<md-dt-td>时长显示方式，仅当 `show_time` 为 `true` 时生效。可选值：
+- `default`：仅展示一个时间。未播放时显示为总时长，播放或暂停时显示为当前已播放时长。
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e4c519e31ad5fc86948b0b51b5db0842_GYAyK0ftYZ.png?height=96&lazyload=true&maxWidth=300&width=521)
+- `both`：同时显示总时长和当前已播放时长。
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/efd4796cd6c99cce3e8f99b304e2354b_YfyB5Mwurn.png?height=94&lazyload=true&maxWidth=300&width=527)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">time_position</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>end</md-dt-td>
+<md-dt-td>时长显示位置，仅当 `show_time` 为 `true` 时生效。可选值：
+- `end`：总时长、当前已播放时长均显示在进度条右侧。
+- ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/397df2e7bb4abe87314f72fbfe1cd6fe_OzYWGAYacb.png?height=97&lazyload=true&maxWidth=300&width=524)
+- `start`：总时长、当前已播放时长均显示在进度条左侧。
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2c1e0cb473189c5dfee8b0a997cc83e8_9gy4M2V6ZY.png?height=92&lazyload=true&maxWidth=300&width=530)
+- `both_sides`：左侧显示当前已播放时长，右侧显示总时长。
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b85829a6025fa21fb07d279121514aad_Nf57AL3phj.png?height=85&lazyload=true&maxWidth=300&width=524)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">border</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Object</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>边框设置，默认不显示边框。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">color</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>边框的颜色，默认为透明色。支持[颜色枚举值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-fields-related-to-color)和 RGBA 语法自定义颜色。
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">corner_radius</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>8px</md-dt-td>
+<md-dt-td>圆角设置，单位为 px。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">style</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>normal</md-dt-td>
+<md-dt-td>播放按钮样式，可选值：
+- `normal`：默认值。三角形播放按钮，带圆底
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/11d59dfedd0c0ea5bc6723fe4fee788e_2y5P1yQZ1l.png?height=80&lazyload=true&maxWidth=90&width=90)
+- `flat`：三角形播放按钮，不带圆底
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/36b8ec70cdc721b0b5bb72412e5e4382_0s3lBFfwol.png?height=84&lazyload=true&maxWidth=90&width=93)
+- `speak`：语音样式
+   
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ab8fe4ccb7046515e0e738e4893ea9ff_Eh08ZVN7iu.png?height=83&lazyload=true&maxWidth=90&width=92)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">padding</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>12px</md-dt-td>
+<md-dt-td>组件外侧边缘到内部元素间的内边距。值的取值范围为 [-99,99]px。可选值：
+- 单值，如 "10px"，表示容器的四个外边距都为 10 px。
+- 双值，如 "4px 0"，表示容器的上下外边距为 4 px，左右外边距为 0 px。使用空格间隔（边距为 0 时可不加单位）。
+- 多值，如 "4px 0 4px 0"，表示容器的上、右、下、左的外边距分别为 4px，12px，4px，12px。使用空格间隔。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">background_style</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>default</md-dt-td>
+<md-dt-td>音频组件背景色。可取值：
+- `default`：默认的浅灰色。
+- 卡片支持的颜色枚举值和 RGBA 语法自定义颜色。参考 [颜色枚举值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-fields-related-to-color)。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">fill_color</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>grey-800</md-dt-td>
+<md-dt-td>组件内元素的填充颜色，元素包括：
+- 播放/暂停按钮图标
+- 进度条已播进度
+- 时间
+
+支持[颜色枚举值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-fields-related-to-color)和 RGBA 语法自定义颜色。下图为 `fill_color` 为 `blue-800` 时的效果：
+
+  ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4d52a3b9091b2c269c9cee718585eacc_X9Mvu6u1mZ.png?height=91&lazyload=true&maxWidth=300&width=533)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">width</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>default</md-dt-td>
+<md-dt-td>组件的宽度。支持以下枚举值：
+- `default`：默认宽度
+- `fill`：卡片最大支持宽度
+- [100,∞)px：自定义宽度，如 `120px`
+  
+默认宽度和最大支持效果示意图如下所示：
+
+![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0c6fb4a4411be1e4cf1623c050693254_nssPtikODk.png?height=235&lazyload=true&maxWidth=300&width=529)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name">fallback</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Object</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>设置音频组件的降级文案。音频组件仅支持飞书 V7.49 及以上版本的客户端，你需选择在低于此版本的客户端上，该组件的降级展示方式：
+- 不填写该字段，使用系统默认的降级文案：“请升级至最新版本客户端，以查看内容”。
+- `"drop"`：填写 `"drop"`，在旧版本客户端上直接丢弃该组件。
+- 使用 `text` 文本对象自定义降级文案。
+    
+   ![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ecb79a1e546736d50a03f406fe5f0905_6oC4FDFe2c.jpeg?height=95&lazyload=true&maxWidth=300&width=591)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">tag</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>fallback_text</md-dt-td>
+<md-dt-td>降级文案的标签，固定取值为 `fallback_text`。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="1">
+<md-dt-td>
+<md-text type="field-name">text</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">Object</md-text>
+</md-dt-td>
+<md-dt-td>/</md-dt-td>
+<md-dt-td>降级文案的内容。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="2">
+<md-dt-td>
+<md-text type="field-name">tag</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>plain_text</md-dt-td>
+<md-dt-td>降级文案内容的标签，固定取值为 `plain_text`。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="2">
+<md-dt-td>
+<md-text type="field-name">content</md-text>
+</md-dt-td>
+<md-dt-td>否</md-dt-td>
+<md-dt-td>
+<md-text type="field-type">String</md-text>
+</md-dt-td>
+<md-dt-td>空</md-dt-td>
+<md-dt-td>自定义降级文案的具体内容。</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+
+:::
+## 示例代码
+
+以下 JSON 2.0 结构的示例代码可实现如下图所示的卡片效果。请将 `file_key` 替换为实际值后再查看效果。获取音频文件 `file_key` 时，请确保调用[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口的应用与发送卡片的应用一致。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/42fba98de89f57cb5d8705dd65422fdf_TGh5RpdQcp.png?height=1957&lazyload=true&maxWidth=400&width=777)
+```json
+{
+  "schema": "2.0",
+  "config": {
+    "update_multi": true,
+    "enable_forward": false
+  },
+  "header": {
+    "title": {
+      "tag": "plain_text",
+      "content": "音频组件示例"
+    },
+    "template": "blue",
+    "padding": "12px 12px 12px 12px"
+  },
+  "body": {
+    "direction": "vertical",
+    "padding": "12px 12px 12px 12px",
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "参数均取默认值时，音频组件示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "1"
+      },
+      {
+        "tag": "markdown",
+        "content": "禁用组件时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "3",
+        "disabled": true,
+        "disabled_tips": {
+          "tag": "plain_text",
+          "content": "已禁用",
+          "text_size": "normal",
+          "text_align": "center",
+          "text_color": "default"
+        }
+      },
+      {
+        "tag": "markdown",
+        "content": "组件宽度 `width` 取 `fill` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "2",
+        "width": "fill"
+      },
+      {
+        "tag": "markdown",
+        "content": "不显示进度条即 `show_progress_bar` 取 `false` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "4",
+        "show_progress_bar": false,
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "41",
+        "show_progress_bar": false,
+        "width": "default"
+      },
+      {
+        "tag": "markdown",
+        "content": "不显示时间即 `show_time` 取 `false` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "5",
+        "show_progress_bar": false,
+        "show_time": false,
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "51",
+        "show_progress_bar": false,
+        "show_time": false,
+        "width": "default"
+      },
+      {
+        "tag": "markdown",
+        "content": "时长显示位置 `time_position` 分别取 `end`、`start` 和 `both_sides` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "6",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "default",
+        "time_position": "end",
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "7",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "default",
+        "time_position": "start",
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "8",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "default",
+        "time_position": "both_sides",
+        "width": "fill"
+      },
+      {
+        "tag": "markdown",
+        "content": "时长显示方式 `time_display` 分别取 `default` 和 `both` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "9",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "default",
+        "time_position": "end",
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "10",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "both",
+        "time_position": "end",
+        "width": "fill"
+      },
+      {
+        "tag": "markdown",
+        "content": "边框颜色 `border.color` 取 `red`、圆角 `border.corner_radius` 取 `4px`、背景色 `background_style` 取 `grey-200`、元素填充颜色 `fill_color` 取 `blue-800` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "11",
+        "disabled": false,
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "both",
+        "time_position": "end",
+        "border": {
+          "color": "red",
+          "corner_radius": "4px"
+        },
+        "style": "normal",
+        "background_style": "grey-200",
+        "fill_color": "blue-800",
+        "width": "fill"
+      },
+      {
+        "tag": "markdown",
+        "content": "播放按钮样式 `style` 分别取 `flat` 和 `speak` 时示例："
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "12",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "both",
+        "time_position": "end",
+        "style": "flat",
+        "width": "fill"
+      },
+      {
+        "tag": "audio",
+        "file_key": "file_v3_00or_f2c1276b-9f24-463d-8911-xxxxxxxx",
+        "audio_id": "13",
+        "show_progress_bar": true,
+        "show_time": true,
+        "time_display": "both",
+        "time_position": "end",
+        "style": "speak",
+        "width": "fill"
+      }
+    ]
+  }
+}
+```

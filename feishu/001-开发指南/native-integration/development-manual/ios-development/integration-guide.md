@@ -1,0 +1,260 @@
+<!--
+title: 集成指南
+id: 7273741289253797892
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/ios-development/integration-guide
+updatedAt: 1732157987000
+source: https://open.feishu.cn/document/native-integration/development-manual/ios-development/integration-guide
+-->
+# 集成指南
+## 前置准备
+- 权限开通：提供飞书账号，联系飞书项目经理开通权限，并获取服务域名
+- 原生集成工具下载：[飞书原生集成工具IDE下载更新文档](http://feishu.feishu.cn/docx/OtX9dXCqYoA9njxawAKcnTd7nob)
+
+## 工程创建指南
+
+### 账号登录
+
+1. 解压上述原生集成工具zip包后，直接打开应用
+1. 填写服务域名。具体域名可联系对应飞书技术支持同学获取
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/571aaa6e13990712571bf5dbf2ce2d4d_vCIZHtmFzk.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+    
+3. 登录开通权限的飞书账号。飞书账号登录成功后点击 **下一步**
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a71d805c705727b2092b295033973c64_TdZX78HoMK.png?height=1256&lazyload=true&maxWidth=500&width=1800)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6b205a51e04af2b1d15dc5686759e3ff_HZzgM1Qdyc.png?height=1256&lazyload=true&maxWidth=500&width=1800)
+    
+4. 下拉选择对应要交付的客户名称及客户channel。
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/41b89e9b276086aa5f1212e0b6a72b3f_Dd16OKkLYR.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+    
+5. 登录完成后，进入工程列表页。
+    1. 当前域名+飞书账号下，所有创建的开发工程都在此页面展示。
+    1. 登录完成后，支持切换客户及channel，支持退出登录
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96d75cd9d62263c119a54a6f3c4e1782_nQmnu19XWN.png?height=1488&lazyload=true&maxWidth=500&width=1914)
+    <br>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/255f3db4302654ea011eb07bfdea94cd_65wcArRMZC.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+
+### 新工程创建
+
+1. 点击 **创建工程** 进入。
+1. 填写工程名称、选择基线版本及存储路径，同一存储路径下，工程名称不可重复。然后点击 **确认创建**
+1. 创建工程创建完后出现提示，点击可返回工程列表
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/df8ee9ab5a9650f205854d8660f09a14_4sw7BtiF8d.png?height=748&lazyload=true&maxWidth=500&width=960)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1b4f2a9cfae202a79d65583fbcaa7ffe_LYT8WxlIg0.png?height=1486&lazyload=true&maxWidth=500&width=1910)
+4. 功能列表页展示当前域名+飞书账号下的所有工程。
+4. 同一个工程可以推送给多个客户（channel)，以当前登录的客户为准。可在右上角点击切换客户
+4. 点击具体存储路径，可查看具体文件夹中的工程内容。点击可进入xcode中进行代码开发
+4. 点击 **导入工程** ，支持直接导入本地已有工程，创建为新工程
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/255f3db4302654ea011eb07bfdea94cd_WB90aQjyPy.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+	<br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e93ee61e87f0523d49743ab72f292963_rmxiNrECPw.png?height=952&lazyload=true&maxWidth=500&width=1287)
+  
+
+### 历史工程迁移
+
+为了更好地管理集成发布的流程与代码，我们优化了工程结构。该变更涉及工程目录结构以及配置文件中的数据结构，新版工程结构与旧有工程不兼容，因此旧工程需要经过迁移才能由新版集成工具打开。
+需要迁移的旧版工程 Podfile 文件如下，迁移步骤请参考[历史工程迁移](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/ios-development/historical-project-migration)
+
+```javascript 
+# Uncomment the next line to define a global platform for your project
+
+# platform :ios, '11.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+def componentPods
+  pod 'LKTabExternalIMP', :path => "./LKTabExternalIMP"
+end
+target 'KAAlchemyClient' do
+  # Comment the next line if you don't want to use dynamic frameworks
+
+  use_frameworks!
+  componentPods
+  # Pods for KAAlchemyClient
+
+end
+```
+:::note
+飞书原生集成根据客户的实际情况，提供了多种构建形式
+- 在线模式：开发阶段，通过集成单将一个或多个本地模块、远端组件，在飞书环境下构建出调试包，支持本地构建、远端构建，支持自主打客户包调试，支持单工程支持交付多家客户，并且可提前构建含客户全部SDK的测试包，提前避免多SDK冲突。开发完成后，基于集成单将组件发布到飞书环境，在飞书环境完成最终飞书包构建。
+- 离线模式：开发阶段，通过飞书集成工具提供的服务，在开发者工程完成开发者部分代码的构建，并在本地环境完成与飞书母包的融合，产出最终的飞书包。开发完成，在客户私有化环境，自行搭建 CI 流程完成最终飞书包构建。
+:::
+
+## 在线模式构建指南
+
+目前指掌易侧使用的都是在线模式构建，可以在开发阶段，通过集成单将一个或多个本地模块、远端组件，在飞书环境下构建出调试包，支持本地构建、远端构建。开发完成，基于集成单将组件发布到飞书环境，在飞书环境完成最终飞书包构建。
+
+### **组件列表**
+
+1. 工程列表点击 **详情**，进入对应工程的组件列表
+1. 组件列表分为**协议组件**、**能力组件**
+    1. 协议组件：客户提供实现，飞书调用。此组件可以获取，并发布
+    1. 能力组件：飞书提供实现，客户调用 **。** 此组件不可发布
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/44b1f95bb3f3c145eac0aa0eb5ef1c09_6W5v7LIbej.png?height=1480&lazyload=true&maxWidth=500&width=1920)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/03dbe24747a78125b593db26342e8b03_6YmM4uhyPS.png?height=1486&lazyload=true&maxWidth=500&width=1920)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a5bec8f9888abe812bb769186a2c5835_tf8NmaC9YD.png?height=1476&lazyload=true&maxWidth=500&width=1920)
+3. 组件支持 **模块管理** ，可以将组件关联到本地模块中，整体一起集成构建
+    1. 默认为空，点击 **添加本地模块** 可创建模块
+    1. **勾选** 模块并确认保存，即可将组件关联到本地模块上；**取消勾选**，则组件不再关联到对应的本地模块上。组件与本地模块的关联关系为多对多。
+        :::warning
+        注意：取消某个组件的关联，并不会自动删除组件的相关代码， 可能导致会编译错误，请自行解决编译错误
+        :::
+    1. 模块保存成功后，会在项目目录下出现同名文件夹
+        1. 如果您需要在模块中添加源码文件，**请务必添加到模块目录的src目录下**
+        1. 如果您需要在模块中增加三方库库(Framework)，**请务必添加到模块目录的Framework目录下**
+    1. 此处不支持删除已创建的本地模块。若有删除诉求，可直接在代码里面操作删除，从而避免在此处直接删除影响代码开发
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96a9382632c057d5df0cb9afac57bdcf_pPTxYb1AQV.png?height=1472&lazyload=true&maxWidth=500&width=1920)
+    
+4. 点击 **查看本地模块，** 可以查看所有创建完成的本地模块，以及模块下关联的所有组件
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c7b8c50e0fa6af5022c83d920b76db76_mC4OIHFcxv.png?height=1472&lazyload=true&maxWidth=500&width=1920)
+    
+5. 点击 **集成** 可以将所有已经开发的一个或多个本地模块、远端组件创建为集成单。本质为一组模块的版本组合，后续可基于该组合完成构建
+    1. 输入集成单名称，选择兼容的飞书版本范围，选择要集成的本地模块、远端组件
+    1. 支持自定义已选择的本地模块名称，支持删除已选择的本地模块
+    1. 集成单创建完成后，可以点击 **保存** 来上报集成单
+    :::warning
+    注意：
+    - 集成单保存会在本地构建您所选中的本地模块，构建成功后和集成单信息一起上传至服务器
+    - 如果您选择了较多的本地模块，或者本地模块有较多源文件需要编译，可能会造成较长的保存时间，请耐心等待
+    :::
+    4. 构建的临时产物在项目目录的alchemy_temp文件夹下，如果您发现该目录占据磁盘空间过大，可随时清空该目录
+    5. 保存成功后，可直接 **去构建**，进入**集成单列表** - **构建详情**页；也可取消，后续按需构建
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/04eb7d0d3720a63443ac043b3e5983ae_CdYKlpDUes.png?height=1482&lazyload=true&maxWidth=500&width=1920)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/088581b39523c2b0ffa5a3ee6614eb01_xJVyJVz7ry.png?height=1480&lazyload=true&maxWidth=500&width=1920)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fb90d2f39ed30e8fdc5caaa1fd7180c7_f8VZOgTzc1.png?height=1476&lazyload=true&maxWidth=500&width=1920)
+6. 如果您有使用Pod的经验，且在项目开发中需要进行pod install操作，**请勿在终端直接运行**，而是需要点击下图所标注的“Pod Install”按钮
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8bd84136b4044f2303bf3a06ab04d14d_pVmygaBAZY.png?height=1484&lazyload=true&maxWidth=500&width=1920)
+:::note
+技术解读：
+<br>整个iOS原生集成是基于CocoaPods实现的，如果您有CocoaPods使用经验，下面的技术解读可以让您更清楚本地模块的实现原理
+  
+- 本地模块本质是一个Pod，对应目录会有对应的podspec，阅读podspec您可以得到以下信息
+  - 该Pod所有源码文件位于src目录下
+  - 该Pod会使用Framework目录下的三方库
+  - 该Pod会读取模块组件依赖信息，以dependency方式实现对组件的依赖
+  
+- 您在模块管理增加新模块，点击保存时，新模块Pod会被添加到项目的Podfile中，且会执行pod install，确保在XCode上可以看到新模块
+  
+- 您在模块管理修改组件关联，点击保存时，也会执行pod install，确保新依赖关系在XCode项目中生效<br>
+
+但正如上面所述，取消组件关联，只会移除模块Pod对该组件的dependency，而不会删除相关源码文件(因为这些文件中可能有您所编写的代码)，因此会出现相关文件找不到被取消组件的依赖而编译报错，需要您自行解决
+  
+:::
+### 集成单列表
+
+1. 所有创建的集成单，都会进入到 **集成单列表**
+1. 点击 **集成单详情**，可以查看集成单内容，包含集成单名称、兼容的飞书版本、集成的远端组件
+    1. 支持基于集成单内的组件，去构建测试包。点击 **去构建**，进入 **构建详情** 页面
+    1. 点击 **编辑**，支持编辑修改集成单名称、兼容飞书版本、远端组件
+    1. 验证通过的集成单组件，可以点击 **发布** 去发布所有组件。发布成功的组件会进入到 **发布列表**，同时会进入到[原生集成控制台](https://delivery.feishu.cn/page/console/micro-app/alchemy-web/product-list/list?pageNum=1)，用于后续的出包配置测试交付
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/91dbdea3d5faac0a016a19003451089a_uuqSBdJuRO.png?height=1486&lazyload=true&maxWidth=500&width=1920)
+    <br>
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a00426f6cee6b8085ace8927d139e741_qa1yg1Hl1u.png?height=1478&lazyload=true&maxWidth=500&width=1920)
+  
+3. 点击 **构建详情** ，可选择参数发起构建测试包
+    1. 包版本：构建的组件支持的飞书测试包版本
+    1. 包类型：真机包
+    1. 构建环境：选择所需要构建测试包的客户环境
+    1. 其他SDK：客户会集成其他家的SDK，可能与当前厂商功能互斥。可通过构建带客户所有SDK的测试包验证
+    1. 加速构建：
+        1. 开启加速构建时，会使用已存在的母包构建，但是会提升构建速度到分钟级别
+        1. 关闭加速构建时，会重新构建母包，但是会降低构建速度到小时级别
+所有参数选择完成后，点击 **本地构建** 触发构建测试包。构建列表会缓存最近两周构建的测试包数据，开发者可按需下载；点击 **查看详情** 可查看构建的测试包的具体参数配置
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c388684c9a735f1abca572738adc804b_AL1a2K4lx7.png?height=1482&lazyload=true&maxWidth=500&width=1920)
+  
+
+### **发布列表**
+
+1. **集成单详情** 页面里点击 **发布** 并发布成功的组件，会进入到 **发布列表**，支持按照发布状态筛选
+    1. 发布成功：安全合规、兼容性检测通过的组件，显示发布成功；
+    1. 发布中：操作发布的组件，飞书侧会进行自动化安全合规、兼容性检测，检测过程中为发布中状态
+    1. 发布失败：安全合规、兼容性检测不通过的组件，显示发布失败，点击发布详情里的「检测不通过」支持查看具体不通过的代码原因
+    :::note
+    注意：发布中、发布失败状态的组件是集成单上线前发布的历史组件；集成单上线后，发布列表只展示发布成功的组件，不展示发布中、发布失败的过程数据。
+    :::
+
+
+2. 发布成功的组件会进入到[原生集成控制台](https://delivery.feishu.cn/page/console/micro-app/alchemy-web/product-list/list?pageNum=1)，用于组装产品及交付客户等后续流程
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c5490daa4229b6fe1c3688d86c23b1da_MGXhQ0XEdd.png?height=1480&lazyload=true&maxWidth=500&width=1920)
+  
+
+## 离线模式构建
+
+离线模式面向私有化客户，如有需要，请联系飞书项目经理
+1. 工程列表点击「详情」，进入对应工程的组件列表
+1. 组件列表分为协议组件、能力组件
+    1. 协议组件：客户提供实现，**飞书调用。** 此组件可以获取，并发布上架
+    1. 能力组件：飞书提供实现，**客户调用。** 此组件不可发布上架
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b947e3f8f33b8b701b61c6ad7141756c_O1825GgCQT.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+   <br>
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cd58a6246e273e24d306425dfb10e340_W3ga7lmc8k.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+3. 组件支持 **模块管理** ，可以将组件关联到本地模块中，整体一起集成构建
+    1. 默认为空，点击 **添加本地模块** 可创建模块
+    1. **勾选** 模块并确认保存，即可将组件关联到本地模块上；**取消勾选**，则组件不再关联到对应的本地模块上。组件与本地模块的关联关系为多对多。
+        :::warning
+        注意：取消某个组件的关联，并不会自动删除组件的相关代码， 可能导致会编译错误，请自行解决编译错误
+        :::
+    3. 模块保存成功后，会在项目目录下出现同名文件夹
+        1. 如果您需要在模块中添加源码文件，**请务必添加到模块目录的src目录下**
+        1. 如果您需要在模块中增加三方库库(Framework)，**请务必添加到模块目录的Framework目录下**
+    4. 此处不支持删除已创建的本地模块。若有删除诉求，可直接在代码里面操作删除，从而避免在此处直接删除影响代码开发
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0ba2a70b2071f46d32a5ff5ebfa355dc_RFM6gFinb8.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+    
+4. 点击 **查看本地模块，** 可以查看所有创建完成的本地模块，以及模块下关联的所有组件
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b7782a399fd3d5a6299d13475936208e_yORNGG5U2G.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+    
+6. 点击**构建飞书**，支持客户将所有已获取的组件，构建进飞书包
+    1. 支持客户下拉选择可构建的飞书版本
+    1. 离线模式下，构建的飞书包后续在客户环境下集成。无后续发布列表、上架列表、构建列表
+    
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c5c2b7fbf6094eb14aab06f19a4c651d_PBWMR6F04L.png?height=1496&lazyload=true&maxWidth=500&width=1920)
+    
+7. 如果您有使用Pod的经验，且在项目开发中需要进行pod install操作，**请勿在终端直接运行**，而是需要点击下图所标注的“Pod Install”按钮
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8bd84136b4044f2303bf3a06ab04d14d_9afdP0AQcn.png?height=1484&lazyload=true&maxWidth=500&width=1920)
+:::note
+技术解读：
+<br>整个iOS原生集成是基于CocoaPods实现的，如果您有CocoaPods使用经验，下面的技术解读可以让您更清楚本地模块的实现原理
+  
+- 本地模块本质是一个Pod，对应目录会有对应的podspec，阅读podspec您可以得到以下信息
+  - 该Pod所有源码文件位于src目录下
+  - 该Pod会使用Framework目录下的三方库
+  - 该Pod会读取模块组件依赖信息，以dependency方式实现对组件的依赖
+  
+- 您在模块管理增加新模块，点击保存时，新模块Pod会被添加到项目的Podfile中，且会执行pod install，确保在XCode上可以看到新模块
+  
+- 您在模块管理修改组件关联，点击保存时，也会执行pod install，确保新依赖关系在XCode项目中生效
+
+但正如上面所述，取消组件关联，只会移除模块Pod对该组件的dependency，而不会删除相关源码文件(因为这些文件中可能有您所编写的代码)，因此会出现相关文件找不到被取消组件的依赖而编译报错，需要您自行解决。
+:::
+
+## 问题排查工具日志
+
+如果您在使用中遇到无法解决的问题，在咨询技术支持的同时，可将工具日志一起提交，方便定位
+1. 点击工具在屏幕最上方菜单栏的**工具**->**打开日志目录**，打开工具日志目录
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/88040a5c1fd261d9e778610022f63e57_gT8VLwyjQJ.jpeg?height=92&lazyload=true&maxWidth=500&width=946)
+    
+2. 弹出的目录中可以找到最近几天的日志
+	
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/14a2c6b81673879ec22337df032817e7_HEKPxqrSJx.png?height=226&lazyload=true&maxWidth=500&width=1322)
+3. 日志名称后缀(如上图红框的20240628)便是其对应日期，找到今天的日志文件，一起提交即可.

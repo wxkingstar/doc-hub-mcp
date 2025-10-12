@@ -1,0 +1,24 @@
+<!--
+title: 飞书开放平台未发版自建应用能力变更
+id: 7336976103641284636
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/Call_OpenAPI_without_Auditing
+updatedAt: 1708418388000
+source: https://open.feishu.cn/document/platform-notices/breaking-change/Call_OpenAPI_without_Auditing
+-->
+# 飞书开放平台未发版自建应用能力变更
+### 变更事项
+为提升服务的安全性，请前往开发者后台检查**从未发布过且状态为“待上线”的自建应用**，如果应用**正在线上运行**并**调用了 OpenAPI**，则需要创建并发布新版本，以确保应用正常运行。<br> <br> 
+
+**是否跟随客户端版本**：不跟随特定客户端版本<br> 
+**预计生效时间**：2024-02-29<br> 
+
+### 潜在影响
+开发者如未在生效时间前发布版本，则可能导致应用无法成功调用 OpenAPI。
+
+### 解决方案
+前往飞书开放平台 > 开发者后台，打开应用（未发版的自建应用），并重新发布一次版本，通过企业管理员审核后即可完成数据修复。
+<br>
+
+若你未能及时确认并调整，相关功能生效后将会导致应用无法成功调用 OpenAPI。<br>
+变更预计在 **2024年02月29日** 生效，请于 **2024年02月29日前** 确认以上信息，并根据情况做好相应适配。<br>
+<br> 如需适配协助，请联系[客服支持](https://applink.feishu.cn/TLJpeNdW)。

@@ -1,0 +1,34 @@
+<!--
+title: 登录流程概述
+id: 7277403063290691612
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/authen-v1/login-overview
+updatedAt: 1732796910000
+source: https://open.feishu.cn/document/sso/web-application-sso/login-overview
+-->
+# 登录流程概述
+网页应用登录是基于 [OAuth 2.0](https://oauth.net/2/) 标准协议实现的，通过飞书账号授权登录第三方应用的能力。
+
+
+## 准备工作
+在使用网页应用登录能力之前，首先你需要阅读 [概述](/ssl:ttdoc/home/app-types-introduction/overview)，并依据文档中的指引在 [开放平台开发者后台](https://open.feishu.cn/app) 创建一个应用，并获得应用的 AppID 和 AppSecret。
+
+接下来，需要选中【安全设置】一栏，并将接收授权码的页面地址添加到右侧的【重定向URL】。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/70816649b673ce88728f4afee04749e0_6jzVde6Cct.png?height=755&lazyload=true&width=1451)
+
+## 整体流程
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/98aa43798f7168f54c91924f90e7e567_olUcc25AH5.png?height=964&lazyload=true&width=962)
+
+### 第一步：获取 code
+[接口文档：获取登录授权码code](/ssl:ttdoc/common-capabilities/sso/api/obtain-oauth-code)
+
+### 第二步：获取 user_access_token
+[接口文档：获取 user_access_token](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/get-user-access-token)
+
+### 第三步：获取用户身份信息
+[接口文档：获取用户身份信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)
+
+### 第四步：刷新 user_access_token
+[接口文档：刷新 user_access_token](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/refresh-user-access-token)

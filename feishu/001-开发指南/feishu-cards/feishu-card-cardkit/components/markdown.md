@@ -1,0 +1,510 @@
+<!--
+title: 富文本
+id: 7488180028434907137
+fullPath: /uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/components/markdown
+updatedAt: 1749785825000
+source: https://open.feishu.cn/document/feishu-cards/feishu-card-cardkit/components/markdown
+-->
+# 富文本
+卡片搭建工具中的富文本组件支持使用富文本语法渲染标题、表情、表格、图片、代码块、@ 人等元素。本文档介绍如何在搭建工具中使用新版卡片的富文本组件。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6511a33e09b9fa778e98913571b5c324_UCbikqrhz6.png?height=802&lazyload=true&maxWidth=600&width=1906)
+
+## 参考案例
+
+- 卡片搭建工具案例库中提供了常见富文本语法的示例，你可直接前往[卡片搭建工具](https://open.feishu.cn/cardkit?catalogId=10015&templateId=AAqR8qCYjsGwn)试一试。
+- 卡片搭建工具案例库中也提供了[富文本绑定变量](https://open.feishu.cn/cardkit?catalogId=10015&templateId=AAqB4FaJYbCnY)案例。
+
+## 组件配置
+
+### 属性
+
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 20%;">配置项</md-dt-th>
+<md-dt-th style="width: 70%;">描述</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr>
+<md-dt-td>文本内容</md-dt-td>
+<md-dt-td>富文本内容，支持填入普通文本、变量、和富文本语法。了解支持的语法，参考下文。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>文本大小</md-dt-td>
+<md-dt-td>富文本内容整体的字号大小，支持配置：
+  - 标题 16 px 
+  - 正文 14 px 
+  - 辅助信息 12 px</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>文本对齐</md-dt-td>
+<md-dt-td>富文本内容的水平对齐方式，支持配置：
+  - 居左 
+  - 居中 
+  - 居右</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>前缀图标</md-dt-td>
+<md-dt-td>在富文本内容左上角添加前缀图标。支持使用搭建工具[图标库](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-icons)中的图标或上传自定义图标。默认关闭。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>组件 ID</md-dt-td>
+<md-dt-td>组件在卡片内的唯一标识，用于在调用[组件相关接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/cardkit-v1/feishu-card-resource-overview#791c8e74)对组件进行增删改时指定组件。仅允许使用字母、数字和下划线，必须以字母开头，不得超过 20 字符。</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+:::
+
+### 样式
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 20%;">配置项</md-dt-th>
+<md-dt-th style="width: 70%;">描述</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr>
+<md-dt-td>外边距</md-dt-td>
+<md-dt-td>为整个富文本组件配置外边距。支持配置上、下、左、右四个方向的外边距，取值范围为 [-99,99]px。具体操作如下图：
+  
+- 一键配置：
+  
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/30c8217510bcc45e1a67167f8dbfac82_xZVa8AOL3Y.gif?height=328&lazyload=true&maxWidth=600&width=1388)
+- 为不同方向分别配置外边距：
+  
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/12d17338d34b3137a88d1b19e46ed432_hT3rvqRfsP.gif?height=436&lazyload=true&maxWidth=600&width=1386)</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+:::
+
+### 变量
+
+**使用场景与示例**
+
+在富文本组件中，使用变量主要有以下两种场景。
+- **场景一**：将完整的富文本内容作为变量，传入富文本组件，实现整个组件动态渲染。
+- **场景二**：将部分文本内容作为变量传入，与其它内容和语法等结合使用。
+
+建议你直接前往飞书卡片搭建工具，体验[富文本绑定变量](https://open.feishu.cn/cardkit?catalogId=10015&templateId=AAqB4FaJYbCnY)案例。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a50d2f22bd2f63928a166c823a79efb0_hgYYKnmK2C.png?height=659&lazyload=true&maxWidth=600&width=1466)
+
+**添加变量**
+
+1. 在富文本组件的文本内容输入框中，点击如下图所示的变量图标或输入 `{` 添加变量。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/177d847d75a179806e3eaf6729e4b2f2_rpEHiAwR9b.png?height=717&lazyload=true&maxWidth=600&width=1544)
+1. 在变量下拉选项中，点击 **新建变量**，在 **添加变量** 弹窗中，参考下表填写内容。
+
+    :::html
+    <md-table>
+      <md-thead>
+        <md-tr>
+          <md-th style="width: 20%;">配置项</md-th>
+          <md-th style="width: 40%;">描述</md-th>
+          <md-th>示例</md-th>
+        </md-tr>
+      </md-thead>
+      <md-tbody>
+        <md-tr>
+          <md-td>类型</md-td>
+          <md-td>变量的类型。在富文本组件中，推荐使用 <strong>普通文本</strong> 类型变量，可满足所有使用场景。</md-td>
+          <md-td>普通文本</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>变量名称</md-td>
+          <md-td>一般为字母或字母与下划线的组合。在之后发送卡片时，你需要为该变量名（key）赋值（value）。</md-td>
+          <md-td>user_id</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>变量描述</md-td>
+          <md-td>此处可补充解释该变量的用法。可不填。</md-td>
+          <md-td>传入用户的实际 ID，实现 @ 人效果。</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>模拟数据</md-td>
+          <md-td>推荐你添加模拟数据，在工具内直接预览组件绑定变量后的数据展示效果。</md-td>
+          <md-td>ou_5c223c41f14d052799980a42aa3abcef</md-td>
+        </md-tr>
+      </md-tbody>
+    </md-table>
+    :::
+        
+**为变量赋值**
+
+添加好变量后，在发送卡片时，即可通过请求体的 `template_variable` 字段为变量赋值。`template_variable` 字段是卡片绑定的变量列表，格式为 `{key:value}`。详情参考[为卡片变量赋值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/configure-card-variables#a6abb723)。
+
+## 支持语法
+
+以下为富文本组件在搭建工具中支持的语法。对于常见语法，卡片工具提供了参考案例，你可直接前往[卡片搭建工具](https://open.larkoffice.com/cardkit?catalogId=10015&templateId=AAqR8qCYjsGwn)查看效果。
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 15%;">名称</md-th>
+      <md-th style="width: 30%;">语法或操作</md-th>
+      <md-th style="width: 20%;">效果</md-th>
+      <md-th>注意事项</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>换行</md-td>
+      <md-td>- 通过一个回车或两个回车换行
+- 使用 &lt;br/&gt; 或 &lt;br&gt; 换行</md-td>
+      <md-td>![图片名称](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/300837597080d9845296d963dc1474cc_4PKOMRWItn.png?height=207&lazyload=true&maxWidth=200&width=907)</md-td>
+      <md-td>无</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>斜体</md-td>
+      <md-td>``` *斜体* ```</md-td>
+      <md-td>![图片名称](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bac43a38d5dddbc07112a7fe0fa9cf6d_JrVEzJAk4C.png?height=142&lazyload=true&maxWidth=200&width=896)</md-td>
+      <md-td>无</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>加粗</md-td>
+      <md-td>``` **粗体** ```</md-td>
+      <md-td>![图片名称](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8ea9f55567a1c815ee9b3c538b6944d5_iO3fCCRovb.png?height=143&lazyload=true&maxWidth=200&width=885)</md-td>
+      <md-td>
+- 不要连续使用 4 个 * 加粗。该语法不规范，可能会导致渲染不正确。
+- 若加粗效果未显示，请确保加粗语法前后保留一个空格。
+      
+      </md-td>
+    </md-tr>
+    
+        <md-tr>
+      <md-td>删除线</md-td>
+      <md-td>```~~删除线~~```</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/83dda83377d42737750439ac7f8c435c_QSrojHfepe.png?height=142&lazyload=true&maxWidth=200&width=882)</md-td>
+      <md-td>无</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>@指定人</md-td>
+      <md-td>
+ - 传入用户 ID 或邮箱。了解如何获取 user_id、open_id，参考[如何获取不同的用户 ID](/ssl:ttdoc/home/user-identity-introduction/open-id)。
+            
+  ```json
+  - 使用 open_id  <at id=open_id></at>
+  - 使用 user_id <at id=user_id></at>
+  - 使用 email <at email=test@email.com></at>
+  ```
+- 支持传入多个人 ID：
+  ```json
+  <at ids=id_01,id_02,xxx></at>
+  ```
+</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ede584c8e2e6fe7b94fadd38d55b8648_AP7KlXtAZL.png?height=139&lazyload=true&maxWidth=200&width=890)</md-td>
+      <md-td>
+- 被 @ 的用户将收到提及通知，但对于转发的卡片，用户将不再收到提及通知。
+- 该语法不支持展示人员的用户名、头像、个人名片等。你可使用[人员](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/user-profile)或[人员列表](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-components/content-components/user-list)组件替代，但人员和人员列表组件仅作为展示，用户不会收到提及通知。
+- 使用[自定义机器人](/ssl:ttdoc/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)发送卡片，仅支持使用 open_id、user_id @指定人。
+- 可使用 ID 绑定变量，发送卡片时再传入实际 ID。
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>@所有人</md-td>
+      <md-td><code>&lt;at id=all&gt;&lt;/at&gt;</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6ac3c61407e1d7a307897749560c081c_jMY9W7UMon.png?height=137&lazyload=true&maxWidth=200&width=892)</md-td>
+      <md-td>@所有人需要群主开启权限。若未开启，卡片将发送失败。</md-td>
+    </md-tr>
+        <md-tr>
+      <md-td>超链接</md-td>
+      <md-td><code>&lt;a href='https://open.feishu.cn'&gt;&lt;/a&gt;</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/62580eb18c101c3da58d2ded1fd7452d_slJ1snAYHr.png?height=139&lazyload=true&maxWidth=200&width=906)</md-td>
+      <md-td>
+- 超链接必须包含 schema 才能生效，目前仅支持 HTTP 和 HTTPS。
+- 超链接文本的颜色不支持自定义。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>文字链接</md-td>
+      <md-td>```[开放平台](https://open.feishu.cn/)```</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2c938c536f83a0ef285e14d32a4c52b4_bDXKVnWvV7.png?height=162&lazyload=true&maxWidth=200&width=898)</md-td>
+      <md-td>超链接必须包含 schema 才能生效，目前仅支持 HTTP 和 HTTPS。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>可加图标的差异化跳转链接</md-td>
+      <md-td><code>&lt;link icon='chat_outlined' url='https://open.feishu.cn' pc_url='' ios_url='' android_url=''&gt;战略研讨会&lt;/link&gt;</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/06737a26b8b7a38c3bf6ae1b6edd2a4d_IPj8dpoYJj.png?height=144&lazyload=true&maxWidth=200&width=890)</md-td>
+      <md-td>超链接必须包含 schema 才能生效，目前仅支持 HTTP 和 HTTPS。该语法中的字段说明如下所示：
+ - `icon`：链接前缀的图标。仅支持图标库中的图标，枚举值参见[图标库](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-icons)。图标颜色固定为蓝色。可选。
+- `url`：默认的链接地址，未按设备配置下述字段时，该配置生效。必填。
+- `pc_url`：pc 端的链接地址，优先级高于 `url`。可选。
+- `ios_url`：ios 端的链接地址，优先级高于 `url`。可选。
+- `android_url`：android 端的链接地址，优先级高于 `url`。可选。
+      </md-td>
+    </md-tr>
+    
+    <md-tr>
+      <md-td>彩色文本样式</md-td>
+      <md-td>
+      
+```json
+<font color='green'>这是一个绿色文本 </font>
+<font color='red'>这是一个红色文本</font>
+<font color='grey'>这是一个灰色文本</font>
+```
+      
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/77796a9b7d827c4e56a3bc147a538e19_U1dd2uJBU9.png?height=186&lazyload=true&maxWidth=200&width=894)</md-td>
+      <md-td>
+- 彩色文本样式不支持对链接中的文本生效。
+- color 取值：
+  - **default**：默认的白底黑字样式
+   - 卡片支持的颜色枚举值和 RGBA 语法自定义颜色。参考[颜色枚举值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-fields-related-to-color)
+- 支持嵌套其它标签，如 <code>&lt;font color=red&gt;red&lt;font color=green&gt;green&lt;/font&gt;again&lt;/font&gt;</code>。其它标签包括：
+   - 闭合标签 <code>&lt;local_datetime&gt;&lt;/local_datetime&gt;</code>
+   - 闭合标签 <code>&lt;at&gt;&lt;/at&gt;</code>
+   - 闭合标签 <code>&lt;a&gt;&lt;/a&gt;</code>
+   - 闭合标签 <code>&lt;link&gt;&lt;/link&gt;</code>
+    - 闭合标签 <code>&lt;font&gt;&lt;/font&gt;</code>
+      </md-td>
+    </md-tr>
+    
+        <md-tr>
+      <md-td>可点击的电话号码</md-td>
+      <md-td>```[文本展示的电话号码或其他文案内容](tel://移动端弹窗唤起的电话号码)```</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a3fe1041e40b7b1f0b7ca8795a85ce97_1mIip8HJ9o.png?height=131&lazyload=true&maxWidth=200&width=888)</md-td>
+      <md-td>该语法仅在移动端生效，点击后自动跳转至拨号界面。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>图片</md-td>
+      <md-td>```![hover_text](image_key)```</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9cf0206fc9d2e8ff8322bb98d70c2a82_KkYBnipLpC.png?height=611&lazyload=true&maxWidth=200&width=881)</md-td>
+      <md-td>hover_text 指在 PC 端内光标悬浮（hover）图片所展示的文案。image_key 可以调用[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口获取。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>分割线</md-td>
+      <md-td><code>&lt;hr&gt; 或 ---</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ea52c0360a528c922548d3e0a9fc347f_H0Db7qZHGR.png?height=290&lazyload=true&maxWidth=200&width=892)</md-td>
+      <md-td>- 推荐使用 <code>&lt;hr&gt;</code> 语法
+- 分割线需单独一行使用，且前后必须均有文本。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>飞书表情</md-td>
+      <md-td>
+      
+```json
+:DONE:
+:OK:
+```
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a9d26fe081505d3e979639d4af861d4b_x5lr3EQzZh.png?height=168&lazyload=true&maxWidth=200&width=899)</md-td>
+      <md-td>支持的 Emoji Key 列表可以参看 [表情文案说明](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。</md-td>
+    </md-tr>
+    
+    
+    <md-tr>
+      <md-td>标签</md-td>
+      <md-td><code>&lt;text_tag color='red'&gt;标签文本&lt;/text_tag&gt;</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2d4cb999c3d0659a1afdd8c6aca2b295_pAwqeoNyOZ.png?height=474&lazyload=true&maxWidth=200&width=880)</md-td>
+<md-td><code>color</code>支持的枚举值范围包括：
+ - <code>neutral</code>: 中性色
+  - <code>blue</code>: 蓝色
+   - <code>turquoise</code>: 青绿色
+  - <code>lime</code>: 酸橙色
+  - <code>orange</code>: 橙色
+ - <code>violet</code>: 紫罗兰色
+  - <code>indigo</code>: 靛青色
+ - <code>wathet</code>: 天蓝色
+- <code>green</code>: 绿色
+ - <code>yellow</code>: 黄色
+- <code>red</code>: 红色
+ - <code>purple</code>: 紫色
+ - <code>carmine</code>: 洋红色
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>有序列表</md-td>
+      <md-td>
+```json
+1. 有序列表1
+    1. 有序列表 1.1
+2. 有序列表2
+```
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7726e62b4cc5f8049e5a4c76f7041a90_ozzYmD5PKE.png?height=198&lazyload=true&maxWidth=200&width=893)</md-td>
+      <md-td>- 序号需在行首使用
+- 4 个空格代表一层缩进</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>无序列表</md-td>
+      <md-td>
+```
+- 无序列表1 
+    - 无序列表 1.1
+- 无序列表2
+```</md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/08b443c41ad472a3c3e2457f5e943170_k4bcNKpC54.png?height=187&lazyload=true&maxWidth=200&width=888)</md-td>
+      <md-td>- 序号需在行首使用
+- 4 个空格代表一层缩进</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>代码块</md-td>
+      <md-td>
+      
+`````markdown
+```JSON
+{"This is": "JSON demo"}
+```
+`````
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18259d719f1c48143a79709559bded6f_SaZoGCb62i.png?height=179&lazyload=true&maxWidth=200&width=890)</md-td>
+      <md-td>- 代码块语法和代码内容需在行首使用
+- 支持指定编程语言解析。未指定默认为 Plain Text
+- 四个及以上空格（[缩进式代码块语法](https://spec.commonmark.org/0.30/#indented-code-blocks)）也将触发代码块效果</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>人员</md-td>
+      <md-td><code>&lt;person id = 'user_id' show_name = true show_avatar = true style = 'normal'&gt;&lt;/person&gt;</code></md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/671316810b64b966c4c1972f6cd8dff7_Uptxubzt7T.png?height=144&lazyload=true&maxWidth=200&width=888)</md-td>
+      <md-td>该语法中的字段说明如下所示：
+- <code>id</code>：用户的 ID，支持 open_id、union_id 和 user_id。不填、为空、数据错误时展示为兜底的“未知用户”样式。了解更多，参考[如何获取不同的用户 ID](/ssl:ttdoc/home/user-identity-introduction/open-id)。
+ - <code>show_name</code>：是否展示用户名。默认为 true。
+- <code>show_avatar</code>：是否展示用户头像，默认为 true。
+- <code>style</code>：人员组件的展示样式。可选值有：
+- <code>normal</code>：普通样式（默认）
+- <code>capsule</code>：胶囊样式
+      </md-td>
+    </md-tr>
+        <md-tr>
+      <md-td>标题</md-td>
+      <md-td>
+          
+```json
+# 一级标题
+## 二级标题
+###### 六级标题
+```
+
+          </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e537ccd26326a61e54a0a9e72490be51_Zssp7tqhEW.png?height=247&lazyload=true&maxWidth=200&width=894)</md-td>
+      <md-td>支持一级到 6 级标题。从一级到六级的字号梯度为 26, 22 , 20, 18, 17, 14px。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>引用</md-td>
+      <md-td>
+      
+```
+> 这是一段引用文字
+> 引用内换行
+
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bed85a5bbce1a10f9bbba51d4bdda0bb_aKIpXZVVhl.png?height=159&lazyload=true&maxWidth=200&width=880)</md-td>
+      <md-td>无</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>行内引用</md-td>
+      <md-td>
+```
+`code`
+```
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/02d090cc4e8fababbe3f81a2a9e171db_a82YQUGY2V.png?height=126&lazyload=true&maxWidth=200&width=888)</md-td>
+      <md-td>无</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>原始标签</md-td>
+      <md-td>
+```
+<raw>`code`</raw>
+```
+      </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3acbe46cdef8660736d34ccbfae879b5_OUXlH8nGb2.png?height=133&lazyload=true&maxWidth=200&width=877)</md-td>
+      <md-td>适用于要对命中语法的字符进行展示的情况。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>表格</md-td>
+      <md-td>支持 markdown 文本的表格语法。
+```
+| Syntax | Description |
+| -------- | -------- |
+| Paragraph | Text |
+| Paragraph | Text |
+| Paragraph | Text |
+| Paragraph | Text |
+| Paragraph | Text |
+| Paragraph | Text |
+```</md-td>
+<md-td>
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/82a6ded4caa2900de64752118aa7df98_NGv8SnrrVk.png?height=430&lazyload=true&maxWidth=200&width=891)</md-td>
+<md-td>- 除标题行外，最多展示五行数据，超过五行将分页展示。不支持自定义。
+- 单个富文本组件中，最多可放置四个表格。
+- 该语法仅支持新版卡片，即在卡片名称旁有“新版”标签的卡片。
+- 表格的富文本语法不支持设置列宽等。要设置列宽、数据对齐方式等，可使用[表格](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/components/table)组件。
+
+  ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d9932077596aef94db3d8e463cffb2c9_BlzbJGJE1s.png?height=609&lazyload=true&maxWidth=200&width=568)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>数字角标</md-td>
+      <md-td>
+```
+<number_tag>1</number_tag>
+<number_tag background_color='grey' font_color='white' url='https://open.feishu.cn'  pc_url='https://open.feishu.cn' android_url='https://open.feishu.cn' ios_url='https://open.feishu.cn'>1</number_tag>
+``` </md-td>
+      <md-td>![图片](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5ceae637789cebfa5d8cd954ea9aa577_mSo3iTbvdc.png?height=151&lazyload=true&maxWidth=200&width=882)</md-td>
+      <md-td>数字圆形角标，支持添加 0-99 之间的数字。该语法中的字段说明如下所示：
+- <code>background_color</code>：圆圈内的背景颜色。可选。
+- <code>font_color</code>：数字颜色。可选。
+ - <code>url</code>：点击角标时默认的跳转链接，未按设备配置下述字段时，该配置生效。可选。
+ - <code>pc_url</code>：点击角标时 PC 端的跳转链接，优先级高于 <code>url</code>。可选。
+- <code>ios_url</code>：点击角标时 iOS 端的跳转链接，优先级高于 <code>url</code>。可选。
+- <code>android_url</code>：点击角标时 Android 端的跳转链接，优先级高于 <code>url</code>。可选。
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>国际化时间</md-td>
+      <md-td> <code>&lt;local_datetime millisecond='' format_type='date_num' link='https://www.feishu.com'&gt;&lt;/local_datetime&gt;</code></md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0dd7459a8fa40a1c83e6394f2f531136_HJ5KJcYUFU.png?height=362&lazyload=true&maxWidth=200&width=685)</md-td>
+      <md-td>
+
+国际化时间标签。支持自动展示用户当地时区下的时间。该语法中的字段说明如下所示：
+-   `millisecond`：要展示的时间的 Unix 毫秒时间戳。若不填，则：
+    - 对于使用卡片 JSON 发送的卡片，默认展示发送卡片时的时间
+    - 对于使用搭建工具搭建的卡片，默认展示卡片发布的时间
+- `format_type`：定义时间展示的格式。默认使用数字展示，如：`2019-03-15`。枚举值如下所示：
+	- `date_num`：用数字表示的日期，例如 `2019-03-15`。
+  
+   - `date_short`：不含年份的简写日期，支持多语种自动适配，例如 `3月15日`、`Mar 15`。
+  
+   - `date`：完整国际化日期文案，支持多语种自动适配，例如 `2019年3月15日`、`Mar 15, 2019`。
+  
+   - `week`：完整星期文案，支持多语种自动适配，例如 `星期二`、`Tuesday`。
+  
+  - `week_short`：简写星期文案，支持多语种自动适配，例如 `周二`、`Tue`。
+  
+  - `time`：时间（小时:分钟）文案，例如 `13:42`。
+  
+  - `time_sec`：时间（小时:分钟:秒）文案，例如 `13:42:53`。
+  
+  - `timezone`：设备所属时区，格式为 `GMT±hh:mm`，例如 `GMT+8:00`。
+- `link`：点击该时间时跳转的链接地址。 
+
+
+</md-td>
+    </md-tr>
+    
+  </md-tbody>
+</md-table>
+
+:::
+
+**代码块支持的编程语言**
+
+富文本组件支持通过以下代码块语法渲染代码。
+````
+```JSON
+{"This is": "JSON demo"}
+```
+````
+
+其中代码块支持的编程语言如下所示，且对大小写不敏感：
+
+abap、ada、apache、apex、assembly、bash、c、c_sharp、cmake、cobol、coffee_script、cpp、dart、delphi、diff、docker_file、django、erlang、fortran、gherkin、go、graphql、groovy、haskell、html、htmlbars、http、java、javascript、julia、kotlin、latex、lisp、lua、makefile、markdown、matlab、nginx、objective_c、opengl_shading_language、perl、php、powershell、prolog、properties、protobuf、python、r、ruby、rust、sas、scss、scheme、shell、solidity、swift、toml、thrift、typescript、vbscript、visual_basic、xml 和 yaml。

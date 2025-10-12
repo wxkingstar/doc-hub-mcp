@@ -1,0 +1,62 @@
+<!--
+title: 步骤一：创建并配置应用
+id: 7000265194196156444
+fullPath: /home/mass-messaging-to-designated-departments/create-app-request-permission
+updatedAt: 1721888560000
+source: https://open.feishu.cn/document/mass-messaging-to-designated-departments/create-app-request-permission
+-->
+# 步骤一：创建并配置应用
+
+你需要创建一个企业自建应用，并配置应用权限。
+
+## 操作步骤
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 在开发者后台首页，单击 **创建企业** **自建应用**，填写应用名称、描述以及图标信息，然后单击 **创建**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8024a7e2fd42054b4653d54fc884ae54_ATtbkIi5At.png?height=1526&lazyload=true&maxWidth=600&width=2512)
+
+3. 关联测试企业，生成测试版本的应用。
+    
+    1. 在应用详情页左侧导航栏，进入 **测试企业和人员** 页面，并在页面右上角单击 **创建测试企业**。
+        
+
+    	为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+
+        
+    2. 在 **创建测试企业** 对话框，填写 **测试企业名称**、**手机号**、**验证码**，并单击 **确认创建**。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/85af43ae4f1337a78e80d3608c590449_afID8hbBqR.png?height=1378&lazyload=true&maxWidth=600&width=3572)
+
+    3. 创建测试企业后，在 **操作** 列，单击 **关联应用**。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/341586fdf85d2297f0eb9ef2e85a1b09_7Ly1Egd9lE.png?height=552&lazyload=true&maxWidth=600&width=2950)
+
+    4. 测试企业关联应用后，在页面顶部切换企业应用为测试版应用。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d934d17429ce3722de3fafa4ae4356e_dgGSWOrsB4.png?height=804&lazyload=true&maxWidth=600&width=3576)
+
+4. 在 **应用能力** > **添加应用能力** 页面的 **按能力添加** 页签，找到 **机器人** 卡片，并点击 **添加**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ea9f1cf27f5b1ba83c1226e9ac894e6b_eTHA28U3Hw.png?height=1306&lazyload=true&maxWidth=600&width=2856)
+
+5. 在左侧导航栏选择 **权限管理**，在 **API 权限** 页面开通以下权限。
+
+	- `contact:department.base:readonly`：获取部门基础信息
+	- `corehr:department.organize:read`：获取部门组织架构信息
+	- `contact:contact.base:readonly`：获取通讯录基本信息
+	- `contact:user.employee_id:readonly`：获取用户 user ID
+	- `contact:department.hrbp:readonly`：查询部门 HRBP 信息
+	- `contact:department.organize:readonly`：获取通讯录部门组织架构信息
+	- `im:message:send_as_bot`：以应用的身份发消息
+	- `im:message:send_multi_users`：给多个用户批量发消息
+	- `im:message:send_multi_depts`：给一个或多个部门的成员批量发消息
+
+	你可以在搜索框输入以下数据，批量开通。
+    
+    ```
+  	contact:department.base:readonly,contact:contact.base:readonly,contact:user.employee_id:readonly,contact:department.hrbp:readonly,contact:department.organize:readonly,im:message:send_as_bot,im:message:send_multi_users,im:message:send_multi_depts
+    ```
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a5bf705df668f1f5c5ac201996c306a5_Pgketmt8l0.png?height=828&lazyload=true&maxWidth=600&width=2214)

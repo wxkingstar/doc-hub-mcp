@@ -1,0 +1,50 @@
+<!--
+title: 打开网页应用
+id: 6986995291975565316
+fullPath: /uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-an-h5-app
+updatedAt: 1736253052000
+source: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-an-h5-app
+-->
+# 打开网页应用
+::: note 
+从飞书 3.19.0 版本开始支持。
+:::
+## 使用场景
+打开一个已安装的H5应用
+
+## 协议
+`https://applink.feishu.cn/client/web_app/open`
+
+##  参数
+
+| 字段         | 必填           | 说明        | 
+| --------- | --------------- | -------   | 
+|**appId** |    是      | H5应用的 appId(可从「开发者后台-凭证与基础信息」获取) | 
+|**mode** | 否 | 打开H5应用的容器模式，枚举值包括<br> `appCenter`：3.20版本开始支持，在工作台打开；7.0版本起，工作台应用会在飞书导航栏的标签页中打开。（默认值） <br> `window`：在独立窗口打开，3.20版本开始支持 <br> `sidebar`：在侧边栏打开，3.40版本开始支持 <br> `window-semi`：在独立窗口以小屏形式打开，5.10版本开始支持 | 
+|**height** | 否 | 自定义独立窗口高度（仅当`mode`为`window`时生效），飞书5.12版本开始支持<br>**最小值**：480<br>**最大值**：屏幕的高度<br>**默认值**：飞书窗口的高度 | 
+|**width** | 否 | 自定义独立窗口宽度（仅当`mode`为`window`时生效），飞书5.12版本开始支持<br>**最小值**：640<br>**最大值**：屏幕的宽度<br>**默认值**：飞书窗口的宽度 | 
+|**min_width** | 否 | 最小宽度（仅当`mode`为`sidebar`时生效），飞书7.9版本开始支持<br> **最小值**：350<br>**最大值**：飞书窗口的宽度<br>**默认值**：350| 
+|**max_width** | 否 | 最大宽度（仅当`mode`为`sidebar`时生效），飞书7.9版本开始支持<br>  **最小值**：350<br>**最大值**：飞书窗口的宽度<br>**默认值**：350| 
+|**path** | 否 | 指定要打开网页应用的某个页面路径。配置path参数后，此参数将会被添加到或者替换网页应用原始url中的path部分（原始url是在开发者后台的网页应用配置页进行配置的），生成要打开页面的最终url。 <br>  **注意**：<br> 1.path 的含义详见[Applink 的结构](/ssl:ttdoc/uYjL24iN/ucjN1UjL3YTN14yN2UTN)，不能出现'#'和'?'这样的字符（即不能携带query参数和fragment），否则会造成要打开的页面url结构异常，导致页面打开的表现不符合预期 <br>2.如果需要携带query参数或fragment（query和fragment的含义详见 Applink 的结构），推荐使用下面的lk_target_url参数 <br> 3.可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path <br> 4.该参数从 3.20版本 开始支持| 
+|**path_android** | 否 | 同 path 参数，Android 端会优先使用该参数，如果该参数不存在，则会使用 path 参数。 <br>3.20版本开始支持 | 
+|**path_ios** | 否 | 同 path 参数，iOS 端会优先使用该参数，如果该参数不存在，则会使用 path 参数 <br>3.20版本开始支持 | 
+|**path_pc** | 否 | 同 path 参数，PC 端会优先使用该参数，如果该参数不存在，则会使用 path 参数 <br>3.20版本开始支持 | 
+|**lk_target_url** | 否 | 指定要打开网页应用的某个页面完整url <br> 注意：<br> 1. 从 7.27版本开始，始终会打开该参数配置的页面；7.27 以前版本，此url参数中的domain如果和网页应用在开发者后台配置的url的scheme和domain不一致，打开的将会是网页应用开发者后台配置的url <br> **2.此url参数必须进行encode处理，如果url携带query参数，并且query参数中也包含 url 或 中文 等非ASCII码字符，必须先对query参数中的非ASCII码字符进行encode后，作为参数的值，然后对url整体进行encode。具体用法详见示例3** <br>3. 该参数从 5.12版本 开始支持，低版本无法解析此参数，如果在低版本使用，将打开开发者后台配置的网页应用首页 <br>4. 该参数和path 系列参数互斥，同时传递时lk_target_url 优先级更高| 
+|**reload** | 否 | 如果网页应用当前所处的页面路径和 applink 要打开的页面路径相同时： <br> **true**：重新加载页面 <br> **false**：保留原页面状态 <br> **默认值**：false <br> 5.20版本开始支持，仅PC端支持|
+## 工具推荐：[Applink 链接生成和诊断工具](https://webview.feishu.cn/applinktool?enter_from=webapp)
+
+## 使用示例
+#### 1. 使用 appId 打开H5应用
+`https://applink.feishu.cn/client/web_app/open?appId=1234567890&mode=window`
+
+#### 2. 使用appid打开H5应用并指定Path 
+1. 目标网页中未携带query 参数 如想打开打开的目标网页为  `https://open.feishu.cn/document/home/index` , 将目标链接中的URL中的**Path** 部分**/document/home/index** 作为Applink URL参数得到最终的AppLink URL https://applink.feishu.cn/client/web_app/open?appId=1234567890 &path=**/document/home/index**。
+
+2. 目标网页中携带了query 参数 如想打开打开的目标网页为 `https://open.feishu.cn/search?from=header&q=applink `, 将目标链接中的URL中的**Path** 部分 **/search** 作为Applink URL Path参数得到最终的AppLink URL https://applink.feishu.cn/client/web_app/open?appId=1234567890&from=header&q=applink&path=**/search**
+
+#### 3. 使用appId打开H5应用，并且携带lk_target_url参数，目标页面地址是https://feishu.cn/a/index.html?xxd=123
+`https://applink.feishu.cn/client/web_app/open?appId=1234567890&lk_target_url=https%3A%2F%2Ffeishu.cn%2Fa%2Findex.html%3Fxxd%3D123`
+
+
+
+

@@ -1,0 +1,34 @@
+<!--
+title: 调试企业介绍
+id: 7172374273873084419
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/debug-company
+updatedAt: 1687156808000
+source: https://open.feishu.cn/document/tools-and-sdks/development-tools/development-assistant/debug-company
+-->
+# 调试企业介绍
+
+
+:::note
+飞书开发者工具 2.32 版本开始支持本功能。该能力支持[商店应用](/ssl:ttdoc/home/app-types-introduction/self-built-apps-and-store-apps)的小程序、小组件能力。
+:::
+
+开发者在 IDE 中开发某个商店应用小程序/小组件的时候，可以设置调试企业为某个测试企业，设置后即可快捷地以该测试企业身份，进行模拟器预览、真机预览、实时预览、真机调试，提升商店应用的开发调试效率。
+
+## 功能介绍
+
+在开发者工具中模拟器的身份信息和登录的身份信息独立，默认为登录的身份信息。
+
+在飞书开发者工具上用开发应用的企业身份登录，工具栏上切换调试企业的入口展示当前调试企业的名字。
+
+![CleanShot 2023-06-19 at 12.59.40.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3fd8f5668baf2c2adef35c3248dece00_86yaxGBi36.png?lazyload=true&width=1182&height=53)
+
+点击入口将会展示可调试的企业下拉列表，点击选择你想调试的企业后等待切换即可。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8149759574c2293fc4cf2a429654ce46_6CesuAKxEM.png?height=516&lazyload=true&width=2222)
+
+:::note
+可调试的企业列表展示的企业为你可登录的企业且该企业下你可见该商店应用，即假设你这个手机号/邮箱能够登录 A、B、C、D 四个企业，在 A、D 两个企业下你可见这个应用，那么下拉列表最终会展示 A、D 两个企业。
+:::
+
+切换成功后，你本地的模拟器将会使用切换后调试企业的用户身份，预览 / 实时预览 / 真机调试将会在切换后的调试企业中进行，请在飞书上切换到对应企业进行调试。
+

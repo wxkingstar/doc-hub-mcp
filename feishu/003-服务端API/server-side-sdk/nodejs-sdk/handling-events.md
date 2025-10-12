@@ -1,0 +1,439 @@
+<!--
+title: 处理事件
+id: 7442638088350351364
+fullPath: /uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/handling-events
+updatedAt: 1733370620000
+source: https://open.feishu.cn/document/server-side-sdk/nodejs-sdk/handling-events
+-->
+# 处理事件
+
+通过事件订阅功能，应用可以及时接收飞书中资源数据的变化，并根据变化情况做对应的业务处理，详情参见[事件概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。在应用内订阅事件时，还需要在本地服务端建立与应用的连接，以便接收事件数据。服务端 SDK 封装了长连接方式，可以快速建立数据通道处理事件；你也可以选择自建 HTTP 服务器处理事件。两种方式介绍如下：
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:30%">订阅方式</md-th>
+<md-th style="width:70%">介绍</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+  
+<md-tr>
+<md-td>使用长连接接收事件</md-td>
+<md-td>该方式是飞书 SDK 内提供的能力，你可以通过集成飞书 SDK 与开放平台建立一条 WebSocket 全双工通道（你的服务器需要能够访问公网）。后续当应用订阅的事件发生时，开放平台会通过该通道向你的服务器发送消息。相较于传统的 Webhook 模式，长连接模式大大降低了接入成本，将原先 1 周左右的开发周期降低到 5 分钟。具体优势如下：测试阶段无需使用内网穿透工具，通过长连接模式在本地开发环境中即可接收事件回调。SDK 内封装了鉴权逻辑，只在建连时进行鉴权，后续事件推送均为明文数据，无需再处理解密和验签逻辑。只需保证运行环境具备访问公网能力即可，无需提供公网 IP 或域名。无需部署防火墙和配置白名单。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>将事件发送至开发者服务器</md-td>
+<md-td>传统的 Webhook 模式，该方式需要你提供用于接收事件消息的服务器公网地址。后续当应用订阅的事件发生时，开放平台会向服务器的公网地址发送 HTTP POST 请求，请求内包含事件数据。</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+## （推荐）方式一：使用长连接接收事件
+
+如果事件订阅方式需要选择 **使用长连接接收事件**，则需要先使用 SDK 建立与应用的连接。本章节提供建立长连接的示例代码与代码解析，通过 SDK 建立长连接之后，你才能在应用的事件订阅方式中保存 **使用长连接接收事件** 方式。关于应用内配置事件订阅方式的介绍，参考[配置事件订阅方式](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case)。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c5a72c50a0d1caf40bdc8718c911b8cd_MHMSb9cxef.png?height=580&lazyload=true&maxWidth=550&width=1224)
+
+### 注意事项
+
+在开始配置之前，你需要确保已了解以下注意事项：
+
+- 目前长连接模式仅支持企业自建应用。
+- 与 **将事件发送至开发者服务器** 方式（即自建服务器方式）的要求相同，长连接模式下接收到消息后，需要在 3 秒内处理完成，否则会触发超时重推机制。
+- 每个应用最多建立 50 个连接（在配置长连接时，每初始化一个 client 就是一个连接）。
+- 长连接模式的消息推送为 **集群模式**，不支持广播，即如果同一应用部署了多个客户端（client），那么只有其中随机一个客户端会收到消息。
+- Node.js SDK 版本需要大于等于 `1.24.0`。
+
+### 长连接代码
+
+```javascript
+import * as Lark from '@larksuiteoapi/node-sdk';
+
+const baseConfig = {
+  appId: 'xxx',
+  appSecret: 'xxx'
+}
+
+const client = new Lark.Client(baseConfig);
+const wsClient = new Lark.WSClient({...baseConfig, loggerLevel: Lark.LoggerLevel.debug});
+
+wsClient.start({
+  // 处理「接收消息」事件，事件类型为 im.message.receive_v1
+  eventDispatcher: new Lark.EventDispatcher({}).register({
+    'im.message.receive_v1': async (data) => {
+      const {
+        message: { chat_id, content}
+      } = data;
+      // 示例操作：接收消息后，调用「发送消息」API 进行消息回复。
+      await client.im.v1.message.create({
+        params: {
+          receive_id_type: "chat_id"
+        },
+        data: {
+          receive_id: chat_id,
+          content: Lark.messageCard.defaultCard({
+            title: `回复： ${JSON.parse(content).text}`,
+            content: '新年好'
+          }),
+          msg_type: 'interactive'
+        }
+      });
+    }
+  })
+});
+```
+
+代码实现说明：
+
+1. 初始化 WSClient。
+    
+    1. 在 baseConfig 中，传入应用的 appId、appSecret。获取方式：登录[开发者后台](https://open.feishu.cn/app)，在应用详情页的 **凭证与基础信息** 页面内，获取应用凭证（包括 App ID 和 App Secret）。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e78da7b6e674f8ab77a16313123d60b0_I9ZxXgd9Qe.png?height=356&lazyload=true&maxWidth=600&width=2536)
+    
+    1. 可选添加 domain 等其他参数，domain 默认为 `open.feishu.cn`。
+        
+        Client 支持配置的参数参考[调用服务端 API](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/invoke-server-api) 中的 **步骤一：创建并配置 API Client** 章节。
+
+2. 基于 Client 完成初始化时，实例上的 start 方法用于启动长连接客户端。
+    
+    其中，start 函数中的 eventDispatcher 参数接收 EventDispatcher 实例，长连接客户端启动成功后，eventDispatcher.register 注册的相关事件 handler 会被执行。
+    
+    如下示例代码部分，需要将 `'im.message.receive_v1'` 替换为需要处理的事件的 **事件类型**。**事件类型** 可参考指定事件的文档，例如，查阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件文档可知，该事件的事件类型为 **im.message.receive_v1**。
+    
+    ```javascript
+    wsClient.start({
+      eventDispatcher: new Lark.EventDispatcher({}).register({
+        'im.message.receive_v1': async (data) => {
+          const {
+            message: { chat_id, content}
+          } = data;
+    ```
+    
+    如成功启动长连接，会打印如下信息。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a5139264b8e6fcbbeafce287aa86efec_YGMzsCtK7W.png?height=694&lazyload=true&maxWidth=600&width=3124)
+    
+    
+## 方式二：将事件发送至开发者服务器
+
+针对处理事件订阅的场景，SDK 提供了以下直观的代码逻辑，使你可以关注服务监听了何种事件，以及事件发生后需要做什么，而无需过多关注如何处理数据解密等其他工作。该方式需要在启动服务器后，将公网可访问的服务器请求地址配置在开发者后台的应用中，如何在应用中配置请求地址参考[配置事件订阅方式](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#e105ab)。
+
+1. 构造事件处理器 `EventDispatcher` 的实例。
+2. 在实例上，注册需要监听的事件以及处理函数。
+3. 将实例和服务进行绑定。
+
+在 `EventDispatcher` 内部会进行数据解密等操作，构造参数说明如下表所示。如果没有传递相关参数，则会自动忽略对应的参数配置。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">参数</md-th>
+<md-th style="width:20%">类型</md-th>
+<md-th style="width:20%">是否必填</md-th>
+<md-th style="width:40%">描述</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>encryptKey</md-td>
+<md-td>string</md-td>
+<md-td>否</md-td>
+<md-td>推送数据加密的 key，开启加密推送时需要使用该参数进行数据解密。关于 encryptKey 的更多信息，参见[配置 Encrypt Key](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/configure-encrypt-key)。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>loggerLevel</md-td>
+<md-td>LoggerLevel</md-td>
+<md-td>否</md-td>
+<md-td>日志级别。枚举值：
+
+- lark.LoggerLevel.error：记录错误事件，这些事件阻止了部分程序的执行。
+- lark.LoggerLevel.warn：记录异常问题，但这些异常可能不影响程序继续运行。
+- lark.LoggerLevel.info：记录运行过程中关键的、需要被监控的信息。
+- lark.LoggerLevel.debug：记录调试信息，用于在调试时诊断问题。
+- lark.LoggerLevel.trace：记录详细信息，可用于开发或调试时跟踪程序运行过程。
+
+**默认值**：lark.LoggerLevel.info</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>logger</md-td>
+<md-td>Logger</md-td>
+<md-td>否</md-td>
+<md-td>日志器，可根据需要自定义配置。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>cache</md-td>
+<md-td>Cache</md-td>
+<md-td>否</md-td>
+<md-td>缓存器，用于缓存数据的存储与获取，如 token。如果你没有指定缓存器，SDK 会初始化一个缓存器。如果需要和现有系统共享数据，可以自定义缓存器，实现 Cache 的接口即可。默认缓存器的实现：[default-cache.ts](https://github.com/larksuite/node-sdk/blob/main/utils/default-cache.ts)</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+示例代码配置如下，其中的 `'im.message.receive_v1'` 为需要监听的事件的 **事件类型**，**事件类型** 可参考指定事件的文档，例如，查阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件文档可知，该事件的事件类型为 **im.message.receive_v1**。
+
+```javascript
+import http from 'http';
+import * as lark from '@larksuiteoapi/node-sdk';
+
+const eventDispatcher = new lark.EventDispatcher({
+    encryptKey: 'encrypt key'
+}).register({
+    'im.message.receive_v1': async (data) => {
+        const chatId = data.message.chat_id;
+
+        const res = await client.im.message.create({
+            params: {
+                receive_id_type: 'chat_id',
+            },
+            data: {
+                receive_id: chatId,
+                content: JSON.stringify({text: 'hello world'}),
+                msg_type: 'text'
+            },
+        });
+        return res;
+    }
+});
+
+const server = http.createServer();
+server.on('request', lark.adaptDefault('/webhook/event', eventDispatcher, {
+    autoChallenge:true,
+}));
+server.listen(3000);
+```
+
+### 与 express 结合
+
+SDK 提供了针对 express 的适配器，用于将 eventDispatcher 转化为 express 的中间件，可无缝与使用 express 编写的服务相结合。示例配置如下，示例中 bodyParser 的使用不是必须的，但社区大多数用其来格式化 body 数据。
+
+```javascript
+import * as lark from '@larksuiteoapi/node-sdk';
+import express from 'express';
+import bodyParser from 'body-parser';
+
+const server = express();
+server.use(bodyParser.json());
+
+const eventDispatcher = new lark.EventDispatcher({
+    encryptKey: 'encryptKey',
+}).register({
+    'im.message.receive_v1': async (data) => {
+        const chatId = data.message.chat_id;
+
+        const res = await client.im.message.create({
+            params: {
+                receive_id_type: 'chat_id',
+            },
+            data: {
+                receive_id: chatId,
+                content: JSON.stringify({text: 'hello world'}),
+                msg_type: 'text'
+            },
+        });
+        return res;
+    }
+});
+
+server.use('/webhook/event', lark.adaptExpress(eventDispatcher));
+server.listen(3000);
+```
+
+### 与 koa 结合
+
+SDK 提供了针对 koa 的适配器，用于将 eventDispatcher 转化为 koa 的中间件，可无缝与使用 koa 编写的服务相结合。示例配置如下，示例中 koaBody 的使用不是必须的，但社区大多数用其来格式化 body 数据。
+
+```javascript
+import * as lark from '@larksuiteoapi/node-sdk';
+import Koa from 'koa';
+import koaBody from 'koa-body';
+
+const server = new Koa();
+server.use(koaBody());
+
+const eventDispatcher = new lark.EventDispatcher({
+    encryptKey: 'encryptKey',
+}).register({
+    'im.message.receive_v1': async (data) => {
+        const open_chat_id = data.message.chat_id;
+
+        const res = await client.im.message.create({
+            params: {
+                receive_id_type: 'chat_id',
+            },
+            data: {
+                receive_id: open_chat_id,
+                content: JSON.stringify({text: 'hello world'}),
+                msg_type: 'text'
+            },
+        });
+
+        return res;
+    },
+});
+
+server.use(nodeSdk.adaptKoa('/webhook/event', eventDispatcher));
+server.listen(3000);
+```
+
+### 与 koa-router 结合
+
+在使用 koa 编写服务时，大多数情况下会配合使用 koa-router 来对路由进行处理，因此 SDK 也提供了针对该情况的适配。
+
+```javascript
+import * as nodeSdk from '@larksuiteoapi/node-sdk';
+import Koa from 'koa';
+import Router from '@koa/router';
+import koaBody from 'koa-body';
+
+const server = new Koa();
+const router = new Router();
+server.use(koaBody());
+
+const eventDispatcher = new lark.EventDispatcher({
+    encryptKey: 'encryptKey',
+}).register({
+    'im.message.receive_v1': async (data) => {
+        const open_chat_id = data.message.chat_id;
+
+        const res = await client.im.message.create({
+            params: {
+                receive_id_type: 'chat_id',
+            },
+            data: {
+                receive_id: open_chat_id,
+                content: JSON.stringify({text: 'hello world'}),
+                msg_type: 'text'
+            },
+        });
+
+        return res;
+    },
+});
+
+router.post('/webhook/event', lark.adaptKoaRouter(eventDispatcher));
+server.use(router.routes());
+server.listen(3000);
+```
+
+### 自定义适配器
+
+如果要适配其他库编写的服务，你需要自己封装相应的适配器，将接收到的事件数据传递给实例化的 `eventDispatcher` 中的 `invoke` 方法，进行事件处理。默认适配器 **default.ts** 代码示例：
+
+```javascript
+import get from 'lodash.get';
+import { EventDispatcher } from '@node-sdk/dispatcher/event';
+import { CardActionHandler } from '@node-sdk/dispatcher/card';
+import { pickRequestData } from './pick-request-data';
+import { generateChallenge } from './services/challenge';
+
+export const adaptDefault =
+    (
+        path: string,
+        dispatcher: EventDispatcher | CardActionHandler,
+        options?: {
+            autoChallenge?: boolean;
+        }
+    ) =>
+    async (req, res) => {
+        if (req.url !== path) {
+            return;
+        }
+
+        const data = Object.assign(
+            Object.create({
+                headers: req.headers,
+            }),
+            await pickRequestData(req)
+        );
+
+        // 是否自动响应challange事件：
+        // https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case
+        const autoChallenge = get(options, 'autoChallenge', false);
+        if (autoChallenge) {
+            const { isChallenge, challenge } = generateChallenge(data, {
+                encryptKey: dispatcher.encryptKey,
+            });
+
+            if (isChallenge) {
+                res.end(JSON.stringify(challenge));
+                return;
+            }
+        }
+
+        const value = await dispatcher.invoke(data);
+
+        // event don't need response
+        if (dispatcher instanceof CardActionHandler) {
+            res.end(JSON.stringify(value));
+        }
+        res.end('');
+    };
+```
+
+### 校验 challenge
+
+在配置事件的请求地址时，开放平台会向请求地址推送一个 `application/json` 格式的 POST 请求，该 POST 请求用于验证所配置请求地址的合法性。在请求体中会携带一个 `challenge` 字段，应用需要在 1 秒内把接收到的 `challenge` 值原样返回飞书开放平台。关于请求地址的更多说明，参见[配置事件订阅方式](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case#e105ab)。
+
+在上文中展示的由 SDK 提供的适配器内部，封装了校验 challenge 的代码逻辑，只需将 `options` 参数中的 `autoChallenge` 字段设置为 `true` 即可启用。
+
+```javascript
+// adaptDefault
+lark.adaptDefault('/webhook/event', eventDispatcher, {
+    autoChallenge: true,
+});
+// express
+lark.adaptExpress(eventDispatcher, {
+    autoChallenge: true,
+});
+// koa
+lark.adaptKoa('/webhook/event', eventDispatcher, {
+    autoChallenge: true,
+});
+// koa-router
+router.post(
+    '/webhook/event',
+    lark.adaptKoaRouter(eventDispatcher, {
+        autoChallenge: true,
+    })
+);
+```
+
+### AESCipher 解密方法
+
+当你配置了加密推送事件后，开放平台推送的事件数据会被加密，此时你需要对接收到的事件数据进行解密，调用 `AESCipher` 方法可以便捷解密。
+
+:::note
+一般情况下使用 SDK 中的内置解密逻辑即可，无需手动处理。
+:::
+
+```javascript
+import * as lark from '@larksuiteoapi/node-sdk';
+
+new lark.AESCipher('encrypt key').decrypt('content');
+```
+
+## 常见问题
+
+### 处理事件时 EventDispatcher 中订阅不到指定事件类型是什么原因？
+
+部分事件未同步到 SDK，开放平台会持续补充，但这期间不影响正常使用。在确保事件类型正确的情况下，传入 **事件类型** 即可。**事件类型** 可参考指定事件的文档，例如，查阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件文档可知，该事件的事件类型为 **im.message.receive_v1**。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f4fbc046c2f6f2e1fbce5263ea0d520b_EBPPi0yS87.png?height=602&lazyload=true&maxWidth=600&width=1698)
+
+错误提示可忽略。你也可以手动传入范型来解决报错。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7d932ce516546c187f3ff76b94184faf_2szu5m92N9.png?height=900&lazyload=true&maxWidth=600&width=1620)

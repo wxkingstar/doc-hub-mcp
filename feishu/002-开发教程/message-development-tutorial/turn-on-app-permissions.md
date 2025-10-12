@@ -1,0 +1,56 @@
+<!--
+title: 步骤一：创建并配置应用
+id: 7017436995158376451
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-development-tutorial/turn-on-app-permissions
+updatedAt: 1720776028000
+source: https://open.feishu.cn/document/home/message-development-tutorial/turn-on-app-permissions
+-->
+# 步骤一：创建并配置应用
+
+通过本步骤您将创建一个测试应用，并开通应用权限，用于后续调用 API 以及配置事件订阅。
+
+## 操作步骤
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 在开发者后台首页，单击 **创建企业自建应用**，填写应用名称、描述以及图标信息，然后单击 **创建**。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8024a7e2fd42054b4653d54fc884ae54_JxjdJMFLmA.png?height=1526&lazyload=true&maxWidth=600&width=2512)
+    
+3. 关联测试企业，生成测试版本的应用。
+
+    1. 在应用详情页左侧导航栏，进入 **测试企业和人员** 页面，并在页面右上角单击 **创建测试企业**。
+    
+
+        为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员功能](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)。在开发阶段，推荐开发者使用测试版应用，此**版本中涉及的权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+
+        
+    2. 在 **创建测试企业** 对话框，填写 **测试企业名称**、**手机号**、**验证码**，并单击 **确认创建**。
+    
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/85af43ae4f1337a78e80d3608c590449_ju0AuXRoSM.png?height=1378&lazyload=true&maxWidth=600&width=3572)
+
+    3. 创建测试企业后，在 **操作** 列，单击 **关联应用**。
+    
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/341586fdf85d2297f0eb9ef2e85a1b09_HMbUOdhjsW.png?height=552&lazyload=true&maxWidth=600&width=2950)
+
+    4. 测试企业关联应用后，在页面顶部切换企业应用为测试版应用。
+       
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d934d17429ce3722de3fafa4ae4356e_peZyNBbGSz.png?height=804&lazyload=true&maxWidth=600&width=3576)
+
+4. 在 **应用能力** > **添加应用能力** 页面的 **按能力添加** 页签，找到 **机器人** 卡片，并点击 **添加**。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ea9f1cf27f5b1ba83c1226e9ac894e6b_K5HPJMNvGq.png?height=1306&lazyload=true&maxWidth=600&width=2856)
+
+5. 在 **权限管理** 页面，为应用开通以下 **API 权限**。
+
+	- `im:chat:create`：创建群
+	- `im:chat:read`：查看群信息
+	- `im:chat:update`：更新群信息
+	- `im:message:send_as_bot`：以应用的身份发消息
+	- `im:resource`：获取与上传图片或文件资源
+	- `im:message:readonly`：获取单聊、群组消息
+	- `im:message.group_msg`：获取群组中所有消息（敏感权限）
+	- `im:message.group_at_msg:readonly`：接收群聊中@机器人消息事件
+	- `im:message.p2p_msg:readonly`：读取用户发给机器人的单聊消息
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c12ba2f52e371ba66df1f7a10c6d3069_VTusE7wTad.png?height=848&lazyload=true&maxWidth=600&width=2212)

@@ -1,0 +1,146 @@
+<!--
+title: 动效
+id: 7462709322368925700
+fullPath: /tools-and-resources/design-specification/design-language/animation
+updatedAt: 1739784708000
+source: https://open.feishu.cn/document/design-specification/design-language/animation
+-->
+# 动效
+动效是赋予产品生机的动态视觉效果。精细而恰当的动效能清晰地传达状态、增强操控感，并以视觉化的方式呈现操作结果。动效通常与用户的交互行为相关，也包括一些与交互无关的临时状态。
+
+<br>
+## 动效基本概念
+
+### 效果 Effects
+
+**基础效果**
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+:::html
+<md-table style="width: 800px;">
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 15%;">效果</md-th>
+      <md-th style="width: 50%;">描述</md-th>
+      <md-th style="width: 35%;">示例</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+     <md-tr  style="vertical-align: top;">
+      <md-td>**位移**</md-td>
+      <md-td>描述元素在页面中的位置变化，通过位移在 XYZ 轴上不同的变化方向，可以达到向用户提示页面层级关系的目的。</md-td>
+      <md-td>![位移.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fcc1a069b354ab6254bacae6b4ac534b_He3tI26wbw.gif?height=1200&lazyload=true&width=1600)
+</md-td>
+    </md-tr>
+        <md-tr style="vertical-align: top;">
+      <md-td>**缩放**</md-td>
+      <md-td>描述元素在页面中的比例变化，通常用于强调页面元素的目的，也可以用于在平面空间中模拟元素在 Z 轴上的位移。</md-td>
+      <md-td>![缩放.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/82fd8d36d93e94faf459614f4b4bf454_E9F50v8zBI.gif?height=1200&lazyload=true&width=1600)</md-td>
+    </md-tr>
+        <md-tr style="vertical-align: top;">
+      <md-td style="vertical-align: top;">**旋转**</md-td>
+      <md-td style="vertical-align: top;">描述元素在页面中的角度变化， 通常用于暗示元素变化的方向趋势。</md-td>
+      <md-td>![旋转.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a7e1d74898f4622a0415f470422aae27_99Kb4D37Qa.gif?height=1200&lazyload=true&width=1600)</md-td>
+    </md-tr>
+        <md-tr style="vertical-align: top;">
+      <md-td>**透明度**</md-td>
+      <md-td>描述元素在页面中的透明度变化，通常用于元素出现和消失的场景 。</md-td>
+      <md-td>![透明度.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a6c567918e96ead0b7a58498b9aff5d5_gblAHayi9w.gif?height=1200&lazyload=true&width=1600)</md-td>
+    </md-tr>
+        <md-tr style="vertical-align: top;">
+      <md-td>**颜色**</md-td>
+      <md-td>描述元素在页面中的颜色变化，通常用于表达元素在选中时的强调，一些特殊颜色的变化也可以表达元素的状态发生改变。</md-td>
+      <md-td>![颜色.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/81651df74d6ab693860ec83acb322553_uELOxOcdj3.gif?height=1200&lazyload=true&width=1600)</md-td>
+    </md-tr>
+</md-tbody>
+</md-table>
+:::
+
+**其他可过渡变化属性**
+
+圆角、尺寸、描边粗细、路径动画等不一一赘述
+
+**其他不可过渡变化属性**
+
+字号、字重，文本内容等
+
+<br>
+
+### 时长 Duration
+
+**如何选择动效时长？**
+
+动效是系统时空体系的表现。为了给用户相对一致的体验，应尽量保持变化的速度恒定。时长在符合人眼观察事物习惯的同时，也应该与自身体系自洽。而我们的体系来自于现实，在现实世界中，事物的变化遵循物理规则。比如位移，如果速度恒定，越长的距离，需要越长的时间来完成。
+在动效设计中，也应遵循这样的规律。
+
+**较短时长**
+
+在设计变化比较细微的动效时，应该选择**较短的时长**，比如按钮的 hover 效果、Badge 的出现效果等。
+
+**较长时长**
+
+在设计变化比较明显，运动幅度较大的动效时，应该选择**较长的时长**，以避免因时长过短而造成动画闪烁不流畅的情况。
+
+**出现和消失的差异**
+
+对于元素的消失，通常来讲应该**比出现的时长更短**。因为用户在想要关闭/退出某个元素时，不会再关注元素本身，而只是想要尽快离开。
+
+<br>
+### 曲线 Timing
+
+**如何选择曲线？**
+
+我们通过与设备交互使用产品，这是一个对话的过程，而不是观看的过程。人在主动参与交互行为的过程中，注意力会更加集中，对于延迟和过程有更加明显的感受，因此交互动效的曲线选择需要有别于 MG。
+**在选择曲线时，应综合考虑触发手势、动画类型以及设计目的。**
+
+**Standard 曲线**
+
+如果一个元素原本就在界面中存在，那么它的运动，应该像现实世界一样，有个加速度的过程。如果最终它在界面中停止，也应该有个减速的过程。但由于人在界面中交互，本身的操作可能会给元素本身一个速度，并且会对界面响应有更高的期待，因此，对于这类动效，在触发时应该有一个初始速度和加速的过程，为了尽量快地满足用户操作目的，应当提高最大速度的值，在快要最终停止时，使用缓慢的变化以带来动画的顺滑感——**快速响应，缓慢结束**。
+> 注意：Standard 曲线为长尾曲线，在使用时可相对常规 ease 曲线采用更长的时长
+
+**加速曲线**
+
+如果一个元素需要从界面内移动到界面外，它需要一直加速，直到出界面外，甚至到达设定的终点都不会减速，此时应该使用加速曲线。
+
+**减速曲线**
+
+如果一个元素需要从界面外移动到界面内，它在界面外的时候本身就已经包含了一个初始速度，而最终需要停止在界面内，此时应该使用减速曲线。
+
+**过冲曲线**
+
+过冲曲线通常用于表现元素运动的弹性，同时也能吸引用户的注意力。对于希望引起用户注意或有情感化需求的效果，可采用过冲曲线。
+
+<br>
+## 动效设计与实现：交互类动画
+
+交互动画(如弹窗、页面转场)通常需要开发人员根据设计参数在不同的平台上实现。
+
+### 交互类动画的设计 
+
+一般使用可交互原型工具制作，如 [Origami Studio](https://origami.design/)、[Principle](https://principleformac.com/) 及 [Framer](https://www.framer.com/) 等。
+
+### 交互类动画的交付
+
+交互类动画的交付需要提供效果视频、原型以及详尽的参数说明。
+参数说明应该阐明触发条件、对象、变化属性及曲线。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c904c9072d81dc6671a48014d2ad3e6f_gSP7arZuLK.png?height=447&lazyload=true&width=1280)

@@ -1,0 +1,90 @@
+<!--
+title: 接入指南
+id: 7044467124773470209
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines
+updatedAt: 1721719975000
+source: https://open.feishu.cn/document/server-docs/attendance-v1/attendance-development-guidelines
+-->
+# 接入指南
+
+## 接口能力
+考勤 API 提供了丰富的接口开放能力，开发者通过 API 接口，可以获取授权范围内的用户打卡结果、打卡流水记录、考勤组详情、排班详情等信息；也可以创建、修改及删除考勤组、班次等内容。
+
+## API 接入开发流程
+**1. 进入[飞书开放平台-开发者后台](https://open.feishu.cn/app/)**
+
+**2. 在开放平台页面，点击“创建应用”**
+- 2.1 选择“企业自建应用”
+- 2.2 填写应用名称，建议填写“打卡API”
+- 2.3 填写应用副标题，建议填写“创建开发者账号”
+- 2.4 点击“确定创建”，生成应用
+
+**3. 在开放平台页面，点击已创建的应用**
+
+- 3.1 查看 App ID 和 App Secret
+- 3.2 上传一个新的应用图标
+- 3.2 点击“安全设置”，设置打卡 API 调用的 IP 白名单
+
+**4. 在开放平台页面，开通打卡应用的读和写权限**
+- 4.1 点击“权限管理”，开通“打卡”应用的读写权限
+
+**5. 在开放平台页面，发布自建应用**
+- 5.1 点击“应用功能”-“机器人”，启用机器人
+- 5.2 点击“版本管理与发布”，发布一个版本
+- 5.3 若企业设置了发布审核，需待**企业管理员**审核通过，该应用的开发者账号才可生效
+
+
+
+
+
+## 事件订阅开发流程
+**1. 进入[飞书开放平台-开发者后台](https://open.feishu.cn/app/)**
+
+**2. 在开放平台页面，点击“创建应用”**  （若在 API 接入开发中已创建，则可跳过此步骤）
+- 2.1 选择“企业自建应用”
+- 2.2 填写应用名称，建议填写“打卡API”
+- 2.3 填写应用副标题，建议填写“创建开发者账号”
+- 2.4 点击“确定创建”，生成应用
+
+
+**3. 在开放平台页面，开通打卡应用的读和写权限** （若在 API 接入开发中已开通，则可跳过此步骤）
+- 3.1 点击“权限管理”，开通“打卡”应用的读写权限
+
+**4. 在开放平台页面，订阅事件** 
+- 4.1 点击“事件订阅”，在“请求网址 URL”处填写回调地址
+- 4.2 添加事件，选择考勤，并选择需要的子事件
+
+**5. 在开放平台页面，发布自建应用**
+- 5.1 点击“应用功能”-“机器人”，启用机器人（若在 API 接入开发中已启用，则可跳过此步骤）
+- 5.2 点击“版本管理与发布”，发布一个版本
+- 5.3 若企业设置了发布审核，需待企业管理员审核通过，该应用的开发者账号才可生效
+
+
+## 名词解释
+**employee_id**
+
+雇员 ID，含义同 user_id，详细解释请参见[名词解释](/ssl:ttdoc/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)。
+
+## 错误信息
+响应体msg                                                                   | msg解释             | 处理方案                    |
+| ------------------------------------------------------------------------ | ----------------- | ----------------------- |
+| param invalid                                                            | 参数异常              | 检查入参是否无效参数              |
+| no row affected                                                          | 数据库行记录数据未更新       | 更新数据库失败或者乐观锁冲突，可以进行重试处理 |
+| the object already exists                                                | 数据已存在             | 唯一键冲突，请检查业务幂等id是否重复     |
+| time calculation failed                                                  | 时间计算错误            | 请检查入参时间格式               |
+| rule does not exist                                                      | 访问记录不存在           | 请检查是否存在对应的数据记录          |
+| shift can not be del                                                     | 班次不能删除            | 班次还在被其他考勤规则关联使用，所以不能删除  |
+| operate too much flow                                                    | 操作的流水数量过多         | 需要小于等于50条流水             |
+| shift does not exist                                                     | 班次信息不存在           | 请检查是否存在对应的数据记录          |
+| env count illegal                                                        | 打卡环境信息出错，gps列表超长  | 不能超过3000                |
+| auth no permission                                                       | 权限验证失败            | 请检查操作人是否有相应的功能和数据权限     |
+| failed to upload an image. Please upload a clear and complete image      | 上传人脸失败            | 请上传清晰完整的头像              |
+| param invalid                                                            | 参数异常              | 检查入参是否无效参数              |
+| the object in tos not found                                              | 在文件存储中不存在该记录      | 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)                 |
+| the attendance result has been sealed and can not modify                 | 考勤结果已封账，无法再修改     | 考勤结果已封账，无法再修改           |
+| time is invalid                                                          | 无效的时间格式           | 请检查入参时间格式               |
+| This API can only be accessed by Feishu People Enterprise Edition users. | 此API只提供给飞书人事（企业版） |             -            |
+| name or employee_no invalid                                              | 用户不存在             | 请检查用户id或者工号信息           |
+| archive_rule_id not exist                                                | 封账规则不存在           | 请检查封账规则id
+| rule not exist                                              | 考勤组信息不存在           | 请检查 group_id 是否正确
+| the rule cannot arrange!                                            | 当前考勤规则不允许创建或修改排班表         | 请检查考勤组班制类型，只有排班制可以使用此接口

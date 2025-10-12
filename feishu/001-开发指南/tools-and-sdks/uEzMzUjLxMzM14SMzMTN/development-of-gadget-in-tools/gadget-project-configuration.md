@@ -1,0 +1,33 @@
+<!--
+title: 项目配置
+id: 6956809121128022043
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/gadget-project-configuration
+updatedAt: 1670248873000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-gadget-in-tools/gadget-project-configuration
+-->
+# 小程序项目配置文件
+飞书小程序已经支持的配置如下。
+
+## 项目配置文件
+
+你可以在project.config.json 文件中对项目进行配置。
+
+| 字段名             | 类型          | 说明                  |
+| --------------- | ----------- | ------------------- |
+| miniprogramRoot | Path String | 指定小程序源码的目录(需为相对路径)  |
+| setting         | Object      | 项目设置                |
+| appid           | String      | 项目的 appid，只在新建项目时读取 |
+| projectname     | String      | 项目名字，只在新建项目时读取      |
+
+## Setting 中的设置
+
+| 字段名      | 类型      | 说明             | 备注             |   |
+| -------- | ------- | -------------- | -------------- | - |
+| es6      | Boolean | 是否启用 es6 转 es5 | 是              |   |
+| minified | Boolean | 上传代码时是否自动压缩    | 是（默认压缩，本地开发不会压缩）
+| babelSetting | Object | babel的配置项 |  |
+
+### babelSetting
+| 字段名      | 类型      | 说明             | 备注             |   |
+| -------- | ------- | -------------- | -------------- | - |
+| ignore | Array<string> | 跳过 babel 编译的目录或文件 | 不压缩和依赖分析 |

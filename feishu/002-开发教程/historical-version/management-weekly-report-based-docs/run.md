@@ -1,0 +1,120 @@
+<!--
+title: 步骤四：下载并运行示例代码
+id: 7080504131006726147
+fullPath: /home/management-weekly-report-based-docs/run
+updatedAt: 1702880774000
+source: https://open.feishu.cn/document/historical-version/management-weekly-report-based-docs/run
+-->
+# 步骤四：下载并运行示例代码
+
+在本步骤，你将下载并运行教程提供的示例代码。示例代码使用 Python 语言编写，请确保你已安装 Python 运行环境。
+
+## 下载示例代码
+
+  
+1. 执行以下命令，下载示例代码到本地。
+   
+  	* Mac OS 或 Linux 系统执行以下命令。
+      
+        ```PowerShell
+        curl  https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/8c9d1ecc1ee8c67765a6d62d3d630321.zip -o weekly_quick_start.zip
+        unzip weekly_quick_start.zip
+        cd weekly_quick_start/python
+        ```
+
+	* Windows 系统执行以下命令。
+      
+        ```PowerShell
+        curl  https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/8c9d1ecc1ee8c67765a6d62d3d630321.zip -o weekly_quick_start.zip
+        weekly_quick_start.zip
+        cd weekly_quick_start/python
+        ```
+
+2. 修改 `.env` 文件中的字段为测试应用的实际数据。
+	
+    修改方式如下：
+   
+    - 方式一：在命令行通过 **vi/vim** 打开并编辑配置文件。命令示例：`vim .env`。
+
+	- 方式二：在本地设备中手动打开 `/weekly_quick_start/python` 文件夹，找到 `.env` 文件，使用常用的文本编辑器打开并编辑。
+    
+    `.env` 文件中的字段说明如下：
+    
+      | **字段名**           | **描述**                          | **获取方式**                                   | **图示**                                                                                                                                                                     |   |
+    |------------------|-------------------------------|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+    | APP_ID           | 该应用的凭证信息 App ID。     | 前往[开发者后台](https://open.feishu.cn/app)的 **凭证与基础信息** 页查看。 | ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4336acf7255d403a96e7ffda581f6f28~tplv-goo7wpa0wc-image.image?height=1024&lazyload=true&maxWidth=300&width=2690)  |   |
+    | APP_SECRET       | 该应用的凭证信息 App Secret。 | 前往[开发者后台](https://open.feishu.cn/app)的 **凭证与基础信息** 页查看。 |  ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/4336acf7255d403a96e7ffda581f6f28~tplv-goo7wpa0wc-image.image?height=1024&lazyload=true&maxWidth=300&width=2690)  |
+    | WIKI_SPACE_ID    | 知识库的空间 ID。             | 你可在知识库 **设置** 页面获取。               | ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/c82ae711f8284d7ab51745487a827ec7~tplv-goo7wpa0wc-image.image?height=1462&lazyload=true&maxWidth=250&width=1744)  |   |
+    | WIKI_NODETOKEN   | 知识库的目录节点 Token。      | 你可在该知识库的目录节点文档页面获取。       | ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/a7676faf3170442fbe183fdd3e3a77d9~tplv-goo7wpa0wc-image.image?height=758&lazyload=true&maxWidth=300&width=1616)   |   |
+    | TEMPLATE_DOC_URL | 你创建的周报模板文档的连接。  | 你可在该周报模板文档页面获取。             | ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/13ab351a9f1d87c5f44a72c47d3ff3a0_qZlaIJZnj3.png?height=1278&lazyload=true&maxWidth=300&width=2414)  |   |
+    | APP_HOST         |    项目地址。     | 无需改动。   |  / |   |
+    | LARK_HOST        |    飞书开放平台地址。    | 一般情况下，无需改动。私有化部署时要将其修改为私有化部署所用的域名。  |    /     |   |
+  
+3. （可选）打开 `weekly.cron` 文件，修改 cron 表达式的参数。示例代码中的 cron 表达式如下：
+    ```PowerShell
+    # Create a weekly report every Friday at 16:00
+    0 16 * * Fri cd /home/app && /usr/local/bin/python weekly.py >> weekly.log 2>&1
+    ```
+    该表达式的功能为：每周五 16：00 点，切换到 `/home/app` 目录，运行 `weekly.py` 文件。你可选择修改其中的参数，自定义创建周报和发送提醒的频率和时间。
+
+
+## 运行示例代码
+你可以选择在 Docker 环境或本地虚拟环境中运行示例代码。
+
+### 注意事项
+
+如果你创建的周报模板的文档类型为 docx（即文档的 URL 为 `https://:domain/docx/:doc_token` 格式），你需在示例代码中的 `server.py` 文件中的第 43 行 `meta = client.get_doc_meta(access_token, doctoken, "doc")` 中，将 `doc` 改为 `docx`。
+
+### 选择一：Docker 运行
+如果你已有 [Docker](https://www.docker.com/) 环境，执行以下命令即可。
+* Mac OS 或 Linux 操作系统执行以下命令：
+
+    ```PowerShell
+    sh exec.sh
+    ```
+
+* Windows 系统执行以下命令：
+
+    ```PowerShell
+    .\exec.ps1
+    ```
+
+### 选择二：本地运行
+1. 执行以下命令，创建并激活 Python 虚拟环境。
+   * Mac OS 或 Linux 系统执行以下命令。
+
+      ```PowerShell
+      python3 -m venv venv
+      . venv/bin/activate
+      ```
+
+   * Windows 系统执行以下命令。
+
+      ```PowerShell
+      python3 -m venv venv
+      venv\Scripts\activate
+      ```
+
+2. 执行以下命令，安装代码依赖。
+
+    ```PowerShell
+    pip3 install -r requirements.txt
+    ```
+
+3. 执行以下命令，启动服务。
+
+    ```PowerShell
+    python3 server.py
+    ```
+4. 用知识库管理员账号访问 `http://127.0.0.1:3000`，添加测试应用为知识库管理员。
+	
+   添加成功后，页面如下：
+
+	![](http://sf3-cn.feishucdn.com/obj/open-platform-opendoc/72e27ba03eddce93cc6160bb5b6d6974_5LNF2s3qPI.png?height=170&lazyload=true&maxWidth=600&width=1544)
+
+5. 执行以下命令，运行示例代码。
+
+	 ```PowerShell
+    python3 weekly.py
+    ```
+    代码运行成功后，测试应用关联的账号将收到机器人在群组里的更新周报消息提醒。

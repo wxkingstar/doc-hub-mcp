@@ -1,0 +1,26 @@
+<!--
+title: 支持更新部门ID、工作城市ID，部门直属子部门不得超过1000个
+id: 7293496941907378204
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/id-update-available-and-sub-departments-restrict
+updatedAt: 1698754452000
+source: https://open.feishu.cn/document/platform-notices/breaking-change/id-update-available-and-sub-departments-restrict
+-->
+# 支持更新部门ID、工作城市ID，部门直属子部门不得超过1000个
+### 变更事项
+
+1.  为方便用户定义部门ID（department_id），我们将开放 更新部门ID 的OpenAPI，支持不限次数修改部门 ID（仍保持企业内所有部门的部门 ID 唯一）。
+1. 开通了飞书人事的租户，工作城市ID可能因人事数据同步而发生变更
+1. 当前创建/更新部门信息时，部门的直属子部门并未限制数量。但管理后台维护部门时，限制了每个部门的直属子部门不可超过1000个。为了避免超出1000个子部门时在管理后台发生异常，以及提供更稳定的系统服务，我们将约束每个部门的直属子部门不得超过1000个。
+
+是否跟随客户端版本：不跟版 
+
+预计生效时间：2023-11-09 
+
+### 潜在影响
+因为部门ID可以多次修改，工作地点ID也可能发生变化，若应用获取并存储了以上ID，再做业务消费，可能会受到影响，导致因ID发生变化而查不到对应数据。
+
+若应用没有限制部门的直属子部门数量，则创建/更新部门时，如果直属子部门超过了1000个，将会报错并收到对应的错误码
+
+### 解决方案
+1.  不要存储部门ID（department_id），需要消费时实时去获取部门 ID；或使用 open_department_id 这个不可修改的 id
+1. 部门直属子部门超过1000个时会报错，请根据 API 接口文档，对接口调用方式进行调整。如需适配协助，请联系技术支持

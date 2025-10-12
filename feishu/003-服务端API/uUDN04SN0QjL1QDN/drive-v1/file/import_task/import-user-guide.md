@@ -1,0 +1,158 @@
+<!--
+title: 导入文件概述
+id: 6990651806712676356
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide
+updatedAt: 1725007671000
+source: https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/import-user-guide
+-->
+# 导入文件概述
+
+导入文件指将本地文件如 Word、TXT、Markdown、Excel 等格式的文件导入为某种格式的云文档，如在线文档、电子表格、多维表格等，并放置到云空间指定目录中。本文档介绍导入文件的完整步骤。
+
+## 支持导入的本地文件
+
+飞书开放平台支持导入以下文件类型。
+
+:::html
+
+
+<md-alert type="tip">
+- 了解文档，参考[文档概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。
+- 了解电子表格，参考[电子表格概述](/ssl:ttdoc/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。
+ - 了解多维表格，参考[多维表格概述](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview)。
+</md-alert>
+
+:::
+:::html
+<table border="1">
+  <colgroup>
+    <col width="30%">
+    <col width="20%">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>文件</th>
+      <th>文件扩展名</th>
+      <th>导入文件大小上限</th>
+      <th>支持导入为以下文档</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Microsoft Word Document</td>
+      <td>docx</td>
+      <td rowspan="2">600MB</td>
+      <td rowspan="5">- 文档类型为 docx 的在线文档</td>
+    </tr>
+    <tr>
+      <td>Microsoft Word 97-2004 Document</td>
+      <td>doc</td>
+
+    </tr>
+    <tr>
+      <td>文本文件</td>
+      <td>txt</td>
+      <td rowspan="2">20MB</td>
+    </tr>
+    <tr>
+      <td>Markdown</td>
+      <td>md，mark，或 markdown</td>
+    </tr>
+    <tr>
+      <td>HTML</td>
+      <td>html</td>
+      <td>20MB</td>
+    </tr>
+    <tr>
+      <td>Microsoft Excel Workbook</td>
+      <td>xlsx</td>
+      <td>800MB</td>
+      <td rowspan="2">- 文档类型为 sheet 的电子表格<br>- 文档类型为 bitable 的多维表格</td>
+    </tr>
+    <tr>
+            <td>Comma Separated Values</td>
+      
+      <td>csv</td>
+      <td>导入为 sheet 电子表格 20MB <br></br> 导入为 bitable 多维表格 100MB</td>
+    </tr>
+    <tr>
+      <td>Microsoft Excel 97- Excel 2003 Workbook</td>
+      <td>xls</td>
+      <td>20MB</td>
+      <td>文档类型为 sheet 的电子表格</td>
+    </tr>
+  </tbody>
+</table>
+:::
+
+
+## 操作步骤
+
+本小节介绍导入文件时调用接口的步骤。
+
+### 步骤一：上传本地文件
+
+导入文件之前，你需先将要导入的文件上传至云空间，以获取该文件的 token。你可参考以下两种方式上传文件，其中：
+- 通过方式一上传素材文件时，源文件为临时文件，在完成导入后，源文件将被删除；
+- 通过方式二上传文件后，源文件将被上传至云空间，归上传者所有且占用上传者云盘用量，将不会被删除。
+
+#### **方式一：调用**[上传素材](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)接口
+
+调用[上传素材](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)接口，并参考以下说明传入请求体参数：
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 20%;">参数</md-th>
+      <md-th>说明</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>parent_type</md-td>
+      <md-td>需传入固定值`ccm_import_open`。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>parent_node</md-td>
+      <md-td>无需填写。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>extra</md-td>
+      <md-td>
+需定义导入的在线文档类型和导入的文件的扩展名称，并将 JSON 序列化为字符串。如：
+- `"{ "obj_type": "docx", "file_extension": "txt"}"`：将本地文件扩展名为 txt 的文件导入为新版文档
+- `"{ "obj_type": "docx", "file_extension": "docx"}"`：将本地文件扩展名为 docx 的文件导入为新版文档
+- `"{ "obj_type": "sheet", "file_extension": "xlsx"}"`：将本地文件扩展名为 xlsx 的文件导入为电子表格
+- `"{ "obj_type": "docx", "file_extension": "md"}"`：将本地文件扩展名为 md 的文件导入为新版文档
+
+        
+   **注意**：定义的导入文件扩展名称需与实际文件的后缀名保持严格一致。请注意区分后缀为 “markdown”、“md”、“mark” 的 Markdown 文件，并在填写相关参数时保持后缀名一致。否则将返回 1069910 错误码。
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+以将名为 "demo.md" 的本地文件导入为新版文档为例：
+```JavaScript
+curl --location --request POST 'https://{domain}/open-apis/drive/v1/medias/upload_all' \  // domain 需替换为真实域名
+--header 'Content-Type: multipart/form-data' \
+--header 'Authorization: Bearer u-{xxxxx}' \  // 需替换为真实 Authorization
+--form 'file_name="demo.md"' \  // 本地文件名
+--form 'parent_type="ccm_import_open"' \  // 使用固定值：ccm_import_open
+--form 'size="5"' \  // 本地文件大小（以字节为单位） 
+--form 'extra={"obj_type":"docx","file_extension":"md"}' \  // 将本地文件扩展名为 md 的文件导入为新版文档
+--form 'file=@"demo.md"'  // 本地文件路径
+```
+
+#### **方式二：** 调用[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all)接口
+
+参考 API 文档调用[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_all)接口上传本地文件，获取文件的 token。
+
+### 步骤二：调用[创建导入任务](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create)接口
+
+调用[创建导入任务](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/create)接口，获取导入任务 ID。
+
+### 步骤三：查询导入任务结果
+
+调用[查询导入任务结果](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/get)接口，根据步骤二返回的导入任务 ID（`ticket`）按需轮询导入结果。

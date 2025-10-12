@@ -1,0 +1,14 @@
+<!--
+title: 准备工作
+id: 7238816139733385219
+fullPath: /home/quick-start-of-personnel-and-attendance-management-system/preparation
+updatedAt: 1693995076000
+source: https://open.feishu.cn/document/quick-start-of-personnel-and-attendance-management-system/preparation
+-->
+# 准备工作
+
+在开始本教程操作步骤之前，你需要完成以下准备工作。
+
+- [创建](https://www.feishu.cn/hc/zh-CN/articles/360043741453) 或 [加入](https://www.feishu.cn/hc/zh-CN/articles/360043496893)飞书企业。
+
+- 本教程提供基于 Node.js 的[示例代码](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/85d403f56bbfa22f2023987dd3d71027_bT33frXBUc.zip)，你需要在本地安装  [Node.js](https://nodejs.org/) 开发环境，安装 Node.js 的同时会自动安装 npm。

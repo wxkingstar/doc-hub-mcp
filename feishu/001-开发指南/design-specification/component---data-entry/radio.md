@@ -1,0 +1,167 @@
+<!--
+title: 单选框
+id: 7475195771685601282
+fullPath: /tools-and-resources/design-specification/component---data-entry/radio
+updatedAt: 1742375641000
+source: https://open.feishu.cn/document/design-specification/component---data-entry/radio
+-->
+# 单选框
+单选框是从一组直接展开的选项中选择单个选项的组件。
+
+
+## 使用规则
+
+用于在多个可选项中选择单个选项。
+和下拉选择器的区别是，单选框所有选项默认可见，方便用户在比较中选择，因此选项不宜过多，数量建议在 6 个以内。
+  
+  
+
+## 组成要素
+
+
+:::html
+<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4fc6d675ad0195be8592d92600c9c7b2_bkuPNW8g0z.png"
+        alt="图片" style="max-height: 200px;">
+:::
+
+1. **单选框**：可进行选择的控件
+1. **选项描述**：针对该选项的具体描述内容
+
+可根据实际情况对内容进行增删改，比如添加图片或头像，搭配使用，丰富信息表达。
+建议使用选项竖排排版的方式，如遇特殊情况（选项文本过短、空间较小时），可按需进行选项横排排版。
+  
+  
+
+## 控件类型
+
+### 基础单选
+
+#### 使用场景
+
+用户点击单选按钮以激活相关选项，但点击其他选项后，会将激活转移到其他选项上。例如选择最小请假单位、选择定价方式。
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>选择最小请假单位</md-td>
+      <md-td>选择定价方式 </md-td>
+    </md-tr>
+    <md-tr style="vertical-align:top;">
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d4b696ea37fc8463123929ea01d833a1_125AbK3haK.png?height=484&lazyload=true&width=2048)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d1258412d169ec1a56154c2d428c0ac4_ZFFLyB1wdq.png?height=1340&lazyload=true&width=2048)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+
+#### 状态说明
+
+单选框有未选中、已选中两个状态，所有状态均有明确区分。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8ef10ae3117ab1fe074cbeb544b82018_28jApph1M0.png?height=464&lazyload=true&maxWidth=800&width=2048)
+  
+
+#### 点击区域
+
+单选框及描述内容整体可以进行点击，热区最小高度 22px，实际高度由内容决定。
+单选框独立使用，热区尺寸为 16px*16px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fac299933ef0e3accf4a7bf51f8e9aa2_TeERsOtlLZ.png?height=402&lazyload=true&maxWidth=800&width=2048)
+  
+
+#### 尺寸说明
+
+单选框尺寸固定为 16px*16px，不随页面尺寸变化而变化。描述文字为 14 px。单选框距离描述文字的间距建议为 8 px，若无法满足场景，可以 4px 的步幅进行放大。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/725aefb7e47f12dfe66b89bb7a2d2f8b_RMJ7CLQ8KS.png?height=402&lazyload=true&maxWidth=800&width=2048)
+
+<br>
+建议使用选项竖排排版的方式，选项之间间距建议为 8 px。
+如遇特殊情况（选项文本过短、空间较小时），可按需横排排版，选项之间间距建议为 24 px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/78a6210d62800b7eb7dd50c516bab157_eUehMYMrEV.png?height=586&lazyload=true&maxWidth=800&width=2048)
+  
+
+#### 位置说明
+
+建议使用选项竖排的排版方式。遇特殊情况，如选项文本过短、空间较小时，可按需横向排版。单选框与单行选项描述内容垂直居中对齐。
+当选项描述内容字符较多时，可折行显示。
+
+单选框与多行文本的描述内容有 2 种对齐方式。
+- 单选框与首行文本上下居中对齐，适用于大部分场景。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5ec4bf8953acf074c8433c4e20539630_qvAHwW6RMK.png?height=592&lazyload=true&maxWidth=800&width=2048)
+- 单选框与文本段落整体上下居中对齐，适用于列表场景。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ae06c734ed3a2b4e2a3ba9135e9d3c0a_V4I5AmgkyB.png?height=572&lazyload=true&maxWidth=800&width=2048)
+  
+  
+
+### 按钮型单选
+
+按钮形式的单选框，突出显示选项本身，适合强调选项的使用场景。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b6ca814231049ca051df27237cd8f3f7_MkPjiudFn1.png?height=224&lazyload=true&maxWidth=800&width=2048)
+
+
+#### 尺寸说明
+
+提供三种尺寸组件，从左至右依次为 small、medium、large
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0c4da98f20d2f1b39cf7aa5459717518_RxNCHHWXvv.png?height=224&lazyload=true&maxWidth=800&width=2048)
+
+
+#### 状态说明
+
+单选框有未选中、已选中两个状态，所有状态均有明确区分。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/27da82c520ef5695243d08a712b14ddd_crDfuCNV9w.png?height=464&lazyload=true&maxWidth=800&width=2048)
+
+
+#### 使用场景
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/12c108ecee718b2655a338e152e22826_A6EtYmKrWf.png?height=1334&lazyload=true&maxWidth=800&width=2048)
+
+
+#### 长文本缺省规则
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c2c09a763a85936877ecf04eea9ef791_6odJB0EKnV.png?height=224&lazyload=true&width=500)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/eba0e197b39a25be5cbb87875e83cedb_tCPHJ9DDVw.png?height=224&lazyload=true&width=500) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>超出部分使用省略号显示，hover 后可显示完整内容</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d576ae0cad45457a2c92e8b32194543_EWbyDet7Zc.png?height=20&lazyload=true&width=800)<br>**避免：** <br>避免折行，超出背景范围</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::

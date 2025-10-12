@@ -1,0 +1,51 @@
+<!--
+title: 导航
+id: 6907569744330145793
+fullPath: /uYjL24iN/ucTN04yN1QjL3UDN
+updatedAt: 1647956529000
+source: https://open.feishu.cn/document/tools-and-resources/design-specification/gadget-design-specification/visual-specifications/navigation
+-->
+# 导航
+## Navigation Bars
+Navigation Bars 告诉用户当前在哪里。小程序的 Navigation Bars 提供的全局设置和退出按钮。当处于小程序的非一级页面时，Navigation Bars 的左侧应根据情况出现「返回」按钮，帮助用户返回上一个页面。
+
+### 移动端
+移动端导航栏背景颜色可以自定义，提供深浅两种配色方案选择，以便适配不同风格的要求。通过修改[小程序配置](/ssl:ttdoc/uYjL24iN/uEDNuEDNuEDN)中的 navigationBarBackgroundColor 参数来设置背景颜色
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/03421062609e9eefee18e42dbd449304_op4lEUzTGj.png?lazyload=true&width=1920&height=448)
+
+
+Navigation Bars 图标需符合飞书图标规范，以保证品牌风格一致，[飞书图标规范](https://bytedance.feishu.cn/docs/doccnlGAbKyIgWWvWhuhpUO6TTe)
+
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/166de10594a97d74581592595644e907_hCOc2rkUey.png?lazyload=true&width=1920&height=736)
+
+
+### 桌面端
+根据打开的场景不同，小程序在桌面端的导航栏有 4 种表现，[点击查看更多导航详细介绍](/ssl:ttdoc/uYjL24iN/ukjNzUjL5YzM14SO2MTN)
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/766bdccff1edee2ac4d8f89c6889563e_rLkwnX937r.png?lazyload=true&width=1920&height=1460)
+
+## Tab Bar
+Tab Bar 用来展示多个并列的分类内容，使用户可以快速的在多个页面的内容之间跳转。最少两个 Tabs，最多支持 5 个。Tabs 上的文字尽量简洁明了，长度控制在 2-6 个字符。小程序 Tabs 的图标支持自定义，Tabs 的底色支持自定义。
+
+### 移动端
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e4951024a8625fcb23ae9b2545eec8af_2az45kybQA.png?lazyload=true&width=2000&height=1816)
+
+### 桌面端
+在会话页小窗口和独立小窗口应用下，与移动端一致，采用 “bottom” 状态位于页面底部。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f6eb187d90522ac4be3aaf569a3da406_nxEJeCPuAW.png?lazyload=true&width=4360&height=1704)
+
+在大窗口（独立大窗口以及工作台窗口）场景下，采用 “top” 状态位于应用导航栏下方。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/de97367d54fdfe7a2f424f2742276d63_vJPmVh0tSW.png?lazyload=true&width=5160&height=2800)
+
+## Tabs
+用来展示多个并列的分类内容，将大块内容进行收纳和展现，保持界面整洁。最少两个 tabs，最多支持 5 个。Tabs 上的文字尽量简洁明了，长度控制在 2-6 个字符。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/39facc15253662a75939825e2ca07bca_BoqIGI4m3U.png?lazyload=true&width=1920&height=828)

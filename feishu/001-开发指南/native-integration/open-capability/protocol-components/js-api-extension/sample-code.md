@@ -1,0 +1,129 @@
+<!--
+title: 示例代码
+id: 7424771981789954049
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/js-api-extension/sample-code
+updatedAt: 1732712024000
+source: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/js-api-extension/sample-code
+-->
+# 示例代码
+## Android
+
+```javascript 
+@com.ss.android.lark.extension_interfaces.NativeAppPluginFactory
+public class XXXXXPluginFactory implements INativeAppPluginFactory {
+    @Override
+    public String getPluginName() {
+        return "XXXXX";
+    }
+    @Override
+    public List<String> getPluginApiNames() {
+        return Arrays.asList("XXXXX", "XXXXX");
+    }
+    @Override
+    public INativeAppPlugin createPlugin() {
+        return new XXXXXPlugin();
+    }
+}
+public class XXXXXPlugin implements INativeAppPlugin {
+    private static final String TAG = "XXXXXPlugin";
+    @Override
+    public void onCreate(INativeAppPluginContext iNativeAppPluginContext) {
+    }
+    @Override
+    public NativeAppPluginResult handleEvent(Context context, NativeAppPluginEvent event, IApiCallback callback) {
+        Log.i(TAG, "handleEvent call, eventName: " + event.getEventName());
+        if (TextUtils.equals(event.getEventName(), "XXXXX")) {
+            handleXXXXX(context, callback);
+        }
+        return null;
+    }
+    private void handleXXXXX(Context context, IApiCallback callback) {
+        callback.onResult(ApiResult.SUCCESS, JSONObject());
+    }
+    @Override
+    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+        return false;
+    }
+    @Override
+    public void release() {
+    }
+}
+```
+
+## iOS
+下面的代码提供了一个示例，调用某三方地图库，处理H5页面的位置请求
+
+```javascript 
+// LKJsApiExternalIMP.swift
+import LKJsApiExternal
+import ThirdPartyMap // some third party map
+// 自定义 KANativeAppPluginDelegate 实现类
+public class MyLKJsApiHandler: KANativeAppPluginDelegate {
+    public func getPluginName() -> String {
+        ""
+    }
+    // Handler 可以处理的事件名称，支持返回多个事件
+    public func getPluginApiNames() -> [String] {
+        ["GET_LOCATION"]
+    }
+    public func handle(event: LKJsApiExternal.KANativeAppAPIEvent, callback: @escaping (Bool, [String : Any]?) -> Void) {
+        let location = ThirdPartyMap.MapService.getCurrentLocation()
+        let result:[String: Any] = [
+            "longitude": location.coordination.longitude,
+            "latitude": location.coordination.latitude
+        ]
+        callback(true, result)
+    }
+    public func setContext(context: NativeAppPublicKit.NativeAppPluginContextProtocol) {
+    }
+}
+```
+在 Object-C(.m) 文件代码中注册自定义的实现，load 函数会在加载 class 时执行。
+
+方式一：直接在 OC 代码中注册
+
+```javascript 
+@import LKKABridge; // 引入 KAAPI_REGISTER 宏
+@import LKJsApiExternal;
+#import <LKJsApiExternalIMP/LKJsApiExternalIMP-Swift.h> // 引入自定义的实现 MyLKJsApiHandler
+#import "ka_auto_generated.h" // 引入 getChannel() 方法
+@interface JsApiRegistry: NSObject
+@end
+@implementation JsApiRegistry
++(void)load {
+    [KAAPI_REGISTER registerWithNativeAppPluginDelegate:^id<KANativeAppPluginDelegate> {
+        return [[MyLKJsApiHandler alloc] init];
+    } cache:YES];
+}
+@end
+    
+```
+
+方式二：在 OC 中调用 swift 代码注册
+- .swift 文件
+```javascript 
+import LKKABridge
+import LKWebContainerExternal
+@objcMembers
+public class MyJsApiLoader: NSObject {
+    // 注册方法
+    @objc public class func swiftLoad(channel: ID) {
+        let api = KAAPI(channel: channel)
+        api.register(nativeAppPluginDelegate: MyLKJsApiHandler.init, cache: true)
+    }
+}
+```
+
+- .m 文件
+```javascript 
+#import "ka_auto_generated.h" // 引入 getChannel() 方法
+#import <LKWebContainerExternalIMP/LKWebContainerExternalIMP-Swift.h> // 引入 MyWebContainerLoader 所在的.swift文件
+@interface JsApiRegistry: NSObject
+@end
+@implementation JsApiRegistry
++(void)load {
+    NSString * channel = [NSString stringWithUTF8String:getChannel()];
+    [MyJsApiLoader swiftLoadWithChannel:channel];
+}
+@end
+```

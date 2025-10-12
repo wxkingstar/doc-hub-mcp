@@ -1,0 +1,31 @@
+<!--
+title: 查找替换
+id: 7472308462216544284
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-find-and-replace
+updatedAt: 1739789357000
+source: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-find-and-replace
+-->
+# 查找替换
+你可以通过接口显示或隐藏查找替换。
+## 示例
+```js
+myComponent.invoke.findAndReplace(true, {
+  right: '10px',
+  top: '10px',
+}).then(function(response) {
+  const { code, msg } = response;
+  // ...
+});
+```
+
+## 参数
+|属性|	类型|	是否必须	|说明|
+| ---|----- | -------|------ | 
+|visible|	Boolean	|否|	是否显示
+|style| Object|否|样式|
+
+## 返回
+|属性|	类型|	说明|
+| ---|----- | ------- | 
+|code|	Number |	0：成功 、 -1：失败 |
+|msg|	String |	信息 |

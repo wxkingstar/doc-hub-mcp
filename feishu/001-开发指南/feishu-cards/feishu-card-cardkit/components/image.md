@@ -1,0 +1,219 @@
+<!--
+title: 图片
+id: 7487804894023352321
+fullPath: /uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/components/image
+updatedAt: 1744080561000
+source: https://open.feishu.cn/document/feishu-cards/feishu-card-cardkit/components/image
+-->
+# 图片
+
+卡片搭建工具中的图片组件支持展示一张图片。你可通过上传图片的方式，获取图片的 key 并传入图片组件中，使卡片内容更丰富。本文档介绍如何在搭建工具中使用新版卡片的图片组件。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a57ed4c4e81a0cd301c6e90c388bcfb_KrjVWjCehk.png?height=785&lazyload=true&maxWidth=600&width=1920)
+
+## 参考案例
+
+卡片搭建工具案例库中提供图片案例，你可直接前往[卡片搭建工具](https://open.larkoffice.com/cardkit?catalogId=10015&templateId=AAqBEjRlCpr4i)试一试。
+
+## 图片限制
+
+为保证图片在聊天窗口中呈现的清晰度，建议上传的图片遵从以下规范：
+
+- 图片尺寸在 1500 × 3000 px 的范围内。
+- 图片大小不超过 10 MB。
+- 图片的 `高度:宽度` 不超过 `16:9`。
+
+## 组件配置
+
+### 属性
+:::html
+
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 10%;">配置项
+</md-dt-th>
+<md-dt-th style="width: 60%;">描述
+</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr level="0">
+<md-dt-td>
+图片来源
+</md-dt-td>
+<md-dt-td>
+选择图片来源，支持直接上传图片或绑定变量：
+- 文件：直接点击上传按钮上传，支持 PNG、GIF 和 JPG 格式
+- 绑定变量：参考下文 **变量** 一节
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>
+裁剪方式
+</md-dt-td>
+<md-dt-td>
+图片的裁剪方式。上传图片后，若图片需调整，你可先选择裁剪方式，再定义图片尺寸。推荐结合前往卡片搭建工具直接查看[相关案例](https://open.larkoffice.com/cardkit?catalogId=10015&templateId=AAqBEjRlCpr4i)。默认完整展示图片。裁剪方式支持配置：
+-   **顶部裁剪**：当图片的高度大于目标高度时，顶部裁剪会优先保留图片顶部。支持继续配置图片尺寸
+- **完整展示**：完整展示图片内容，不做任何裁剪。图片在宽度上将撑满整个父容器，同时保持图片的原始比例。不支持继续配置图片尺寸。适用于图片作为主图宣传展示、或图片的高宽比小于或等于 16:9 （（即图片较宽）的场景
+- **居中裁剪**：图片会根据目标尺寸的比例进行裁剪，裁剪时以图片的中心为基准，保留图片的中间部分。支持继续配置图片尺寸
+</md-dt-td>
+</md-dt-tr>
+  
+<md-dt-tr level="0">
+<md-dt-td>
+图片尺寸
+</md-dt-td>
+<md-dt-td>
+图片尺寸。当裁剪方式为 **居中裁剪** 或 **顶部裁剪** 时，你可继续配置图片具体的尺寸或比例。推荐结合前往卡片搭建工具直接查看[相关案例](https://open.larkoffice.com/cardkit?catalogId=10015&templateId=AAqBEjRlCpr4i)。支持配置：
+-   超大图：
+    - 若图片高宽比小于或等于 16:9 （（即图片较宽）时，等同于 **完整展示** 的裁剪方式，图片在宽度上将撑满整个父容器，同时保持图片的原始比例。
+    - 若图片高宽比大于 16:9（即图片过高）时，系统将按指定的裁剪方式裁剪图片至 16:9 的比例，并在图片下方添加 **长图** 标签。
+- 大：尺寸为 160 × 160，适用于将图片放入分栏中，实现多图混排效果
+- 中：尺寸为 80 × 80，适用于图文混排的封面图
+- 小：尺寸为 40 × 40，适用于人员头像
+- 超小：尺寸为 16 × 16，适用于图标、备注
+- 自定义固定尺寸：自定义图片尺寸，使用更灵活。取值范围 [1,1000]px [1,1000]px，单位为像素
+- 自定义宽高比：自定义图片比例，使用更灵活
+  
+  
+  
+:::html
+<md-alert type="tip">
+新版卡片不再支持 **通栏图** 选项。你可在 **样式** 页签下，将图片外边距设为负数实现通栏图效果。
+</md-alert>
+  
+</md-dt-td>
+</md-dt-tr>
+  <md-dt-tr>
+<md-dt-td>图片圆角
+</md-dt-td>
+<md-dt-td>图片的圆角半径。开启后，支持按以下方式配置：
+  - 像素：[0,∞]px
+- 百分比：[0,100]%
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>悬停提示
+</md-dt-td>
+<md-dt-td>PC 端上光标悬浮（hover）在图片上时展示的说明文案。示例: 这是一张示例图片
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>查看图片预览
+</md-dt-td>
+<md-dt-td>点击后是否放大图片。开启后，当用户点击图片时，弹出图片查看器放大查看当前点击的图片。默认关闭。
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>透明底色
+</md-dt-td>
+<md-dt-td>图片是否为透明底色。开启后，图片为透明底色。默认关闭，图片为白色底色。
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>组件 ID
+</md-dt-td>
+<md-dt-td>组件在卡片内的唯一标识，用于在调用[组件相关接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/cardkit-v1/feishu-card-resource-overview#791c8e74)对组件进行增删改时指定组件。仅允许使用字母、数字和下划线，必须以字母开头，不得超过 20 字符。
+</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+
+:::
+
+### 样式
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 10%;">配置项</md-th>
+      <md-th style="width: 70%;">描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>外边距</md-td>
+      <md-td>为整个组件配置外边距。支持配置上、下、左、右四个方向的外边距，取值范围为 [-99,99]px。具体操作如下图：
+-  一键配置：
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b8e633d758282e35aa26e4bd4acb8161_jL4l0LJcDs.gif?height=786&lazyload=true&maxWidth=600&width=1566)
+     
+- 为不同方向分别配置外边距：
+       
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/87bd9818cd3644673114704c13b6fb75_TvuBLcQWZO.gif?height=780&lazyload=true&maxWidth=600&width=1562)
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 变量
+
+在图片组件中，你可为图片来源绑定图片变量，而不直接指定数据。本小节介绍如何为图片来源绑定变量。
+
+**绑定变量**
+
+1. 在图片组件的 **图片来源** 配置项处，点击 **绑定变量**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/75e80583fbaa134d3f22608b9ac4db8a_cZUJCReS96.png?height=744&lazyload=true&maxWidth=600&width=1559)
+1. 在 **选择变量** 拉下选项中，点击 **新建变量**，参考下表填写内容。
+
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 10%;">配置项
+</md-dt-th>
+<md-dt-th style="width: 30%;">描述
+</md-dt-th>
+<md-dt-th style="width: 30%;">示例
+</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr>
+<md-dt-td>类型
+</md-dt-td>
+<md-dt-td>变量的类型。在图片组件中，你仅能使用 **图片** 类型变量。
+</md-dt-td>
+<md-dt-td>图片
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>变量名称
+</md-dt-td>
+<md-dt-td>一般为字母或字母与下划线的组合。在之后发送卡片时，你需要为该变量名（key）赋值（value）。
+</md-dt-td>
+<md-dt-td>`img_key`
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>变量描述
+</md-dt-td>
+<md-dt-td>此处可补充解释该变量的用法。可不填。
+</md-dt-td>
+<md-dt-td>图片的 key 变量。
+</md-dt-td>
+</md-dt-tr>
+<md-dt-tr>
+<md-dt-td>模拟数据
+</md-dt-td>
+<md-dt-td>推荐你添加模拟数据，在工具内直接预览组件绑定变量后的数据展示效果。
+</md-dt-td>
+<md-dt-td>
+```json
+{
+  "img_key": "img_v2_9dd98485-2900-4d65-ada9-e31d1408dcfg"
+}
+```
+</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+:::
+
+**为变量赋值**
+
+添加好变量后，在发送卡片时，即可通过请求体的 `template_variable` 字段为变量赋值。`template_variable` 字段是卡片绑定的变量列表，格式为 `{key:value}`。详情参考[为卡片变量赋值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/configure-card-variables#a6abb723)。

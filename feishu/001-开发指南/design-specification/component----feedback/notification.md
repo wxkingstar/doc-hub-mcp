@@ -1,0 +1,250 @@
+<!--
+title: 通知提醒框
+id: 7477479883707138049
+fullPath: /tools-and-resources/design-specification/component----feedback/notification
+updatedAt: 1742375642000
+source: https://open.feishu.cn/document/design-specification/component----feedback/notification
+-->
+# 通知提醒框
+
+通知用于全局展示的提醒信息。
+
+  
+
+## 使用规则
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+
+:::html
+<md-table>
+  <md-tbody>
+    <md-tr>
+      <md-th style="width: 15%;">类型</md-th>
+      <md-th style="width: 10%;">优先级</md-th>
+      <md-th style="width: 75%;">说明</md-th> 
+    </md-tr>
+    <md-tr >
+      <md-td>全局提示 Toast</md-td>
+      <md-td>轻量级</md-td>
+      <md-td>
+- **信息量：**  少 
+- **信息结构：** 标题+操作
+- **停留时间：** <br>  
+	- 短暂出现
+	- 会自动消失，用户也可以点击关闭
+
+- **用户操作：**  可选，常规情况下自动消失 
+- **动作目标：**  **反馈**。在不跳转页面打断用户工作流程的前提下，告知用户重要的成功结果。 
+- **位置：** 页面顶部居中
+      </md-td>
+    </md-tr>
+    <md-tr >
+      <md-td>常驻提示 Notice</md-td>
+      <md-td>中等优先级</md-td>
+      <md-td>
+- **信息量：**  中 
+- **信息结构：** 标题+描述
+  - 大多数场景下只有描述
+  - 长文本状态下推荐增加标题
+- **停留时间：** <br>  
+	- 始终展现
+	- 不会自动消失。特殊场景下用户可点击关闭
+
+- **用户操作：**  可选，提示会一直保留，直到被用户主动关闭或者解决了导致出现常驻提示的条件才会消失 
+- **动作目标：**  **提醒。** 提醒用户完成当前工作流之外的重要操作（例如警告信息不安全）。
+- **位置：** 靠近其上下文的位置
+      </md-td>
+    </md-tr>
+    <md-tr >
+      <md-td>通知 Notification</md-td>
+      <md-td>中等优先级</md-td>
+      <md-td>
+- **信息量：**  中 
+- **信息结构：** 标题+描述
+- **停留时间：** <br>  
+	- 短暂出现
+	- 会自动消失，用户也可以点击关闭
+
+- **用户操作：**  可选，常规情况下自动消失
+需要交互的通知需要用户手动关闭
+- **动作目标：**  **通知。** 系统推送或通知复杂的内容
+- **位置：** 通常位于界面右上角
+      </md-td>
+    </md-tr>
+    <md-tr >
+      <md-td>弹窗
+Dialog</md-td>
+      <md-td>最高优先级</md-td>
+      <md-td>
+- **信息量：**  多 
+- **信息结构：** 标题+描述+补充信息
+- **停留时间：** <br>  
+	- 始终展现
+	- 直到用户进行确认，关闭等操作为止。
+
+- **用户操作：**  必选，对话框会阻止应用程序使用，直到用户执行对话框操作或退出对话框才会消失
+- **动作目标：**  **操作。** 提供重要信息或决策
+- **位置：** 页面居中位置
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+## 组成要素
+
+### 基础样式
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6a0a217ecf53dd0fc23632831dbceb60_aVNSlXnVWy.png?height=495&lazyload=true&maxWidth=800&width=2049)
+
+1. **图标** ：可以帮助用户快速识别通知的属性类别
+1. **内容** ：由简洁、清晰、直观的文本、图片等内容组成
+1. **标签** ：颜色表现更加清晰
+1. **标题 （可选）** ：消息类型的概括总结
+1. **按钮 （可选）** ：建议使用 1-2 个表意明确的按钮
+1. **关闭 （可选）** ：关闭提示
+1. **容器** ：用于承载标题、内容和按钮的卡片
+
+### 自定义类通知
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9c89a2fe8e741ccf0bd19484f5d007b3_IassblJvmM.png?height=495&lazyload=true&maxWidth=800&width=2049)
+
+1. **标签** ：颜色表现更加清晰
+1. **关闭 （可选）** ：关闭提示
+1. **容器** ：用于承载标题、内容和按钮的卡片
+1. **内容/操作区** ：自定义填充内容/操作区域
+  
+
+## 控件类型
+
+### 类型总览
+
+#### 基础样式
+
+分为基础文字通知、基础文字通知（带操作）
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/79f83047bd4b6795398875c60a76ef98_36c3FNKlJJ.png?height=409&lazyload=true&maxWidth=800&width=2049)
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6fcfc465cbe2a0b6ab5a564fd39c6ba3_S82CellCme.png?height=489&lazyload=true&maxWidth=800&width=2049)
+
+#### 自定义类通知
+
+根据需要在区域内填充内容或操作类组件的通知。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b260a997db25422c42ba3c815753562c_m7HIGHuIPa.png?height=978&lazyload=true&maxWidth=800&width=4098)
+  
+
+### 位置说明
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/68ae2424c51db1376e809bfd283db2bb_u0DbX0w55i.png?height=880&lazyload=true&maxWidth=800&width=1399)
+
+通知信息框，通常处于页面右上角，距顶部，右端16px。
+
+右侧滑出，默认 4 秒之后自动消失，可以进行一些自定义的设置：不显示图标、不自动关闭等。
+  
+
+### 基础样式
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8b3080e422f9c9dd0322a3b966165f4c_WUhOy2aR4F.png?height=409&lazyload=true&maxWidth=800&width=2049)
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7a24f82afa55089c203b3e3796f57c04_FTnMb4fEXW.png?height=489&lazyload=true&maxWidth=800&width=2049)
+
+#### 使用场景
+
+- 用于系统推送或通知复杂的内容，明确需要告知用户的提示信息
+
+- 卡片展示图标、描述文字和确认操作
+
+- 标题和提示文字简介明了，显示状态或者内容概括
+
+#### 通用样式规则
+
+- 图标：24*24px
+- 文字上下间距24px，整体左右间距24px
+- 标题建议简洁精练1行显示，正文内容支持多行文字，建议1-2行，高度自适应
+- 标题 16 24 medium，正文 14 22 regular
+- 主次按钮间距12px
+
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/73c2124246703231b512dddc765fbd1b_LViptvxcjY.png?height=495&lazyload=true&maxWidth=800&width=2049)
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a3a74dda67a31087efa0dba42f19c342_xO3S5aGWWx.png?height=495&lazyload=true&maxWidth=800&width=2049)
+
+<br>
+**颜色说明**
+
+默认配置 icon
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96371b39ccb013e0c314500b994f9bfc_PWyJHwdeUa.png?height=430&lazyload=true&maxWidth=800&width=2560)
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a8e246dfcb66b04ff0f960bd820ef584_jagAC3j98S.png?height=1259&lazyload=true&maxWidth=800&width=2049)
+
+<br>
+无图标时。标签建议使用基本配色，特殊场景可按需要进行变更，其他颜色参照颜色使用规范
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+    <md-tr>
+      <md-th style="width: 30%;text-align:center;">颜色列表</md-th>
+      <md-th style="width: 70%;text-align:center;">场景建议</md-th>
+    </md-tr>
+    <md-tr style="text-align:center;">
+      <md-td>基本配色B500<br>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/34d055c0f6b26a2f246757fb8078eac9_IoTBWLlfiy.png?height=434&lazyload=true&maxWidth=40&width=428)</md-td>
+      <md-td>常用于基础场景，系统通知的等消息通知。</md-td>
+    </md-tr>
+    <md-tr style="text-align:center;">
+      <md-td>绿色G500<br>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1fb5e42d250a9e30f03331767ab28bd8_znd8EEss4Z.png?height=434&lazyload=true&maxWidth=40&width=434)</md-td>
+      <md-td>常用于用户操作成功后的消息提醒。</md-td>
+    </md-tr>
+    <md-tr style="text-align:center;">
+      <md-td>橙色O500<br>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a5cd661839321d0348b1c11901e472c4_vTQZEd0BZq.png?height=432&lazyload=true&maxWidth=40&width=430)</md-td>
+      <md-td>常用于重要消息提醒，可选是否伴随用户操作。</md-td>
+    </md-tr>
+    <md-tr style="text-align:center;">
+      <md-td>红色R500<br>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/149ca1bd9f5ab6f9a0afd1927efe9b96_SKM66zJWKX.png?height=436&lazyload=true&maxWidth=40&width=434)</md-td>
+      <md-td>常用于加急或紧急信息等通知消息，通常需用户操作才可关闭提醒。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+
+### 自定义类通知
+
+#### 使用场景
+
+特殊场景因需要进行自定义通知，通常由图标、图像、文字等组成。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fb9dc0d95c923fd6c553f7a13f70190c_gt2MaJLL11.png?height=274&lazyload=true&maxWidth=800&width=1024)
+
+#### 通用样式规则
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cba20d3985c94f45379f9ab13f484194_8qHLTZ3A00.png?height=227&lazyload=true&maxWidth=800&width=952)
+
+**尺寸说明**
+
+关闭按钮（可选）：建议尺寸16*16px
+
+在内容/操作区域内部可按需要自定义，上下左右建议距离24px

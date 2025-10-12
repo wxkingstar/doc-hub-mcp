@@ -1,0 +1,84 @@
+<!--
+title: 真机调试
+id: 6966054360435802115
+fullPath: /uYjL24iN/uEzMzUjLxMzM14SMzMTN/feishu-developer-tools-remote-debugging
+updatedAt: 1645952325000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-gadget-in-tools/gadget-debugging/feishu-developer-tools-remote-debugging
+-->
+# 飞书开发者工具-真机调试
+
+真机远程调试功能可以实现直接利用开发者工具，通过连接，对手机、iPad 和 PC 上运行的小程序进行调试，帮助开发者更好的定位和查找在真机上出现的问题。
+
+> 真机实时预览功能依赖局域网通信，需要保证当前设备和手机在同一网络下
+
+> PC端需要在同一台设备上保持飞书打开
+
+> 需要移动端或PC端飞书版本 >= 3.45.0
+
+> 建议node 版本为 v12.5.0
+
+### 发起调试
+
+要发起一个真机远程调试流程，需要先点击开发者工具的工具栏上 “真机调试” 按钮。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/943df7d172f53de0cb174820383b0802_vcLizneWaV.png)
+
+点击之后默认会打开移动端调试，此时，工具会将本地代码进行处理打包，就绪之后，使用手机客户端扫描二维码即可弹出调试窗口，开始远程调试。
+
+目前工具也支持PC端调试，打包流程同移动端类似，处理完毕之后会给和工具处于同一设备的飞书推送调试消息，后续流程类似移动端。
+
+注：后续流程讲解基于移动端。
+
+当调试成功建立后会工具上会弹出“连接已建立”提示，你可进行结束调试操作，或者切换到 PC 调试模式。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6ed1b40d933e7cd79e55baf1a6cf68a1_o8kvVQVQu9.png)
+
+#### 远程调试窗口
+
+当调试建立后，会有对应的远程调试窗口被打开，远程调试窗口目前可以进行元素（Elements）和 js 代码相关的调试。关闭远程调试窗口会结束调试进程。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7231ba9d05d0c0a0edf9aa8ab7a7974d_NWN8v5rU1l.png)
+#### Elements 面板
+
+你可审查元素，改变元素属性或改变样式并实时查看效果。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/137b608ef6cb2e88d27b54c6e125d591_EUE8kHdWPE.png)
+
+#### Console 面板
+
+在远程调试的调试器里，开发者可以在 Console 面板里对代码进行调试，在 Sources 面板里查看小程序的源代码并进行断点单步调试。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d3e45133556faa6ea702fa9f96c83bfd_fbERVNb04R.png)
+
+#### Sources 面板
+
+如果你希望在 Sources 面板查看源代码，请查看file协议下,**debugDist**/splits文件夹下的文件。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/574f79fbca3beb5b756ad9cfc23c3b81_CTR1xlHYgO.png)
+
+除了可以在调试器进行单步调试，开发者还能在代码中手动插入 debugger; 语句进行断点调试。因此，如果想要在小程序启动的尽早时刻断点，可以在进入远程调试之前，手动在需要断点处的代码插入 debugger; 语句来实现。Elements 面板的操作和开发者工具调试模拟器时的操作一致。
+
+### 真机表现
+
+调试过程中的手机端展示如下所示。
+
+> 当手机无网络或者进入了断点状态时，将会出现一个浮层提示并阻止进一步的操作。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e9d7d8f0f0f38f2529e704ec0e29af68_Vz2gJOgn01.png)
+
+> 正常运行状态如下
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c41e2b7213528caa5ad1d6a3284eea0e_sq4QPSiiFL.png)
+
+> 你也可以在这里结束调试，点击结束后工具那边也会同步结束调试。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2b94955b00a4f20b12e781bd7a59fd75_MCKoXdVLEy.png)
+
+
+### 真机API兼容说明
+
+目前端上有些API不支持，如果开发者在调试过程中遇到异常，可先查看API是否支持，然后选择使用预览模式对不支持API进行测试。详见[真机调试API兼容性说明](/ssl:ttdoc/uYjL24iN/uEzMzUjLxMzM14SMzMTN/remote-debug-api-available)

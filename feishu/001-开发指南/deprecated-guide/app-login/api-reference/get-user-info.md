@@ -1,0 +1,69 @@
+<!--
+title: 获取用户身份信息
+id: 7000686273376616451
+fullPath: /common-capabilities/sso/api/get-user-info
+updatedAt: 1695200219000
+source: https://open.feishu.cn/document/deprecated-guide/app-login/api-reference/get-user-info
+-->
+# 获取用户信息
+:::html
+<md-alert type="error">
+此版本为历史版本，已不推荐使用，新版请参考 [获取用户信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)
+</md-alert>
+:::
+
+开发者获取 access_token 之后，可以通过 access_token 来调用飞书服务器来获取用户信息。
+
+**请求方法** ：`GET`
+
+**请求地址** ：`https://passport.feishu.cn/suite/passport/oauth/userinfo`
+
+**请求 Header**：
+| 字段         | 值           | 
+| --------- | --------------- |
+| `Authorization` | `Bearer ${access_token}` |
+
+**返回 Header** ：
+| 字段         | 值           | 
+| --------- | --------------- |
+| `Content-Type` | `application/json;charset=UTF-8` |
+
+**返回参数**：
+| 参数         | 描述           | 类型        | 是否必须        |
+| --------- | --------------- | -------   |  --------- |
+|`sub` | 用户在应用内的唯一标识，等同于`open_id` | `string` | 是 |
+|`name` | 用户姓名 | `string` | 是 |
+|`picture` | 用户头像，等同于`avatar_url` | `string` | 是 |
+|`open_id` | 用户在应用内的唯一标识, 等同于`sub` | `string` | 是 |
+|`union_id` | 用户统一ID，在同一租户开发的所有应用内的唯一标识 | `string` | 是 |
+|`en_name` | 用户英文名称 | `string` | 是 |
+|`tenant_key` | 当前企业标识 | `string` | 是 |
+|`avatar_url` | 用户头像，等同于`picture` | `string` | 是 |
+|`avatar_thumb` | 用户头像 72x72 | `string` | 是 |
+|`avatar_middle` | 用户头像 240x240 | `string` | 是 |
+|`avatar_big` | 用户头像 640x640 | `string` | 是 |
+|`user_id`| 用户 user id，申请了员工信息获取权限(`获取用户 user ID`)的应用会返回该字段【**仅自建应用**】 | `string` | 否 |
+|`employee_no`| 用户工号，申请了员工信息获取权限(`获取用户 user ID`)的应用会返回该字段【**仅自建应用**】 | `string` | 否 |
+|`email` | 用户邮箱，申请了邮箱获取权限(`获取用户邮箱信息`)的应用会返回该字段 | `string` | 否 |
+|`mobile` | 用户手机号，申请了手机号获取权限(`获取用户手机号`)的应用会返回该字段 | `string` | 否 |
+
+**返回示例**：
+```json
+{
+    "sub": "ou_caecc734c2e3328a62489fe0648c4b98779515d3",
+    "name": "李雷",
+    "picture": "https://www.feishu.cn/avatar",
+    "open_id": "ou_caecc734c2e3328a62489fe0648c4b98779515d3",
+    "union_id": "on_d89jhsdhjsajkda7828enjdj328ydhhw3u43yjhdj",
+    "en_name": "Lilei",
+    "tenant_key": "736588c92lxf175d",
+    "avatar_url": "www.feishu.cn/avatar/icon",
+    "avatar_thumb": "www.feishu.cn/avatar/icon_thumb",
+    "avatar_middle": "www.feishu.cn/avatar/icon_middle",
+    "avatar_big": "www.feishu.cn/avatar/icon_big",
+    "email": "zhangsan@feishu.cn",
+    "user_id": "5d9bdxxx",
+    "employee_no": "111222333",
+    "mobile": "+86130xxxx0000"
+}
+```

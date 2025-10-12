@@ -1,0 +1,79 @@
+<!--
+title: 应用管理与多人协作
+id: 6976549665215070212
+fullPath: /home/introduction-to-custom-app-development/transfer-owner-and-collaborative-members
+updatedAt: 1747899722000
+source: https://open.feishu.cn/document/develop-process/operations-analysis/transfer-owner-and-collaborative-members
+-->
+# 应用管理与多人协作
+  
+在应用的开发过程中经常会遇到人员调整，你可以通过转移应用所有权和多人协作功能来随时调整开发人员。对于已废弃应用，也可以在开发者后台进行删除。
+
+:::note
+本文介绍的功能仅支持正式版应用，测试版应用或测试企业不支持该功能。
+:::
+
+## 转移应用所有权
+
+1. 登录 [开发者后台](https://open.feishu.cn/app)，点击进入应用详情页，在 **凭证与基础信息** 页面，点击 **转移应用所有权**。
+
+3. 在弹出窗口中输入所需账号，选中目标人员后，点击 **确认转移** 即可。
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/515d98980b5caf47b1f23cc003b9e85e_YLPNRdnrko.png?height=506&lazyload=true&maxWidth=600&width=1156)
+
+	转移成功之后可以收到来自**飞书** **开发者小助手**的应用转移通知。
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5084a588604ef4f605909213f3af2cf1_vc33aBIMeH.png?height=364&lazyload=true&maxWidth=600&width=1366)
+    
+## 删除应用
+
+登录[开发者后台](https://open.feishu.cn/app)，进入应用详情页，在 **凭证与基础信息** 页面底部，点击 **删除应用**。不同状态的应用相应的操作也不同，具体说明如下：
+
+:::warning
+**注意**：应用删除后无法恢复，请谨慎操作。
+:::
+
+- 如果应用创建后从未发布过，可以直接删除应用。
+
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/aea11b664443a5c0a91c210500e80de5_MPUBmJI76w.png?height=1228&lazyload=true&maxWidth=600&width=2104)
+   
+   
+- 如果应用发布过，则无法直接删除应用，需要应用开发者先联系企业管理员[停用该应用](https://www.feishu.cn/hc/zh-CN/articles/327048548457-%E7%AE%A1%E7%90%86%E5%91%98%E7%A7%BB%E9%99%A4%E6%88%96%E5%81%9C%E7%94%A8%E5%BA%94%E7%94%A8#tabs0|lineguid-dSzu0)，然后才可以删除。
+
+	:::warning
+    飞书个人版暂无法删除已发布的应用。
+    :::
+
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/62c9739d1c854d14f072227317333503_A6cRHoV2AW.png?height=1210&lazyload=true&maxWidth=600&width=1416)
+    
+    企业管理员停用应用后，开发者可以删除应用。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5705b908c0ff0f04afa7c1e7b964a5bc_VmXdFYu1aY.png?height=1340&lazyload=true&maxWidth=600&width=1982)
+
+## 多人协作
+
+在同时有多个人员共同开发和配置应用的情况下，你可以把相关人员加入到应用的 **成员管理** 列表中。
+:::warning
+企业自建应用仅支持企业内部人员多人协作，你无法添加企业外部人员为协作者。
+:::
+
+
+1. 登录 [开发者后台](https://open.feishu.cn/app)，点击进入应用详情页，选择进入 **成员管理** 页面，点击 **添加协作人员**。
+
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c9bc7d93e9497751f527d0b3a7eeec52_qxeDpngEaL.png?height=1044&lazyload=true&maxWidth=600&width=2786)
+
+2. 在弹出窗口中，添加协作人员并选择合适的角色。
+
+	不同角色所具备的权限不同。
+
+
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5ee90f5d5bc617d73a3bc7f76e5f6036_iVeJqd7Tk8.png?height=1316&lazyload=true&maxWidth=500&width=1194)
+
+    添加完成之后即可在 **成员管理** 列表中看到新加入的成员，并可进行修改及移除角色。
+
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9da2fe8f95fc29efb3ebbeaae25913a4_yJr4pqQzY8.png?height=1612&lazyload=true&maxWidth=600&width=2788)
+
+    被添加的新成员也会收到来自**开发者小助手**的通知。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ce68dafea1fa08e272b79ca71fe41f89_K2wGwRGhkR.png?height=722&lazyload=true&maxWidth=600&width=1458)

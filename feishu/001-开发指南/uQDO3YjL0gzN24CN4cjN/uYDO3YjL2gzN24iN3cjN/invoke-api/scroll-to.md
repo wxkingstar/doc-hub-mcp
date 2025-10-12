@@ -1,0 +1,30 @@
+<!--
+title: 滚动到指定距离
+id: 7312640957543170050
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/invoke-api/scroll-to
+updatedAt: 1753959787000
+source: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/invoke-api/scroll-to
+-->
+# 滚到到指定距离
+
+## 示例
+```js
+// npm 
+myComponent.invoke(DocComponentEvent.SCROLL_TO, value).then(function(response) {
+});
+
+// sdk
+myComponent.invoke('SCROLL_TO', value).then(function(response) {
+});
+```
+
+## 参数
+|属性|	类型|	是否必须	|说明|
+| ---|----- | -------|------ | 
+|value|	Number	|是|	距离
+
+## 返回
+|属性|	类型|	说明|
+| ---|----- | ------- | 
+|code|	Number |	0：成功 、 -1：失败 |
+|msg|	String |	成功返回**Success** 失败返回错误信息 |

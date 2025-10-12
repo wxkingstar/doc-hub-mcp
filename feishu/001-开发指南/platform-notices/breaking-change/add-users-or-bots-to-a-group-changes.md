@@ -1,0 +1,26 @@
+<!--
+title: 将用户或机器人拉入群聊 API 无效ID错误处理方式与错误码变更
+id: 7200416144481828865
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/add-users-or-bots-to-a-group-changes
+updatedAt: 1676530714000
+source: https://open.feishu.cn/document/faq/breaking-change/add-users-or-bots-to-a-group-changes
+-->
+# 将用户或机器人拉入群聊 API 无效ID错误处理方式与错误码变更
+### 变更事项
+为了保障产品能力体验：
+- 在群聊开启仅群主和群管理员可添加群成员的设置时，若操作者不是群主/管理员或创建群组且具备 ==更新应用所创建群的群信息== 权限的机器人，将收到232017错误码；
+- 当succeed_type = 0/2且用户填入空字符串的user ID/app ID或不存在的app ID时，将收到232043错误码；
+- 当拉未开启机器人能力的应用进群时，若succeed_type = 0/2将收到232043错误码；若succeed_type = 1，这些应用的app ID将在`invalid_id_list`中；
+- 当chat_id填入单聊ID时，将收到232090错误码。
+
+
+> 预计生效时间：2023-02-20<br>
+
+### 潜在影响
+- 若用户在此之前调用上述接口时没有对空字符串的user ID/app ID或不存在的app ID进行过滤，变更后接口将会返回232043错误码。
+- 若用户在此之前调用上述接口时没有对未开启机器人能力的应用进行过滤，变更后接口将无法把这些应用拉入群聊，接口响应视选择的`succeed_type`而定。
+- 若用户在此之前调用上述接口时没有对单聊chat_id进行过滤，接口将会返回232090错误码。
+- 若用户在此之前调用上述接口后存在处理232014错误码的逻辑，变更后此逻辑可能失效，需更改为232017。
+
+
+<br> 如需适配协助，请洽技术支持。

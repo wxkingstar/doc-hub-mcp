@@ -1,0 +1,413 @@
+<!--
+title: 搜索组件
+id: 7141266532697047068
+fullPath: /uYjL24iN/uQDO3YjL0gzN24CN4cjN/selector
+updatedAt: 1737366631000
+source: https://open.feishu.cn/document/common-capabilities/web-components/selector
+-->
+# 搜索组件
+
+搜索组件可用于搜索和选择人员、群组、文档等数据的场景，匹配关键词检索对应结果，并支持多类型数据混排展示。
+
+该组件支持多语言适配（中文、英文、日文等），同时支持配置浅色模式或深色模式。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/875f730911fcc9a0b47a92d56e75a435_klqkk5dYg0.png?height=540&lazyload=true&maxWidth=260&width=400)
+
+## 案例展示
+
+下图是某企业内的信息管理系统（浏览器网页）：
+
+- 当用户想针对某条信息进行授权管理，授权弹窗内包含“搜索框”组件，可输入关键词进行人员、群组的搜索；
+- 搜索完成后，可选择对应的人员或群组，即可完成对所选范围的授权。
+
+
+![2e058350-c34d-4a3a-817d-a9e62a5a138f.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b914f9f335b3bfda26e704ef4087e23d_FhXvil1BL6.gif?height=897&lazyload=true&maxWidth=735&width=1435)
+
+
+## 适用范围
+- 网页组件只适用于企业自建应用，暂不支持商店应用。
+- 网页组件适用于普通web网页，不建议在小程序webview中调用此组件。
+
+## 接入流程
+**第一步：** 创建一个飞书应用，开启“搜索飞书内的数据”权限
+
+**第二步：** 在你的网页中调用搜索组件
+
+详细的接入方法参见下文。
+
+## 第一步：创建应用并申请权限
+
+1. 在[开发者后台](https://open.feishu.cn/app/) 点击**创建企业自建应用**，创建成功之后，点击应用名称打开应用，点击**凭证与基础信息**切换页面，拿到 App ID。
+
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8e1af4302c862a1ee8875d4d2424fc41_2GGZ2xoeiB.png?height=366&lazyload=true&maxWidth=600&width=2610)
+
+
+2. 点击 **开通权限**，在右侧弹出的界面内选择 **用户身份权限 user_access_token**，再开通 **搜索飞书内的数据（component:selector）** 权限。
+    
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/da47dc2525a4d46c547b73790986a5b2_qquPgJuY7x.png?height=1546&lazyload=true&maxWidth=600&width=2882)
+        
+3. （可选）发布应用。 
+
+	如果以上申请的权限在当前租户管理员设置的权限等级是免审权限，则可以申请后直接生效。如果以上申请的权限为需要审核权限，则必须发布应用使配置生效。
+    
+    1. 在应用详情页左侧进入 **应用发布 > 版本管理与发布** 功能页。
+    2. 点击 **创建版本**。
+
+		![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/262335c6bf6833243c30d83c9d8a470d_Jeb9sNPu00.png?height=842&lazyload=true&maxWidth=600&width=2882)
+        
+    3. 在 **版本详情** 页面，配置应用的版本号、能力、更新说明、可用范围等信息，并在页面底部点击 **保存**。
+    4. 在弹窗内点击 **确认发布**。
+
+		提交后需要等待企业管理员审核，审核通过后应用将发布成功，申请的 API 权限才会正式生效。
+
+
+
+
+
+## 第二步：调用组件
+### 1、引入组件库
+
+在网页 html 中引入飞书网页组件 SDK：
+
+
+```html
+<!--在网页 html 中-->
+<body>...</body>
+<script src="https://lf3-cdn-tos.bytegoofy.com/obj/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.2.21.js"></script>
+```
+
+SDK 需要在`<body>`加载后引入。
+
+### 2、 配置鉴权信息
+
+详细鉴权流程请参见 [组件SDK鉴权流程](/ssl:ttdoc/uYjL24iN/uUDO3YjL1gzN24SN4cjN)。仅支持用户身份鉴权。
+
+调用如下方法完成组件鉴权：
+
+```js
+window.webComponent.config({
+  openId,    // 当前登录用户的open id，要确保与生成signature使用的user_access_token相对应
+  signature, // 签名
+  appId,     // 应用 appId，在Step1中获得的应用appId
+  timestamp, // 时间戳（毫秒）
+  nonceStr,  // 随机字符串
+  url,       // app URL
+  jsApiList, // 使用搜索组件时取值为 ['selector']
+  locale,    // 指定组件的国际化语言：en-US 英文、zh-CN 中文、ja-JP 日文
+}).then(res=>{
+
+  // 可以在这里进行组件动态渲染
+
+})
+```
+
+### 3、渲染组件
+在完成鉴权后，通过 render 方法渲染组件：
+```js
+window.webComponent.render(
+  'Selector',
+  {
+    onSelect: console.log,
+	...
+  },
+  document.querySelector('#selector-mount-point'),
+)
+```
+
+#### 3.1 完整的组件属性列表如下：
+
+其中只有 onSelect 属性为必传属性
+
+参数                | 说明                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 类型                                   | 默认值                                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| onSelect          | 从搜索结果面板中选中时调用                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `(data: OptionData) => void;`        | -                                                                                                                                                                                                                                                                                                                                                                       |
+| searchEntityTypes | 配置支持的搜索结果类型<br>-   人<br>-   群组<br>-   文档/知识库                                                                                                                                                                                                                                                                                                                                                                                                                                    | SearchEntityType[]                  | 支持全部类型：<br>-   人<br>-   群组<br>-   文档/知识库                                                                                                                                                                                                                                                                                                                              |
+| placeholder       | 搜索框内占位符                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | string                               | 搜索                                                                                                                                                                                                                                                                                                                                                                       |
+| showSearchIcon    | 搜索框左侧是否需要放大器 icon                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | boolean                              | true                                                                                                                                                                                                                                                                                                                                                                     |
+| triggerWidth      | 触发器搜索框宽度                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | number                               | 200                                                                                                                                                                                                                                                                                                                                                                      |
+| panelWidth        | 搜索结果面板宽度                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | number                               | 根据搜索框自适应。最小 200px                                                                                                                                                                                                                                                                                                                                                        |
+| panelHeight       | 搜索结果面板高度                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | number                               | 默认 382 px                                                                                                                                                                                                                                                                                                                                                                |
+| placement         | 搜索结果面板弹出的方向                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Placement                            | 根据剩余空间自适应                                                                                                                                                                                                                                                                                                                                                                |
+| notFoundContent   | 当下拉列表为空时显示的内容                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | string                               | 没有匹配结果，换个关键词试试吧                                                                                                                                                                                                                                                                                                                                                          |
+| onClickAvatar     | 点击头像的回调-   若配置则不会触发选项的 onSelect                                                                                                                                                                                                                                                                                                                                                                                                                                                    | (data: OptionData) => void;          | -                                                                                                                                                                                                                                                                                                                                                                       |
+| searchFilter      | 搜索接口相关配置<br>-   用于配置搜索请求时相关设置，影响最终搜索结果<br>-   暂不支持「外部」人员搜索                                                                                                                                                                                                                                                                                                                                                                                                                       | SearchFilter                         | userFilter<br>-   resignedSearchable: false 默认不包含离职<br>groupChatFilter<br>-   isJoined: 默认包含已加入的群和未加入的公开群<br>-   isPublic: 默认包含公开群<br>-   chatMemberIds: 默认无 chatMember 限制<br>docFilter<br>-   creatorIds: 默认无 creator 限制<br>-   type: 默认返回所有类型<br>-   onlyTitle: 默认仅根据文档 title 搜索                                                                              |
+| getDisableState   | 禁用选项、禁用原因<br>用法示例：<br>getDisableState={(data) => {if (data.id === '6692944066633531651') {return {disable: true,disableTips: '',};}return {disable: false,disableTips: '',};}}                                                                                                                                                                                                                                                                                                   | (data: OptionData) => DisableOption; |                                                                                                                                                                                                                                                                                                                                                                          |
+| optionConfig      | 配置条目内展示的信息![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8a21eabbadb83cefb7d93f2a77d950f5_wiNoOKaRhR.png?height=292&lazyload=true&width=1440)<br>-   subtitle(「次要信息1」)<br>-   description（「次要信息」）<br>-   tag（「标签」）<br>用法示例：<br>optionConfig={{chatter: {descriptionType: UserDescriptionType.Email},doc: {descriptionType: DocDescriptionType.Owner}}} | OptionConfig                         | ChatterOptionConfig<br>-   descriptionType: UserDescriptionType.Department<br>-   subtitleType: UserSubtitleType.Email<br>-   hasTag: true<br>GroupChatOptionConfig<br>-   hasTag: true<br>DocOptionConfig<br>-   descriptionType: DocDescriptionType.UpdateTime<br>-   hasTag: true<br>BotOptionConfig<br>-   hasTag: true<br>-   descriptionType: true<br> |
+| recommendList     | 配置初始化时展示的推荐数据列表<br>-   组件本身无内置推荐数据，完全依赖使用方传入                                                                                                                                                                                                                                                                                                                                                                                                                                      | OptionData[]                        | -
+
+
+
+#### 3.2 详细类型说明
+
+```
+interface OptionData {
+  id: string; // 实体 id
+  title: string; // 最终展示的带有高亮提示的 title
+  type: OptionType;
+  entity: UserMeta | ChatMeta | DocMeta | WikiMeta;
+}
+
+interface UserMeta {
+  id: string;
+  avatarKey?: string;
+  avatarUrl?: string;
+  name: string;
+  isRegistered?: boolean;
+  isCrossTenant?: boolean;
+  tenantId?: string;
+  mail?: string;
+  doNotDisturbEndTime?: number;
+  acceptSmsPhoneUrgent?: boolean;
+  chatId?: string; // 单聊 id
+  department?: string;
+  i18nNames?: {
+    [key: string]: string;
+  };
+}
+
+interface ChatMeta {
+  id: string;
+  avatarKey?: string;
+  avatarUrl?: string;
+  name: string;
+  chatType?: chatType;
+  chatMode?: chatChatMode;
+  isDepartment?: boolean;
+  isTenant?: boolean;
+  isCrossTenant?: boolean;
+  onCallId?: string;
+  isCrypto?: boolean;
+  isPublicV2?: boolean; // 是否为公开群
+  isMember?: boolean; // 仅是公开群的时候才会有这个字段，用来判断是否加入了公开群
+  isMeeting?: boolean; // 是否是会议群
+  p2pChatterId?: string; // 如果是密聊、单聊，此字段为 user_id
+  description?: string;
+  userCount?: number;
+  isPrivateMode?: boolean;
+}
+
+interface DocMeta {
+  id: string;
+  name: string;
+  isCrossTenant?: boolean;
+  updateTime?: string;
+  format?: string;
+  url?: string;
+  ownerId?: string;
+  ownerName?: string;
+  editUserId?: string;
+  editUserName?: string;
+  icon?: any;
+  avatarKey?: string;
+  type: docType;
+  token?: string;
+}
+
+interface WikiMeta {
+  id: string;
+  type: docType;
+  name: string;
+  isCrossTenant?: boolean;
+  updateTime?: string;
+  url?: string;
+  docUrl?: string;
+  spaceId?: string;
+  spaceName?: string;
+  editUserId?: string;
+  editUserName?: string;
+  token?: string;
+}
+
+interface SearchFilter {
+  userFilter?: UserFilter;
+  groupChatFilter?: GroupChatFilter;
+  docFilter?: DocFilter;
+}
+
+interface UserFilter {
+  resignedSearchable?: boolean;
+  externalSearchable?: boolean;
+}
+
+interface GroupChatFilter {
+  // 本人加入的群
+  isJoined?: boolean;
+  // 公开群
+  isPublic?: boolean;
+  // 外部群
+  externalSearchable?: boolean;
+  // 群聊包括的成员id
+  chatMemberIds?: string[];
+  // 需要被过滤的群
+  excludedChatIds?: string[];
+}
+
+interface DocFilter {
+  creatorIds?: string[]; // 文档所有者IDs
+  type?: docType[]; // 文档类型
+  onlyTitle?: boolean; // 仅搜文档标题
+}
+
+enum docType {
+    UNKNOWN = 0,
+    DOC = 1,
+    SHEET = 2,
+    BITABLE = 3,
+    MINDNOTE = 4,
+    FILE = 5,
+    SLIDE = 6,
+    WIKI = 7,
+    DOCX = 8,
+    /** space folder */
+    FOLDER = 9,
+    /** wiki 2.0 catalog */
+    CATALOG = 10
+}
+
+interface OptionConfig {
+  chatter?: ChatterOptionConfig;
+  groupChat?: GroupChatOptionConfig;
+  doc?: DocOptionConfig;
+  bot?: BotOptionConfig;
+}
+
+interface ChatterOptionConfig {
+  subtitleType?: UserSubtitleType;
+  descriptionType?: UserDescriptionType;
+  hasTag?: boolean;
+}
+
+interface GroupChatOptionConfig {
+  hasTag?: boolean;
+}
+
+interface DocOptionConfig {
+  descriptionType?: DocDescriptionType;
+  hasTag?: boolean;
+}
+
+interface BotOptionConfig {
+  descriptionType?: boolean;
+  hasTag?: boolean;
+}
+
+enum UserSubtitleType {
+  Email = 1,
+}
+
+enum UserDescriptionType {
+  Department = 1,
+  Email = 2,
+}
+
+enum DocDescriptionType {
+  UpdateTime = 1,
+  Owner = 2,
+}
+
+enum SearchEntityType {
+  USER = 1,
+  BOT = 2,
+  GROUP_CHAT = 3,
+  DOC = 7,
+}
+
+enum Placement {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+}
+
+interface DisableOption {
+  disable?: boolean;
+  disableTips?: string;
+}
+
+export enum OptionType {
+  UNKNOWN = 'unknown',
+  USER = 'user',
+  CHAT = 'chat',
+  DOC = 'doc',
+  WIKI = 'wiki',
+}
+
+enum chatType {
+    P2P = 1,
+    GROUP = 2,
+    /** 小组类型 */
+    TOPIC_GROUP = 3
+}
+
+enum chatChatMode {
+    UNKNOWN = 0,
+    DEFAULT = 1,
+    THREAD_V2 = 3
+}
+```
+
+### 4、异常捕获
+
+> 业务方需要保证鉴权有效性，当出现鉴权失败等问题时，需要进行**重新鉴权**。
+
+```js
+// 捕获组件内部错误
+window.webComponent.onError(function (error: Error) {
+  console.error('custom error:', error)
+})
+
+// 捕获 sdk 鉴权错误
+window.webComponent.onAuthError(function (error: Error) {
+  console.error('auth error callback', error)
+})
+interface Error {
+  code: string;
+  msg: string;
+}
+```
+
+### 5、多语言适配
+默认使用 `en`。
+
+示例代码：
+```js
+// 初始化时传入
+window.webComponent.config({
+  ...
+  locale: 'zh-CN'
+})
+
+// 更新
+window.webComponent.update({
+  ...
+  locale: 'ja-JP'
+})
+```
+可支持的语言列表如下：
+| 语言   | locale 名 | 支持情况 |
+| ---- | -------- | ---- |
+| 中文简体 | zh-CN    | ✓    |
+| 日语   | ja-JP    | ✓    |
+| 英语   | en-US    | ✓    |
+
+### 6、浅色/深色 模式
+
+主题色可通过 theme 值配置，可选值：
+- `light`：浅色模式
+- `dark`：深色模式
+
+默认使用` light`浅色模式。
+
+示例代码：
+```js
+// 初始化时传入
+window.webComponent.config({
+  ...
+  theme: 'dark',
+})
+
+// 更新
+window.webComponent.update({
+  ...
+  theme: 'light'
+})
+```

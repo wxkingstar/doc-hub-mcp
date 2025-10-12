@@ -1,0 +1,189 @@
+<!--
+title: 人员类型资源介绍
+id: 6998437186321219612
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/overview
+updatedAt: 1720166959000
+source: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/overview
+-->
+# 人员类型资源介绍
+
+人员类型是通讯录中一种特殊的用户属性字段，用于标记用户的身份类型。使用通讯录 API，你可以对人员类型资源进行增删改查操作。
+
+## 资源概述
+
+人员类型默认包含正式、实习、外包、劳务、顾问五个选项，同时企业可以基于自身管理诉求增加自定义选项。为用户设置人员类型时只能引用一个选项。在后续企业管理员创建部门群的场景中，可设置入群的人员类型，仅限指定人员类型的用户入群，且当企业用户的人员类型发生变更时，用户将被自动加入或移除对应部门群。
+
+##  字段说明
+
+:::html
+<md-table>
+  <md-thead>
+      <md-tr>
+      <md-th style="width: 30%;">名称</md-th>
+      <md-th style="width: 30%;">类型</md-th>
+      <md-th style="width: 40%;">描述</md-th>
+      </md-tr>
+  </md-thead>
+  <md-tbody>
+
+    <md-tr>
+	<md-td>
+	<md-text type="field-name" >enum_id</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项 ID，该 ID 由系统自动生成。
+
+**示例值**："exGeIjow7zIqWMy+ONkFxA=="
+	</md-td>
+</md-tr>
+    
+    <md-tr>
+	<md-td>
+	<md-text type="field-name" >enum_value</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项编号。
+
+- 人员类型内默认选项的编号是固定的，即 1 ~ 5 依次表示正式、实习、外包、劳务、顾问。
+- 新建的自定义选项的编号是由系统按顺序自动生成的。如果你是首次新建自定义选项，则选项值为 6。
+      
+**示例值**："2"
+      
+**数据校验规则**：
+
+- 长度范围：`1` ～ `100` 字符
+	</md-td>
+</md-tr>
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >content</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项内容，例如默认包含的正式、实习、外包、劳务、顾问。当你新建人员类型时，可自定义设置选项内容。
+
+**示例值**："专家"
+
+**数据校验规则**：
+
+- 长度范围：`1` ～ `100` 字符
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >enum_type</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项类型。
+
+**示例值**：2
+
+**可选值有**：
+- `1`：内置类型（正式、实习、外包、劳务、顾问为内置类型）
+- `2`：自定义（由你新建的选项均为自定义类型）
+      
+**注意**：可选值 `1` 仅用于查询结果当中，当你创建或更新自定义人员类型时不支持选择。
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >enum_status</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >int</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项激活状态，只有已激活的选项可用于设置用户属性。
+
+**示例值**：1
+
+**可选值有**：
+- `1`：激活
+- `2`：未激活
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	<md-text type="field-name" >i18n_content</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >i18n_content\[\]</md-text>
+	</md-td>
+	<md-td>
+	人员类型的选项内容的国际化配置。
+
+**说明**：在飞书客户端查看用户人员类型时，系统会根据客户端语言环境，自动展示相匹配的选项语言。如果相应语言不在选项国际化配置当中，则会展示默认选项内容（即 content 字段）。
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >locale</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	语言版本。例如：
+- `zh_cn`：中文
+- `en_us`：英文
+- `ja_jp`：日文
+
+**示例值**："zh_cn"
+	</md-td>
+</md-tr>
+
+
+<md-tr>
+	<md-td>
+	&emsp;<span style="color: #8F959E">∟</span>&nbsp;<md-text type="field-name" >value</md-text>
+	</md-td>
+	<md-td>
+	<md-text type="field-type" >string</md-text>
+	</md-td>
+	<md-td>
+	语言版本对应的内容。
+
+**示例值**："专家"
+	</md-td>
+</md-tr>
+
+  </md-tbody>
+</md-table>
+:::
+
+##  数据示例
+
+```json
+{
+    "enum_id": "exGeIjow7zIqWMy+ONkFxA==",
+    "enum_value": "2",
+    "content": "专家",
+    "enum_type": 2,
+    "enum_status": 1,
+    "i18n_content": [
+    	{
+            "locale": "zh_cn",
+            "value": "专家"
+        }
+    ]
+}
+```

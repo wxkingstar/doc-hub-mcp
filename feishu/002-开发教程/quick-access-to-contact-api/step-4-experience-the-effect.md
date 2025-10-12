@@ -1,0 +1,37 @@
+<!--
+title: 步骤四：体验效果
+id: 7238816139734007811
+fullPath: /home/quick-access-to-contact-api/step-4-experience-the-effect
+updatedAt: 1692953311000
+source: https://open.feishu.cn/document/quick-access-to-contact-api/step-4-experience-the-effect
+-->
+# 步骤四：体验效果
+
+在本步骤，你将使用示例代码对部门进行操作，然后进入飞书管理后台查看部门信息，最终在部门中添加一个新用户验证回调事件。
+
+
+## 操作步骤
+
+:::html
+<md-td>
+1. 打开本地终端工具，参考以下视频对部门进行增删改查操作。
+
+	<md-video src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d4c55cf332b19d0fce6f0884be9801e6_6Q4ks4jszB.mp4"/>
+
+
+2. 登录[飞书管理后台](https://feishu.cn/admin)，进入**组织架构** > **成员与部门** 页，查看刚刚操作过的部门。
+  
+	如下图所示，对部门的操作已成功。
+    
+    ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/073bae88b29b44469a7751c2ba0a832b~tplv-goo7wpa0wc-image.image?lazyload=true&width=2574&height=1354&maxWidth=600)
+
+3. 选择子部门，单击 **添加成员** ，添加一个新用户。
+
+    ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/a59243fe622e42cda32afb59ccf6558d~tplv-goo7wpa0wc-image.image?lazyload=true&width=2576&height=1672&maxWidth=600)
+
+4. 返回终端工具，如下图所示已成功接收员工入职事件。
+
+    ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/7815e8b0ba374313a9ee73f10e86106e~tplv-goo7wpa0wc-image.image?lazyload=true&width=774&height=414&maxWidth=400)
+  
+</md-td>
+:::

@@ -1,0 +1,22 @@
+<!--
+title: 获取标题
+id: 7472308462216593436
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-get-title
+updatedAt: 1739789357000
+source: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-get-title
+-->
+# 获取标题
+## 示例
+```js
+myComponent.invoke.getTitle().then(function(response) {
+  const { code, msg, data } = response;
+  // ...
+});
+```
+
+## 返回
+|属性|	类型|	说明|
+| ---|----- | ------- | 
+|code|	Number |	0：成功 、 -1：失败 |
+|msg|	String |	信息 |
+|data|String|标题||

@@ -1,0 +1,179 @@
+<!--
+title: 三分钟快速开发
+id: 7452622721024311297
+fullPath: /uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/introduction
+updatedAt: 1745484121000
+source: https://open.feishu.cn/document/develop-an-echo-bot/introduction
+-->
+# 三分钟快速开发
+
+自动回复机器人指机器人可以接收用户消息、并将同样的消息回复给用户。通过本教程，你可在 **三分钟内开发并体验** 自动回复机器人的效果，从而了解企业自建的机器人应用基本的开发流程，以及通过服务端 SDK 调用 API 和事件的方法。目前暂不支持在[测试企业](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)中体验本教程。
+
+## 搭建步骤
+
+
+:::html            
+<interactive-course>
+  <interactive-course-module
+    type="create-app"
+    title="创建应用"
+    appManifestUrl="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/20d537a3440765726b6ae93d23f9fb65_xmtWyKnOHM.json)"
+  >
+    创建后，系统将自动添加以下应用配置。详细配置说明参见[应用配置说明](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/faq)。
+   
+  </interactive-course-module>
+  <interactive-course-module
+    type="publish-app"
+    title="创建版本并发布"
+    pcDefaultAbility="bot"
+    mobileDefaultAbility="bot"
+  >
+    当应用的基本信息、权限范围和应用功能等信息发生变更时，都需要发布新的应用版本才能正式生效。自建应用发布流程可参见[发布应用](/ssl:ttdoc/home/introduction-to-custom-app-development/self-built-application-development-process#baf09c7d)。
+  </interactive-course-module>
+   <interactive-course-module
+    type="run-code"
+    title="运行代码"
+    codePkgUrl="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b6d04596d0a6f7ca42b6143e2aa1531e_4PwJ1spPv2.json)"
+    installedPoster="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c5d657385659d185a6a7db18589fe9aa_IQKUBg4bqq.png)"
+    installedVideo="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1e4a744e1778c81c257400984d9d55c8_daWWIEF9A4.mp4)"
+    uninstalledPoster="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/df36b66644a252eae89df28e725613f2_iiYHc1QV0N.jpg)"
+    uninstalledVideo="[file](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4afe973a989a1f3e743d1ba51f2aa7bd_nAK4I9O0h3.mp4)"
+  >请选择你所需运行的语言后，根据视频提示启动示例代码，代码下载和说明参见[示例代码解释](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/explanation-of-example-code)。
+  </interactive-course-module>
+  <interactive-course-module
+    title="体验和试用"
+	actions:button1:disabled-type="before-active"
+    actions:button1:type="primary"
+    actions:button1:text="打开"
+    actions:button1:link="https://applink.feishu.cn/client/bot/open?appId=:appID"
+  >
+点击 **打开** 按钮直接与机器人单聊。完整体验机器人的方式参考下文。</interactive-course-module>
+</interactive-course>
+:::
+
+如果你在一键创建、发布、运行代码、体验应用的过程中有任何问题，欢迎点击此[表单](https://bytedance.larkoffice.com/share/base/form/shrcnC4hpksD9Z8etkdyJa87F5g?hide_docid=1&hide_userid=1&hide_%E4%B8%9A%E5%8A%A1%E5%9F%9F=1&hide_%E5%8F%8D%E9%A6%88%E4%B8%8A%E4%B8%8B%E6%96%87=1&hide_%E5%8F%8D%E9%A6%88%E6%9D%A5%E6%BA%90=1&hide_%E6%96%87%E6%A1%A3%E6%A0%87%E9%A2%98=1&hide_%E6%96%87%E6%A1%A3%E9%93%BE%E6%8E%A5=1&prefill_docid=7452622721024311297&prefill_%E4%B8%9A%E5%8A%A1%E5%9F%9F=7473534698498523164&prefill_%E5%8F%8D%E9%A6%88%E4%B8%8A%E4%B8%8B%E6%96%87=%E8%87%AA%E5%8A%A8%E5%9B%9E%E5%A4%8D%E6%9C%BA%E5%99%A8%E4%BA%BA&prefill_%E6%96%87%E6%A1%A3%E6%A0%87%E9%A2%98=%E4%B8%89%E5%88%86%E9%92%9F%E5%BF%AB%E9%80%9F%E5%BC%80%E5%8F%91&prefill_%E6%96%87%E6%A1%A3%E9%93%BE%E6%8E%A5=https%3A%2F%2Fopen.feishu.cn%2Fdocument%2FuAjLw4CM%2FuMzNwEjLzcDMx4yM3ATM%2Fdevelop-an-echo-bot%2Fintroduction)反馈。
+
+
+## 实现效果
+自动回复机器人的最终实现效果如下所示：
+:::html
+<md-table>
+ <md-thead>
+  <md-tr>
+   <md-th style="width: 50%;">用户与机器人单聊</md-th>
+   <md-th>用户在群组内@机器人</md-th>
+  </md-tr>
+ </md-thead>
+ <md-tbody>
+  <md-tr>
+
+   <md-td>用户输入纯文本消息，机器人回复：`收到你发送的消息：XXXX`，如下图所示。</md-td>
+   <md-td>用户在群组内 @机器人并发送纯文本消息，机器人引用这条消息并回复：`收到你发送的消息：XXXX`，如下图所示。</md-td>
+  </md-tr>
+  <md-tr>
+   <md-td>![20250205174808_rec_-convert.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0e90d1792bbe3b9cbd186de9a253884b_tpGSq92VZn.gif?height=1228&lazyload=true&maxWidth=382&width=1332)</md-td>
+   <md-td>![20250206152020_rec_-convert.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5ebc7ab27889449e4745c164e0037fbf_XqQbDUVxBv.gif?height=1208&lazyload=true&maxWidth=382&width=1324)</md-td>
+  </md-tr>
+ </md-tbody>
+</md-table>
+:::
+
+
+## 体验机器人
+
+
+应用发布生效后，前往飞书客户端验证机器人的实现效果。
+
+
+:::html
+<md-alert type="tip">
+登录飞书客户端的用户必须要在[应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内。本教程中建议使用应用所有者身份登录飞书客户端进行测试。
+
+</md-alert>
+:::
+### 与机器人单聊
+
+1. 在飞书客户端内搜索应用机器人名称。
+
+:::html
+<md-alert type="tip">
+你也可以通过 AppLink 打开机器人会话，链接地址 `https://applink.feishu.cn/client/bot/open?appId={appId}`，详情参见[打开机器人会话](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-bot)。
+</md-alert>
+:::
+    
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9c0e2f63c7f92fb6c9697ef50039f211_Sy3VvFl0Ds.png?height=504&lazyload=true&maxWidth=600&width=1858)
+
+2. 点击进入机器人单聊窗口，发送测试消息。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/82ce7b2071b84cc422aaf95e71023172_bcOZj1otHk.png?height=1236&lazyload=true&maxWidth=382&width=1312)
+  
+
+### 在群聊中@机器人
+
+1. 进入某一群组，在群组的 **设置** > **群机器人** 功能中，搜索应用机器人并添加。
+    
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f32e723a02169e92c2f3b45b63edb627_q7QdYAV3vW.png?height=1256&lazyload=true&maxWidth=382&width=1316)
+    
+2. 在群组聊天中，@机器人并发送测试消息。
+   
+   ![20250206152020_rec_-convert.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5ebc7ab27889449e4745c164e0037fbf_XqQbDUVxBv.gif?height=1208&lazyload=true&maxWidth=382&width=1324)
+
+## 常见问题
+### 问题一：无法搜索到应用
+
+当前用户不在[应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内。你可前往开发者后台 **版本管理与发布** 确认。
+   
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a370e44b504c9877e30d9abef5430faf_wa2micsctT.png?height=624&lazyload=true&maxWidth=600&width=1322)
+
+### 问题二：发送测试消息后，机器人没有自动回复相同消息
+
+项目与开放平台的长连接已断开。请重新复制启动命令并重新启动程序，确保命令提示符中显示如下信息。
+
+- Go
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2006481551c016793a20542ed73053c3_x0OfJnP6tT.png?height=232&lazyload=true&maxWidth=700&width=1914)
+    
+- Python
+	
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d5030af3ba58f2ae2830b2cb649dcb03_6NPdMGAFfY.png?height=128&lazyload=true&maxWidth=700&width=1846)
+    
+- Java
+	
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b72ecd4410e0038f03b40adf944093c4_GWlNlvnsLu.png?height=72&lazyload=true&maxWidth=700&width=1924)
+    
+- Node.js
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a228cc501059e600a173d677a490a804_xxKfJVRKnb.png?height=432&lazyload=true&maxWidth=700&width=1878)
+    
+### 问题三：运行代码报 SSLCertVerificationError 错误
+
+
+该错误表示 SSL 证书验证失败，通常是由于本地环境服务器证书无效、过期、或自签名缺失等原因造成。你可尝试升级系统或升级系统依赖解决。
+
+### 问题四：如何重复体验自动回复机器人
+
+创建应用后，如需重复体验（例如体验创建发布应用、体验多种开发语言），可在 **创建应用** 区域点击 **重新创建应用**。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3481af49727033e437aa3eb2ba77d00b_2lbJsB0cxX.png?height=898&lazyload=true&maxWidth=600&width=1560)
+
+
+
+## 后续操作
+
+如果你已完成本教程的搭建步骤、成功搭建了自动回复机器人，你可以：
+
+- 在示例代码包中，选择所需代码语言的示例文件，基于你自己的业务场景，修改代码逻辑
+- 自行搭建服务器并部署代码，将启动指令中的 `APP_ID`、`APP_SECRET` 等参数传入本地环境变量即可
+   
+   :::html
+  <md-alert type="tip">
+  本教程中的示例代码使用 **长连接** 接收事件方式，支持线上部署。但如果你在 FaaS 模型下部署代码、在生产环境中调试，推荐你选择[将事件发送至开发者服务器](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/choose-a-subscription-mode/send-notifications-to-developers-server)的方式，资源利用更高效，调试更便利。
+  </md-alert>
+	:::
+
+
+## 了解更多
+
+
+要了解如何开发一个基于飞书卡片实现交互的机器人，可查看教程[开发一个卡片交互机器人](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-a-card-interactive-bot/introduction)。

@@ -1,0 +1,376 @@
+<!--
+title: 处理回调
+id: 7442638088350203908
+fullPath: /uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/handle-callback
+updatedAt: 1749795470000
+source: https://open.feishu.cn/document/server-side-sdk/golang-sdk-guide/handle-callback
+-->
+# 处理回调
+通过回调订阅功能，应用可以及时接收并处理飞书中特定的交互行为（例如，飞书卡片交互、链接预览等），并根据交互结果做对应的业务处理，详情参见[回调概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/callback-overview)。在应用内订阅回调时，还需要在本地服务端建立与应用的连接，以便接收回调数据。服务端 SDK 封装了长连接方式，可以快速建立数据通道处理回调；你也可以选择自建 HTTP 服务器处理回调。两种方式介绍如下：
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:30%">订阅方式</md-th>
+<md-th style="width:70%">介绍</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+  
+<md-tr>
+<md-td>使用长连接接收回调</md-td>
+<md-td>该方式是飞书 SDK 内提供的能力，你可以通过集成飞书 SDK 与开放平台建立一条 WebSocket 全双工通道（你的服务器需要能够访问公网）。后续当应用订阅的回调发生时，开放平台会通过该通道向你的服务器发送消息。相较于传统的 Webhook 模式，长连接模式大大降低了接入成本，将原先 1 周左右的开发周期降低到 5 分钟。具体优势如下：测试阶段无需使用内网穿透工具，通过长连接模式在本地开发环境中即可接收回调。SDK 内封装了鉴权逻辑，只在建连时进行鉴权，后续回调推送均为明文数据，无需再处理解密和验签逻辑。只需保证运行环境具备访问公网能力即可，无需提供公网 IP 或域名。无需部署防火墙和配置白名单。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>将回调发送至开发者服务器</md-td>
+<md-td>传统的 Webhook 模式，该方式需要你提供用于接收回调消息的服务器公网地址。后续当应用订阅的回调发生时，开放平台会向服务器的公网地址发送 HTTP POST 请求，请求内包含回调数据。</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+## 注意事项
+
+开放平台 SDK 仅支持对象类型的卡片回传参数，不支持字符串类型。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6d6c7cde74877dabc032336ceb1bd85d_2NxBTdYy7C.png?height=755&lazyload=true&maxWidth=600&width=1542)
+
+```json
+{
+  "behaviors": [
+    { // 声明交互类型是卡片回传交互。
+      "type": "callback",
+      "value": {
+        // 回传交互数据。开放平台 SDK 仅支持对象类型的卡片回传参数。
+        "key": "value"
+      }
+    }
+  ]
+}
+```
+
+## （推荐）方式一：使用长连接接收回调
+
+如果回调订阅方式需要选择 **使用长连接接收回调**，则需要先使用 SDK 建立与应用的连接。本章节提供建立长连接的示例代码与代码解析，通过 SDK 建立长连接之后，你才能在应用的回调订阅方式中保存 **使用长连接接收回调** 方式。关于应用内配置回调订阅方式的介绍，参考[配置回调订阅方式](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/event-subscription-guide/callback-subscription/configure-callback-request-address)。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/42e4555010cf4b41c536ad736229c742_VUwp0u83AC.png?height=490&lazyload=true&maxWidth=642&width=1234)
+
+### 使用限制
+
+- 长连接模式仅支持企业自建应用。
+- [消息卡片回传交互（旧）](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/configuring-card-callbacks/card-callback-structure)回调不支持 **使用长连接接收回调** 订阅方式，只能选择 **将回调发送至开发者服务器** 订阅方式。
+- 每个应用最多建立 50 个连接（在配置长连接时，每初始化一个 client 就是一个连接）。
+
+### 注意事项
+
+- 与 **将回调发送至开发者服务器** 方式的要求相同，长连接模式下接收到消息后，需要在 3 秒内处理完成。
+- 长连接模式的消息推送为 **集群模式**，不支持广播，即如果同一应用部署了多个客户端（client），那么只有其中随机一个客户端会收到消息。
+
+### 长连接代码
+
+```go
+package main
+import (
+    "context"
+    "fmt"
+    larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+    "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+    "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
+    larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
+)
+func main() {
+    // 注册回调
+    eventHandler := dispatcher.NewEventDispatcher("", "").
+       // 监听「卡片回传交互 card.action.trigger」
+       OnP2CardActionTrigger(func(ctx context.Context, event *callback.CardActionTriggerEvent) (*callback.CardActionTriggerResponse, error) {
+          fmt.Printf("[ OnP2CardActionTrigger access ], data: %s\n", larkcore.Prettify(event))
+          return nil, nil
+       }).
+       // 监听「拉取链接预览数据 url.preview.get」
+       OnP2CardURLPreviewGet(func(ctx context.Context, event *callback.URLPreviewGetEvent) (*callback.URLPreviewGetResponse, error) {
+          fmt.Printf("[ OnP2URLPreviewAction access ], data: %s\n", larkcore.Prettify(event))
+          return nil, nil
+       })
+    // 创建Client
+    cli := larkws.NewClient("YOUR_APP_ID", "YOUR_APP_SECRET",
+       larkws.WithEventHandler(eventHandler),
+       larkws.WithLogLevel(larkcore.LogLevelDebug),
+    )
+    // 建立长连接
+    err := cli.Start(context.Background())
+    if err != nil {
+       panic(err)
+    }
+}
+```
+代码实现说明：
+
+1. 通过 dispatcher.NewEventDispatcher() 初始化事件处理器（eventHandler），**注意两个参数必须填空字符串**。
+1. 通过 eventHandler 的 OnXXXX() 方法监听不同的回调类型，上述示例中监听了[卡片回传交互](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)和 [拉取链接预览数据](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure) 两个回调。
+1. 通过 larkws.NewClient() 初始化长连接客户端，必填参数为应用的 APP_ID 和 APP_SECRET，可在[开发者后台](https://open.feishu.cn/app)的应用详情页内，进入 **基础信息 > 凭证与基础信息** 页面，获取应用的 APP_ID 和 APP_SECRET。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f7f89950be7e57c2760a8b5b1f5e17c9_u7clhvCJ4H.png?height=524&lazyload=true&maxWidth=594&width=3594)
+1. 可选参数传入 eventHandler，同时可设置日志级别。
+
+3. 通过 cli.Start() 启动客户端，如连接成功，控制台会打印 `connected to wss://xxxxx`，主线程将阻塞，直到进程结束。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ee46554b73c969db98c96c31a4d85d13_LaNtPU1Dhf.png?height=188&lazyload=true&maxWidth=594&width=2796)
+
+## 方式二：将回调发送至开发者服务器
+
+如果回调订阅方式选择 **将回调发送至开发者服务器**，则需要设置回调请求网址，并订阅回调。例如，你配置了可交互的飞书卡片（原消息卡片），当用户在卡片内进行交互后，飞书服务器会向请求网址回调包含 JSON 数据的 HTTP POST 请求。因此，你需要启动一个 HTTP 服务器接收回调数据。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ab152d2c0a357efc0ad701ffcf7ad1dc_FDKSBsyn1r.png?height=627&lazyload=true&maxWidth=594&width=1494)
+
+### 基于新版卡片回传交互处理
+
+配置卡片回调地址并订阅新版[卡片回传交互回调](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)后，你可以使用下面代码，对飞书开放平台推送的卡片行为进行处理，以下代码示例基于 Go SDK 原生的 HTTP 服务器，启动一个 HTTP 服务器。关于如何完整处理卡片回调，可参考[处理卡片回调](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/handle-card-callbacks)。
+
+
+
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0a0011c41318dc68672bc26b7ac0c924_dmvWOlM0m8.png?height=280&lazyload=true&maxWidth=594&width=1372)
+
+```go
+package main
+import (
+    "context"
+    "fmt"
+    "net/http"
+    "github.com/larksuite/oapi-sdk-go/v3/core"
+    "github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+    "github.com/larksuite/oapi-sdk-go/v3/event"
+    "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+    "github.com/larksuite/oapi-sdk-go/v3/event/dispatcher/callback"
+)
+func main() {
+    handler := dispatcher.NewEventDispatcher("verificationToken", "eventEncryptKey")
+    handler.OnP2CardActionTrigger(func(ctx context.Context, event *callback.CardActionTriggerEvent) (*callback.CardActionTriggerResponse, error) {
+       fmt.Println("receive card action")
+       fmt.Println(larkcore.Prettify(event))
+       return nil, nil
+    }).OnP2CardURLPreviewGet(func(ctx context.Context, event *callback.URLPreviewGetEvent) (*callback.URLPreviewGetResponse, error) {
+       fmt.Println(event)
+       return nil, nil
+    })
+    // 注册 http 路由
+    http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler,
+       larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+    // 启动服务
+    err := http.ListenAndServe(":7777", nil)
+    if err != nil {
+       panic(err)
+    }
+}
+```
+### 基于旧版卡片回传交互处理
+
+配置卡片回调地址并订阅旧版[消息卡片回传交互](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/configuring-card-callbacks/card-callback-structure)回调后，你可选择以下方式对旧版卡片回调进行处理。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/eccf7387b4feb939ba52878cb04d2882_masSC8AR3s.png?height=263&lazyload=true&maxWidth=694&width=1446)
+
+- **选择一**：使用 Go SDK 原生 HTTP 服务器处理回调
+
+  以下代码示例基于 Go SDK 原生的 HTTP 服务器，启动一个 HTTP 服务器。
+
+
+  ```go
+  import (
+          "context"
+          "fmt"
+          "net/http"
+          "github.com/larksuite/oapi-sdk-go/v3/card"
+          "github.com/larksuite/oapi-sdk-go/v3/core"
+          "github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+  )
+  func main() {
+          // 创建卡片处理器
+          cardHandler := larkcard.NewCardActionHandler("verificationToken", "eventEncryptKey", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+                  // 处理卡片行为, 这里简单打印卡片内容
+                  fmt.Println(larkcore.Prettify(cardAction))
+              fmt.Println(cardAction.RequestId())
+                  // 无返回值示例
+                  return nil, nil
+          })
+          // 注册处理器
+          http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+          // 启动 http 服务
+          err := http.ListenAndServe(":9999", nil)
+          if err != nil {
+                  panic(err)
+          }
+  }
+  ```
+  如上代码中，如果不需要处理器内返回业务结果至飞书服务端，则直接使用示例中的无返回值用法。如需了解其他卡片回调示例，参见 [GitHub 代码仓库](https://github.com/larksuite/oapi-sdk-go/blob/v3_main/sample/card/card.go)。
+
+- **选择二**：集成 Gin 框架处理回调：
+
+     如果你当前使用的是 Gin Web 框架，并且不希望使用 Go SDK 提供的 原生 Http Server，则可以使用以下方式，把当前应用的 Gin 服务与 SDK 进行集成。
+
+  1. 安装集成包。把 Go SDK 集成已有的 Gin 框架，需要先引入 [oapi-sdk-gin](https://github.com/larksuite/oapi-sdk-gin) 集成包。
+
+        ```bash
+        go get -u github.com/larksuite/oapi-sdk-gin
+        ```
+  1. 进行代码集成。集成示例如下：
+
+      ```go
+      import (
+          "context"
+          "fmt"
+
+          "github.com/gin-gonic/gin"
+          "github.com/larksuite/oapi-sdk-gin"
+          "github.com/larksuite/oapi-sdk-go/v3/card"
+          "github.com/larksuite/oapi-sdk-go/v3/core"
+      )
+
+
+      func main() {
+            // 创建卡片处理器
+            cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+            fmt.Println(larkcore.Prettify(cardAction))
+            fmt.Println(cardAction.RequestId())
+
+            return nil, nil
+            })
+            ...
+            // 在已有的 Gin 实例上注册卡片处理路由
+            gin.POST("/webhook/card", sdkginext.NewCardActionHandlerFunc(cardHandler))
+            ...
+      }
+      ```
+-  **选择三**：集成 hertz 框架处理回调：详情参考[集成 hertz 框架](https://github.com/hertz-contrib/lark-hertz)。
+
+## （可选）返回卡片消息
+
+如果你需要在卡片处理器内同步返回用于更新卡片的消息体，则可以使用以下方式进行处理。
+
+```go
+import (
+        "context"
+        "fmt"
+        "net/http"
+        "github.com/larksuite/oapi-sdk-go/v3/card"
+        "github.com/larksuite/oapi-sdk-go/v3/core"
+        "github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+)
+func main() {
+        // 创建卡片处理器
+        cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+                fmt.Println(larkcore.Prettify(cardAction))
+            fmt.Println(cardAction.RequestId())
+                
+                // 创建卡片信息
+                messageCard := larkcard.NewMessageCard().
+                Config(config).
+                Header(header).
+                Elements([]larkcard.MessageCardElement{divElement, processPersonElement}).
+                CardLink(cardLink).
+                Build()
+                return messageCard, nil
+        })
+        // 注册处理器
+        http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+        // 启动 http 服务
+        err := http.ListenAndServe(":9999", nil)
+        if err != nil {
+                panic(err)
+        }
+}
+```
+
+## （可选）返回自定义消息
+
+如果你需要在卡片处理器内返回自定义的内容，则可以使用以下方式进行处理。
+```go
+import (
+        "context"
+        "fmt"
+        "net/http"
+        "github.com/larksuite/oapi-sdk-go/v3/card"
+        "github.com/larksuite/oapi-sdk-go/v3/core"
+        "github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+)
+func main() {
+        // 创建卡片处理器
+        cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+                fmt.Println(larkcore.Prettify(cardAction))
+            fmt.Println(cardAction.RequestId())
+                
+                // 创建 http body
+                body := make(map[string]interface{})
+                body["content"] = "hello"
+                i18n := make(map[string]string)
+                i18n["zh_cn"] = "你好"
+                i18n["en_us"] = "hello"
+                i18n["ja_jp"] = "こんにちは"
+                body["i18n"] = i18n 
+                
+                // 创建自定义消息：http状态码，body内容
+                resp := &larkcard.CustomResp{
+                        StatusCode: 400,
+                        Body:       body,
+                }
+                return resp, nil
+        })
+        // 注册处理器
+        http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+        // 启动 http 服务
+        err := http.ListenAndServe(":9999", nil)
+        if err != nil {
+                panic(err)
+        }
+}
+```
+
+## （可选）在卡片行为处理器内向对应用户发送消息
+
+在 HTTP 服务器启动后，你还可以进一步补充代码逻辑，实现接收事件后，向用户发送消息的效果。
+如果你是商店应用的开发者，当需要在卡片处理器内向指定企业或组织的用户发送消息时，需要先从消息卡片中获取企业或组织 key，然后使用以下方式调用消息 API 进行消息发送。
+```go
+import (
+        "context"
+        "fmt"
+        "net/http"
+        "github.com/larksuite/oapi-sdk-go/v3/card"
+        "github.com/larksuite/oapi-sdk-go/v3/core"
+        "github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+)
+func main() {
+        // 创建卡片处理器
+        cardHandler := larkcard.NewCardActionHandler("v", "", func(ctx context.Context, cardAction *larkcard.CardAction) (interface{}, error) {
+        
+        // 处理卡片行为, 这里简单打印卡片内容  
+        fmt.Println(larkcore.Prettify(cardAction))
+        fmt.Println(cardAction.RequestId())
+            
+        // 获取企业或组织 key 并发送消息
+        tenanKey := cardAction.TenantKey
+        
+        // ISV 给指定企业或组织中的用户发送消息
+        resp, err := client.Im.Message.Create(context.Background(), larkim.NewCreateMessageReqBuilder().
+                ReceiveIdType(larkim.ReceiveIdTypeOpenId).
+                Body(larkim.NewCreateMessageReqBodyBuilder().
+                    MsgType(larkim.MsgTypePost).
+                    ReceiveId("ou_c245b0a7dff2725cfa2fb104f8b48b9d").
+                    Content("text").
+                    Build(), larkcore.WithTenantKey(tenanKey)).
+                Build())
+                
+        // 发送结果处理，resp,err
+                
+        return nil, nil
+        })
+        // 注册处理器
+        http.HandleFunc("/webhook/card", httpserverext.NewCardActionHandlerFunc(cardHandler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+        // 启动 http 服务
+        err := http.ListenAndServe(":9999", nil)
+        if err != nil {
+                panic(err)
+        }
+}
+```

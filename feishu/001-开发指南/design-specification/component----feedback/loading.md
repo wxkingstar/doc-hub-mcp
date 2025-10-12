@@ -1,0 +1,280 @@
+<!--
+title: 加载中
+id: 7477479883707301889
+fullPath: /tools-and-resources/design-specification/component----feedback/loading
+updatedAt: 1742375642000
+source: https://open.feishu.cn/document/design-specification/component----feedback/loading
+-->
+# 加载中
+
+加载指示用于系统正在进行数据处理或计算时，告知了用户「我们的系统正在努力，请稍等」。
+ 
+  
+
+## 使用规则
+
+默认页面开始加载即显示，加载完成即消失。
+可选延迟显示。若内容在延迟时长内加载完成，则不显示加载状态。延迟时长根据场景自定义，建议不低于 1000ms。
+  
+  
+
+## 组成要素
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f60a6d5057fcacadf244388e537e9974_jUaLH3j3uL.png?height=458&lazyload=true&maxWidth=800&width=2048)
+
+1. **加载动效** : 包含插画加载、Spin 加载、骨架屏
+1. **描述（可选 ）** : 对当前状态进行简单的解释
+  
+  
+
+## 控件类型
+
+### 类型总览
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+     <md-td>**骨架屏**</md-td>
+     <md-td>**插画加载**</md-td>
+     <md-td>**Spin 加载**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d601756e23bdd27703f5ebb3546236ec_4zNYWvLgyB.png?height=510&lazyload=true&width=686)</md-td>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/463bb860fd96650aeda55d22a1ea0eb1_CaSga48P1G.png?height=510&lazyload=true&width=686)</md-td>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/945e7c1d3f113d31ae06fe8cce431f23_P7NcFsYBfK.png?height=510&lazyload=true&width=686)</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>界面有内容，且内容形态可预估的情况下优先使用。仅用于初始的空页面加载。推荐使用渐进式加载的方式：把内容按模块分割，加载完毕的模块立即显示，以减少等待时间。</md-td>
+     <md-td>用于需要突出品牌要素的场景。对界面内容无法预估（外部网页、小程序等），即无法使用骨架屏的情况下，可使用插画加载。仅用于初始的空页面加载。</md-td>
+     <md-td>用于较小的局部加载。可用于使用中的状态切换加载（搜索联想、断网重连等）。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+
+### 骨架屏
+
+#### 使用场景
+
+界面有内容，且内容形态可预估的情况下优先使用骨架屏。
+仅用于初始的空页面加载。
+推荐使用渐进式加载的方式：把内容按模块分割，加载完毕的模块立即显示，以减少等待时间。
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c02577bb673e1a8f51f0333e92034d80_cerjQuZjeR.png?height=1290&lazyload=true&width=2048)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/38ad3e29c4f7f7f75b1798f525ab716a_7oEp2cLQ7i.png?height=1720&lazyload=true&width=2731)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/80bec3c2fbe87c1ee21600ea5e5066ac_1l9wzyC7ym.png?height=2580&lazyload=true&width=4096)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+#### 设计规则
+
+抽象表现加载完成后的页面，但无需所有元素一一对应，可适当精简，以达到视觉美观。
+色值：骨架屏为渐变色，起始色值为N900 5%，终止色值为N900 8%。
+元素：包含头像、文本、图片，根据场景组合使用。
+
+1. 头像骨架：尺寸、形状、位置与实际头像保持一致
+1. 图片骨架：尺寸、形状、位置与实际图片保持一致
+1. 文本骨架：高度建议与字号一致（eg：字号14px，则文本骨架高度14px），圆角Radius-XS（2px），可根据视觉效果进行调整
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f59b73c3b24c2ef1354e3822ceae6bd4_iOM63guOyV.png?height=434&lazyload=true&maxWidth=800&width=2048)
+
+#### 注意事项
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ea6e558605bcace90d36b4116b28581b_MOg0ALIC1K.png?height=2292&lazyload=true&width=4096)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7673d9a473e7dc430689e816bbd40d91_aUJFm5LGqO.png?height=1146&lazyload=true&width=2048)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>图片、头像等一个界面内固定多次出现的元素，加载状态用占位符或骨架屏。 </md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d576ae0cad45457a2c92e8b32194543_EWbyDet7Zc.png?height=20&lazyload=true&width=800)<br>**避免：** <br>一个界面内固定出现许多 Spin 加载。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/19b4c337e043762cbfa4e3dff705cb9f_OilHRpZiqM.png?height=1266&lazyload=true&width=2048)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7016190b763c22595cae2d8e3ffcd5a7_yhNmUq4yxZ.png?height=1266&lazyload=true&width=2048)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>页面灵活性较大，元素不固定，骨架屏抽象表达即可。</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_Nqzh1Z9aJs.png?height=20&lazyload=true&width=800)<br>**正确：** <br>页面元素复杂，骨架屏适当精简，达到视觉美观。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b1a096dbe7a1a95cde124e580ad94832_zQjThFGd7q.png?height=1354&lazyload=true&width=918)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0e2b3d531f71e91eaacf714c922c40ab_ZttUWzfchy.png?height=2708&lazyload=true&width=1836)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>骨架屏仅用于初始的空页面加载。</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_Nqzh1Z9aJs.png?height=20&lazyload=true&width=800)<br>**正确：** <br>使用中的执行加载使用 Spin。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+
+### 插画加载
+
+#### 使用场景
+
+用于需要突出品牌要素的场景。
+对界面内容无法预估（外部网页、小程序等），即无法使用骨架屏的情况下，可使用插画加载。
+仅用于初始的空页面加载。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/774bdf827ba8891044bf7817f20ac443_wHUnY1HK60.png?height=2580&lazyload=true&maxWidth=800&width=4096)
+
+#### 设计规则
+
+插画动效：125*125px
+描述：字号 14px，Regular，N600。建议最大宽度为插画的 200%，即 250px。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1331ea8f9362daacf16ef3ee9590d17d_xNNp8OEgZg.png?height=626&lazyload=true&maxWidth=800&width=2048)
+
+#### 位置说明
+
+**客户端内：**
+
+对于有固定窗口大小的客户端，端内模块空状态的场景，插画加载居中显示。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/42351b0386c0feda586270ea5691b063_HZvSgRGu3U.png?height=1290&lazyload=true&maxWidth=800&width=2048)
+
+**网页端内：**
+
+对于网页端没有固定底线，可以使用feed流无限下拉的页面。
+
+- 有表头：顶部间距 80px
+
+- 无表头：顶部间距 160px
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d7a6b82a8927870d9fdfe94dca8c659f_hDlcgsHytb.png?height=2420&lazyload=true&maxWidth=800&width=8192)
+
+
+### Spin 加载
+
+#### 使用场景
+
+用于较小的局部加载。
+可用于使用中的状态切换加载（搜索联想、断网重连等）。
+
+#### 元素
+
+**Spin 动效**：必选
+
+**描述**：可选。通常不需要，情况复杂时可用来解释说明（eg：VC 会中断网重连）
+
+#### 尺寸与布局
+
+Spin 默认提供两种尺寸。使用特殊尺寸时遵循 4N 规则，小尺寸可放宽到 2N。
+
+**小尺寸 24 * 24px**：用于较小的局部加载，如图片、搜索联想、列表底部加载等。需要描述文案时，通常使用纵向排版，当上下高度不够时可使用横向排版。
+
+**大尺寸 40 * 40px**：用于全局加载，通常是由于使用中状态切换造成的加载状态。需要描述文案时，使用纵向排版。
+位置：在容器内居中显示
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c224bccec1a53151b44cfa9e137b01c1_FYrqMubAi5.png?height=828&lazyload=true&maxWidth=800&width=2049)
+
+#### 色彩
+
+通常使用 B500。深色背景上使用 N00。灰色图片占位符上使用 N400。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/366dcb5533eca789c902e6a1e0f0f531_YuTISuhCUg.png?height=560&lazyload=true&maxWidth=800&width=2048)
+
+#### 场景示例
+
+例如在即时聊天场景里，消息发送状态使用了 Small size ，在飞书客户端断网情况下，使用了 Large size。
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr style="vertical-align:top;">
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/43b494076686a764c828a95972e84c26_WwVKFgHl83.png?height=1524&lazyload=true&width=2104)</md-td>
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/28b3cbaacfb153d86296b8e3be390afd_vhUuD88m5S.png?height=1822&lazyload=true&width=2048)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+
+#### 蒙层加载
+
+用于覆盖在当前模块上的加载状态。白色蒙层N00 60%
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/83ad133eb28ad45acdb8ef94176ef8a2_OAyL7TbFRG.png?height=1486&lazyload=true&maxWidth=800&width=2560)
+
+#### 图片 Loading 场景适配规则
+
+- 图片 Loading：占位符（N200）+ Spin 加载（中尺寸 24 * 24px N400）
+- 可以获取图片尺寸时，占位符自适应图片大小。占位符长宽最小尺寸为 48px，图片最小边小于 48px 时使用。
+- 无法获取图片尺寸时，占位符（即灰色背景）使用默认大小：180 * 120px
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f6db404d8d146bed07b0bf0907138bd5_d3wg2DClHm.png?height=978&lazyload=true&maxWidth=800&width=2048)
+
+#### 其他组件的加载态
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/275add7012757f93ae01732a5379f1f9_AcI8f1j7yR.png?height=634&lazyload=true&maxWidth=800&width=1596)
+
+#### 注意事项
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/79391a554bb55444205e71d9d22815f3_DzC8h3Y0xd.png?height=836&lazyload=true&width=928)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7d94a93aa68afe84e9a20788902efea4_qw8No21JUG.png?height=836&lazyload=true&width=928)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>加载状态仅出现加载提示</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d576ae0cad45457a2c92e8b32194543_EWbyDet7Zc.png?height=20&lazyload=true&width=800)<br>**避免：** <br>加载提示和空状态同时出现</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::

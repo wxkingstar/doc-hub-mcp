@@ -1,0 +1,315 @@
+<!--
+title: 按钮
+id: 7487804894023385089
+fullPath: /uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/components/button
+updatedAt: 1747052580000
+source: https://open.feishu.cn/document/feishu-cards/feishu-card-cardkit/components/button
+-->
+# 按钮
+
+卡片搭建工具中的按钮组件支持多种样式和尺寸，你可以为按钮创建事件，实现用户点击按钮后跳转链接或提交交互数据。本文档介绍如何在搭建工具中使用新版卡片的按钮组件。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/69259b3731fb7919d6516849301b9fb7_eKKwLnGNBm.png?height=787&lazyload=true&maxWidth=600&width=1916)
+
+## 参考案例
+
+卡片搭建工具案例库中提供了基于按钮发送数据、更新卡片的完整 Demo 案例（欢迎卡片、发送告警卡片和告警完成卡片），推荐你结合[开发一个卡片交互机器人](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-a-card-interactive-bot/introduction)教程说明与示例代码，学习如何完整实现基于按钮的卡片交互、回调和更新。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1c941e0c0724fcb0d550ad9431271892_90ySSR9NKF.png?height=412&lazyload=true&maxWidth=600&width=1121)
+
+## 组件配置
+本小节介绍如何在搭建工具中为按钮组件设置属性、样式，并添加事件。
+### 属性
+
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 20%;">配置项</md-dt-th>
+<md-dt-th>描述</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr level="0">
+<md-dt-td>内容</md-dt-td>
+<md-dt-td>按钮上的文字。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>按钮样式</md-dt-td>
+<md-dt-td>按钮本身的样式，支持配置 7 种样式：
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f2661e79f2aef5ac4896788de7551db1_2fFG9nMl6w.png?height=322&lazyload=true&maxWidth=130&width=171)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>按钮尺寸</md-dt-td>
+<md-dt-td>按钮的大小。支持配置：
+- 超小尺寸（ PC 端：24px；移动端：28px）
+- 小尺寸（ PC 端：28px；移动端：28px）
+- 中尺寸（ PC 端：32px；移动端：36px）
+- 大尺寸（ PC 端：40px；移动端：48px）</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>宽度模式</md-dt-td>
+<md-dt-td>按钮的宽度。支持配置：
+- 自适应-default：按钮默认宽度
+- 填满父容器-fill
+- 自定义宽度</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>按钮图标</md-dt-td>
+<md-dt-td>在按钮文本前添加图标。支持使用搭建工具[图标库](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/enumerations-for-icons)中的图标或上传自定义图标。默认关闭。</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>禁用设置</md-dt-td>
+<md-dt-td>是否禁用当前按钮。支持绑定布尔类型变量，可在发送卡片时赋值 `true` 或 `false`。默认关闭。如果开启，可填写禁用提示内容。当用户光标悬浮在此按钮上时，将展示禁用提示内容，如下图所示：
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8a342949400ed7e1f4e6d93e448afbbe_L8hrKnxtwI.png?height=162&lazyload=true&maxWidth=600&width=903)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>悬停提示</md-dt-td>
+<md-dt-td>为按钮添加悬停提示信息。当用户光标悬浮在此按钮上时，将展示提示内容，如下图所示：
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/86825b300a33de75355835cb51c49e3e_XS7NgeQWzX.png?height=163&lazyload=true&maxWidth=600&width=901)</md-dt-td>
+</md-dt-tr>
+<md-dt-tr level="0">
+<md-dt-td>组件 ID</md-dt-td>
+<md-dt-td>组件在卡片内的唯一标识，用于在调用[组件相关接口](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/cardkit-v1/feishu-card-resource-overview#791c8e74)对组件进行增删改时指定组件。仅允许使用字母、数字和下划线，必须以字母开头，不得超过 20 字符。</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+:::
+### 样式
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 10%;">配置项</md-th>
+      <md-th>描述</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>外边距</md-td>
+      <md-td>为整个按钮组件配置外边距。支持配置上、下、左、右四个方向的外边距，取值范围为 [-99,99]px。具体操作如下图：
+- 一键配置：
+
+  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e8e025534d62274e4323d6a47a606597_iUj2EcDiut.gif?height=332&lazyload=true&maxWidth=600&width=1540)
+
+- 为不同方向分别配置外边距：
+  
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2e4167f894d77f157fbc5332a0742298_INXSPhGbO2.gif?height=466&lazyload=true&maxWidth=600&width=1550)
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 事件
+
+你可以为按钮创建事件，配置打开链接和请求回调的交互动作。本小节介绍如何在搭建工具中为按钮配置交互动作。
+
+#### **配置打开链接动作**
+
+1. 选中按钮组件，在搭建工具右侧的 **事件** 界面，点击 **创建事件**。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/26d6b6389ba56905780657d3914692f8_t5NzxDiVmr.png?height=1416&lazyload=true&maxWidth=600&width=2882)
+1. 选择 **点击时**，并点击 **请选择动作**。目前所有交互组件仅支持创建 **点击时** 事件。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/36a10164cdb3547ffbc4804c7ed31fb3_WeNvH4AgU4.png?height=560&lazyload=true&maxWidth=600&width=2882)
+
+1. 选择 **打开链接** 动作，并参考下表完成链接配置。
+   
+
+   
+   
+   **提示**：链接支持直接在飞书客户端聊天侧边栏或独立窗口打开。详情参考[端内web-view访问指定URL](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url)。
+
+:::html
+
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th style="width: 10%;">链接来源
+</md-dt-th>
+<md-dt-th style="width: 30%;">描述
+</md-dt-th>
+<md-dt-th style="width: 40%;">示例
+</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name" >指定
+</md-text>
+</md-dt-td>
+<md-dt-td>
+直接在此手动填写链接地址。支持仅配置兜底链接，也支持配置差异化跳转链接（分别为桌面端、iOS 端、安卓端配置不同的跳转链接）。
+</md-dt-td>
+<md-dt-td>
+- **链接来源**：指定
+- **兜底链接**：如下示例，为[打开飞书审批](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-an-approval-page)的 AppLink 地址：
+  ```markdown
+  https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9cb844403dbb9108&width=1136&height=750&path=pc%2Fpages%2Fin-process%2Findex
+  ```
+</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="0">
+<md-dt-td>
+<md-text type="field-name" >绑定变量
+</md-text>
+</md-dt-td>
+<md-dt-td>
+添加分端差异化链接变量。点击 **新建变量**，在添加变量弹窗中，参以下描述配置变量：
+- **类型**：变量的类型。此处固定取值 **分端差异化链接**
+- **变量名称**：一般为字母或字母与下划线的组合。在之后发送卡片时，你需要为该变量名（key）赋值（value）
+- **变量描述**：此处可补充解释该变量的用法。可不填
+- **模拟数据**：推荐你添加模拟数据，在工具内直接预览组件绑定变量后的数据展示效果
+  
+  
+**注意**：如果你在配置打开链接动作时，为链接绑定了变量，那么在发送卡片时，你需要通过请求体的 `template_variable` 字段为变量赋值。`template_variable` 字段是卡片绑定的变量列表，格式为 `{key:value}`。详情参考[为卡片变量赋值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/configure-card-variables#a6abb723)。
+
+</md-dt-td>
+<md-dt-td>
+- **类型：** 分端差异化链接
+- **变量名称**：`multi_link`
+- **变量描述**：链接变量数据
+- **模拟数据**：
+  ```json
+  {
+    "pc_url": "",
+    "android_url": "",
+    "ios_url": "",
+    "url": "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9cb844403dbb9108&width=1136&height=750&path=pc%2Fpages%2Fin-process%2Findex"
+  }
+  ```
+</md-dt-td>
+</md-dt-tr>
+</md-dt-tbody>
+</md-dt-table>
+
+:::
+
+
+
+
+#### **配置请求回调动作**
+
+请求回调是指用户操作卡片内的交互组件后，飞书应用会向指定的服务端发送包含用户操作数据的 HTTP POST [请求回调](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)。参考以下步骤为按钮配置请求回调动作。
+1. 选中按钮组件，在搭建工具右侧的 **事件** 界面，点击 **创建事件**。
+  
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/26d6b6389ba56905780657d3914692f8_JWivJ8kAMc.png?height=1416&lazyload=true&maxWidth=600&width=2882)
+1. 选择 **点击时**，并点击 **请选择动作**。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/36a10164cdb3547ffbc4804c7ed31fb3_uRMdERcmHa.png?height=560&lazyload=true&maxWidth=600&width=2882)
+   
+1. 选择 **请求回调** 动作。并参考下表完成配置。
+   
+    :::html
+    <md-table>
+      <md-thead>
+        <md-tr>
+          <md-th style="width: 10%;">配置项</md-th>
+          <md-th style="width: 70%;">描述</md-th>
+        </md-tr>
+      </md-thead>
+      <md-tbody>
+        <md-tr>
+          <md-td>参数类型</md-td>
+          <md-td>选择 **输入参数** 的类型。支持以下两种类型。开放平台 SDK 仅支持对象类型的回传交互数据。该类型对应[卡片请求回调结构体](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)中的 `action.value` 参数的类型。
+   - 字符串：输入的内容将以一整段字符串的形式回传至开发者服务端。
+   - 对象：输入的内容将以对象类型回传至开发者服务端</md-td>
+   </md-tr>
+   <md-tr>
+   <md-td>输入参数</md-td>
+   <md-td>
+        - 若参数类型为字符串：在此处填写普通文本或绑定文本变量
+   - 若参数类型为对象，你需先在 **回传参数** 字段下选择填写输入参数还是绑定变量：
+     - **指定**：在 **输入参数** 中输入参数或绑定变量。
+     - **绑定变量**：绑定 **对象** 类型变量。变量配置说明，可参见[配置卡片变量](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/configure-card-variables)</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>二次确认弹窗</md-td>
+          <md-td>开启后需要配置弹窗的标题与正文文案，当用户点击组件时需要在弹窗内二次确认。</md-td>
+        </md-tr>
+      </md-tbody>
+    </md-table>
+    :::
+为按钮配置请求回调动作后，当用户点击该按钮时，飞书会向你的服务端发送[卡片回传交互](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)回调，其中包含了用户的交互信息。你可基于此信息，继续处理用户点击按钮后的代码逻辑。推荐你参考[卡片交互教程](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-a-card-interactive-bot/introduction)，基于示例代码，了解后续操作。
+
+### 变量
+
+在按钮组件中，你可为按钮的文本内容绑定普通文本变量、或为按钮的打开链接动作绑定分端差异化链接变量。
+
+**添加变量**
+
+1. 在按钮组件的内容输入框中，点击如下图所示的变量图标或输入 `{` 添加变量。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d5c556868346e981610c40bb7f2a656b_6oQ0PIYPJ9.png?height=746&lazyload=true&maxWidth=600&width=1559)
+    
+1. 在添加变量弹窗中，参考下表填写内容。
+
+    :::html
+    <md-table>
+      <md-thead>
+        <md-tr>
+          <md-th style="width: 10%;">配置项</md-th>
+          <md-th style="width: 30%;">描述</md-th>
+          <md-th style="width: 20%;">示例</md-th>
+        </md-tr>
+      </md-thead>
+      <md-tbody>
+        <md-tr>
+          <md-td>类型</md-td>
+          <md-td>变量的类型。在按钮组件中，你仅能使用 <strong>普通文本</strong> 类型变量。</md-td>
+          <md-td>普通文本</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>变量名称</md-td>
+          <md-td>一般为字母或字母与下划线的组合。在之后发送卡片时，你需要为该变量名（key）赋值（value）。</md-td>
+          <md-td><code>button_name</code></md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>变量描述</md-td>
+          <md-td>此处可补充解释该变量的用法。可不填。</md-td>
+          <md-td>该按钮上显示的文本。</md-td>
+        </md-tr>
+        <md-tr>
+          <md-td>模拟数据</md-td>
+          <md-td>推荐你添加模拟数据，在工具内直接预览组件绑定变量后的数据展示效果。</md-td>
+          <md-td>查看链接</md-td>
+        </md-tr>
+      </md-tbody>
+    </md-table>
+    :::
+        
+**为变量赋值**
+
+添加好变量后，在发送卡片时，即可通过请求体的 `template_variable` 字段为变量赋值。`template_variable` 字段是卡片绑定的变量列表，格式为 `{key:value}`。详情参考[为卡片变量赋值](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/configure-card-variables#a6abb723)。
+
+## 常见问题
+
+本小节介绍在使用按钮组件时常见的问题。了解更多，参考[飞书卡片常见问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uczN1YjL3cTN24yN3UjN)。
+
+### 如何使多个按钮横向排列？
+
+如下图，当按钮纵向排列时，你可以在 **大纲树** 页签下选中按钮所在父容器，在右侧 **样式** 页签下，将 **布局方式** 项设为 **流式** 即可。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e845376a1c50b76ac4ff22ea5f9dec05_QE8x9Crop6.png?height=784&lazyload=true&maxWidth=600&width=1900)
+
+### 如何移动按钮的位置？
+
+如下图，添加的按钮默认在卡片左侧。要使按钮移动至卡片右侧或居中，你可以在 **大纲树** 页签下选中按钮所在父容器，在右侧 **样式** 页签下，将 **水平对齐** 项设为居中对齐或右对齐即可。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1ed9d9a0d4a039b58bcdce9ae0d6a560_Nlrr74E4v4.png?height=788&lazyload=true&maxWidth=600&width=1916)
+
+如下示例，将水平对齐设为右对齐后，按钮将移动至右侧：
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f1a53fab5a63715385b267b6757d26aa_b3pB1aWmVY.png?height=790&lazyload=true&maxWidth=600&width=1907)
+
+**注意**：如果按钮在分栏组件中，且分栏组件的 **列宽设置** 配置项中，每列设为了 **自适应** 宽度，你需要选中分栏组件，在右侧 **样式** 页签下，设置 **水平对齐** 项。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5228124b71813e4279d45972b67b83b6_UinnLbcg6R.png?height=743&lazyload=true&maxWidth=600&width=1920)

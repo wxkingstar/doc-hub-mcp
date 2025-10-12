@@ -1,0 +1,313 @@
+<!--
+title: 临时提示
+id: 7477479883707170817
+fullPath: /tools-and-resources/design-specification/component----feedback/toast
+updatedAt: 1742375642000
+source: https://open.feishu.cn/document/design-specification/component----feedback/toast
+-->
+# 临时提示
+
+不打断用户操作的轻量级临时反馈。
+
+
+## 使用规则
+
+- **何时使用：** 当系统需要在用户操作后对该行为作出反馈时使用，如成功、警示、错误、提示信息等
+
+- **全局一致：** 若某操作的反馈形式为 Toast ，在不同入口触发时尽量保持全局一致，且文本信息一致
+
+- **轻量反馈：** 不要在 Toast 上承载关键或高优先级的操作 **。** 使用前确保反馈信息如果被用户忽略，不会产生严重后果
+
+- **克制使用：**
+
+	- 适时的反馈可以及时将信息传递给用户，增强用户的安全感。同时避免 Toast 滥用，避免遮挡重要内容，影响阅读效率
+	- 同时满足以下条件时可以不使用：
+      - 操作简单，操作路径只有1-2步
+      - 操作可逆，无严重后果/风险
+      - 执行操作后有其他形式的及时反馈
+
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+**相似组件对比：**
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-th style="width: 20%;">组件</md-th>
+      <md-th style="width: 20%;">信息重要程度</md-th>
+      <md-th style="width: 60%;">消失规则</md-th>
+    </md-tr>
+    <md-tr>
+      <md-td>全局提示Toast</md-td>
+      <md-td>**`轻量`**</md-td>
+      <md-td>常规情况下自动消失，特定场景下可以被用户主动关闭或者完成相关操作项。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>常驻提示Notice</md-td>
+      <md-td>**`中等`**</md-td>
+      <md-td>提示会一直保留，直到被用户主动关闭或者解决问题才会消失。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>通知提醒框Notification</md-td>
+      <md-td>**`中等`**</md-td>
+      <md-td>用于系统推送或内容结构复杂的信息，短暂出现，常规情况下自动消失，特定场景下可以手动关闭。</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>确认对话框Dialog</md-td>
+      <md-td>**`高优`**</md-td>
+      <md-td>对话框会阻断页面其他操作，直到用户执行对话框操作或者退出对话框，才会消失。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+  
+
+## 组成要素
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/be1e013de36c7e74b05c9ab12bf8d757_6IIl3DamJR.png?height=484&lazyload=true&maxWidth=800&width=2048)
+
+1. **图标（可选）：** 帮助用户快速识别信息的属性类别，起强调作用，图标可自定义
+1. **文本信息：** 应简短且清晰、明确，传递最重要的信息，可包含文字链
+1. **关闭按钮（可选）：** 需要用户手动关闭或提示时间较久时使用（如文本超过20个中文字符时）
+1. **文字按钮（可选）：** 简洁明了，明确告知用户下一步的操作，按钮数量建议不超过两个
+
+  
+  
+
+## 组件类型
+
+- 按语义和状态分为五种类型，分别是普通提示 info、成功提示 success、错误提示 error、警告提示 warning、加载中 loading
+- 不支持拓展类型及自定义颜色
+
+:::html
+<img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b68f8ae60c8c9d95d5d538aba56a3074_mIEWHHuljY.png"
+        alt="图片" style="max-height: 400px;">
+:::
+
+
+- **普通提示**：展示背景条件、任务进程、操作提示、内容陈述、规范要求、当前状态等客观内容
+
+- **成功提示**：展示完成操作的成功状态
+
+- **错误提示**：展示报错内容，如同时满足几个报错条件，建议整体报错
+
+- **警告提示**：展示可能会导致某种后果的警示性内容
+
+- **加载中：** 用于提示某信息正在加载的状态
+  
+  
+  
+
+## 组件应用
+
+### 交互说明
+
+- **非模态：** Toast 是一种非阻断的信息提示，不打断用户的当前操作，即时显示，常规情况下自动消失
+- **可撤销：** 撤销/回退类型的 Toast，建议承载快捷回退的功能
+  
+
+### 显示规则
+
+#### 无操作+自动消失的显示时长
+
+- 无操作时建议至少4s后自动关闭
+- 根据文本字数与场景自定义生效时长，最短3s，最长8s，字符越多时间越长
+- 0-40个中文字符时，建议时长为3-5s
+- 40-80个中文字符时，建议时间6s-8s
+
+#### 有操作+自动消失的显示时长
+
+- 有操作时建议至少6s后自动关闭
+- 根据文本字数与场景自定义生效时长，最短4s，最长10s，字符越多时间越长
+- 0-40个中文字符时，建议时长为4-6s
+- 40-80个中文字符时，建议时间6s-10s
+
+#### Hover 对生效时长的影响
+
+鼠标悬停在 Toast 上，Toast 取消计时，鼠标离开后，Toast重新计时
+
+#### 不自动消失
+
+特定场景下，如：Toast 绑定了某加载中的事件，生效时间可能会无限拉长，呈现出持续生效的状态，不会自动消失，直到被用户主动关闭或者解决问题才会消失
+
+#### 多条显示
+
+- 默认同时显示两个，支持自定义 Max count
+- 反馈信息完全相同的 Toast，同时多次触发时建议合并为一条集中展示，避免多条同类反馈干扰用户
+- **顺序：** 多条同时提示时，按照触发的时间先后在页面上方依次显示（最新在下方弹出）。超过最大显示数量时， 最早的消息会被挤掉（无论是否常驻或生效中）
+  
+
+### 位置说明
+
+#### 横向
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-th>页面/独立窗口内居中</md-th>
+      <md-th>桌面端app模块居中</md-th>
+      <md-th>系统级别的全局居中</md-th>
+    </md-tr>
+     <md-tr style="vertical-align: top;">
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96fe5a4269246458cc01e318fd2a1dd7_gKdFGp7oE3.png?height=680&lazyload=true&width=1204)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/90abeea5604034db1870985b24ee9dd3_MleruyeCZi.png?height=859&lazyload=true&width=1413)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8721025a2ba63c2234db15a156d5cc72_2hFLlHjOZy.png?height=1047&lazyload=true&width=1705)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+#### 纵向
+距离顶部有特定间距，支持间距自定义。
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-th>web： 距离顶部间距推荐32px</md-th>
+      <md-th>PC：距离顶部间距推荐72px</md-th>
+    </md-tr>
+     <md-tr style="vertical-align: top;">
+     <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e94882ee696357c6be5e356111ddce7e_9g0anikfcX.png?height=349&lazyload=true&width=878)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b773baf97f1d8783e40ae2000cb5144a_mG7GwaxtMr.png?height=285&lazyload=true&width=714)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+#### 高程
+
+Toast 的层级高度受触发的框架影响，不同框架弹出的 Toast 高度不同，框架之间为嵌套关系，父级高于子级
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bdeb5e1ce043acf2c013a27e8aaaa3c1_DFYLkdQ0zr.png?height=736&lazyload=true&maxWidth=600&width=1280)  
+
+### 展示说明
+
+#### 弹窗中触发 Toast
+
+Dialog 触发的 Toast ，显示位置默认在页面顶部。
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b763363e2657ca90789b22ee90f210a3_DyjrTRkUzf.png?height=1110&lazyload=true&maxWidth=600&width=2048)
+
+#### 独立窗口中触发 Toast
+
+- 在当前独立窗口中显示
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e0506e59b6e90c4fe724c03c218626e6_NKQv84lhsL.png?height=1050&lazyload=true&maxWidth=600&width=1440)
+
+- 当页面存在多个独立窗口（涉及多任务窗口），若提示信息适用于全局，则在操作系统全局展示。
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f375943066ea2906d8514ef8eb5ddff9_0mppRjqvVs.png?height=1047&lazyload=true&maxWidth=600&width=1705)
+
+#### APP内小程序触发 Toast
+
+小程序/网页应用中触发的 Toast 在小程序内展示
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c2789511171400c0dd6c245b58bac761_qwSYzCL7XR.png?height=1053&lazyload=true&maxWidth=600&width=1796)
+
+#### Web端多Tab窗口触发的 Toast
+
+- 每个窗口都包含独立的任务，Toast 是任务的反馈，隶属于任务，当切换 Tab 时，Toast 留在原窗口中展示。
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/413fe5eb4e1030f35b1127199ce3163e_1UV6YltyNN.gif?height=1080&lazyload=true&maxWidth=600&width=1920)
+
+- 飞书桌面端app（以下简称app）内多Tab展示规则同理：在“消息”Tab中触发的Toast 在跳转到“日历”Tab后将不展示。
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/11e6fef20e9c1289fa924f5bcd4b007e_59xupu2Gqx.gif?height=1088&lazyload=true&maxWidth=600&width=1904)
+
+#### Toast 在“原独立窗口关闭后弹出”的展示位置
+
+可根据场景判断 Toast 是否需要弹在app外：
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+     <md-td>否：则调用app全局 Toast ， Toast 层级高于app内一切元素</md-td>
+     <md-td>是：则调用操作系统全局 Toast ， Toast 层级高于屏幕内一切元素</md-td>
+     </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a9ebd563b08e8e9cdd58e2837d3bb4a2_ENCcMXIKuS.png?height=1604&lazyload=true&maxWidth=600&width=2800)</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/beefb3a4a8d2a7644bd9d97171950e96_hYm3vmx9h2.png?height=1625&lazyload=true&maxWidth=600&width=2800)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+  
+
+### 自适应说明
+
+#### 组件宽度
+
+- 组件宽度跟随文字的宽度自适应撑开，最大宽度600px，最小宽度不限制。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5f1b6cdf9f02cbcf4a80534f90076b8d_csCA8VzRej.png?height=550&lazyload=true&maxWidth=800&width=2048)
+
+- 当页面宽度发生变化时，组件宽度跟随页面宽度动态变化，距离页面两侧有安全边距。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a140e52c7fef30e61d3bcb2e56e6b7b5_IVLp9R4L25.gif?height=412&lazyload=true&maxWidth=800&width=2172)
+
+#### 文本信息
+
+- 支持多行展示，建议最多两行，超出部分“...”展示。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c0a3f737f4f61b7598541d8b60cb3164_fm87i3Sj6O.png?height=304&lazyload=true&maxWidth=800&width=2048)
+
+#### 文字按钮
+
+- 按钮与文本、提示icon一行，右对齐展示。
+- 文字按钮无法与文本信息一行显示时（右边空间不够或文本信息超过一行），文字按钮单独一行展示。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2395d0cfdf80be5b0109eb0cf8353f46_aElQi4S2Ak.png?height=550&lazyload=true&maxWidth=800&width=2048)
+
+#### 关闭按钮
+
+- 横向：关闭按钮始终与文本第一行、提示icon在同一水平线
+- 纵向：关闭按钮纵向空间不与其他元素重叠
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/323c2026966f67e9d1cc0be4af01436c_Wreoh6MdVe.png?height=530&lazyload=true&maxWidth=800&width=2048)
+  
+
+### 使用建议
+
+**选择适合的反馈形式**
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3e13c53d578ac2cbfb0a86965a414d40_NarRpZLMwu.png?height=574&lazyload=true&width=1280) </md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2a60217e90cc519163d80ad627fbb4c6_hLg1lkqDr3.png?height=574&lazyload=true&width=1280) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f280964f6dabb16bf6ea6801799276a3_3hYp5rFRao.png?height=20&lazyload=true&width=800)<br>**正确：** <br>正确使用反馈组件，采用更为适用的反馈方式，减少信息干扰。</md-td>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d576ae0cad45457a2c92e8b32194543_EWbyDet7Zc.png?height=20&lazyload=true&width=800)<br>**避免：** <br>Toast 成为冗余的反馈，反馈方式不符合实际的消息比重，造成信息过剩或视觉干扰。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::

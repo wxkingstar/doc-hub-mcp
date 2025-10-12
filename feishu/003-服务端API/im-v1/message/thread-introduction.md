@@ -1,0 +1,182 @@
+<!--
+title: 话题概述
+id: 7322036039857717249
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction
+updatedAt: 1725003620000
+source: https://open.feishu.cn/document/im-v1/message/thread-introduction
+-->
+# 话题概述
+
+在飞书聊天中，消息可以以话题形式进行展示。本文将介绍什么是话题，以及话题相关的 OpenAPI 能力有哪些。
+
+:::note
+更多关于话题的信息，参见[如何使用话题回复](https://www.feishu.cn/hc/zh-CN/articles/423295624296-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E8%AF%9D%E9%A2%98%E5%9B%9E%E5%A4%8D)。
+:::
+
+## 什么是话题
+
+话题是消息形式的一种，与普通消息的对比如下表所示。相较于普通消息，话题的特征在于：
+  
+- **聚焦讨论：** 沟通和讨论变得高效且聚焦，你可以在话题中充分了解上下文信息，无需翻找群聊天记录。
+- **减少打扰：** 不关心讨论主题的成员不会收到通知提醒，有效减少打扰，提升信息流转效率。
+
+| 消息形式         | 示例           | 特点        |
+| --------- | --------------- | -------   |
+|话题 |![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/695a6a42fa22fe1d56f7f0d667e067fc_rZNb0LQTVu.png?height=874&lazyload=true&width=1106)| 所有消息讨论聚合在该话题的回复中 | 
+|消息 |![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cb61aad295f4378d9a3c9137d210676d_1snuXEwApn.png?height=952&lazyload=true&width=1076) | 每条消息平铺展示 | 
+
+### 话题 ID 说明
+
+话题拥有在当前租户内唯一的 ID（即 `thread_id`）。`thread_id` 的格式是以 `omt_` 开头的字符串，例如：`omt_d4be107c616a`。使用话题 ID 可实现：
+      
+- 调用[转发话题](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/thread/forward)、[获取话题历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)等接口。
+- 判断是否为话题（所查询的消息如果不返回 `thread_id` 值，则说明该消息为非话题消息）。
+
+
+### 如何获取 thread_id
+
+- **方式一**：在话题形式群中，调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)、[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)、[转发消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/forward)等接口，从响应的结果中获取 `thread_id` 参数值。
+
+- **方式二**：在消息形式群中，调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口，传入 `"reply_in_thread": "true"` 参数值（即以话题形式进行回复）， 从响应的结果中获取 `thread_id` 参数值。
+
+- **方式三**：监听[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，若消息为话题消息，可从事件体中获得话题消息的 `thread_id`。
+
+
+- **方式四**：调用[获取指定消息的内容](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)、[获取会话历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，若消息为话题消息，可从响应体中获取 `thread_id` 参数值。
+
+
+## 应用场景
+
+话题的典型应用场景如下表。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:30%">场景</md-th>
+<md-th style="width:70%">说明</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>将某一消息创建为话题</md-td>
+<md-td>
+如下图所示，在飞书群聊中将某一消息创建为话题并回复。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/71958037dd86a3d11d312a6d828ba667_SUjHpWXL7e.png?height=370&lazyload=true&width=1762)
+  
+创建话题效果如下图。所有讨论都会聚合在该话题回复中，不再打扰群内其他成员。
+  
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2fc11b59a289d9922ce1a87aef9427c5_r6UFneuzx3.png?height=1248&lazyload=true&width=1530)
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>使用话题形式群</md-td>
+<md-td>
+如果你希望创建一个“产品反馈收集群”、“销售经验分享群”、“工单信息同步群”等群组来保持相关人员信息同步，则可以把群聊的消息形式设置为话题消息，这样群里的所有消息都会以话题的方式发送出来，所有回复只能在某一话题内进行回复。
+  
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3e0d69a0a9c8a33853db1e15f5625cdb_apAFtlTat2.png?height=1580&lazyload=true&width=1818)
+
+典型场景：
+
+在工单管理场景中，可通过话题群沉淀每个工单的信息讨论。每个话题对应一个工单信息，支持通过接口将工单信息发送到话题模式群中，工单的上下文讨论围绕话题展开。
+  
+同理，在项目管理、内容管理、用户反馈收集讨论等场景中，通过话题管理每一个项目、内容、反馈信息可以让讨论更聚焦。
+
+</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+
+ 
+## 话题相关的 API 操作
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:30%">操作</md-th>
+<md-th style="width:70%">说明</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>**将群设为话题形式群**</md-td>
+<md-td>
+- [创建群](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)：调用该接口创建群时，填写参数 `"group_message_type": "thread"`（表示群消息类型为话题消息），可创建一个话题形式群。
+- [更新群信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update)：调用该接口可将已有的群设置为话题形式，需要填写参数 `"group_message_type": "thread"`（表示群消息类型为话题消息）。  
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>**查询群消息形式**</md-td>
+<md-td>调用[获取群信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口，响应体参数 `group_message_type` 取值为 `thread` 则表示该群为话题形式群。若未返回 `group_message_type` 字段，则说明该群聊暂不支持设置群消息形式。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>**以话题的方式进行回复（即创建话题）**</md-td>
+<md-td>调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口时，填写参数 `"reply_in_thread": "true"`（表示以话题形式回复）。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>**转发、合并转发**</md-td>
+<md-td>
+- [转发话题](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/thread/forward)：该接口可以转发一个话题到其他会话里。
+- [转发消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/forward)：该接口可以将一条消息转发到话题里，调用时需要填写参数 `"receive_id_type"： "thread_id"`（表示转发目标为话题）。
+- [合并转发消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/merge_forward)：该接口可以合并转发多条消息到话题里，调用时需要填写参数 `"receive_id_type"： "thread_id"`（表示转发目标为话题）。  
+</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>**查询话题信息**</md-td>
+<md-td>
+- [获取会话历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)：调用该接口时填写参数 `"container_id_type": "thread"`（表示查询的是话题）并在 `container_id` 中填写话题 ID（`thread_id`），即可分页获取话题中的所有消息。
+- 获取话题模式群中的所有消息：
+        
+   1. 调用[获取会话历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，填写参数 `"container_id_type": "chat"`（表示查询的单聊和群聊）并在 `container_id` 中填写群 ID（`chat_id`），即可分页获取群聊中的所有根消息。
+   2. 根据上一步中获取到的每一条话题根消息（消息资源中存在 `thread_id` 字段），再次调用[获取会话历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口，填写参数 `"container_id_type": "thread"`（表示查询的是话题）并在 `container_id` 中填写话题 ID（`thread_id`），即可分页获取该话题中的所有消息。  
+</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>**事件通知**</md-td>
+<md-td>应用可以订阅[群配置修改](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated)事件，该事件会在监听到群消息形式（消息形式 & 话题形式）发生改变时，向目标服务器发送事件数据，事件数据内会包括群消息形式信息（`group_message_type` 参数）</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+
+
+## 常见问题
+
+### Q：话题可见性是怎么样的？
+
+若群聊关闭了 **新成员可查看历史消息**，且话题是在查看者进入群聊前创建的，则该话题需要查看者被动订阅才可见。例如，群内其他用户在话题中 @查看者，即可被动订阅话题。
+
+### Q：话题群和话题形式群有什么区别？
+
+话题群是指，在创建群组时直接选择话题群进行创建的群。话题形式群是指，在普通消息群组中将群的消息形式修改为话题消息。
+
+- 话题群是群模式为话题（即[群组 API](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/chat/chat-info/intro) 中 `chat_mode` 参数取值为 `topic`）的群组。在客户端内的展示形式如下图所示。
+
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b77be7c1108bec9eb012640ebc0eb403_JIzyFexCBl.png?height=1582&lazyload=true&maxWidth=600&width=1822)
+
+- 话题形式群是指群消息形式为话题消息（即[群组 API](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/chat/chat-info/intro) 中 `chat_mode` 参数取值为 `group`、`group_message_type` 为 `thread`）的普通对话群。 在客户端内的展示形式如下图所示。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca2bdbdfe545f01ca330ed40cc762914_BjBEMc8Hui.png?height=1590&lazyload=true&maxWidth=600&width=1832)
+
+前者创建后仅支持发送话题，而后者支持在“对话消息”和“话题消息”两种形式间切换。
+
+::: note
+- 推荐使用话题形式群。
+- [创建群](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)接口仅支持创建普通对话群，在设置时可指定群消息形式。
+:::

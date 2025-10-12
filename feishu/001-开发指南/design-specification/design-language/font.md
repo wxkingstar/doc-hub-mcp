@@ -1,0 +1,103 @@
+<!--
+title: 字体
+id: 7462709322368958468
+fullPath: /tools-and-resources/design-specification/design-language/font
+updatedAt: 1739784708000
+source: https://open.feishu.cn/document/design-specification/design-language/font
+-->
+# 字体
+
+字体是体系化界面和品牌识别中的基本要素之一，其设计的重要性与Logo标志具有同等重要地位，有效的字体系统可以大大提升用户的阅读体验及操作效率。
+  
+
+## 字重规范
+
+### 常规字重
+
+飞书 在 Mac 里只出现 Regular「代码400」 和 Medium「代码500」的两种字体重量，大标题类型加粗会使用semibold「代码600」
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4fa92d2595f051a833c075a1abcaa7ea_XU9LLCgT1W.png?height=360&lazyload=true&width=770)
+
+### 加粗字重
+
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f0af55afc5f32185ddf6377776a2803f_5zHR2hCkwx.png?height=360&lazyload=true&width=360)
+  
+
+## 字体大小
+
+字阶在无形中区分了内容的主次，决定了内容的节奏与秩序之美。行高决定了文字的留白空间，配合字阶展示字体的最佳视觉效果。如无特殊情况请严格按照以下字号行高规范使用。
+  
+
+### PC 端字体大小
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f88398e5c2ab105097c52efedae10a32_tfFHsEUOCi.png?height=2226&lazyload=true&maxWidth=800&width=1120)
+  
+  
+  
+
+### 移动端字体大小（1倍环境）
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a215b6ce0965a98f43319e8174bdd59e_HLSHutsOI5.png?height=2354&lazyload=true&maxWidth=800&width=1120)
+  
+  
+
+## 字体颜色
+
+### 品牌色
+
+品牌色能够直观的传达产品特点和设计风格。在文字使用场景中也有定义了品牌色的运用规则
+- 主品牌色选取了功能色中的蓝色`#1456F0`，传达出套件产品高效、智能化、简洁、冷静的设计风格。
+- 品牌色应用场景包括：链接文字、button文字和部分菜单的选中态文字
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c5ca97fbde9317d23a3d1689d1531506_iZBGugOy7U.png?height=400&lazyload=true&width=400)
+
+### 灰阶色
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>**一、二级主标题<br>一级正文**</md-td>
+      <md-td>**副标题二级正文**</md-td>
+      <md-td>**Placeholder<br>次要信息**</md-td>
+      <md-td>**Disable**</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>#1F2329</md-td>
+      <md-td>#646A73</md-td>
+      <md-td>#8F959E</md-td>
+      <md-td>#BBBFC4</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9d8d3dd24a1ed40fc3da99eed74e0de2_y3pxtCKLEH.png?height=200&lazyload=true&maxWidth=500&width=800)
+  
+
+### 功能色
+
+功能色代表了明确的信息以及状态，比如成功、出错、失败、提醒、链接等。功能色的选取需要遵守用户对色彩的基本认知。在套件各产品中，功能色尽量保持统一
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ed834ed2c12527dca79b073b6f606b02_VHjApOBbu0.png?height=200&lazyload=true&maxWidth=500&width=800)
+
+最新的色彩规范里面补充了其他内容，字体相关的颜色使用以色彩规范为准

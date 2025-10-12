@@ -1,0 +1,21 @@
+<!--
+title: 准备工作
+id: 7088144643670818817
+fullPath: /home/todos-daily-reminder-of-weekly-report/prep-work
+updatedAt: 1733119738000
+source: https://open.feishu.cn/document/historical-version/todos-daily-reminder-of-weekly-report/prep-work
+-->
+# 准备工作
+开始本教程操作之前，你需要完成以下准备工作。
+* [创建](https://www.feishu.cn/hc/zh-CN/articles/360043741453)或[加入](https://www.feishu.cn/hc/zh-CN/articles/360043496893)飞书企业租户。
+
+* 本文示例代码使用 Python 编写，你需在本地安装 [Python3](https://www.python.org/) 运行环境。
+
+* [创建](https://www.feishu.cn/hc/zh-CN/articles/726520434200)可用于管理周报的知识库文档，并且周报管理文档中拥有以下内容。
+
+
+
+
+  ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/92255d5cbd1b2623a4b82c4d04becf8e_0YVJSI71We.png?height=906&lazyload=true&maxWidth=600&width=2132)
+
+

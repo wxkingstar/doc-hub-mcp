@@ -1,0 +1,686 @@
+<!--
+title: 图标
+id: 7462709322369040388
+fullPath: /tools-and-resources/design-specification/design-language/icon
+updatedAt: 1739784708000
+source: https://open.feishu.cn/document/design-specification/design-language/icon
+-->
+# 图标
+**系统图标** 是指具有明确指代含义的图形符号，是常用操作、文件、设备、目录等功能的图形化表现形式，用于触发界面中的局部操作，是界面设计中的重要组成部分。
+
+## 设计原则
+
+系统图标在设计表达上**简洁直观**，避免复杂的结构，保证图标**表意清晰**，确保在各个尺寸下图标的**可读性**和**识别性**。具体原则包括准确性原则、简洁性原则、一致性原则和愉悦原则。
+
+### 准确性原则
+
+图标的准确原则为图标设计的第一优先原则，具体是指表意准确，没有歧义，不对用户认知造成困扰，效率优先，使用约定俗成的表意图形。
+
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/77c0a1d3b127bb5b3bce2dcb10f029ad_YwypfKtIdx.png?height=804&lazyload=true&width=804)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800) </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d0a56f941b580590c9912ba34743baf1_vYCdTYs8Cs.png?height=804&lazyload=true&width=804) ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td> **正确：** <br>收藏：「星星」代表收藏为普遍认知</md-td>
+      <md-td>**避免：** <br>收藏：「爱心」在某些场景下为「点赞」</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+### 简洁性原则
+
+图标的简洁是指在保证识别性的基础上不额外增加多余的元素来描述图形，同时避免过于抽象。
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f7eb1fe4cee914295f55d894a493497d_EIgLonymdi.png?height=804&lazyload=true&width=804)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800)  </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/20dd9a79446fbe80ba41c7de0fc61b07_EUBvg1oQvf.png?height=804&lazyload=true&width=804) ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)  </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**正确：** <br>相机：图标简洁直观。</md-td>
+      <md-td>**避免：** <br>相机：不要额外的元素堆砌。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+<br>
+### 一致性原则
+
+图标的一致性原则是指风格一致，使用相同的圆角和几何形状。
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5597b60cc2b4bc890d58f4f2588e04a7_xkIGWZyPtQ.png?height=804&lazyload=true&width=804)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800)  </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f824aacb5a9cb198ab0b6aea088e9077_FBp4af8Ny2.png?height=804&lazyload=true&width=804) ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)  </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**正确：** <br>点赞：使用符合规范的几何形</md-td>
+      <md-td>**避免：** <br>点赞：不要使用不符合规范的松散随意的几何形</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+::: 
+<br>
+### 愉悦原则
+
+图标的愉悦原则是指：在平衡图标识别性的基础上，使用情感化表达以更生动形象传达含义。
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ed8492ba7620037f24337217e8d181ba_5LXmRQBdh7.png?height=804&lazyload=true&width=804)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800)   </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/211a3672ee45b4a0fc1ccb945c4e7e06_CE8wTQehUP.png?height=804&lazyload=true&width=804)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**正确：** <br>发送：寓意着用纸飞机投送信息。</md-td>
+      <md-td> **避免：** <br>发送：普通发送样式。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+## 层级分类
+
+### 第一层级：导航类图标
+
+**图标形态：** 以使用面型图标为主，常出现彩色面型图标和单色面型图标。
+<br>**放置位置**：主导航栏位置。
+<br>**图标属性：** 图标同时具有功能性和交互性。
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>**1.客户端_导航栏**</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e25f25844cd57fdff3aa2297632e3e9f_noff7BLaoh.png?height=1029&lazyload=true&width=1280)</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 第二层级：引导操作类图标
+
+**图标形态：** 以使用线型图标为主，常出现彩色线型图标和单色线型图标。
+
+**放置位置**：侧导航、工具栏、页头、局部工具栏。
+
+**图标属性：** 图标同时具有功能性和交互性。
+:::html
+<md-table style="width: 800px;">
+  <md-thead>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>**1.客户端_二级导航栏**</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f9a20defe226774ca2d4a74657288b75_0qLdpjmPBx.png?height=1029&lazyload=true&width=1280)</md-td>
+    </md-tr>
+     <md-tr>
+     <md-td>**2.客户端_二级导航栏**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/01dd03bc1dd46b76aafe245a58906888_t3Dk5wXMZ0.png?height=1029&lazyload=true&width=1280)</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>**3.Top bar顶部栏-全局工具栏**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/dbbc12412a7ce2d39327e14f65ae77f7_gW9ShMve1A.png?height=1029&lazyload=true&width=1280)</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>**4.Pageheader功能栏**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f90f5e920b7903614090061fdee521da_EI8tc2xdT2.png?height=1029&lazyload=true&width=1280)</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>**5.局部功能栏**</md-td>
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2d86ceaffb256313f27454a8093e5639_tByWish4mg.png?height=1029&lazyload=true&width=1280)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 第三层级：语义型图标
+
+**图标形态：** 以使用线型图标为主，常出现单色线型图标，且颜色对比度较弱。
+
+**放置位置**：输入框旁示意图标、原子组件和基础内容模块中。
+
+**图标属性：** 突出语义即可，有可配置交互性。
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>**1.语义型图标**</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7b08d45a0993032db7f9a37803776aad_FjC9qErCFY.png?height=1029&lazyload=true&width=1280)</md-td>
+     </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0c77b1675ead42e417a6f4a3f0759e13_z7Cee8ciK4.png?height=265&lazyload=true&width=1280)</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+<br>
+## 图标特征
+
+### 基础规范
+
+栅格作为图表绘制的底层结构，是一切特征设计的基础。图标常见尺寸为16×16、20×20、24×24、32×32 这四种输出尺寸。
+
+这些尺寸均可以清晰的显示在常规的显示器上。符合图标常见尺寸也为兼顾各端的图标尺寸特性，24×24px 的尺寸作为图标绘制的统一基础栅格尺寸。
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d819cf1b88b8529d343e7f16199b40bc_h6cB2fbv5S.png?height=910&lazyload=true&width=1280)</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>24*24px</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+ 
+
+### 活动区域与空隙区域
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/401e76255bbf1a11527fdabe44cb1bf0_LoprNkhmOR.png?height=910&lazyload=true&width=1280)</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td> 活动区域 22px*22px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;空隙区域 1px</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+### 关键形状
+:::html
+<md-table style="width: 600px;">
+  <md-thead>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fde02f89cce220a49a7c6ec2477986b8_eWnhwrVBAV.png?height=910&lazyload=true&width=1280)</md-td>
+    </md-tr>
+   <md-tr>
+   <md-td>
+    **正方：**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**正圆：**<br>
+标准尺寸：20×20px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准尺寸：22×22px<br>
+容差范围：18～20px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容差范围：20～22px;<br>
+   </md-td>
+  	</md-tr>
+    <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f0aca34351b56448d00c621af00085c7_af1ZRNdCn1.png?height=910&lazyload=true&width=1280)</md-td>
+    </md-tr>
+   <md-tr>
+   <md-td>
+    **垂直矩形：**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**水平矩形：**<br>
+标准尺寸：18×22px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准尺寸：22×18px<br>
+宽度容差范围：18~20px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高度容差范围： 18~20px<br>
+   </md-td>
+  	</md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 图标样式
+
+:::html
+<md-table>
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/dc9d9b352bef4317baa0adc684c57418_t2sSh3A51d.png?height=512&lazyload=true&maxWidth=150&width=519)</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b0347c4ce68f72be3f7fe5a27b6dedd5_BDM8BoeEpp.png?height=512&lazyload=true&maxWidth=150&width=519)</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/50c9c0b71d742616cd23aa9c097954e9_zJeJftdkAZ.png?height=512&lazyload=true&maxWidth=150&width=519)</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c332bd60a0c45ff25ae08ea3590a1c44_vu3VZqiZCF.png?height=512&lazyload=true&maxWidth=150&width=519)</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/aef4057fc5d4896475b5279a0f71d6e9_NYWAquGh66.png?height=512&lazyload=true&maxWidth=150&width=519)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**1.面型图标**</md-td>
+      <md-td>**2.线型图标**</md-td>
+      <md-td>**3.线 + 面结合型图标**</md-td>
+      <md-td>**4.线 + 虚线结合型图标**</md-td>
+      <md-td>**5.面 + 虚线结合型图标**</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 像素对齐
+
+为了避免图标出现模糊，绝大部分情况下需保证坐标设置为整数，边缘紧贴单元格使之占满像素。
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca7437c0acf563a1826c166c79225ab7_cDiAgPXcl1.png?height=790&lazyload=true&width=790)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800)  </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9857d1493a347cb2832ac8e208c2adc3_LzxgQtEdqt.png?height=790&lazyload=true&width=791)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)  </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**正确：** <br>使用整数绘制，紧贴单元格，占满像素。</md-td>
+      <md-td>**避免：** <br>小数点绘制会出现最终呈现效果模糊与虚边。需要紧贴单元格，尽量占满一侧像素。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 图形重心
+
+**视觉校准**：在绘制图标的时候，不应追求绝对的几何对称，应在适当的时候手动校准以保证图标内元素视觉对齐：
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/af699ed413d8ac9b3ff91ef9a92df4e8_nRWW3IaPY7.png?height=910&lazyload=true&width=1280)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800) </md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ac9f03a286cd690e948be63bdb0238ed_DQTkKNRSxc.png?height=910&lazyload=true&width=1280)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)  </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**正确：** <br>将中心元素稍微向右调整以达到视觉重心平衡。</md-td>
+      <md-td>**避免：** <br>由于三角形较宽的部分会引导视觉中心向左倾斜导致重心偏移，因此尽管三角形处于中心位置，看上去并不平衡。</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 图标体量感占比
+
+45° 的图标所占面积比 90° 和 180° 的更大，视觉上更加饱满方正，与其他图标的一致性更高。
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 33%;">正面案例</md-th>
+      <md-th style="width: 33%;">负面案例</md-th>
+      <md-th style="width: 32%;"></md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3c779f1305d973036a3f218ec27234e2_5BHXs4KpUN.png?height=890&lazyload=true&width=890)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3a16e889cb5489c91a2d1d4ebaa51ea0_1560IPENPz.png?height=20&lazyload=true&width=800)<br>45° </md-td>
+      <md-td>
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/94725e141e2f5705814c6dd7e9090eca_H81R1V4EM4.png?height=890&lazyload=true&width=890)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)<br>90° </md-td>
+<md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1194d64d455993f4befa8518b64084d7_zAkGdIUuyP.png?height=890&lazyload=true&width=890)![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/321960f7f87f86faec6ba5cf80c06e10_GBH7SjvUyR.png?height=20&lazyload=true&width=800)<br>180° </md-td>
+    </md-tr>
+</md-tbody>
+</md-table>
+:::
+
+<br>
+图标空间占比需要二次校验，绘制的图标需要自行与库中已有图标比对，依次进行“横向连贯性校验”、“纵向连贯性校验”。
+:::html
+<md-table>
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8186b633cf5e98e9716eb6728f102a66_V6bh29hMXZ.png?height=910&lazyload=true&width=1280)</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+
+
+### 线条
+
+:::html
+<md-alert>**推荐**：图标线条采用 **2px** 宽度绘制，包括曲线、内部笔画、外部笔画等。</md-alert>
+:::
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/629e3daccdc64410a2a7bc914f414997_p9CPabkH6L.png?height=910&lazyload=true&width=1280)</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>24×24px 画布下为 **2px** 宽度。</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>需要将线型图标做成面型的线条为 4px 宽度。</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4e8b3c6e1dcc7db494f8d31bf4be8832_dgDYUXlRCb.png?height=910&lazyload=true&width=1280)</md-td>
+     </md-tr>
+    <md-tr>
+     <md-td>24×24px 画布下线型图标的面型变体为 4px 宽度。</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+:::html
+<md-table style="width: 600px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>在特殊情况下如复杂图形，由于该类图标结构更为复杂，线条的粗细可以适当调整</md-td> 
+    </md-tr>
+    <md-tr>
+     <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f031b5a64c70bba5e7462e625e032d52_dW9SlwpqUe.png?height=910&lazyload=true&width=1280)</md-td>
+     </md-tr>
+    <md-tr>
+     <md-td>24×24px 画布下复杂图标推荐 1.5px 宽度，并且尽可能满足紧贴一侧网格的条件，保证有一侧足够填充像素</md-td>
+     </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+### 端点与角度样式
+
+
+:::html
+<md-table style="width: 600px;">
+  <md-thead>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/08d684dbe99cd45f26ef7122a33a81ab_JRvQOlGlEL.png?height=910&lazyload=true&width=1280)</md-td>
+      <md-td>![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/08d684dbe99cd45f26ef7122a33a81ab_JRvQOlGlEL.png?height=910&lazyload=true&width=1280)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>样式1：圆头</md-td>
+      <md-td>样式2：直径2px圆</md-td>
+    </md-tr>
+    <md-tr>
+       <md-td>2px线条使用</md-td>
+       <md-td>大于2px线条使用</md-td> 
+    </md-tr>
+</md-tbody>
+</md-table>
+:::
+
+
+### 圆角值
+
+**外圆角**
+
+:::html
+<md-table style="width: 800px;">
+  <md-thead>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/774c2684ef7b04cd185c7de8f911ff1e_UppONxXzFr.png?height=1108&lazyload=true&width=1557) </md-td>
+    </md-tr>
+   <md-tr>
+   <md-td>
+    样式1：外角半径为 2px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样式2：外角半径为 1px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;样式3：外角半径为 0.5px
+   </md-td>
+  	</md-tr>
+    <md-tr>
+   <md-td>
+    单独大元素&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配小元素/辅助元素&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;搭配小元素/辅助元素
+   </md-td>
+  	</md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+**内圆角**
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1d67e9bf63df13408ca5969d39d914ea_GEwWeiN68D.jpeg?height=1108&lazyload=true&width=1557)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>内角半径为 0px（直角）</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+<br>
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/babaf2b41ff42baf87bfbee1195438c9_JGy3EBEdRb.jpeg?height=1108&lazyload=true&width=1557)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>推荐使用Inside路径</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+> inside 路径可更容易达到圆角规范的要求标准
+  
+### 三角箭头定义
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7d2722cdcb8f4001bf299b253e008240_YKf29eneM3.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>线段粗细度2px; 顶端圆角为直径2px圆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线段粗细度3px; 顶端圆角为直径4px圆</md-td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;线段粗细度4px; 顶端圆角为直径6px圆
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1cee4af75254a45fcfd129e44c3debd7_ARbJo3BQd4.png?height=2216&lazyload=true&width=3114)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**夹角角度**：顶头夹角90°&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**圆角大小**：直径2px圆</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f900e8c216334064245d52f7e71decd2_BRrEjOZ4UN.png?height=2216&lazyload=true&width=3114)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**圆角大小**：直径2px圆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**夹角角度**：圆角1夹角45°<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;圆角2夹角45°<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;圆角3夹角90°</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/153561907079ba06d5cc997bfdc95fe9_6Yk1f7tYBt.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**圆角大小**：直径2px圆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**夹角角度**：圆角夹角45°</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 禁用切割定义
+- 切断效果
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1fb802a90fae8e77bed43ae06f48c572_DDvHN7FC0K.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**自定义** **端点**</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>1.被截断的端点不做圆角<br>2. 被裁切元素与裁切元素保持2px的轮廓描边裁切宽度<br>3. 切线段宽度：2px<br>4. 断口宽度：2px<br>5. 切线角度：从左到右45度</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+                               
+
+### 图形叠加
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e5b5737cb22295f74b97b168cda22cfd_t5HTJaiZJQ.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**自定义断点**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**直角断点**</md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>1.裁切图标轮廓为规则形状时，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.裁切图标轮廓为不规则形状时，<br>2.被裁切元素与裁切元素保持2px的轮廓描边裁切宽度;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.被裁切元素与裁切元素保持2px的边距宽度;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.且被裁切的断口为直角; </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b461af84b961a7bf607215079720fa88_8vBqTZBt1l.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>**自定义断点** </md-td>
+    </md-tr>
+     <md-tr>
+      <md-td>1.裁切图标轮廓为规则形状时，<br>2. 被裁切元素与裁切元素保持2px的轮廓描边裁切宽</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/34d62dcecadfc1e2ecfa71bc93b84a2e_7CTDxjPIa8.png?height=2216&lazyload=true&width=3114)</md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>叠加图形优先放置在右下角。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如被裁切图形右下角结构复杂，可放置在右上角。  </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+:::html
+<md-table style="width: 800px;">
+  <md-tbody>
+     <md-tr>
+      <md-td>![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/35ffb54534a35f85bbf12585fefdf43e_bFHCfC6pMm.png?height=2216&lazyload=true&width=3114) </md-td>
+    </md-tr>
+    <md-tr>
+      <md-td>1.主体与叠加图形保持2px的间距，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.附属元素可相对缩小，但依然保持2px的粗细度<br>2.外圆角需保持2px。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.被裁切元素与裁切元素保持2px的轮廓描边裁切宽度 </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+
+## 清理图层
+
+最后输出交付的图标应保证图层的简洁，删除不必要的空图层、蒙版、背景或者组，将图标转化为轮廓，并确定好切片大小。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/31d5bc005e0e64f81699b8f0e6d3a466_GReeFxE38j.png?height=1326&lazyload=true&maxWidth=800&width=2044)
+  
+  
+
+## 图标颜色规范
+
+### 文档类型图标
+
+文档类型颜色的定义逻辑为：「用户普遍认知」、「巨头规范」和「历史经验」，例如：PDF 定义为红色，文档定义为蓝色。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8396048fe5097d0d124396abfda12fa1_FblH4BEFtY.png?height=427&lazyload=true&maxWidth=800&width=1200) 
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0227f7142767aa9bcbba8127d47cb9b1_X6DHWeRiRl.png?height=145&lazyload=true&maxWidth=800&width=1200) 
+  
+
+### 提示图标
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9530b6805c4b0d4ebb770a1637598c74_KAGvzXudMn.png?height=154&lazyload=true&maxWidth=800&width=1280)
+  
+
+### 系统图标
+
+- 系统图标的色彩选择基本原则是：当图标与文字一起排版布局时，图标的明度须低于文字的明度
+- 默认图标的颜色为 N800（#2B2F36）
+- 如果有需要特殊处理的地方，可以定义其他色值，例如虚线定义为 N400（#BBBFC4）
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b23ff2a703f416ef699f159ca63c21ac_HNsdLDiaCk.png?height=402&lazyload=true&maxWidth=800&width=1200)

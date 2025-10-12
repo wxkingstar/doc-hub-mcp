@@ -1,0 +1,24 @@
+<!--
+title: 评论功能概述
+id: 7255580838154534940
+fullPath: /uAjLw4CM/ukTMukTMukTM/task-v2/comment/overview
+updatedAt: 1689560245000
+source: https://open.feishu.cn/document/task-v2/comment/overview
+-->
+# 功能概述
+
+评论接口可以实现评论创建、回复、更新、删除、获取详情等功能。
+
+评论接口设计时，是可以支持对任意资源进行评论操作的，但目前只支持任务评论。后续可能会支持对清单，动态等进行评论。
+
+使用[创建评论](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/comment/create)接口创建一个评论，或者回复同一个任务的已有评论。
+
+使用[获取评论详情](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/comment/get)接口可以获取到一个评论的全部数据。
+
+使用[更新评论](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/comment/patch)接口可以修改一个评论的内容。调用身份只能更新自己创建的评论。
+
+使用[删除评论](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/comment/delete)接口可以删除一个评论。调用身份只能删除自己创建的评论。对已经删除的评论无法做任何操作。已删除的评论无法恢复。
+
+使用[获取评论列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/task-v2/comment/list)接口可以以分页的形式按照创建时间的正序/逆序获取一个资源的评论列表。
+
+

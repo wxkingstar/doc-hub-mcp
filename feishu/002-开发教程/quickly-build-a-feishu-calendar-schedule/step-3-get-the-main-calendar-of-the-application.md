@@ -1,0 +1,42 @@
+<!--
+title: 步骤三：获取应用主日历
+id: 7254822274065825794
+fullPath: /home/quickly-build-a-feishu-calendar-schedule/step-3-get-the-main-calendar-of-the-application
+updatedAt: 1698396872000
+source: https://open.feishu.cn/document/quickly-build-a-feishu-calendar-schedule/step-3-get-the-main-calendar-of-the-application
+-->
+# 步骤三：获取应用主日历
+
+日历与日程为包含关系（日程需在指定日历内创建），因此在同步工作日程之前，你需要先调用[查询日历列表](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)接口，获取应用主日历信息。
+
+:::note
+一个应用可以具备多个日历，因此你可以根据企业不同系统的需要，调用[创建共享日历](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/create)接口添加多个日历进行维护。例如，为招聘系统创建一个招聘日历、为人力系统创建一个请假日历、为会议室系统创建一个会议室预约日历等。
+:::
+
+## 操作步骤
+
+1. 打开[API调试台](https://open.feishu.cn/api-explorer)工具。
+
+2. 在左侧 **API 列表** 中，选择 **日历** > **日历管理** > **查询日历列表**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/805e9487ffe87f8ff5129c4b0529af33_4VIVJW38p3.png?height=1410&lazyload=true&maxWidth=600&width=2882)
+
+3. 完成以下参数配置，并点击 **开始调试**。
+    
+    - **请求头**：为 **Authorization** 字段配置 **tenant_access_token** 鉴权凭证。
+        
+        由于查询的是应用的主日历，因此需要使用应用访问凭证（tenant_access_token）。
+    
+    - **查询参数**：设置分页查询参数，本示例操作保持默认配置即可。
+
+4. 调用成功的回显信息如下，在响应数据`data`中，通过`calendar_list.summary`字段、`calendar_list.type`字段，定位应用的主日历信息。
+    
+    - `calendar_list.summary`：日历标题。如果是应用的主日历，则该字段值为应用名称。例如，应用名称为`Webapp Demo`，则你可以通过`calendar_list.summar: "Webapp Demo"`定位日历。
+    
+    - `calendar_list.type`：日历类型。应用的主日历对应的字段值为`primary`，你可以基于该值定位日历。
+    
+:::note
+成功定位应用主日历后，保存日历 ID （`calendar_id`），后续用于查询日历忙闲、创建日程等操作。
+:::
+    
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3ccb57a050655ca27db734fc486c201e_nAdJWJwhEh.png?height=852&lazyload=true&maxWidth=600&width=2248)

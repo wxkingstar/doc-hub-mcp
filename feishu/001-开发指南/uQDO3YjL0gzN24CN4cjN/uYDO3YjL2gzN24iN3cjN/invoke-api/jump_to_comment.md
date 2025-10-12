@@ -1,0 +1,38 @@
+<!--
+title: 跳转评论对应的正文位置
+id: 7497866841776521218
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/invoke-api/jump_to_comment
+updatedAt: 1753959787000
+source: https://open.feishu.cn/document/uYjL24iN/uYDO3YjL2gzN24iN3cjN/invoke-api/jump_to_comment
+-->
+# 跳转评论对应的正文位置
+
+## 示例
+```js
+// npm
+myComponent.invoke(DocComponentEvent.JUMP_TO_COMMENT, { commentId }).then(function(response) {
+  const { code, msg } = response;
+ 
+  // ...
+});
+
+// sdk
+myComponent.invoke('JUMP_TO_COMMENT', { commentId }).then(function(response) {
+  const { code, msg } = response;
+ 
+  // ...
+});
+```
+
+## 参数
+
+| 参数名         | 是否必须 | 类型       | 默认值 | 说明                                |
+| ----------- | ---- | -------- | --- | --------------------------------- |
+| `commentId` | 是    | `string` | -  | 传入要跳转的 commentId 或者 tempCommentId |
+
+## 返回
+
+| 属性     | 类型       | 说明           |
+| ------ | -------- | ------------ |
+| `code` | `number` | 0：成功 、 -1：失败 |
+| `msg`  | `string` | 信息

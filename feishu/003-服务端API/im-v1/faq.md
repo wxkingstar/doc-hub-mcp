@@ -1,0 +1,560 @@
+<!--
+title: 消息常见问题
+id: 7019259169925447681
+fullPath: /uAjLw4CM/ukTMukTMukTM/reference/im-v1/guide/faq
+updatedAt: 1745920727000
+source: https://open.feishu.cn/document/server-docs/im-v1/faq
+-->
+# 消息常见问题
+
+本文提供使用消息 API 时可能会遇到的问题与解决方案。
+
+## 开发相关
+
+### 我应该如何使用 OpenAPI 提供的开放能力？
+
+飞书的 OpenAPI 开放能力基于 Restful 接口对外提供服务，使用指南参见[流程概述](/ssl:ttdoc/ukTMukTMukTM/uITNz4iM1MjLyUzM)。
+
+### 企业自建应用和商店应用 ISV 的区别是什么？
+
+区别概述如下表，如需了解详细说明，可参见[自建应用与商店应用](/ssl:ttdoc/home/app-types-introduction/self-built-apps-and-store-apps)。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">应用类型</md-th>
+<md-th style="width:40%">简介</md-th>
+<md-th style="width:40%">使用差异</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>企业自建应用</md-td>
+<md-td>企业自建应用是指在同一个租户内可以使用的应用，通常情况下推荐你使用企业自建应用来满足业务所需的功能。了解如何开发企业自建应用，参见[企业自建应用开发流程](/ssl:ttdoc/home/introduction-to-custom-app-development/self-built-application-development-process)。</md-td>
+<md-td>使用企业自建应用调用 API 时，需要调用[自建应用获取 tenant_access_token](/ssl:ttdoc/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token_internal)获取访问凭证来调用 API。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>商店应用</md-td>
+<md-td>商店应用是指注册在应用商店中的、多个租户都可以使用的应用。创建商店应用需要单独进行申请，流程说明参见[商店应用上架流程](/ssl:ttdoc/uMzNwEjLzcDMx4yM3ATM/ugzNwEjL4cDMx4CO3ATM)。</md-td>
+<md-td>使用商店应用调用 API 时，需要调用[商店应用获取 tenant_access_token](/ssl:ttdoc/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token)接口获取访问凭证来调用 API。
+
+<md-alert type="tip" icon="none">
+获取商店应用的 tenant_access_token 时需要传入 tenant_key 参数（即飞书租户的唯一标识）。原因是商店应用在不同租户内 AppID 是相同的，如果你需要跨租户使用商店应用调用 API，则需要使用当前租户的 tenant_key 换取可用的 tenant_access_token。
+</md-alert>
+</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+### 我应该如何调试 OpenAPI？
+
+飞书的 OpenAPI 开放能力基于 Restful 接口对外提供服务，为了方便开发者快速体验和测试各类接口，开放平台提供了 [API 调试台](https://open.feishu.cn/api-explorer)。你可以在调试台内测试指定接口的能力，若接口调试成功，则说明测试配置无误。
+
+:::note
+受接口使用限制，非所有 OpenAPI 都可以在 API 调试台进行调试。如果你在使用 API 调试台时无法调用某一接口，可以使用其他调试工具（如 Postman）对接口进行调试。
+:::
+
+## ID 相关
+
+### 如何获取应用的 App ID 和 App Secret？
+
+1. 登录[开发者后台](https://open.feishu.cn/app)。
+2. 选择并打开指定应用。
+3. 在应用的 **基础信息** > **凭证与基础信息** 页面，获取 App ID、App Secret。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/172e4d38b128fa8db7e626ad2c73e45c_UVzXMQt3GP.png?height=500&lazyload=true&maxWidth=600&width=1640)
+
+## 机器人相关
+
+### 机器人是否支持与用户单聊？
+
+- 应用机器人支持与[可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内的用户进行单聊。例如[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)时，设置消息接收者为指定用户。
+
+- 群自定义机器人仅能向所在群推送消息。
+
+不同类型的机器人介绍，参见[机器人概述](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bot-v3/bot-overview)。
+
+### 是否支持通过 OpenAPI 创建机器人？
+
+不支持。
+
+- 如需创建应用机器人，需要前往[开发者后台](https://open.feishu.cn/app)，在指定应用配置页面添加机器人能力。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/94c093e5dc256550b020cdeb5734eed3_nd0DpClvyw.png?height=656&lazyload=true&maxWidth=600&width=1535)
+    
+- 如需创建自定义机器人，需要在飞书客户端的指定群聊内添加。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f3514a8cc60642b58490852a997b8f2f_G5y04GxDAp.png?height=1570&lazyload=true&maxWidth=600&width=2424)
+    
+
+### 为什么我的机器人在飞书中搜不到？在群聊内添加机器人时也搜索不到？
+
+完成以下操作的应用机器人可以在飞书中搜索使用。
+
+1. 开启机器人能力。
+
+    1. 登录[开发者后台](https://open.feishu.cn/app)。
+    2. 选择并打开指定应用。
+    3. 在 **应用能力** > **添加应用能力** 页面，添加 **机器人** 能力。
+
+        ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4036ded4c6b9c636e31786b85312b423_YQs4Yij9qH.png?height=916&lazyload=true&maxWidth=600&width=2262)
+
+2.  发布应用。
+
+    1. 在应用详情页左侧，进入 **应用发布** > **版本管理与发布** 页面，并点击 **创建版本**。
+
+        ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2d5235b1ec4e4a0c46e2c06c75d36ef4_AK4zmTael8.png?height=768&lazyload=true&maxWidth=600&width=2882)
+    2. 在 **版本详情** 自定义配置应用版本信息后，点击 **保存**，并点击 **确认发布**。
+
+		**注意**：需要配置[应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)，只有在可用范围内的用户可以使用该应用。
+    3. 等待应用审核通过。
+
+		应用审核通过后即为发布上线状态，后续你可以在飞书中搜索并使用该应用机器人。
+
+:::note
+**说明**：使用时需要注意登录的租户、环境信息。例如，应用为测试版本，则需要登录测试企业账号才可以使用应用。
+:::
+
+### 提示机器人对某个用户不可见（the bot is invisible to the user），应该如何配置可见性？
+
+只有在应用机器人可用范围内的用户可以使用该机器人。配置步骤如下，详细介绍参见[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。
+
+1. 登录[开发者后台](https://open.feishu.cn/app)。
+2. 选择某一应用，进入应用详情页 
+3. 在应用详情页左侧，进入 **应用发布** > **版本管理与发布** 页面，并点击 **创建版本**。
+
+    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2d5235b1ec4e4a0c46e2c06c75d36ef4_AK4zmTael8.png?height=768&lazyload=true&maxWidth=600&width=2882)
+    
+4. 在 **可用范围** 区域，点击 **编辑**，设置业务所需的应用可用范围。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f6bae7c5c06f6ace9ce4cd16ab1b02be_aQixeLckI0.png?height=966&lazyload=true&maxWidth=600&width=2560)
+
+5. 在页面底部点击 **保存**，并点击**确认发布**。
+
+	等待应用审核通过使配置生效。
+
+### Webhook 自定义机器人是什么？我应该怎么通过 webhook 向机器人发消息？
+
+飞书群聊内的 **自定义机器人**，与你开发的 **应用机器人** 有所不同。说明如下，详细介绍参见[机器人类型](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/bot-v3/bot-overview#00fad9c5)。
+
+- 自定义机器人只能用于在群聊中自动发送通知，不能响应用户@机器人的消息，不能获得任何的用户、租户信息。发送通知时，需要基于机器人的 webhook 传输数据。
+
+- 应用机器人可以使用消息 API 与事件，实现发送消息、回复消息、与用户单聊等多种能力。
+
+
+### 机器人聊天窗口没有出现对话框 （输入框）
+
+应用机器人必须订阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件，使机器人具备接收用户消息的能力后，才会在聊天窗口出现对话框 （输入框）。解决方案：
+
+1. 登录[飞书开发者后台](https://open.feishu.cn/app)。
+2. 进入应用机器人详情页。
+	
+3. 在 **权限管理** 功能页，确保已经以应用身份开通了 **读取用户发给机器人的单聊消息**（im:message.p2p_msg:readonly）权限。
+
+	了解 API 权限，参见[申请 API 权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1428d09110d60e1e084f5ad2d8f75d1c_RKjsKqlTil.png?height=448&lazyload=true&maxWidth=600&width=2942)
+    
+4. 在 **事件与回调** > **事件配置** 功能页，确保已经以应用身份订阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件。
+
+	了解事件订阅，参见[事件概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5592c656b270a67b5bda4e03f7d081a3_2BRTHHWiHo.png?height=1170&lazyload=true&maxWidth=600&width=2942)
+
+7. 在 **版本管理与发布** 功能页，确保应用已发布，使以上配置均生效。
+
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8430cbc12407bf7e7eb5fac4cb892067_FbGTzIyMEG.png?height=1036&lazyload=true&maxWidth=600&width=2942)
+
+
+### 机器人发送消息时，如何实现 @所有人、@指定人？
+
+不同类型的机器人实现 @ 的方式有所不同，说明参考下表。
+
+- @ 单个用户时需要使用不同类型的用户 ID，获取方式参见[如何获取不同的用户 ID](/ssl:ttdoc/home/user-identity-introduction/open-id)。
+- @ 所有人时，固定取值 `all`，且需要注意在群聊中，如果群主开启了 `仅群主和群管理员可@所有人` 配置，且机器人不是群主或管理员，则机器人无法 @ 所有人。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7679460f4e1b53b2eea22190e26f98f2_RVg0xRTvik.png?height=1029&lazyload=true&maxWidth=500&width=1640)
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:25%">机器人类型</md-th>
+<md-th style="width:75%">@ 方式介绍</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+
+
+<md-tr>
+<md-td>应用机器人</md-td>
+<md-td>
+以下列举了应用机器人发送消息是如何实现 @ 功能。应用机器人支持发送的消息类型、使用详情，参见[发送消息内容结构](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。
+  
+**发送文本消息实现 @**
+  
+`at` 标签示意：
+
+```json 
+// at 指定用户
+<at user_id="ou_xxx">Name</at> //可以填入用户的 open_id，union_id 或 user_id 来 at 指定人
+// at 所有人
+<at user_id="all">所有人</at>
+``` 
+
+例如，在[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口中，请求体中的 `content` 参数示例值：
+
+```json 
+{
+    "content": " {\"text\":\"<at user_id=\\\"ou_xxxxxxxx\\\">Tom</at> text content\"}"
+}
+``` 
+  
+**发送富文本消息实现 @**
+  
+`at`标签示意：
+
+```json 
+// at 指定用户
+{
+    "tag": "at",
+    "user_id": "ou_xxxxxxx", //可以填入用户的 open_id，union_id 或 user_id 来 at 指定人
+    "user_name": "tom" // 用户名称，选填
+}
+
+// at 所有人
+{
+    "tag": "at",
+    "user_id": "all", //取值使用 "all" 来 at 所有人
+    "user_name": "所有人"
+}
+``` 
+例如，在[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口中，请求体中的 `content` 参数示例值：
+
+```json 
+{
+  "zh_cn": {
+    "title": "我是一个标题",
+    "content": [
+      [
+        {
+          "tag": "text",
+          "text": "第一行 :"
+        },
+        {
+          "tag": "at",
+          "user_id": "ou_xxxxxx", //可以填入用户的 open_id，union_id 或 user_id 来 at 指定人
+          "user_name": "tom" // 用户名称，选填
+        }
+      ],
+      [
+        {
+          "tag": "text",
+          "text": "第二行:"
+        },
+        {
+          "tag": "at",
+          "user_id": "all",  //取值使用 "all" 来 at 所有人
+          "user_name": "所有人"
+        }
+      ]
+    ]
+  }
+}
+``` 
+  
+**发送卡片消息实现 @**
+  
+在卡片的[普通文本](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/plain-text)组件或者[富文本（Markdown）](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/rich-text)组件内，支持 @ 指定人或者所有人。
+
+```json 
+// at 指定用户
+    <at id={{open_id}}></at> //使用用户的 open_id 来 at 指定人
+    <at id={{user_id}}></at> //使用用户的 user_id 来 at 指定人
+    <at email=test@email.com></at> //使用用户的邮箱地址来 at 指定人
+// at 所有人
+    <at id=all></at>
+``` 
+
+例如，在[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口中，请求体中的 `content` 参数示例值：
+
+```json 
+{
+  "config": {
+    "wide_screen_mode": true
+  },
+  "header": {
+    "title": {
+      "tag": "plain_text",
+      "content": "这是卡片标题内容"
+    },
+    "template": "blue"
+  },
+  "elements": [
+    {
+      "tag": "div",
+      "text": {
+        "content": "at所有人<at id=all></at> \n at指定人<at id=ou_xxxxxx></at>",
+        "tag": "lark_md"
+      }
+    }
+  ]
+}
+``` 
+</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>群自定义机器人</md-td>
+<md-td>
+群自定义机器人的使用方式与应用机器人不完全相同，详细介绍及 @ 方式，参见[自定义机器人使用指南](/ssl:ttdoc/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)。
+  
+
+</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+### 自定义机器人的 Webhook 地址存在新旧版本，有何区别？
+
+V1、V2 版本可通过 webhook 地址区分。例如：
+
+- `https://open.feishu.cn/open-apis/bot/v2/hook/xxxx`，其中的 `v2` 即 V2 版本。
+- `https://open.feishu.cn/open-apis/bot/hook/xxxx`，未包含版本信息，即 V1 版本。
+
+:::warning
+推荐你使用 V2 版本的 webhook。具体介绍参见[自定义机器人使用指南](/ssl:ttdoc/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)。
+:::
+
+如果你所调用的 webhook 地址格式为 `https://open.feishu.cn/open-apis/bot/hook/xxxx`，则表示你使用的是旧版本的 webhook，该类 webhook 仅支持发送纯文本消息，可以配置标题（title）和正文（text）。以任意方式向该 webhook 发起 HTTP POST 请求，即可实现向群组发送纯文本消息。
+
+- 请求的消息体 JSON 格式示例如下：
+
+```json
+{"title": "Hello Feishu",  # 选填 "text": "Example"  # 必填}   
+```
+
+- 以 curl 为例，请求示例如下：
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"title": "Hello Feishu", "text": "Example"}' https://open.feishu.cn/open-apis/bot/hook/xxxx
+```
+
+### 配置使用 Webhook 的自定义机器人时，参数text是否有长度要求？
+
+建议 JSON 的长度不超过 30 KB，序列化后的 Protobuf (PB) 长度不超过 100 KB，图片须小于 10 MB。
+
+### 同一个自定义机器人能在不同的群组使用吗？
+
+不能。自定义机器人仅能在单个群中使用。
+
+### 机器人如何接收并响应用户发来的消息？
+
+不同类型的机器人能力不同，说明如下：
+
+- [自定义机器人](/ssl:ttdoc/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)只能发送消息，不支持接收、响应用户发来的消息。
+- [应用机器人](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)可以发送消息，并且在为应用订阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件后，可以根据应用实际开通的权限接收不同场景下的消息。
+
+    - 当应用具备 **获取用户发给机器人的单聊消息（   
+im:message.p2p_msg）** 或者 **读取用户发给机器人的单聊消息（im:message.p2p_msg:readonly）** 权限时，可接收与机器人单聊会话中用户发送的所有消息。
+
+    - 当应用具备 **获取群组中所有消息（im:message.group_msg
+）** 权限时，可接收与机器人所在群聊会话中用户发送的所有消息（不包含机器人发送的消息）。
+
+    - 当具备 **获取用户在群组中@机器人的消息（im:message.group_at_msg）** 或者 **接收群聊中@机器人消息事件（im:message.group_at_msg:readonly）** 权限时，可接收机器人所在群聊中用户 @ 机器人的消息。
+
+    当你为应用订阅事件，并在你本地服务端接收到用户发来的消息后，你需要在本地服务端内自行配置机器人的响应策略，并调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)或者[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)接口响应用户。
+    
+### 机器人是否支持 /help 这类斜线命令（slash command）？
+
+机器人本身不支持。如果你使用的是应用机器人，可以为机器人订阅[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件。当用户向机器人发送消息时，通过你本地服务器接收用户发送的消息内容，并在本地服务器内对消息进行处理，最后调用[回复消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply)等接口响应用户的消息。
+
+### 使用机器人发送的消息出现中文乱码是什么原因？
+
+该问题通常是因为字符编码不正确导致的。你可以：
+
+- 请求发送消息时，在请求头中声明 utf-8 字符集。例如，调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口时，需要在请求头内设置 `Content-Type` 参数为 `application/json; charset=utf-8`。
+
+- 检查你本地设备的语言环境，需要为中文环境。
+
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c2e150ff67ff45be4e745837096d1106_lNXibx8ZQV.png?height=496&lazyload=true&maxWidth=350&width=874)
+   
+
+
+## 消息相关
+
+### 发消息的大小有限制吗？
+
+建议 JSON 的长度不超过 30 KB，序列化后的 Protobuf (PB) 长度不超过 100 KB，图片须小于 10 MB。
+
+
+### 已经推送出去的消息，能进行更改吗？
+
+- 卡片类型消息，支持通过[更新应用发送的消息卡片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)接口更新；支持通过[延时更新消息卡片](/ssl:ttdoc/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN)接口更新。卡片交互的完整链路可参考[配置卡片交互](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/configuring-card-interactions)。
+
+- 文本、富文本类型的消息，支持通过[编辑消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/update)接口，进行更新。
+
+其他类型的消息暂不支持更改。
+
+### 图片上传接口对图片的限制有哪些？
+
+- 图片上传格式支持：JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC，但需要注意 TIFF、HEIC 上传后会被转为 JPG 格式。
+- 图片下载格式支持：JPG、JPEG、PNG、WEBP、GIF、BMP、ICO。
+- 上传图片时，图片大小不能超过 10 MB，且不支持上传大小为 0 的图片。
+- 上传图片的分辨率：
+    - GIF 图片分辨率不能超过 2000 x 2000，其他图片分辨率不能超过 12000 x 12000。
+    - 用于设置头像的图片，分辨率不能超过 4096 x 4096。
+
+如需上传高分辨率图片，可使用[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口，将图片作为文件进行上传。
+
+### 可以通过接口给外部联系人发送消息吗？
+
+支持，但需要为机器人开通对外共享能力，具体操作参见[机器人支持外部群和外部用户单聊](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/develop-robots/add-bot-to-external-group)。
+
+### 获取消息中的资源文件接口，可以获取别人发送的消息中的资源文件吗?
+
+可以。只要机器人与被查询的消息在同一会话内，便可让机器人先获取消息的 message_id（[获取会话历史消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)），然后使用 message_id 调用[获取消息中的资源文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口即可。
+
+:::warning
+**注意**：暂不支持获取[合并转发消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/merge_forward)中的子消息的资源文件。
+:::
+
+### 如何设置消息中的链接打开方式（飞书导航打开、浏览器打开）？
+
+该设置需要在飞书客户端的 **设置** 功能中，找到 **效率** >  **链接打开方式** 并选择合适的选项。
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/615d09f69e96daaca5d5c3d8ccfc7003_sVBAD42VwI.png?height=666&lazyload=true&maxWidth=600&width=1948)
+
+
+
+## 消息卡片相关
+
+### 消息卡片能批量发给多人吗？
+
+能。调用[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口，注意：
+
+- 请求参数中 `msg_type` 为 `interactive`，`content` 取值为 `card:{}` 结构体。
+- 批量发送的卡片消息不支持批量更新（[更新应用发送的消息卡片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)接口只能传入 `om_xxx` 格式的消息 ID，不支持传入批量发送消息接口的 `bm_xxx` 格式的 ID）。
+
+### 消息卡片内是否支持 @ 单个成员？
+
+支持。语法参见[卡片普通文本](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/plain-text)或[卡片富文本](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/rich-text)。
+
+### 消息卡片回调超时时间是多少？
+
+卡片回调超时时间为 **3s**，不支持自定义。如果业务方在 3s 内无法返回可以先返回`{}`，然后使用在回调中的 token [异步更新卡片](/ssl:ttdoc/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN)。
+
+## 事件相关
+
+### 为什么收到消息事件的内容为空？
+
+消息如果被撤回，则事件内容为空。
+
+### 新老版本事件有什么区别？
+
+新版本使用了新的协议，是老版本的升级版，两个版本不兼容。老版本不会下线，但也不再迭代，因此推荐使用新版本。
+
+## 错误排查
+
+### 我在调用某个接口的时候，收到了错误码，错误码对应的错误原因是什么呢？
+
+你可以通过以下方式确认错误原因：
+
+- 根据接口实际返回的报错信息确认错误原因。
+- 参考 API 对应的帮助中心文档，查看错误码的排查建议。
+- [通用错误码](/ssl:ttdoc/ukTMukTMukTM/ugjM14COyUjL4ITN)文档中记录了服务端常用的错误码，可在其中搜索错误码的排查建议。
+
+### 为什么我为应用申请了 API 权限，但是还是提示没权限？
+
+- 申请权限之后，需要进行应用版本发布，发布成功后权限才可以生效。
+    - 企业自建应用开发流程参考[企业自建应用开发流程](/ssl:ttdoc/home/introduction-to-custom-app-development/self-built-application-development-process)。
+    - 商店应用开发流程参考[商店应用上架流程](/ssl:ttdoc/uMzNwEjLzcDMx4yM3ATM/ugzNwEjL4cDMx4CO3ATM)。
+- 商店应用的权限，除了需要发布应用外，还需要在[管理后台](https://admin.feishu.cn/)进行授权，才可以生效。
+
+### 我在调用某个接口的时候触发了频率控制策略，具体的频控策略是怎样的呢？
+
+频控策略是指为保障后台服务的稳定性，系统对接口增加一定的调用频率限制的策略。具体的频控策略可参见[频控策略](/ssl:ttdoc/ukTMukTMukTM/uUzN04SN3QjL1cDN)。
+
+### 频控错误码对应的具体触发的频控策略是什么？
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:20%">错误码</md-th>
+<md-th style="width:40%">频控策略</md-th>
+<md-th style="width:40%">建议</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>230020</md-td>
+<md-td>发送消息（V1）接口触发群维度的发消息限流</md-td>
+<md-td>单群发消息的 QPS 不超过 5 QPS，详情参考[频控策略](/ssl:ttdoc/ukTMukTMukTM/uUzN04SN3QjL1cDN)</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>11232</md-td>
+<md-td>发消息接口（V4）触发消息系统内部的整体限流</md-td>
+<md-td>请稍后重试。</md-td>
+</md-tr>
+  
+<md-tr>
+<md-td>11233</md-td>
+<md-td>发消息接口（V4）触发群维度的发消息限流</md-td>
+<md-td>单群发消息的 QPS 不超过 5 QPS，详情参考[频控策略](/ssl:ttdoc/ukTMukTMukTM/uUzN04SN3QjL1cDN)</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>11247</md-td>
+<md-td>批量发送消息触发每日额度限制</md-td>
+<md-td>单个应用每天通过该接口发送的总消息条数不超过50万，请合理分配批量发送的额度。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>99991400</md-td>
+<md-td>触发接口频控</md-td>
+<md-td>请求过于频繁，请降低请求频次，调用频率不高于[频控策略](/ssl:ttdoc/ukTMukTMukTM/uUzN04SN3QjL1cDN)</md-td>
+</md-tr>
+
+  
+</md-tbody>
+</md-table>
+:::
+
+### 在调用发送消息接口时，提示请求中的消息内容有问题，我应该如何排查解决问题？
+
+不同消息类型的格式可参考[发送消息Content](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)，其中，富文本消息的 JSON 转 String 的规则，总结如下：
+
+- JSON 整体需使用 `" "` 符号括起来。
+- 使用 `\` 符进行转义。
+- 消息内容中如果需要换行，应在 `\n` 的基础上增加转义，如 `\\n`。
+- 在 String 中不能含有统一码（unicode）。
+- 如果想发送一些特殊字符，建议使用卡片 Markdown 的方式，使用方法参见[卡片富文本](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/rich-text)。
+
+发送消息的请求体示例：
+
+```json
+{
+  "receive_id":"14f76322",
+  "msg_type": "post",
+  "content":"{\"zh_cn\":{\"title\":\"我是一个标题\",\"content\":[[{\"tag\":\"text\",\"text\":\"第一行:\"},{\"tag\":\"a\",\"href\":\"[http://www.feishu.cn](http://www.feishu.cn/)\",\"text\":\"超链接\"},{\"tag\":\"at\",\"user_id\":\"14f76322\",\"user_name\":\"tom\"}]]}}"
+}
+ 
+``` 
+
+
+## 相关链接
+
+[服务端通用问题](/ssl:ttdoc/ugTN1YjL4UTN24CO1UjN/uEjN1YjLxYTN24SM2UjN)

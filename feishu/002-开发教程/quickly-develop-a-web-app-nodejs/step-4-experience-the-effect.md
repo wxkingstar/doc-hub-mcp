@@ -1,0 +1,36 @@
+<!--
+title: 步骤四：体验效果
+id: 7241497122184200193
+fullPath: /home/quickly-develop-a-web-app-nodejs/step-4-experience-the-effect
+updatedAt: 1692875870000
+source: https://open.feishu.cn/document/quickly-develop-a-web-app-nodejs/step-4-experience-the-effect
+-->
+# 步骤四：体验效果
+
+本章节以移动端体验效果为例进行介绍，您也可以使用桌面端体验网页应用效果。
+
+:::note
+对于测试版应用来说，仅测试企业的 **创建者** 及 **测试人员** 可以访问该应用。
+:::
+
+1. 使用移动端登录飞书，并进入飞书工作台打开测试应用。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3249e393c0cfcb1301c039f688653424_ykGm3kXHXZ.png?lazyload=true&width=654&height=1348&maxWidth=300)
+   
+2. 使用应用。
+
+   示例应用提供了三个接口能力。
+   
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/983efa32084ebe689a273abd7b69b3f2_Jg745JIhzf.png?lazyload=true&width=652&height=1386&maxWidth=300)
+   
+   - 点击 **JSAP - getSystemInfo**，查看本机信息。
+     
+     ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/50682d7afe16c9e36f19ed5c3d2577bd_9XWSjw6Kgg.png?lazyload=true&width=664&height=1382&maxWidth=300)
+     
+   - 点击 **JSAPI - showActionSheet**，查看示例选项卡。
+   
+     ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a257e27bc9cebb59085b3e349d4448f8_FP65hBuHep.png?lazyload=true&width=672&height=1386&maxWidth=300)
+     
+   - 点击 JSAPI - previewImage，查看示例图片。
+   
+     ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b3fbafb6f43522d7e8515868e1381868_PSJrKXTToV.png?lazyload=true&width=666&height=1422&maxWidth=300)

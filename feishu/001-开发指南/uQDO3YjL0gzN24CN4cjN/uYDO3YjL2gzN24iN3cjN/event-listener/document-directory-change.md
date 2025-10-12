@@ -1,0 +1,33 @@
+<!--
+title: 文档目录变化
+id: 6913781733687427073
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/event-listener/document-directory-change
+updatedAt: 1753959811000
+source: https://open.feishu.cn/document/common-capabilities/web-components/uYDO3YjL2gzN24iN3cjN/event-listener/document-directory-change
+-->
+# 文档目录变化
+## 示例
+```js
+// npm
+myComponent.register(DocComponentEvent.DIRECTORY_CHANGE, function(directoryEntryList) {
+  // ...
+});
+
+// sdk
+myComponent.register('DIRECTORY_CHANGE', function(directoryEntryList) {
+  // ...
+});
+```
+
+
+## 返回
+|属性|	类型|	说明|
+| ---|----- | ------- | 
+|directoryEntryList|	Array |文档目录列表
+
+### directoryEntry
+|属性|	类型|	说明|
+| ---|----- | ------ | 
+|anchor|	String |	锚点 hash 值 （初始化时获取的数据不包含此项）
+|text|	String| 目录标题
+|indentLevel|	Number|	缩进等级|

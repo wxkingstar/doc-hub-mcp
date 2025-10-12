@@ -1,0 +1,266 @@
+<!--
+title: 机器人支持外部群和外部用户单聊
+id: 7377374745213288452
+fullPath: /uAjLw4CM/ukzMukzMukzM/develop-robots/add-bot-to-external-group
+updatedAt: 1741933598000
+source: https://open.feishu.cn/document/develop-robots/add-bot-to-external-group
+-->
+# 机器人支持外部群和外部用户单聊
+
+如果你希望把应用机器人添加到外部群，或者与外部租户的用户进行单聊，则可以为机器人开启对外共享能力。对外共享能力目前仅支持企业自建应用。
+
+:::html
+<md-alert type="warn">企业必须完成企业法人认证或加盖公章授权书认证（团队认证不支持）才可以使用应用对外共享能力。了解飞书认证参见[飞书认证介绍](https://www.feishu.cn/hc/zh-CN/articles/360034114413)。</md-alert>
+:::
+
+
+## 功能介绍
+
+企业在进行业务沟通时，可能面临跨租户沟通的场景。例如上下游企业的成员沟通、企业与外部客户之间的沟通等。在这些场景中，企业可以开发一个允许对外共享的机器人，利用机器人能力高效完成沟通协作。开启对外共享的机器人支持以下功能：
+- 添加在外部群，实现拉人入群、推送消息、响应群成员消息等功能。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1d2c14b5270c0386a26a0a7ee5c929d0_XrPc91wlgH.png?height=1578&lazyload=true&maxWidth=600&width=1824)
+
+- 与外部用户单聊。通过自动化流程实现用户可能面临的产品功能反馈、业务进展通知等需要。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5d48b1a50f42e9fa4c69a1249d5ecd8b_nzUiVTzPa1.png?height=1290&lazyload=true&maxWidth=600&width=1084)
+
+## 为应用配置对外共享能力
+
+你需要为应用开启对外共享能力，才可以将机器人添加到外部群或与外部用户单聊。本章节仅介绍应用如何配置对外共享能力，如需了解应用其他开发流程，可参考[企业自建应用开发流程](/ssl:ttdoc/home/introduction-to-custom-app-development/self-built-application-development-process)。
+
+### 使用限制
+
+- 仅企业自建应用可开启对外共享功能。商店应用不支持。
+- 开启对外共享能力的机器人，在调用 OpenAPI 时存在限制条件。详情参考本文的 **OpenAPI 调用限制** 章节。
+- 如果企业自建应用开启了关联组织应用共享功能，则无法开启对外共享。
+    
+	关联组织应用共享功能用于将两个企业建立关联关系，共享使用一款自建应用。一般用于两个企业之间的跨企业业务协作场景。该功能在内测阶段，逐步开放使用。若未看到该功能入口，请耐心等待功能开放。
+
+
+### 注意事项
+
+- 在开发时建议基于权限最小化原则，仅为机器人开通必须的 API 权限，并在后续避免使用机器人对外发送企业内部的敏感数据。
+- 应用开启对外共享能力后，企业管理员可以在管理后台的应用管理功能中，选择关闭该应用的对外共享功能。详情参见[管理员查看和配置已安装应用](https://www.feishu.cn/hc/zh-CN/articles/157207073325)。
+
+### 操作步骤
+
+1. 在[开发者后台](https://open.feishu.cn/app)，进入需要开启对外共享能力的应用。
+2. 在应用左侧导航栏，选择 **应用发布** > **版本管理与发布**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4ed8dbb75ec2ecfda38484d71ade73f1_Pcr4C4rcpL.png?height=1248&lazyload=true&maxWidth=600&width=2882)
+3. 在 **版本管理与发布** 页面右上角，点击 **创建版本**。
+4. 在 **版本详情** 页面选中 **允许机器人被添加到外部群中使用**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/316dee667353cd28133dde6380c5b52e_GRPrTpfIsD.png?height=1294&lazyload=true&maxWidth=600&width=2874)
+5. 审核发布应用。
+    
+    确保完成其他应用配置后，在 **版本详情** 页面底部点击 **保存**，然后点击 **申请线上发布**。后续等待企业管理员完成应用审核，应用即发布上线。
+
+## OpenAPI 调用限制
+
+开启对外共享能力的机器人，在外部用户或者外部群下调用 OpenAPI 存在以下限制。
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:35%">场景</md-th>
+<md-th style="width:65%">限制</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>**以 user_access_token 调用 API**</md-td>
+<md-td>外部共享机器人无法获取外部用户身份（即外部用户的 user_access_token），因此无法以外部用户身份调用 API。</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>**以 tenant_access_token 调用 API**</md-td>
+<md-td>-   涉及外部群或外部用户单聊的 API（即[消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/introduction)与[群组](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/group/overview) API），系统支持大部分的 API 权限。详情参考下文 **消息与群组 API 权限限制** 章节。
+- 如果调用的 API 无需传入外部用户 ID，则可以正常调用。例如[创建文档](/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create)。其他的 API 如果需要传入外部用户 ID，则无法调用。
+
+</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+
+### 消息与群组 API 权限限制
+
+#### 注意事项
+
+- 由应用（对外共享机器人）[创建的外部群](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create)，不允许机器人作为群主，必须指定自然人为群主。
+- 对外共享机器人与外部用户单聊前、邀请外部用户进入外部群前，必须经过用户确认，使用户添加在机器人的[可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内。具体操作参见下文 **机器人与外部用户单聊或将外部用户邀请至群聊** 章节。确认后，机器人可以获取外部用户的 open_id，但无法通过 ID 查询外部用户的通讯录信息。
+- 消息与群组的历史版本 API 不支持外部群与外部用户，请勿使用历史版本 API。
+
+#### 支持的 API 权限
+
+为确保企业数据安全，对外共享机器人仅支持使用消息与群组中部分的 API 权限，详情如下表。
+
+**权限 key**                             | **权限名称**         | **备注**   |
+| -------------------------------------- | ---------------- | -------- |
+| im:message.group_at_msg:readonly       | 接收群聊中@机器人消息事件    | -       |
+| im:message:send_as_bot                 | 以应用的身份发消息        | -       |
+| im:message.p2p_msg:readonly            | 获取用户发给机器人的单聊消息   | -       |
+| im:chat.group_info:readonly            | 读取群信息            | 该权限已下线，已获得该权限的应用不受影响。详情参见[消息与群组「更新应用创建群聊的信息」、「读取群信息」等权限点下线](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/message-and-group-scope-removed)       |
+| im:message:update                      | 更新消息             | -       |
+| im:chat                                | 获取与更新群组信息        | -       |
+| im:chat:readonly                       | 获取群组信息           | -       |
+| im:message.group_at_msg                | 获取用户在群组中@机器人的消息  | 该权限已下线，已获得该权限的应用不受影响。详情参见[消息与群组「更新应用创建群聊的信息」、「读取群信息」等权限点下线](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/message-and-group-scope-removed)       |
+| im:message.p2p_msg                     | 获取用户发给机器人的单聊消息   | 该权限已下线，已获得该权限的应用不受影响。详情参见[消息与群组「更新应用创建群聊的信息」、「读取群信息」等权限点下线](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/message-and-group-scope-removed)       |
+| im:message                             | 获取与发送单聊、群组消息     | -       |
+| im:resource                            | 获取与上传图片或文件资源     | -       |
+| im:url_preview.update                 | 更新 URL 预览        | -       |
+| im:chat.access_event.bot_p2p_chat:read | 订阅访问机器人会话相关事件    | -       |
+| im:message:send_sys_msg                | 发送特定模板系统消息       | -       |
+| im:chat:moderation:write_only          | 操作群发言权限          | -       |
+| im:chat.members:bot_access             | 订阅机器人进、出群事件      | -       |
+| im:chat.widgets:read                   | 查看群小组件           | -       |
+| im:chat:update                         | 更新群信息            | -       |
+| im:chat.tabs:read                      | 查看群会话标签页         | -       |
+| im:chat.top_notice:write_only          | 操作群置顶            | -       |
+| im:chat.tabs:write_only                | 操作群会话标签页         | -       |
+| im:chat.moderation:read                | 查看群发言权限          | -       |
+| im:chat:create                         | 创建群              | -       |
+| im:chat:read                           | 查看群信息            | -       |
+| im:message:send_multi_users            | 给多个用户批量发消息       | -       |
+| im:message:send_multi_depts            | 给一个或多个部门的成员批量发消息 | -       |
+| im:message:recall                      | 撤回消息             | -       |
+| im:message:readonly                    | 获取单聊、群组消息        | -       |
+| im:chat.members:write_only             | 添加、移除群成员         | -       |
+| im:message.group_msg                   | 获取群组中所有消息（敏感权限）  | -       |
+| im:chat.menu_tree:read                 | 查看群菜单            | - |
+| im:chat.widgets:write_only             | 操作群小组件           | - |
+| im:chat.menu_tree:write_only           | 操作群菜单            | - |
+| im:message.pins:read                   | 查看 Pin 消息        | - |
+| im:message.reactions:write_only        | 发送、删除消息表情回复      | - |
+| im:chat.members:read                   | 查看群成员            | - |
+| im:message.reactions:read              | 查看消息表情回复         | - |
+| im:message.pins:write_only             | 添加、 取消 Pin 消息    | - |
+| im:chat.announcement:read              | 查看群公告信息          | - |
+| im:chat.announcement:write_only        | 更新群公告内容          | - |
+
+#### 不支持的 API 权限
+
+对外共享机器人不支持使用的消息与群组的 API 权限参见下表。
+
+**权限 key**                  | **权限名称**      | **备注** |
+| --------------------------- | ------------- | ------ |
+| im:message.groups           | 更新应用创建群聊的信息   | 该权限已下线。详情参见[消息与群组「更新应用创建群聊的信息」、「读取群信息」等权限点下线](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/platform-updates-/message-and-group-scope-removed)     |
+| im:message.urgent           | 发送应用内加急消息     | -     |
+| im:chat:operate_as_owner    | 更新应用所创建群的群信息  | -     |
+| im:user_agent:read          | 获取客户端用户代理信息   | -     |
+| im:chat:delete              | 解散群           | -     |
+| im:message.urgent:sms       | 发送短信加急消息      | -     |
+| im:message.urgent:phone     | 发送电话加急消息      | -     |
+| im:chat.managers:write_only | 添加、删除群管理员     | -     |
+| im:message.send_as_user     | 以用户身份发送消息     | 内测中的权限 |
+| im:chat.labels              | 查询、设置群组标签     | 内测中的权限 |
+| im:special_focus            | 获取特别关注信息      | 内测中的权限 |
+| im:usage_data               | 获取租户使用消息的效率信息 | 内测中的权限 |
+
+## 外部群或外部用户使用机器人
+
+已开发完成的具备对外共享能力的应用机器人，可以在飞书客户端内添加到外部群使用，或者与外部用户单聊。
+
+### 使用限制
+
+如果企业管理员关闭了用户的对外沟通权限，则该企业内的用户无法加入外部群，也无法与外部的对外共享机器人进行单聊。了解对外沟通权限参考[管理员设置成员对外沟通权限](https://www.feishu.cn/hc/zh-CN/articles/308867175966)。
+
+### 将机器人添加至外部群
+
+在飞书客户端的外部群聊内添加机器人时，支持添加群自定义机器人和开启对外共享的机器人。
+
+:::note
+- 如果用户需要将对外共享机器人添加到外部群，则该用户必须在[应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内，并且该用户在应用所属企业内而不是跨租户用户。
+- 将对外共享机器人添加到外部群的操作，在飞书客户端 V7.19 及以上版本开始支持。
+:::
+
+![b845ef0f-cec5-4de2-8f70-f2297797343f.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a9851022d0f89b87591d606b96c68877_9RZuZMceyI.gif?height=1086&lazyload=true&maxWidth=600&width=1910)
+
+### 机器人与外部用户单聊或将外部用户邀请至群聊
+
+:::note
+该操作在飞书客户端 V7.22 及以上版本开始支持。
+:::
+
+首次发起单聊时需要根据客户端弹窗提示完成确认，确认后即可与机器人单聊，同时也会被添加至机器人的[可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内。
+
+![8b0b582b-29bc-4dc4-8358-ec40298c9f2d.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/250129e49f3bb67b2345811fee8ccdbe_65c04IWEZ2.gif?height=1248&lazyload=true&maxWidth=600&width=1660)
+
+不同场景下确认方式不同：
+
+:::html
+<md-table>
+<md-thead>
+<md-tr>
+<md-th style="width:30%">场景</md-th>
+<md-th style="width:70%">说明</md-th>
+</md-tr>
+</md-thead>
+<md-tbody>
+
+<md-tr>
+<md-td>用户在外部群中点击机器人进行单聊</md-td>
+<md-td>点击机器人后，在弹窗内点击 **开启对话**，即可与机器人进行单聊。开启时可以查看机器人的开发者信息，可以在 **机器人权限** 区域点击 **查看**，获取机器人具备的权限信息。
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/694b0c2e6b2eb5da3fbb48cd93a76d9a_FqUYz5lOEP.png?height=858&lazyload=true&maxWidth=240&width=630)
+
+  
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>用户将机器人分享给其他用户</md-td>
+<md-td>
+1. 通过分享的机器人名片、Applink、二维码打开机器人。
+  
+  	**分享方式**：
+  
+   - 在飞书客户端内点击机器人头像，在卡片右上角点击 **分享** 按钮即可将机器人分享给他人。
+  
+		![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b794f079dc5ffe573b0b476dcc395893_78dbiHQgNc.png?height=692&lazyload=true&maxWidth=350&width=842)
+  
+   - 构建并分享机器人的 Applink，具体操作参见[打开机器人会话](/ssl:ttdoc/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-bot)。
+  
+2. 在弹窗内点击 **申请使用**。
+	
+ 	 ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ff3ef8dee7c0352cf0c79456327526ec_c3Nsg58MEx.png?height=394&lazyload=true&maxWidth=350&width=1156)
+3. 查看应用基本信息、权限以及注意事项，确认无误后点击 **开始使用**，即可进入与机器人的单聊页面。
+  
+  	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/72005b0487177549cf9b239a6cc5e922_wYDJOJB2ih.png?height=916&lazyload=true&maxWidth=350&width=1192) 
+</md-td>
+</md-tr>
+
+</md-tbody>
+</md-table>
+:::
+
+当外部用户主动与机器人单聊，并完成确认后，用户已被添加至机器人的[可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)内。此时机器人将支持以下操作：
+- 对外共享机器人主动与外部用户发送消息。例如，调用[发送消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口向用户推送消息。
+- 对外共享机器人[将用户拉入外部群聊](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)。（该操作在飞书客户端 V7.22 及以上版本开始支持）
+
+## 常见问题
+
+### 如何获取外部用户的 open_id？
+
+外部用户主动与对外共享机器人单聊时，会触发开放平台的事件。具体说明如下：
+
+1. 外部用户首次主动与对外共享机器人单聊时，需要在客户端弹窗内完成确认，确认后会直接进入与机器人的单聊会话页面，此时会触发[用户和机器人的会话首次被创建](/ssl:ttdoc/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/bot-events)事件。
+2. 后续，当外部用户主动与对外共享机器人单聊时，会触发[用户进入与机器人的会话](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-access_event/events/bot_p2p_chat_entered)事件。
+
+因此，作为对外共享机器人的开发者，你需要为机器人订阅 **用户和机器人的会话首次被创建** 或 **用户进入与机器人的会话** 事件，然后让外部用户主动与机器人单聊，即可接收事件获取用户的 open_id。
+
+### 外部用户单聊是否支持飞书个人版？
+
+支持。
+
+
+
+
+
+

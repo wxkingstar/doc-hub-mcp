@@ -1,0 +1,29 @@
+<!--
+title: 部门的层级不得超过 25 层
+id: 7254480975814819868
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/maximum-25-department-levels
+updatedAt: 1689075812000
+source: https://open.feishu.cn/document/platform-notices/breaking-change/maximum-25-department-levels
+-->
+# 部门的层级不得超过 25 层
+
+## 变更事项
+
+创建和更新部门时，部门的层级不得超过 25 层，也就是说一个部门最多能有 24 层的上级部门
+
+## 变更接口
+[修改部门部分信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch)
+
+[更新部门所有信息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update)
+
+## 生效日期
+
+2023年07月28日
+
+## 潜在影响
+
+若你的应用没有限制维护部门层级，在创建部门/更新部门时，维护第 26 层部门时将会报错，且无法成功；请及时调整代码逻辑，关注 API 报错信息
+
+## 解决方案
+
+根据 API 接口文档，对接口调用方式进行调整。如需适配协助，请联系技术支持

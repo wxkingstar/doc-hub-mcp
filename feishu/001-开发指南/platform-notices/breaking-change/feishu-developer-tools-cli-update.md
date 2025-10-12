@@ -1,0 +1,27 @@
+<!--
+title: 飞书开发者工具（命令行形态）升级提醒
+id: 7088557256375631873
+fullPath: /uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/feishu-developer-tools-cli-update
+updatedAt: 1650443250000
+source: https://open.feishu.cn/document/faq/breaking-change/feishu-developer-tools-cli-update
+-->
+# 飞书开发者工具（命令行形态）升级提醒
+### 变更事项
+为提升应用安全性，我们对飞书开发者工具进行了升级，发布了飞书开发者工具（命令行形式）的 V1.13.1 版本。
+
+<br>
+
+
+
+是否跟版：不跟版<br>
+预计生效时间：2022-4-28<br>
+
+### 潜在影响
+- 对于依然使用CLI 1.13.0以下版本的用户，使用CLI工具只能进行本地调试，无法完成真机预览和代码包上传
+
+
+### 解决方案
+- 为了不影响你的正常业务，请在 2022年4月27日24时 前将飞书开发者工具（命令行形式）升级至 V1.13.1 版本。若未能及时升级，V1.13.0 及以下版本的工具将只能进行本地调试，无法完成真机预览和代码包上传等任务。
+<br>
+- 具体操作可参考：[飞书开发者工具-命令行](/ssl:ttdoc/no_class/feishu-developer-tool---command-line)
+- 如需适配协助，请洽客服支持

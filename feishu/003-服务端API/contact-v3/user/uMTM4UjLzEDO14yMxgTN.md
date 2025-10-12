@@ -1,0 +1,314 @@
+<!--
+title: 搜索用户
+id: 6907569524100349953
+fullPath: /ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
+updatedAt: 1744859589000
+source: https://open.feishu.cn/document/server-docs/contact-v3/user/search-users
+-->
+# 搜索用户
+
+通过用户名关键词搜索其他用户的信息，包括用户头像、用户名、用户所在部门、用户 user_id 以及 open_id。
+
+## 注意事项
+
+- 仅支持通过用户身份（user_access_token）调用该接口。
+- 无法搜索到外部企业或已离职的用户。
+
+
+## 请求
+
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>	
+https://open.feishu.cn/open-apis/search/v1/user</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>GET</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>支持的应用类型</md-th>
+      <md-td>
+      <md-app-support types="custom,isv"></md-app-support>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>
+ 权限要求
+ <md-tooltip type="info">调用该 API 所需的权限。开启其中任意一项权限即可调用</md-tooltip>
+</md-th>
+      <md-td>
+        <md-perm name="contact:user:search" desc="搜索用户" support_app_types="custom,isv" tags="">搜索用户</md-perm>
+      </md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>
+            字段权限要求
+            <md-tooltip type="info">接口返回的部分字段受权限控制，开启字段权限才可获取对应字段数据；如无需获取这些字段，则无需开启。</md-tooltip>
+            <div style="color: rgb(100, 106, 115);font-size: 12px;line-height: 20px;white-space: pre-line;font-weight: 500;padding-top: 4px;">根据要获取的字段开启相应权限</div>
+      </md-th>
+      <md-td>
+        <md-perm name="contact:user.employee_id:readonly" desc="获取用户 user ID" support_app_types="custom" tags="">获取用户 user ID</md-perm>
+      </md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-user">user_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer u-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：如何选择与获取 access token](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-choose-which-type-of-token-to-use)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 查询参数
+
+:::html
+<md-dt-table>
+  <md-dt-thead>
+      <md-dt-tr>
+      <md-dt-th style="width: 35%;">名称</md-dt-th>
+      <md-dt-th style="width: 13%;">类型</md-dt-th>
+      <md-dt-th style="width: 15%;" filters="是,否" >必填</md-dt-th>
+      <md-dt-th style="width: 37%;" >描述</md-dt-th>
+      </md-dt-tr>
+  </md-dt-thead>
+  <md-dt-tbody>
+
+
+<md-dt-tr level="0">
+	<md-dt-td>
+	<md-text type="field-name" >query</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	<md-text type="field-type" >string</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	是
+	</md-dt-td>
+	<md-dt-td>
+	搜索关键词，接口通过传入的关键词搜索相匹配的用户名。
+	</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="0">
+	<md-dt-td>
+	<md-text type="field-name" >page_size</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	<md-text type="field-type" >int</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	否
+	</md-dt-td>
+	<md-dt-td>
+分页大小，用于限制当前请求所返回的数据条目数。
+      
+- **最小值**：1
+- **最大值**：200
+- **默认值**：20
+	</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="0">
+	<md-dt-td>
+	<md-text type="field-name" >page_token</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	<md-text type="field-type" >string</md-text>
+	</md-dt-td>
+	<md-dt-td>
+	否
+	</md-dt-td>
+	<md-dt-td>
+分页标识，首次调用该接口时无需填写。如果返回值中包含了 page_token 值，则可以使用该值继续调用本接口，并将该值传入查询参数 page_token 中，以获取下一页数据。
+	</md-dt-td>
+</md-dt-tr>
+
+
+  </md-dt-tbody>
+</md-dt-table>
+:::
+
+## 响应
+### 响应体
+
+:::html
+<md-dt-table>
+<md-dt-thead>
+<md-dt-tr>
+<md-dt-th>字段</md-dt-th>
+<md-dt-th>数据类型</md-dt-th>
+<md-dt-th>描述</md-dt-th>
+</md-dt-tr>
+</md-dt-thead>
+<md-dt-tbody>
+
+<md-dt-tr level="0">
+<md-dt-td>code</md-dt-td>
+<md-dt-td>int</md-dt-td>
+<md-dt-td>返回码，非 0 表示失败。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="0">
+<md-dt-td>msg</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>返回码对应的描述。例如返回 `ok` 表示成功。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="0">
+<md-dt-td>data</md-dt-td>
+<md-dt-td>\-</md-dt-td>
+<md-dt-td>\-</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="1">
+<md-dt-td>has_more</md-dt-td>
+<md-dt-td>boolean</md-dt-td>
+<md-dt-td>是否还有更多数据，当返回值为 true 时，表示存在下一页，即 page_token 不为空。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="1">
+<md-dt-td>page_token</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>分页标识，存在下一页（has_more 为 true）时会返回该值。下次请求带上此标识可以获取下一页的用户数据。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="1">
+<md-dt-td>users</md-dt-td>
+<md-dt-td>object</md-dt-td>
+<md-dt-td>搜索到的用户列表。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="2">
+<md-dt-td>avatar</md-dt-td>
+<md-dt-td>avatar_info</md-dt-td>
+<md-dt-td>用户的头像信息。
+  
+**注意**：为避免 URL 更新，头像 URL 不建议保存下来长期使用，推荐你在需要使用头像 URL 时再调用本接口进行获取。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="3">
+<md-dt-td>avatar_72</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的头像图片 URL，大小 72×72 px。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="3">
+<md-dt-td>avatar_240</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的头像图片 URL，大小 240×240 px。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="3">
+<md-dt-td>avatar_640</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的头像图片 URL，大小 640×640 px。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="3">
+<md-dt-td>avatar_origin</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的头像图片 URL，原始大小。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="2">
+<md-dt-td>department_ids</md-dt-td>
+<md-dt-td>string[]</md-dt-td>
+<md-dt-td>用户所在的部门 ID 列表。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="2">
+<md-dt-td>name</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户名。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="2">
+<md-dt-td>open_id</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的 open_id。open_id 是用户 ID 类型中的一种，详细介绍可参见[用户身份概述](/ssl:ttdoc/home/user-identity-introduction/introduction)。</md-dt-td>
+</md-dt-tr>
+
+<md-dt-tr level="2">
+<md-dt-td>user_id</md-dt-td>
+<md-dt-td>string</md-dt-td>
+<md-dt-td>用户的 user_id。user_id 是用户 ID 类型中的一种，详细介绍可参见[用户身份概述](/ssl:ttdoc/home/user-identity-introduction/introduction)。
+
+**说明**：只有已申请 [**获取用户 UserID**](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN) API 权限的 **企业自建应用** 会返回该字段。</md-dt-td>
+</md-dt-tr>
+
+</md-dt-tbody>
+</md-dt-table>
+:::
+
+### 响应体示例
+```json
+{
+    "code": 0,
+    "msg": "ok",
+    "data": {
+        "has_more": true,
+        "page_token": "20",
+        "users": [
+            {
+                "avatar": {
+                    "avatar_72": "https://example.com/static-resource/v1/d1ca00148ad2c2cf1111~72x72.png",
+                    "avatar_240": "https://example.com/static-resource/v1/d1ca00148ad2c2cf1111~240x240.png",
+                    "avatar_640": "https://example.com/static-resource/v1/d1ca00148ad2c2cf1111~640x640.png",
+                    "avatar_origin": "https://example.com/static-resource/v1/d1ca00148ad2c2cf1111~noop.png"
+                },
+                "department_ids": [
+                    "od-c02cc3b682a71cdb3a4f14fc4cdb1234"
+                ],
+                "name": "zhangsan",
+                "open_id": "ou_7d8a6e6df7621556ce0d21922b674321",
+                "user_id": "02a11111"
+            }
+        ]
+    }
+}
+```
+### 错误码
+
+更多错误码信息，参见[通用错误码](/ssl:ttdoc/ukTMukTMukTM/ugjM14COyUjL4ITN)。

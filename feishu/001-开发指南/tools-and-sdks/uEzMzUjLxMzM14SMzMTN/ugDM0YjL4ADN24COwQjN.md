@@ -1,0 +1,303 @@
+<!--
+title: 常见问题
+id: 6907569744329916417
+fullPath: /uYjL24iN/ugDM0YjL4ADN24COwQjN
+updatedAt: 1724396173000
+source: https://open.feishu.cn/document/tools-and-resources/development-tools/faq
+-->
+# FAQ
+
+## Q:如何查看 web-view 组件内的网络请求
+
+A :假设我们需要调试的 web-view 是这样的
+
+```html
+<web-view src="https://open.feishu.cn/m/" bindload="loadDone" binderror="errorLoad" progressbar-color="#CC3333"></web-view>
+```
+
+页面展示效果如下
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/cca88673411b95a0f428ecf209c8f338_pqFp8yuEUu.png?height=674&lazyload=true&width=1640)
+
+对此我们期望调试该页面，你只需要三步即可:
+
+1 打开左上角调试开发者工具
+
+![open-devtool.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/03da104d50fb4323067f085c10ba81d1_ZjyeLvG21b.png?height=512&lazyload=true&width=1100)
+
+2 接着在控制台(console)中搜寻 src 携带关键字（示例为open.feishu）的webview
+
+例如： $(webview[src*="open.feishu"])
+
+可以看到此时模拟器界面的webv-view标签处于选中状态，说明webview选定成功了
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/d542cf55caf6d3984b2d282461722b10_COjN3EBpgI.png?height=694&lazyload=true&width=1640)
+
+3 接着使用选中的元素打开其调试窗口
+
+在控制台中输入 ：$('webview[src*="open.feishu"]').openDevtools()
+
+然后会弹出一个新的调试窗口，这个调试窗口就是webview对应的调试窗口了，你可以切换到network面板查看网络请求
+
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/418547ba36f2e9933d69ab4bd3a6c500_Im4LWsE3uR.png?height=738&lazyload=true&width=1640)
+
+## Q: "Error: [BABEL] unknown: Preset /* your preset */ requires a filename to be set when babel is called directly"
+
+影响版本：```opdev 1.10.0```   
+出现如下错误：  
+![Lark20210302-204046.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3eaad8962466c5e1ad44b8872e0ad37e_z72LqyRQHO.png?height=286&lazyload=true&width=750)  
+**A:**  
+检查 opdev 命令执行所在的路径下是否有 babel 相关配置，该配置会和 v1.10.0 版本的 opdev 编译小程序用的 babel 配置产生冲突，换个干净的目录执行 opdev 命令；   
+
+
+## Q:飞书更新到3.41版本后，如何在PC端调试小程序
+**A：** 
+:::note
+飞书3.44版本及以后不可使用该功能，建议[调试指南](/ssl:ttdoc/uYjL24iN/ugDOzYjL4gzM24CO4MjN)中的真机调试功能。
+:::
+方案1，打开「调试工具」-->点击「预览」-->选择「PC端｜-->勾选「debug」-->选择合适的打开方式即可
+
+方案2，在预览时添加 ==-i== 参数打开调试面板，例如 ==opdev preview ./ -p pc -i==
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/44e09f09d34040d6030e96a91d3d114a_7cVltjuXUN.png?height=1256&lazyload=true&width=1138)
+
+## Q：在安装的过程中遇到“permission denied”报错应该如何解决？
+
+```js
+npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules/@bdeefe/opdev-cli/node_modules/electron-to-chromium'
+npm ERR!  [Error: EACCES: permission denied, access '/usr/local/lib/node_modules/@bdeefe/opdev-cli/node_modules/electron-to-chromium'] {
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'access',
+npm ERR!   path: '/usr/local/lib/node_modules/@bdeefe/opdev-cli/node_modules/electron-to-chromium'
+npm ERR! }
+npm ERR!
+npm ERR! The operation was rejected by your operating system.
+npm ERR! It is likely you do not have the permissions to access this file as the current user
+npm ERR!
+npm ERR! If you believe this might be a permissions issue, please double-check the
+npm ERR! permissions of the file and its containing directories, or try running
+npm ERR! the command again as root/Administrator.
+```
+
+**A：**
+根据报错信息，可能是因为你当前的用户身份没有权限访问 ==/usr/local/lib== 目录。
+你可以执行以下命令为你添加该目录的访问权限：
+
+```js
+$ sudo chown -R [whoami] [no_permission_path]
+# [whoami] 是你自身的用户名称，可通过 'whoami' 命令获取
+# [no_permission_path] 是报错信息中的 'path' 字段指向的路径
+# 例如： sudo chown -R zhangsan /usr/local/lib
+```
+
+## Q：在安装的过程中需要“xcodebuild”应该如何解决？
+
+![图片名称](//sf3-cn.feishucdn.com/obj/website-img/2238a739517b8a314015ad3c56e23be8_Pld4S69e2H.png?height=630&lazyload=true&width=750)
+
+**A：**
+说明你未安装 ==xcode-select==，请确保你的 MacOS 上安装了 ==xcode-select==。
+
+```js
+# 安装 xcode-select
+$ xcode-select --install
+
+# 若已安装，则提示以下信息
+xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+
+# 若未安装，则按照系统提示进行安装，预计花费2分钟
+```
+
+## Q：升级安装新版开发者工具遇到“ENOTEMPTY”报错应该如何解决？
+
+```
+// ...
+npm ERR! ENOTEMPTY: directory not empty, rename 'Users/{username}/.nvm/versions/node/v15.0.1/lib/node_modules/@bdeefe/opdev-cli' -> 'Users/{username}/.nvm/versions/node/v15.0.1/lib/node_modules/@bdeefe/.opdev-cli-StlH1tuM'
+// ...
+```
+
+**A：**
+删除报错信息中的隐藏文件 ==@bdeefe/.opdev-cli-StlH1tuM==：``rm -rf xxx/@bdeefe/.opdev-cli-xxx``，并重试升级安装。
+
+## Q: 下载了扩展名为 .tgz 的安装包，我该如何安装它？
+
+**A：**
+npm 可以安装以 .tar，.tar.gz 或 .tgz 作为扩展名的 tarball 类型的安装包：
+
+- npm install <tarball file> -g --registry https://registry.npm.taobao.org
+
+<tarball file> 是安装包在文件系统上的路径。
+
+例：
+
+```
+npm install ./bdeefe-opdev-cli-1.0.0.tgz -g --registry https://registry.npm.taobao.org
+```
+
+## Q：用模拟器进行调试时，当前不支持的组件有哪些？
+
+**A：** 具体可参考 [小程序API的调试方法概览](/ssl:ttdoc/uYjL24iN/uEzMzUjLxMzM14SMzMTN/how-to-debug-apis-of-gadget)，不支持的组件有 rich-text、editor；
+
+用模拟器进行调试时，组件仅支持部分功能的有：
+
+- web-view：不支持==bindmessage==方法；
+
+## Q：用模拟器进行调试时，当前不支持的 API 有哪些？
+
+**A：**  具体可参考 [小程序API的调试方法概览](/ssl:ttdoc/uYjL24iN/uEzMzUjLxMzM14SMzMTN/how-to-debug-apis-of-gadget)不支持 API 有：
+
+```js
+# 蓝牙相关API均未支持
+openBluetoothAdapter
+closeBluetoothAdapter
+getBluetoothAdapterState
+startBluetoothDevicesDiscovery
+stopBluetoothDevicesDiscovery
+onBluetoothAdapterStateChange
+offBluetoothAdapterStateChange
+onBluetoothDeviceFound
+offBluetoothDeviceFound
+getConnectedBluetoothDevices
+getBluetoothDevices
+# 飞书相关
+sendMessageCard
+mailto
+openDocument
+```
+
+
+部分支持的 API 有：
+
+```js
+openSchema # schema参数仅支持http/https协议，不支持用于打开小程序的sslocal协议
+createInnerAudioContext # startTime、obeyMuteSwitch参数未支持
+getRecorderManager # 暂不支持 mp3 和 acc，只支持 base64 格式；不支持 onFrameRecorded 回调
+```
+
+## Q：如何在预览、上传指令中使用 Personal Token？
+
+**A：** 首先创建 Token：
+
+```shell
+$ opdev token create
+Token generated successfully:
+00000000-0000-0000-0000-000000000000
+```
+
+然后根据上面生成的 token，设置环境变量：
+
+```shell
+$ export OPDEV_TOKEN=00000000-0000-0000-0000-000000000000
+$ export OPDEV_ENV=feishu #可选设置，默认为feishu
+```
+
+最后使用 ==preview==，==upload== 命令：
+
+```shell
+$ opdev preview ./ -p mobile
+```
+
+> 注意：在设置了 ==OPDEV_TOKEN== 环境变量之后，当前终端中的 =opdev login|logout|whoami|token|tenant== 命令将失效，其他终端不受影响
+
+## Q：报网络错误：status code 400，怎么办？
+
+**A：** 可能是在终端开启了代理
+
+## Q：报网络错误：status code 500，怎么办？
+
+**A：** 可能是登录态过期，尝试退出再登录进行重试
+
+## Q：版本升级后，打开模拟器之后遇到报错，怎么办？
+
+![模拟器报错](https://sf3-cn.feishucdn.com/obj/website-img/17a1a323dda6a9cbdd3c7f9a965580f9_k54OHwKsja.png?height=750&lazyload=true&width=627)
+
+**A：** 可能是低版本的缓存数据与新版本的开发者工具不兼容导致的，可以尝试执行如下命令删除开发者工具的缓存文件，该命令会清除你的缓存。
+
+```
+rm -rf ~/.mpdev/storage.json
+```
+
+## Q：执行 preview 命令时一直在 Compressing，怎么办？
+
+**A：** 检查你的工具以及 node 版本，工具 v1.2.0 以下版本 在 node v15 上可能会遇到这个问题，请更新开发者工具的版本或者降级 node 版本至重新安装工具重试。
+
+## Q：如何查看小程序模拟器中的网络请求？
+
+**A：** 业务网络请求在 Network 面板都能看到，如果需要用 charles 抓包，需要在终端中设置：
+```
+export http_proxy="http://127.0.0.1:8888"
+export https_proxy="http://127.0.0.1:8888"
+```
+8888 为 charles 代理的端口号
+
+## Q：执行 devtools 命令报错：Port should be >= 0 and < 65536. Received 65536，怎么办？
+
+**A：** 可能是电脑系统不识别 ==localhost==，需要在 “hosts” 配置文件中定义它。
+
+1. 找到 “hosts” 配置文件的路径：
+
+    - MacOS 或者 Linux：==etc/hosts==
+
+    - Windows：==c:\ Windows \System32\Drivers\ etc \ hosts==
+
+2. 将以下内容覆盖该文件
+
+```
+127.0.0.1 localhost
+255.255.255.255 broadcasthost
+::1 localhost
+fe80::1%lo0 localhost
+```
+
+## Q: 编译报错报文件找不到错误，怎么办？
+```
+using some file not exist in /path/to/a.ttml 
+/path/to/a.ttml need /path/to/b.wxml but not found 
+```
+**A:** 
+- 查看文件引入路径和文件实际名称是否一致，是否存在大小写不一致情况。       
+- 如果引用的路径是来自 `npm` 包，需要开启`使用 npm` 功能，见 [npm 支持](/ssl:ttdoc/uYjL24iN/uEzMzUjLxMzM14SMzMTN/npm-support)。                              
+- 编译工具会精确匹配到依赖的文件后缀，出现此类情况是因为 `/path/to/a.ttml` 文件中出现了类似如下的代码 `<import src="/path/to/b.wxml" />`，但是实际的文件为`/path/to/b.ttml`，后缀不一致导致错误。如果你是使用第三方框架（例如 Taro）进行开发，请升级到对应最新的框架。如果是自己组织代码，请调整引用和实际文件相匹配。
+ 
+## Q: 在 Windows 系统中如何运行 shell 脚本？
+**A:** Windows 系统需要先安装[Git Bash](https://git-scm.com/downloads)，然后使用 Git Bash 运行脚本
+
+## Q: 在 macOS 系统下运行独立安装包提示“不受信任的开发者”，怎么办？
+**A:** 如遇到以下问题
+ 
+![图片名称](//sf3-cn.feishucdn.com/obj/website-img/20963c27ace67b3dcc0ce591a903c367_utw5yzm4Mt.png?height=174&lazyload=true&width=400)
+ 
+请在“设置-安全性与隐私”中点击“仍要打开”
+ 
+![图片名称](//sf3-cn.feishucdn.com/obj/website-img/7a79b5624c2d94d5ec1d532b02cf280f_6ofBoFzEAA.png?height=343&lazyload=true&width=400)
+
+
+## Q：开发者工具中设置了「使用系统代理」，更新系统代理后，代理未生效
+**A：** 为了降低耗时，飞书工具层做了系统代理相关配置的缓存。为了解决在手动设置代理内配置的系统代理更新未生效的问题，你需要先切换到「不使用任何代理」或「手动设置自定义代理」，触发网络请求后再切回到「使用系统代理」
+  
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/47cd94ec1e016d667d7ec29f2431134c_kH3FfG8vmF.png?height=688&lazyload=true&maxWidth=600&width=1160)
+
+
+:::note
+如果以上参考未能解决你的问题，请执行==opdev feedback==命令打开“飞书开发者工具服务台”与我们联系。
+:::
+  
+## Q：真机调试打开，应用加载失败
+**A:** 如果应用长时间加载，显示小程序加载失败。请确认本机 ip 是否正确。
+  
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ffd2a7dbbe1c613054c62538711ab0b5_mORg1qjNrL.png?height=514&lazyload=true&width=283)
+  
+关闭或者修改其它网络配置，保证开发者工具获取的本地 ip 和手机在同一网络下。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8c8326716b3da3df821b797cfb09033c_XD3IfVNK0E.png?height=519&lazyload=true&width=567)
+ 
+## Q：node-gyp 编译错误
+**A：** 开发者工具目前使用了一些原生插件需要根据用户的运行平台做实时编译，所以需要node-gyp进行编译。node-gyp 根据平台（windows、mac）不同又需要不同的基础工具，下面分类说明：
+#### windows：
+您需要安装python 2.7.15版本，以及安装微软的编译工具，使用管理员启动命令行终端，然后运行 `npm install --global  windows-build-tools@4.0.0`
+  
+####  mac:
+您需要安装 XCode Command Line Tools，通过运行如下命令`xcode-select --install`

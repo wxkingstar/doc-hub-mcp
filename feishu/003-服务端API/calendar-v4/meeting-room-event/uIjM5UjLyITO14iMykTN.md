@@ -1,0 +1,179 @@
+<!--
+title: 查询会议室日程主题和会议详情
+id: 6922096654371831836
+fullPath: /ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
+updatedAt: 1712716406000
+source: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/
+-->
+# 查询会议室日程主题和会议详情
+
+调用该接口使用日程的 Uid 和 Original time 查询会议室日程主题与详情。 
+
+:::note
+日程 ID（event_id）格式为 `<Uid>_<Original time>`，因此你可以通过 event_id 获取日程的 Uid 和 Original time。例如，日程 ID 为 `c32537e6-e0a8-4506-b42f-47440655cdb4_0` ，则 Uid 为 `c32537e6-e0a8-4506-b42f-47440655cdb4`、Original time 为 `0`。
+:::
+
+## 请求
+:::html
+<md-table>
+  <md-thead>
+  <tr>
+      <md-th>基本</md-th>
+      <md-th></md-th>
+  </tr>
+  </md-thead>
+  <md-tbody>
+    <md-tr>
+      <md-th>HTTP URL</md-th>
+      <md-td>https://open.feishu.cn/open-apis/meeting_room/summary/batch_get</md-td>
+    </md-tr>
+    <md-tr>
+      <md-th>HTTP Method</md-th>
+      <md-td>POST</md-td>
+    </md-tr>
+
+   <md-tr>
+     <md-th>支持的应用类型</md-th>
+      <md-td>
+	  <md-app-support types="custom"></md-app-support>
+      </md-td>
+   </md-tr>
+
+
+    
+    
+    <md-tr>
+      <md-th>
+ 权限要求
+ <md-tooltip type="info">调用该 API 所需的权限。开启其中任意一项权限即可调用</md-tooltip>
+</md-th>
+      <md-td>
+<md-perm name="calendar:room" desc="管理会议室信息" support_app_types="custom" tags="">管理会议室信息</md-perm>
+</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+### 请求头
+:::html
+<md-table> 
+  <md-thead> 
+    <md-tr> 
+      <md-th style="width: 18%;">名称</md-th>  
+      <md-th style="width: 15%;">类型</md-th>  
+       <md-th style="width: 15%;">必填</md-th>  
+      <md-th>描述</md-th> 
+    </md-tr> 
+  </md-thead>  
+  <md-tbody> 
+    <md-tr> 
+      <md-td>Authorization</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+      	<md-td>
+<md-tag mode="inline" type="token-tenant">tenant_access_token</md-tag>
+ 
+**值格式**："Bearer `access_token`"
+
+**示例值**："Bearer t-7f1bcd13fc57d46bac21793a18e560"
+          
+ [了解更多：如何选择与获取 access token](/ssl:ttdoc/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-choose-which-type-of-token-to-use)
+	</md-td>
+</md-tr>
+     <md-tr> 
+      <md-td>Content-Type</md-td>  
+      <md-td>string</md-td>  
+      <md-td> 是 </md-td> 
+     <md-td>**固定值**："application/json; charset=utf-8"</md-td>
+</md-tr>
+   
+  </md-tbody> 
+</md-table>
+:::
+
+### 请求体
+
+| **参数** | **参数类型** | **必须** | **说明**                                                     |
+| -------- | ------------ | -------- | ------------------------------------------------------------ |
+| EventUids |    -    | 是       | 需要查询的日程 Uid 和 Original time 列表。                                      |
+| ∟uid | string       | 是       | 日程的唯一 ID。 |
+| ∟original_time | int       | 是       | 日程实例原始时间。非重复性日程和重复性日程，此处传 0；重复性日程的例外日程，需要传入对应的 original_time 值（时间戳类型）。|
+
+### 请求体示例
+
+```json
+{
+	"EventUids":[
+		{
+			"uid":"a04dbea1-86b9-4372-aa8d-64ebe801be2a",
+			"original_time":0
+		},
+        {
+			"uid":"d7a44c9b-7ae0-4a97-bf80-b4f050cedffa",
+			"original_time":0
+		}
+	]
+}
+```
+
+## 响应
+
+### 响应体
+
+| **参数**    | **参数类型** |**说明**                                             |
+| ----------- | -------- |---------------------------------------------------- |
+| code        | int|返回码，非 0 表示失败。                                |
+| msg         | string|返回码的描述，`success` 表示成功，其他为错误提示信息。 |
+| data        | -|返回信息。                                         |
+| ∟EventInfos   | -|查询到的日程信息。         |
+| ∟∟uid   | string|日程的唯一 ID。         |
+| ∟∟original_time   | int|日程实例原始时间。非重复性日程和重复性日程，此处为 0；重复性日程的例外日程，此处为对应的 original_time 值（时间戳类型）。|
+| ∟∟summary   | string|日程主题。  |
+| ∟∟vchat	  |	vhcat|视频会议信息。		|
+| ∟∟∟vc_type| string | 视频会议类型。 <br> **可选值有：**<br> - `vc`：飞书视频会议。取该类型时，vchat 内的其他字段均无效。<br> - `third_party`：第三方链接视频会议。取该类型时，仅生效 vchat 内的 icon_type、description、meeting_url 字段。<br> - `no_meeting`：无视频会议。取该类型时，vchat 内的其他字段均无效。<br>- `lark_live`：飞书直播。该值用于客户端，只读参数。<br>- `unknown`：未知类型。该值用于客户端做兼容使用，只读参数。|
+| ∟∟∟icon_type| string | 第三方视频会议 icon 类型。<br> **可选值有：** <br>- `vc`：飞书视频会议 icon<br>- `live`：直播视频会议 icon <br>-  `default`：默认 icon|
+| ∟∟∟description|string|第三方视频会议文案。|
+| ∟∟∟meeting_url|string|视频会议 URL。|
+| ∟ErrorEventUids   | - |没有查询到的日程信息。         |
+| ∟∟uid   | string |日程的唯一 ID。         |
+| ∟∟original_time   | int |日程实例原始时间。非重复性日程和重复性日程，此处为 0；重复性日程的例外日程，此处为对应的 original_time 值（时间戳类型）。|
+| ∟∟error_msg   | string |错误信息。   |
+
+### 响应体示例
+
+```json
+{
+    "code": 0,
+    "data": {
+        "ErrorEventUids": [],
+        "EventInfos": [
+            {
+                "original_time": 0,
+                "summary": "test",
+                "uid": "a04dbea1-86b9-4372-aa8d-64ebe801be2a",
+                "vchat": {
+                    "meeting_url": "https://vc.feishu.cn/j/935314044",
+                    "vc_type": "vc"
+                }
+            },
+            {
+                "original_time": 0,
+                "summary": "日程",
+                "uid": "d7a44c9b-7ae0-4a97-bf80-b4f050cedffa",
+                "vchat": {
+                    "meeting_url": "https://vc.feishu.cn/j/777110140",
+                    "vc_type": "vc"
+                }
+            }
+        ]
+    },
+    "msg": ""
+}
+```
+
+
+
+### 错误码
+
+可前往查阅[通用错误码](/ssl:ttdoc/ukTMukTMukTM/ugjM14COyUjL4ITN)。
+

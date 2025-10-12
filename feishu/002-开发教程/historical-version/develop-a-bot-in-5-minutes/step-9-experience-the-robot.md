@@ -1,0 +1,26 @@
+<!--
+title: 步骤四：体验机器人
+id: 7251512254597152796
+fullPath: /home/develop-a-bot-in-5-minutes/step-9-experience-the-robot
+updatedAt: 1730428287000
+source: https://open.feishu.cn/document/historical-version/develop-a-bot-in-5-minutes/step-9-experience-the-robot
+-->
+# 步骤四：体验机器人
+
+本教程使用的是测试版应用，因此需要使用测试企业的成员账号登录飞书客户端。
+
+## 操作步骤
+  
+1. 打开**飞书客户端**，搜索**机器人名称**，点击进入机器人对话框。
+      
+:::note
+若机器人应用没有出现对话框，请确认是否订阅了[接收消息](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件。
+:::
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/23cd3d38f46a887ada29a79f7e5d00e4_8nZpJG4jr6.png?height=530&lazyload=true&maxWidth=600&width=1114)
+    
+
+2. 在机器人对话框中发送任意消息，可体验机器人自动回复。
+
+  
+	![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/87fb74c7039c347c25352dd9b81b68cc_bcAJWsHoLm.png?height=1048&lazyload=true&maxWidth=600&width=1600)

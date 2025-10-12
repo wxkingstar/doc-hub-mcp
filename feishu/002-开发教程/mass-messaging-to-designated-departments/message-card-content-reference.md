@@ -1,0 +1,72 @@
+<!--
+title: 飞书卡片内容参考
+id: 7249288981966503937
+fullPath: /home/mass-messaging-to-designated-departments/message-card-content-reference
+updatedAt: 1732851119000
+source: https://open.feishu.cn/document/mass-messaging-to-designated-departments/message-card-content-reference
+-->
+# 飞书卡片内容参考
+
+[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM) OpenAPI 支持发送消息卡片（参数`msg_type`取值`interactive`时表示消息类型为消息卡片），本教程提供卡片模板供你参考。此外，你也可以使用[飞书卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs_tool_overview)，参考[飞书卡片搭建工具文档](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/feishu-cardkit-overview)，自定义配置指定样式的卡片。
+
+## 卡片效果
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a09c18f252b559cb86b49a228ced4e46_Hd6fntaTpW.png?height=1200&lazyload=true&maxWidth=700&width=1640)
+
+
+## 卡片 JSON 内容
+
+```json
+{
+  "config": {
+    "wide_screen_mode": true
+  },
+  "elements": [
+    {
+      "tag": "div",
+      "text": {
+        "content": "  📍 **什么是OKR？**\n📍 **为什么要用OKR？**\n📍 **如何让OKR为我所用？**\n\n加入**飞书直播间**，一起探索**OKR**如何**激发员工**，**驱动未来组织**！🚀 \n\n📬 填写问卷，分享OKR对个人的意义\n😍 想知道OKR如何促进团队协作？马上[入群围观](https://open.feishu.cn/)\n📝 用[OKR笔记模板](https://open.feishu.cn/)（桌面端打开），记录你的心得体会\n🙌 更有惊喜特邀嘉宾 8月1日起带你解读",
+        "tag": "lark_md"
+      }
+    },
+    {
+      "alt": {
+        "content": "",
+        "tag": "plain_text"
+      },
+      "img_key": "img_v2_1bffa7cf-f598-4be0-a170-42d9ab2axxxx",
+      "tag": "img"
+    },
+    {
+      "actions": [
+        {
+          "tag": "button",
+          "text": {
+            "content": "立即加入",
+            "tag": "plain_text"
+          },
+          "type": "primary",
+          "url": "https://open.feishu.cn/"
+        },
+        {
+          "tag": "button",
+          "text": {
+            "content": "查看活动指南",
+            "tag": "plain_text"
+          },
+          "type": "default",
+          "url": "https://open.feishu.cn/"
+        }
+      ],
+      "tag": "action"
+    }
+  ],
+  "header": {
+    "template": "blue",
+    "title": {
+      "content": " 🧿飞书未来公开课直播间，带你探索OKR",
+      "tag": "plain_text"
+    }
+  }
+}
+```

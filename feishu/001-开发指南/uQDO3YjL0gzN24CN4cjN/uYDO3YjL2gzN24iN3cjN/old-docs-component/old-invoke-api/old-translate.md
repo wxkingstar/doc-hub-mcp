@@ -1,0 +1,26 @@
+<!--
+title: 翻译文档
+id: 7472308462216380444
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-translate
+updatedAt: 1739789357000
+source: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/old-docs-component/old-invoke-api/old-translate
+-->
+# 翻译文档
+## 示例
+```js
+myComponent.invoke.translate('en').then(function(response) {
+  const { code, msg } = response;
+  // ...
+});
+```
+
+## 参数
+|属性|	类型|	是否必须	|说明|
+| ---|----- | -------|------ | 
+|language|	String	|否|	翻译语言（传空为退出翻译）
+
+## 返回
+|属性|	类型|	说明|
+| ---|----- | ------- | 
+|code|	Number |	0：成功 、 -1：失败 |
+|msg|	String |	信息 |

@@ -1,0 +1,153 @@
+<!--
+title: 气泡卡片
+id: 7477479883707219969
+fullPath: /tools-and-resources/design-specification/component---data-display/popover
+updatedAt: 1742375642000
+source: https://open.feishu.cn/document/design-specification/component---data-display/popover
+-->
+# 气泡卡片
+
+气泡卡片是当鼠标移入或者点击某个元素时，附近通过浮层显示目标内容的组件。
+
+
+## 使用规则
+
+当需要对目标元素进一步操作、或者需要了解目标元素的更多信息时使用。
+
+气泡卡片中可以包含标题、操作、复杂文本、图片、表单等内容。
+  
+  
+
+## 组成要素
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f1c09e0b5d074f50c933e2ba7f655474_AFfUoTRX70.png?height=866&lazyload=true&width=2048)
+
+1. **标题（可选）：** 气泡卡片的标题文本
+1. **正文文本：** 解释气泡卡片的含义或引导目标元素下一步的操作
+1. **图标（可选）：** 标题区或文本区左侧支持配置图标，辅助说明气泡卡片的属性
+1. **操作按钮（可选）：** 支持是否使用配置按钮，支持配置按钮的种类与数量
+1. **内容区（可选）：** 根据实际场景，内容区可配置输入框、单选多选、下拉选择等复杂内容
+1. **容器背景：** 用于承载该气泡卡片的容器背景
+1. **描边、投影：** 帮助组件建立空间层级关系，吸引用户的视觉焦点。气泡卡片适用 border-card 作为容器描边，适用 shadow-4-down 的投影
+1. **触发区域：** 通常是按钮、 icon、文字链或需要进一步说明的文本作为鼠标悬停或点击时的触发区域
+  
+  
+
+## 控件类型
+
+### 包含标题
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/08fb3e4df9c970e7ddc3a97b810fc552_ix6mzQjgyl.png?height=930&lazyload=true&width=2048)
+
+在展示目标元素的提示信息时支持配置表意图标，帮助用户快速识别提示的属性类别，常用提示类别包括普通提示（Info）、成功提示（Success）、警告提示（Warning）、错误提示（Error）。
+
+标题内容应尽量简短清晰，当展示不全时允许回行，建议最多不超过两行。
+  
+
+### 包含操作区
+
+- 多用于二次确认卡片，提示性弱于对话框Dialog
+
+- 操作区域的按钮种类基于实际场景决定，主操作按钮建议位于最右侧，按钮个数建议最多不超过三个。特殊场景下文字按钮或通栏按钮允许居中展示
+
+- 当按钮组的宽度超出气泡卡片内容宽度时，允许按钮换行展示，建议不超过两行
+
+- 需要对操作区进行明确的分隔时，建议使用通栏分割线
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a019599abb8d535dd231c39056c2203e_7h8Q04R04H.png?height=810&lazyload=true&width=2048)
+  
+
+### 包含复杂内容区
+
+Popover 是一个自由度较高的组件，卡片内部可以根据需求自行定义。
+
+卡片内容与容器间距推荐上下 padding 20px，左右 padding 24px，若无法满足需求，可根据4N原则使用4的倍数。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/86ab9ab8d499914b2e42d4f8c81ad96d_ih52M9vJ2l.png?height=1118&lazyload=true&width=2048)
+  
+  
+
+## 通用样式规则
+
+### 尺寸说明
+
+**文本：**
+- 正文文本内容统一使用标准字体的 14px Regular
+- 标题文本建议使用14px Medium。当气泡卡片内容复杂，需要强化标题时使用16px Medium
+
+**三角箭头：**
+- 使用 12px 宽，6px 高的三角箭头指示触发区域
+- 气泡卡片均建议使用三角箭头，对于目标元素有更明确的指向性。特殊场景可配置
+
+**触发区域：** 触发区域与气泡卡片间距 4px。
+
+#### 小尺寸
+
+
+- 通常应用于气泡卡片内容较少，以文本展示为主的场景
+
+- 气泡卡片实际宽度、高度需要根据内容来定义，推荐宽度 280px，最大宽度 420px，最大高度 480px，信息内容上下 padding 12px，左右 padding 16px
+
+- 在内容超过最大高度时支持滚动，建议使用通栏分割线分隔操作区与内容区
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8b20a8fef69b5349598c10cadecc925d_YY4OcBNnly.png?height=468&lazyload=true&width=2048)
+
+#### 大尺寸
+
+- 气泡卡片实际宽度、高度需要根据内容来定义，推荐宽度 280px，最大宽度 420px，最大高度 480px，信息内容上下 padding 20px，左右 padding 24px
+- 在内容超过最大高度时支持滚动，建议使用通栏分割线分隔操作区与内容区
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/972e1e9a40c751969d8cc0a50368409d_woKtyFp3y3.png?height=848&lazyload=true&width=2048)
+  
+
+### 颜色说明
+
+- 卡片背景 float，描边 border-card
+- 阴影：系统样式 shadow/S4/down
+- 主要文本：title
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/edfb853ac8e95a5def6d4c0feabba199_DHDCy9lOHo.png?height=412&lazyload=true&width=2048)
+  
+
+### 位置说明
+
+气泡出现位置与目标元素在页面中的位置有关。目标元素可以是按钮、图标、输入框、文本等任何内容，根据实际需求配置即可。
+
+气泡卡片的出现位置应尽量不对页面中其他重要操作或信息造成遮挡：
+
+- 当目标元素在页面空间充裕时，优先与目标元素居中对齐显示，遵循上下左右的出现顺序规则
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/daf673f9b4cc9c40dfe568aea442fd77_dWNWrnU1FZ.png?height=1046&lazyload=true&width=2560)
+
+- 当目标元素靠近页面四个角落，目标元素与气泡卡片边缘对齐，遵循上下左右的出现顺序规则
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96c8cf1a656d21e01efb1711195cf09c_fN1nDQUrZ4.png?height=796&lazyload=true&width=2560)
+
+- 三角箭头始终与目标元素中心对齐
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7c2de0a6038d7f364676fab03ad28897_TkoxJ7p5K4.png?height=578&lazyload=true&width=2560)
+
+气泡卡片与页面的安全边距为16px
+
+- 极端情况下（两侧空间均不足、或页面动态变化的情况），子级菜单与安全距离边缘对齐，三角箭头与触发区域中心对齐，根据容器尺寸和触发区域位置自适应
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/dca27e84f6cdee62b838e90ed6139099_Zf7duT96jL.png?height=680&lazyload=true&width=2128)
+  
+
+### 交互说明
+
+**悬停触发：**
+- 鼠标悬停在目标元素的触发区域上 100ms 后，气泡卡片出现
+- 鼠标移出触发区域 100ms 后、或完成气泡卡片上的操作后，气泡卡片消失
+- 气泡卡片出现后也作为触发区域，鼠标移入时，内容不消失
+
+**点击触发：**
+- 鼠标点击目标元素后，气泡卡片出现
+- 鼠标点击触发区域外的位置、或完成气泡卡片上的操作后，气泡卡片消失
+
+**加载中：**
+- 使用Spin加载，遵循Loading加载规范
+- 加载中的气泡卡片与加载完成的气泡卡片宽度一致
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8185c4902ac9ae98c1996d8a37cd100d_RnTp8ktCVL.png?height=316&lazyload=true&width=2000)
+  

@@ -1,0 +1,317 @@
+<!--
+title: 应用商店应用购买
+id: 7013346140632432668
+fullPath: /uAjLw4CM/ukTMukTMukTM/application-v6/event/public-app-purchase
+updatedAt: 1743508113000
+source: https://open.feishu.cn/document/server-docs/application-v6/event/public-app-purchase
+-->
+# 应用商店应用购买
+:::html
+<md-alert type="tip">
+了解事件订阅的使用场景和配置流程，请点击查看 [事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+</md-alert>
+:::
+用户购买应用商店付费应用成功后发送给应用ISV的通知事件。
+
+- 订阅条件：只有应用商店应用才能订阅此事件。自建应用无此事件。
+
+**回调示例：**
+```json
+{ 
+    "ts": "1502199207.7171419", //  事件发送的时间，一般近似于事件发生的时间。 
+    "uuid": "bc447199585340d1f3728d26b1c0297a",  // 事件的唯一标识
+    "token": "41a9425ea7df4536a7623e38fa321bae", // 即Verification Token 
+    "type": "event_callback", // 此事件此处始终为event_callback
+    "event": {         
+        "type":"order_paid",     // 事件类型 
+        "app_id": "cli_9daeceab98721136", //应用ID
+        "order_id": "6704894492631105539", // 用户购买付费方案时对订单ID 可作为唯一标识
+        "price_plan_id": "price_9d86fa1333b8110c",  //付费方案ID
+        "price_plan_type": "per_seat_per_month", // 用户购买方案类型 "trial" -试用；"permanent"-免费；"per_year"-企业年付费；"per_month"-企业月付费；"per_seat_per_year"-按人按年付费；"per_seat_per_month"-按人按月付费；"permanent_count"-按次付费；"active_end_date"-指定过期时间(用于定向方案类型)
+        "seats": 20, // 表示购买了多少人份。仅当按人付费时有值。当按企业付费时，该值总是0。
+        "buy_count":1, //套餐购买数量 目前都为1
+        "create_time": "1502199207",
+        "pay_time": "1502199209",
+        "buy_type": "buy", // 购买类型 buy普通购买 upgrade为升级购买 renew为续费购买
+        "src_order_id": "6704894492631105539", // 当前为升级购买时(buy_type 为upgrade)，该字段表示原订单ID，升级后原订单失效，状态变为已升级(业务方需要处理)
+        "order_pay_price":10000//订单支付价格 单位分，
+        "tenant_key": "2f98c01bc23f6847"//购买应用的企业标示
+    } 
+}
+```
+
+
+### 事件订阅示例代码
+
+事件订阅流程可参考：[事件订阅概述](/ssl:ttdoc/ukTMukTMukTM/uUTNz4SN1MjL1UzM)，新手入门可参考：[教程](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/introduction)
+
+:::html
+<div style="margin-bottom: 4px;display: flex;column-gap: 4px;align-items: center;">
+  <md-text type='field-name'>订阅方式</md-text>
+  <md-tooltip>
+    <ul class="md_render-table_solid md_render-table">
+      <li><b>长连接方式（推荐）：</b>无需发布到公网地址，在本地开发环境中即可接收事件回调，且无需处理加解密逻辑。</li>
+      <li><b>发送至开发者服务器：</b>需要提供服务器公网地址。</li>
+    </ul>
+  </md-tooltip>
+</div>
+:::
+
+:::html
+<md-code-tabs>
+  <md-code-tab-group title="使用长连接接收事件">
+	
+    <md-code-tab-panel sdkType="golang-sdk">
+package main
+
+import (
+	"context"
+	"fmt"
+
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/service/application/old"
+	larkws "github.com/larksuite/oapi-sdk-go/v3/ws"
+)
+
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/preparations
+func main() {
+	// 注册事件 Register event
+	eventHandler := dispatcher.NewEventDispatcher("", "").
+		OnCustomizedEvent("order_paid", func(ctx context.Context, event *larkevent.EventReq) error {
+			fmt.Printf("[ OnCustomizedEvent access ], type: message, data: %s\n", string(event.Body))
+			return nil
+		})
+
+	// 构建 client Build client
+	cli := larkws.NewClient("YOUR_APP_ID", "YOUR_APP_SECRET",
+		larkws.WithEventHandler(eventHandler),
+		larkws.WithLogLevel(larkcore.LogLevelDebug),
+	)
+
+	// 建立长连接 Establish persistent connection
+	err := cli.Start(context.Background())
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="python-sdk">
+# SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/python--sdk/preparations-before-development
+import lark_oapi as lark
+
+
+def do_customized_event(data: lark.CustomizedEvent) -> None:
+    print(f'[ do_customized_event access ], type: message, data: {lark.JSON.marshal(data, indent=4)}')
+
+# 注册事件 Register event
+event_handler = lark.EventDispatcherHandler.builder("", "") \
+    .register_p1_customized_event("order_paid", do_customized_event) \
+    .build()
+
+
+def main():
+    # 构建 client Build client
+    cli = lark.ws.Client("APP_ID", "APP_SECRET",
+                        event_handler=event_handler, log_level=lark.LogLevel.DEBUG)
+    # 建立长连接 Establish persistent connection
+    cli.start()
+
+if __name__ == "__main__":
+    main()
+
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="java-sdk">
+
+package com.example.sample;
+
+import java.nio.charset.StandardCharsets;
+import com.lark.oapi.core.request.EventReq;
+import com.lark.oapi.event.CustomEventHandler;
+import com.lark.oapi.event.EventDispatcher;
+import com.lark.oapi.ws.Client;
+
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/java-sdk-guide/preparations
+public class Sample {
+    // 注册事件 Register event
+    private static final EventDispatcher EVENT_HANDLER = EventDispatcher.newBuilder("", "")
+            .onCustomizedEvent("order_paid", new CustomEventHandler() {
+                @Override
+                public void handle(EventReq event) throws Exception {
+                    System.out.printf("[ onCustomizedEvent access ], type: message, data: %s\n", new String(event.getBody(), StandardCharsets.UTF_8));
+                }
+            })
+            .build();
+
+    public static void main(String[] args) {
+        // 构建 client Build client
+        Client client = new Client.Builder("APP_ID", "APP_SECRET")
+                .eventHandler(EVENT_HANDLER)
+                .build();
+        // 建立长连接 Establish persistent connection
+        client.start();
+    }
+}
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="nodejs-sdk">
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/preparation-before-development
+import * as Lark from '@larksuiteoapi/node-sdk';
+const baseConfig = {
+    appId: 'APP_ID',
+    appSecret: 'APP_SECRET'
+}
+// 构建 client Build client
+const wsClient = new Lark.WSClient(baseConfig);
+// 建立长连接 Establish persistent connection
+wsClient.start({
+    // 注册事件 Register event
+    eventDispatcher: new Lark.EventDispatcher({}).register({
+        'order_paid': async (data) => {
+            console.log(data);
+        }
+    })
+});
+    </md-code-tab-panel>
+
+  </md-code-tab-group>
+  <md-code-tab-group title="将事件推送至开发者服务器">
+	
+    <md-code-tab-panel sdkType="golang-sdk">
+package main
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
+	"github.com/larksuite/oapi-sdk-go/v3/core/httpserverext"
+	larkevent "github.com/larksuite/oapi-sdk-go/v3/event"
+	"github.com/larksuite/oapi-sdk-go/v3/event/dispatcher"
+	"github.com/larksuite/oapi-sdk-go/v3/service/application/old"
+)
+
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/golang-sdk-guide/preparations
+func main() {
+	// 注册事件 Register event
+	eventHandler := dispatcher.NewEventDispatcher("", "").
+		OnCustomizedEvent("order_paid", func(ctx context.Context, event *larkevent.EventReq) error {
+			fmt.Printf("[ OnCustomizedEvent access ], type: message, data: %s\n", string(event.Body))
+			return nil
+		})
+
+	// 创建路由处理器 Create route handler
+	http.HandleFunc("/webhook/event", httpserverext.NewEventHandlerFunc(handler, larkevent.WithLogLevel(larkcore.LogLevelDebug)))
+
+	err := http.ListenAndServe(":7777", nil)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="python-sdk">
+# SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/python--sdk/preparations-before-development
+from flask import Flask
+from lark_oapi.adapter.flask import *
+import lark_oapi as lark
+
+app = Flask(__name__)
+
+
+def do_customized_event(data: lark.CustomizedEvent) -> None:
+    print(f'[ do_customized_event access ], type: message, data: {lark.JSON.marshal(data, indent=4)}')
+
+# 注册事件 Register event
+event_handler = lark.EventDispatcherHandler.builder("", "") \
+    .register_p1_customized_event("order_paid", do_customized_event) \
+    .build()
+
+
+# 创建路由处理器 Create route handler
+@app.route("/webhook/event", methods=["POST"])
+def event():
+    resp = event_handler.do(parse_req())
+    return parse_resp(resp)
+
+if __name__ == "__main__":
+    app.run(port=7777)
+
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="java-sdk">
+
+package com.lark.oapi.sample.event;
+
+import java.nio.charset.StandardCharsets;
+import com.lark.oapi.core.request.EventReq;
+import com.lark.oapi.event.CustomEventHandler;
+import com.lark.oapi.sdk.servlet.ext.ServletAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/java-sdk-guide/preparations
+@RestController
+public class EventController {
+
+    // 注册事件 Register event
+    private static final EventDispatcher EVENT_HANDLER = EventDispatcher.newBuilder("verificationToken", "encryptKey")
+            .onCustomizedEvent("order_paid", new CustomEventHandler() {
+                @Override
+                public void handle(EventReq event) throws Exception {
+                    System.out.printf("[ onCustomizedEvent access ], type: message, data: %s\n", new String(event.getBody(), StandardCharsets.UTF_8));
+                }
+            })
+            .build();
+
+    // 注入 ServletAdapter 实例 Inject ServletAdapter instance
+    @Autowired
+    private ServletAdapter servletAdapter;
+
+    // 创建路由处理器 Create route handler
+    @RequestMapping("/webhook/event")
+    public void event(HttpServletRequest request, HttpServletResponse response)
+            throws Throwable {
+        // 回调扩展包提供的事件回调处理器 Callback handler provided by the extension package
+        servletAdapter.handleEvent(request, response, EVENT_DISPATCHER);
+    }
+}
+    </md-code-tab-panel>
+
+    <md-code-tab-panel sdkType="nodejs-sdk">
+// SDK 使用说明 SDK user guide：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/preparation-before-development
+import http from 'http';
+import * as lark from '@larksuiteoapi/node-sdk';
+
+// 注册事件 Register event
+const eventDispatcher = new lark.EventDispatcher({
+    encryptKey: '',
+    verificationToken: '',
+}).register({
+    'order_paid': async (data) => {
+        console.log(data);
+        return 'success';
+    },
+});
+
+const server = http.createServer();
+// 创建路由处理器 Create route handler
+server.on('request', lark.adaptDefault('/webhook/event', eventDispatcher));
+server.listen(3000);
+    </md-code-tab-panel>
+
+  </md-code-tab-group>
+</md-code-tabs>
+:::

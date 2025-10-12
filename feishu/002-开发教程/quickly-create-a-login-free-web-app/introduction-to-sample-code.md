@@ -1,0 +1,407 @@
+<!--
+title: 示例代码介绍
+id: 7265524046204649500
+fullPath: /home/quickly-create-a-login-free-web-app/introduction-to-sample-code
+updatedAt: 1753241790000
+source: https://open.feishu.cn/document/quickly-create-a-login-free-web-app/introduction-to-sample-code
+-->
+# 示例代码介绍
+
+本教程提供的示例代码基于 [Python 3](https://www.python.org/) 环境和 [Flask](https://dormousehole.readthedocs.io/en/latest/) 框架编写。
+
+## 项目结构
+
+```
+｜── README.zh.md     ----- 说明文档
+｜── doc_images     ----- 说明文档的图片资源
+｜── public
+｜  ｜── svg     ----- 前端图形文件
+｜  ｜──index.css     ----- 前端展示样式
+｜  ｜── index.js     ----- 前端主要交互代码（免登流程函数、用户信息展示函数）
+｜── templates
+｜  ｜──err_info.html     ----- 前端错误信息展示页面
+｜  ｜── index.html     ----- 前端用户信息展示页面
+｜── auth.py     ----- 服务端免登流程类、错误信息处理类
+｜── server.py     ----- 服务端核心业务代码
+｜── requirements.txt     ----- 环境配置文件
+└── .env     ----- 全局默认配置文件，主要存储 App ID 和 App Secret 等
+```
+
+项目结构说明：
+
+- public 和 templates 节点：前端模块，主要功能是调取客户端 API（JSAPI）获取免登临时授权码 Code、展示免登用户信息、展示错误信息。
+- 其他：服务端模块，使用 Flask 构建，主要功能是使用 App ID 和 App Secret 获取 app_access_token、使用 app_access_token 和免登临时授权码 Code 获取 user_access_token、使用 user_access_token 获取用户信息、处理错误信息、使用 session 存储用户信息等。
+
+## 代码解析
+
+### 前端（客户端）代码
+
+1. 引入 JSSDK。
+
+JSSDK 为网页应用提供了调用手机系统功能和飞书客户端功能（如：扫一扫、云文档）的能力，并支持性能优化，使你的网页应用体验能够接近原生体验。
+
+:::note
+- 在需要调用 JSAPI 的页面中，引入 JS 文件，更多信息参见[开发网页应用简介](/ssl:ttdoc/uYjL24iN/uMTMuMTMuMTM/introduction)。
+- 只有在飞书应用内打开才会注入全局变量，在其他应用（比如外部浏览器网页）内打开则不会注入。因此，开发者的网页仅可在飞书应用内成功调用 JSAPI。
+:::
+
+示例代码路径：web_app_with_auth/python/templates/index.html。在 index.html 文件中，引入 JSSDK。引入后，得到两个全局变量`h5sdk`以及`tt`。目前支持 AMD 或 CMD 引入方式（示例代码为 AMD 引入方式）。
+
+```HTML
+<!DOCTYPE html>
+<link rel="stylesheet" href="/public/index.css"/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>网页应用</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js">
+    </script>
+</head>
+
+<!-- 在html文档中引入 JSSDK -->
+<!-- JS 文件版本在升级功能时地址会变化，如有需要（比如使用新增的 API），请重新引用「网页应用开发指南」中的JSSDK链接，确保你当前使用的JSSDK版本是最新的。-->
+<script type="text/javascript"
+src="https://lf1-cdn-tos.bytegoofy.com/goofy/lark/op/h5-js-sdk-1.5.26.js">
+</script>
+
+<!-- 在页面上添加VConsole方便调试-->
+<script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
+<script>
+// VConsole will be exported to `window.VConsole` by default.
+var vConsole = new window.VConsole();
+</script>
+
+<body>
+<div>
+    <div class="img">
+        <!-- 头像 -->
+        <div
+                id="img_div"
+                class="img_div"
+        >
+        </div>
+        
+        <span
+                class="hello_text"
+        >Hello</span
+        >
+        <!-- 名称 -->
+        <div
+                id="hello_text_name"
+                class="hello_text_name"
+        ></div>
+        <!-- 欢迎语 -->
+        <div
+                id="hello_text_welcome"
+                class="hello_text_welcome"
+        >
+        </div>
+    </div>
+    <!-- 飞书icon -->
+    <div class="icon"><img src="../public/svg/icon.svg"/></div>
+</div>
+
+<!-- 在html文档中引入本demo免登流程函数apiAuth()和用户信息展示函数showUser(res) -->
+<script src="/public/index.js"></script>
+<!-- 根据服务端传来的参数login_info判断走免登流程还是直接展示用户信息 -->
+<script>
+    const login_info = '{{ login_info }}';
+    console.log("login info: ", login_info);
+    if (login_info == "alreadyLogin") {
+        const user_info = JSON.parse('{{ user_info | tojson | safe }}');
+        console.log("user: ", user_info.name);
+        $('document').ready(showUser(user_info))
+    } else {
+        $('document').ready(apiAuth())
+    }
+</script>
+
+</body>
+</html>
+```
+
+2. 调用 JSAPI 获取临时授权码 Code，并将 Code 传递给服务端。
+    
+首先需要获取应用的 app_id，然后调用 [requestAccess](/ssl:ttdoc/uYjL24iN/uUzMuUzMuUzM/requestaccess) 接口获取临时授权码 Code。
+    
+:::note
+应用的 app_id 可以在 [开发者后台](https://open.feishu.cn/app) 中应用详情页的 **凭证与基础信息** 区域获取。
+:::
+    
+示例代码路径：web_app_with_auth/python/public/index.js。在 index.js 文件中，通过路由服务端的 get_appid 获取 app_id，然后在`window.h5sdk.ready()`中调用接口获取临时授权码 Code，最后将 Code 传递给服务端。
+    
+```js
+let lang = window.navigator.language;
+console.log(lang);
+
+
+function apiAuth() {
+    if (!window.h5sdk) {
+        console.log('invalid h5sdk')
+        alert('please open in feishu')
+        return
+    }
+
+    // 通过服务端的Route: get_appid获取app_id
+    // 服务端Route: get_appid的具体内容请参阅服务端模块server.py的get_appid()函数
+    // 为了安全，app_id不应对外泄露，尤其不应在前端明文书写，因此此处从服务端获取
+    fetch(`/get_appid`).then(response1 => response1.json().then(res1 => {
+        console.log("get appid succeed: ", res1.appid);
+        // 通过error接口处理API验证失败后的回调
+        window.h5sdk.error(err => {
+            throw('h5sdk error:', JSON.stringify(err));
+        });
+        // 通过ready接口确认环境准备就绪后才能调用API
+        window.h5sdk.ready(() => {
+            console.log("window.h5sdk.ready");
+            console.log("url:", window.location.href);
+            // 调用JSAPI tt.requestAccess 获取 authorization code
+            tt.requestAccess({
+                appID: res1.appid,
+                scopeList: [],
+                // 获取成功后的回调
+                success(res) {
+                    console.log("getAuthCode succeed");
+                    //authorization code 存储在 res.code
+                    // 此处通过fetch把code传递给接入方服务端Route: callback，并获得user_info
+                    // 服务端Route: callback的具体内容请参阅服务端模块server.py的callback()函数
+                    fetch(`/callback?code=${res.code}`).then(response2 => response2.json().then(res2 => {
+                        console.log("getUserInfo succeed");
+                        // 示例Demo中单独定义的函数showUser，用于将用户信息展示在前端页面上
+                        showUser(res2);}
+                        )
+                    ).catch(function (e) {console.error(e)})
+                },
+                // 获取失败后的回调
+                fail(err) {
+                    console.log(`getAuthCode failed, err:`, JSON.stringify(err));
+                }
+            })
+        }
+        )
+    })).catch(function (e) { // 从服务端获取app_id失败后的处理
+        console.error(e)
+        })
+}
+
+function showUser(res) {
+    // 展示用户信息
+    // 头像
+    $('#img_div').html(`<img src="${res.avatar_url}" width="100%" height=""100%/>`);
+    // 名称
+    $('#hello_text_name').text(lang === "zh_CN" || lang === "zh-CN" ? `${res.name}` : `${res.en_name}`);
+    // 欢迎语
+    $('#hello_text_welcome').text(lang === "zh_CN" || lang === "zh-CN" ? "欢迎使用飞书" : "welcome to Feishu");
+}
+```
+
+### 服务端代码
+
+在网页应用中，开放平台客户端 API [getUserInfo](/ssl:ttdoc/uYjL24iN/ucjMx4yNyEjL3ITM) 只能获取到用户昵称、头像、性别、城市、语言。若需要其他信息，例如获取应用内用户唯一标识符 open_id，或者获取部分开放平台服务端 API 必需的访问凭证 user_access_token，可以参考本章节的代码逻辑实现。
+
+1. 获取 app_access_token。
+
+首先需要获取应用的 app_id 和 app_secret，然后向开放平台认证中心发起 HTTP 请求，获取本应用的访问凭证 [app_access_token](/ssl:ttdoc/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token_internal)。
+
+:::note
+应用的 app_id 和 app_secret 可以在 [开发者后台](https://open.feishu.cn/app) 中应用详情页的 **凭证与基础信息** 区域获取。
+:::
+
+示例代码路径：web_app_with_auth/python/auth.py
+
+```python
+def authorize_app_access_token(self):
+    # 获取 app_access_token, 依托于飞书开放能力实现. 
+    # 文档链接: https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_access_token_internal
+    url = self._gen_url(APP_ACCESS_TOKEN_URI)
+    # "app_id" 和 "app_secret" 位于HTTP请求的请求体
+    req_body = {"app_id": self.app_id, "app_secret": self.app_secret}
+    response = requests.post(url, req_body)
+    Auth._check_error_response(response)
+    self._app_access_token = response.json().get("app_access_token")
+```
+
+2. 获取用户信息 UserInfo。
+    
+拥有前端传递过来的临时授权码 Code ，以及上一步获得的 app_access_token，便可向认证中心发起 HTTP 请求，获取用户授权凭证 [user_access_token](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/access_token/create)，然后凭借用户授权凭证 user_access_token，继续向认证中心发起 HTTP 请求获取用户信息 UserInfo。
+    
+:::note
+返回的 UserInfo 中，字段 email（用户邮箱）、enterprise_email（企业邮箱）、user_id（用户 user_id）、mobile（用户手机号）都需要在开发者后台申请对应的字段权限。权限名称参见[获取 user_access_token（网页应用）](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/access_token/create)，权限配置方式参见[申请 API 权限](/ssl:ttdoc/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)。
+:::
+
+- 示例代码路径一：web_app_with_auth/python/auth.py
+
+    ```python
+    # 这里也可以拿到user_info
+    # 但是考虑到服务端许多API需要user_access_token，如文档：https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview
+    # 建议的最佳实践为先获取user_access_token，再获得user_info
+    # user_access_token后续刷新可以参阅文档：https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/refresh_access_token
+    def authorize_user_access_token(self, code):
+        # 获取 user_access_token, 依托于飞书开放能力实现. 
+        # 文档链接: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token
+        self.authorize_app_access_token()
+        url = self._gen_url(USER_ACCESS_TOKEN_URI)
+        # “app_access_token” 位于HTTP请求的请求头
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + self.app_access_token,
+        }
+        # 临时授权码 code 位于HTTP请求的请求体
+        req_body = {"grant_type": "authorization_code", "code": code}
+        response = requests.post(url=url, headers=headers, json=req_body)
+        Auth._check_error_response(response)
+        self._user_access_token = response.json().get("data").get("access_token")
+
+    def get_user_info(self):
+        # 获取 user info, 依托于飞书开放能力实现.  
+        # 文档链接: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/user_info
+        url = self._gen_url(USER_INFO_URI)
+        # “user_access_token” 位于HTTP请求的请求头
+        headers = {
+            "Authorization": "Bearer " + self.user_access_token,
+            "Content-Type": "application/json",
+        }
+        response = requests.get(url=url, headers=headers)
+        Auth._check_error_response(response)
+        # 如需了解响应体字段说明与示例，请查询开放平台文档： 
+        # https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/authen/access_token
+        return response.json().get("data")
+    ```
+    
+- 示例代码路径二：web_app_with_auth/python/server.py
+
+  ```python
+  #!/usr/bin/env python
+  # -*- coding: UTF-8 -*-
+  import os
+  import logging
+
+  from auth import Auth
+  from dotenv import load_dotenv, find_dotenv
+  from flask import Flask, render_template, session, jsonify, request
+
+  # 日志格式设置
+  LOG_FORMAT = "%(asctime)s - %(message)s"
+  DATE_FORMAT = "%m/%d/%Y %H:%M:%S"
+  logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT, datefmt=DATE_FORMAT)
+
+  # const
+  # 在session中存储用户信息 user info 所需要的对应 session key
+  USER_INFO_KEY = "UserInfo"
+  # secret_key 是使用 flask session 所必须有的
+  SECRET_KEY = "ThisIsSecretKey"
+
+  # 从 .env 文件加载环境变量参数
+  load_dotenv(find_dotenv())
+
+  # 初始化 flask 网页应用
+  app = Flask(__name__, static_url_path="/public", static_folder="./public")
+  app.secret_key = SECRET_KEY
+  app.debug = True
+
+  # 获取环境变量值
+  APP_ID = os.getenv("APP_ID")
+  APP_SECRET = os.getenv("APP_SECRET")
+  FEISHU_HOST = os.getenv("FEISHU_HOST")
+
+  # 用获取的环境变量初始化免登流程类Auth
+  auth = Auth(FEISHU_HOST, APP_ID, APP_SECRET)
+
+  # 业务逻辑类
+  class Biz(object):
+      @staticmethod
+      def home_handler():
+          # 主页加载流程
+          return Biz._show_user_info()
+
+      @staticmethod
+      def login_handler():
+          # 需要走免登流程
+          return render_template("index.html", user_info={"name": "unknown"}, login_info="needLogin")
+
+      @staticmethod
+      def login_failed_handler(err_info):
+          # 出错后的页面加载流程
+          return Biz._show_err_info(err_info)
+
+      # Session in Flask has a concept very similar to that of a cookie, 
+      # i.e. data containing identifier to recognize the computer on the network, 
+      # except the fact that session data is stored in a server.
+      @staticmethod
+      def _show_user_info():
+          # 直接展示session中存储的用户信息
+          return render_template("index.html", user_info=session[USER_INFO_KEY], login_info="alreadyLogin")
+
+      @staticmethod
+      def _show_err_info(err_info):
+          # 将错误信息展示在页面上
+          return render_template("err_info.html", err_info=err_info)
+
+  # 出错时走错误页面加载流程Biz.login_failed_handler(err_info)
+  @app.errorhandler(Exception)
+  def auth_error_handler(ex):
+      return Biz.login_failed_handler(ex)
+
+
+  # 默认的主页路径
+  @app.route("/", methods=["GET"])
+  def get_home():
+      # 打开本网页应用会执行的第一个函数
+
+      # 如果session当中没有存储user info，则走免登业务流程Biz.login_handler()
+      if USER_INFO_KEY not in session:
+          logging.info("need to get user information")
+          return Biz.login_handler()
+      else:
+          # 如果session中已经有user info，则直接走主页加载流程Biz.home_handler()
+          logging.info("already have user information")
+          return Biz.home_handler()
+
+  @app.route("/callback", methods=["GET"])
+  def callback():
+      # 获取 user info
+
+      # 拿到前端传来的临时授权码 Code
+      code = request.args.get("code")
+      # 先获取 user_access_token
+      auth.authorize_user_access_token(code)
+      # 再获取 user info
+      user_info = auth.get_user_info()
+      # 将 user info 存入 session
+      session[USER_INFO_KEY] = user_info
+      return jsonify(user_info)
+
+  @app.route("/get_appid", methods=["GET"])
+  def get_appid():
+      # 获取 appid
+      # 为了安全，app_id不应对外泄露，尤其不应在前端明文书写，因此此处从服务端传递过去
+      return jsonify(
+          {
+              "appid": APP_ID
+          }
+      )
+
+
+  if __name__ == "__main__":
+      # 以debug模式运行本网页应用
+      # debug模式能检测服务端模块的代码变化，如果有修改会自动重启服务
+      app.run(host="0.0.0.0", port=3000, debug=True)
+  ```
+
+3. 将用户信息传递给前端。
+    
+    获取用户信息 UserInfo 之后，在你的网页应用框架内将用户信息传递给前端，以便进行后续业务流程。
+    
+    示例代码路径：web_app_with_auth/python/server.py（可参考上一步骤 2）和 web_app_with_auth/python/public/index.js。
+    
+    ```javascript
+    function showUser(res) {
+        // 展示用户信息
+        // 头像
+        $('#img_div').html(`<img src="${res.avatar_url}" width="100%" height=""100%/>`);
+        // 名称
+        $('#hello_text_name').text(lang === "zh_CN" || lang === "zh-CN" ? `${res.name}` : `${res.en_name}`);
+        // 欢迎语
+        $('#hello_text_welcome').text(lang === "zh_CN" || lang === "zh-CN" ? "欢迎使用飞书" : "welcome to Feishu");
+    }
+	```

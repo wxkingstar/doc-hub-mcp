@@ -1,0 +1,47 @@
+<!--
+title: 步骤四：配置事件订阅
+id: 7238873153014464516
+fullPath: /home/automatic-attendance-management-based-on-approval/step-4-configure-the-event
+updatedAt: 1715309766000
+source: https://open.feishu.cn/document/automatic-attendance-management-based-on-approval/step-4-configure-the-event
+-->
+# 步骤四：配置事件订阅
+
+机器人接收的消息会以回调事件请求的形式，通过 POST 请求送达到服务端处理。本地服务启动后，回调事件无法请求到内网，需配置公网请求 URL。
+
+
+  
+## 操作步骤
+
+:::note
+本教程为了方便实现，使用了反向代理工具（[localtunnel](https://www.npmjs.com/package/localtunnel)）完成内网穿透，暴露本地服务的公网访问入口。
+**该工具仅适用于开发测试阶段，不可用于生产环境，使用前请确认是否符合所在公司网络安全政策**。
+:::
+
+
+1. 运行以下命令获得公网 URL。
+
+    ```Plain Text
+    npx localtunnel --port 3000
+    ```
+
+	成功运行结果如下图：
+
+    ![](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/cfbbf3eb38094940a25abfdbbc59ab29~tplv-goo7wpa0wc-image.image?height=150&lazyload=true&maxWidth=600&width=1112)
+
+2. 在应用详情页左侧进入 **事件与回调** 页面。
+3. 在 **事件配置** 页签内，点击 **配置订阅方式** 右侧编辑图标。
+4. 选择 **将事件发送至开发者服务器**，并在 **请求地址** 输出框填写使用代理工具生成的公网域名 + `/webhook/event`。
+
+:::note
+保存请求网址 URL 及发送消息给机器人，都会请求到后端服务，**请求期间需保证服务为启动状态**。
+:::
+  
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/c0ef66dd080cfbacf0be85ca11ceff0e_dKC3XyrNfk.png?height=942&lazyload=true&maxWidth=600&width=1760)
+
+
+5. 在 **已添加事件** 区域点击 **添加事件**，搜索并添加 **接收消息** 和 **审批通过** 事件。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/615fa336a5d97fdb1eaaa7b42026cfd0_obTVvYwjux.png?height=1090&lazyload=true&maxWidth=600&width=2182)
+
+

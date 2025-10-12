@@ -1,0 +1,68 @@
+<!--
+title: 示例代码
+id: 7424771981789904897
+fullPath: /uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/storage-kv-capability/sample-code
+updatedAt: 1732712071000
+source: https://open.feishu.cn/document/native-integration/open-capability/capability-components/storage-kv-capability/sample-code
+-->
+# 示例代码
+## Android
+```javascript 
+object KVUtils {
+    fun putBoolean(key: String, value: Boolean) {
+        SpiManager.getInstance().getSpi()?.loadClass(IKVStorageApi::class.java)
+            ?.putBoolean(key, value)
+    }
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
+        SpiManager.getInstance().getSpi()?.let {
+return it.loadClass(IKVStorageApi::class.java).getBoolean(key, defaultValue)
+        } ?: kotlin.run {
+return defaultValue
+        }
+}
+    fun putString(key: String, value: String) {
+        SpiManager.getInstance().getSpi()?.loadClass(IKVStorageApi::class.java)
+            ?.putString(key, value)
+    }
+    fun getString(key: String, defaultValue: String): String {
+        SpiManager.getInstance().getSpi()?.let {
+return it.loadClass(IKVStorageApi::class.java).getString(key, defaultValue)
+        } ?: kotlin.run {
+return defaultValue
+        }
+}
+    fun hasKey(key: String): Boolean {
+        SpiManager.getInstance().getSpi()?.let {
+return it.loadClass(IKVStorageApi::class.java).contains(key)
+        } ?: kotlin.run {
+return false
+        }
+}
+}
+```
+
+## iOS
+该示例展示如何利用 KVStore 实现一个计数器
+```javascript 
+import LKKeyValueExternal
+import LKKABridge
+public class Counter {
+    private static let store = KAAPI(channel: /* channel id */ ).kvstore
+    
+    func count(key: String) {
+        var count = 0
+        if Self.store.has(key: key) {
+             count = Self.store.getInt(key: key)
+        }
+        Self.store?.set(key: key, intValue: count + 1)
+    }
+    
+    func clear(key: String) {
+        Self.store?.clear(key: key)
+    }
+    
+    func reset() {
+        Self.store?.clearAll()
+    }
+}
+```

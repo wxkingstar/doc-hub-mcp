@@ -1,0 +1,60 @@
+<!--
+title: 新增评论
+id: 7497866841776537602
+fullPath: /uYjL24iN/uYDO3YjL2gzN24iN3cjN/invoke-api/addnewcomment
+updatedAt: 1753959787000
+source: https://open.feishu.cn/document/uYjL24iN/uYDO3YjL2gzN24iN3cjN/invoke-api/addnewcomment
+-->
+# 新增评论
+
+## 示例
+```js
+// npm
+myComponent.invoke(DocComponentEvent.ADD_NEW_COMMENT, {
+    tempCommentId: 'xxxx', //
+    content: '这是一条评论',
+    notify: false
+}).then(function(response) {
+  const { code, msg, data } = response;
+  
+  const {
+      commentId 
+  } = data;
+  // ...
+});
+
+// sdk
+myComponent.invoke('ADD_NEW_COMMENT', {
+    tempCommentId: 'xxxx', //
+    content: '这是一条评论',
+    notify: false
+}).then(function(response) {
+  const { code, msg, data } = response;
+  
+  const {
+      commentId 
+  } = data;
+  // ...
+});
+```
+
+## 参数
+
+| 参数名             | 是否必须 | 类型        | 默认值  | 说明                                   |
+| --------------- | ---- | --------- | ---- | ------------------------------------ |
+| `content`       | 否    | `string`  | -   | 评论卡片的内容                              |
+| `notify`        | 否    | `boolean` | true | 是否发送通知                               |
+| `tempCommentId` | 是    | `string`  | -   | 临时评论 id， 通过监听 DocComponentEvent.ON_CREATE_TEMP_COMMENT 获取
+
+## 返回
+
+| 属性     | 类型       | 说明           |
+| ------ | -------- | ------------ |
+| `code` | `number` | 0：成功 、 -1：失败 |
+| `msg`  | `string` | 信息           |
+| `data` | `object` | 支持翻译语言列表     |
+
+### data
+| commentId | `string` | 真实的评论 id |
+| --------- | -------- | -------- |
+| replyId   | `string` | 回复 id

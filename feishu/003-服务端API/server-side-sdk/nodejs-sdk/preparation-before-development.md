@@ -1,0 +1,67 @@
+<!--
+title: 开发前准备
+id: 7442638088350269444
+fullPath: /uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/preparation-before-development
+updatedAt: 1740541995000
+source: https://open.feishu.cn/document/server-side-sdk/nodejs-sdk/preparation-before-development
+-->
+# 开发前准备
+
+使用 NodeJS SDK 调用服务端 API、处理事件和回调前，请确保你已创建了一个应用、安装 NodeJS 环境以及服务端 NodeJS SDK。
+
+:::html
+<md-alert type="tip">
+对于新手开发者，建议你直接上手体验[开发自动回复机器人](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-an-echo-bot/introduction)或[开发卡片交互机器人](/ssl:ttdoc/uAjLw4CM/uMzNwEjLzcDMx4yM3ATM/develop-a-card-interactive-bot/introduction)教程，在教程示例代码中了解如何调用 API、处理事件和回调。
+</md-alert>
+:::
+
+
+## 创建应用
+
+在使用服务端 SDK 之前，你需要确保已在[开发者后台](https://open.feishu.cn/app)创建了一个企业自建应用或商店应用。详情参考[创建企业自建应用](/ssl:ttdoc/home/introduction-to-custom-app-development/self-built-application-development-process#a0a7f6b0)或[创建商店应用](/ssl:ttdoc/uMzNwEjLzcDMx4yM3ATM/ucjN2YjL3YjN24yN2YjN/step1-create-a-store-application)。了解选择哪种应用，参考[应用类型](/ssl:ttdoc/home/app-types-introduction/overview#c3c7ad51)。
+
+## 准备开发环境
+
+开放平台 NodeJS SDK 支持 Node 10.0.0 及以上，下载地址参见[下载 Node.js](https://nodejs.org/zh-cn/download/package-manager)。
+
+## 安装 NodeJS SDK
+
+你可以选择使用 npm 或 yarn 工具之一进行安装。
+- npm
+    
+    ```
+    npm install @larksuiteoapi/node-sdk
+    ```
+- yarn
+    
+    ```
+    yarn add @larksuiteoapi/node-sdk
+    ```
+
+## 使用 NodeJS SDK
+
+NodeJS SDK 提供了 ECMAScript、CommonJS 两种模块，同时支持原生 Javascript 和 Typescript 的使用。定义语句如下所示，NodeJS SDK 文档中所有的示例均使用的 Typescript。
+- Typescript
+
+  ```
+  import * as lark from '@larksuiteoapi/node-sdk';
+  ```
+
+- CommonJS
+
+  ```
+  const lark = require('@larksuiteoapi/node-sdk');
+  ```
+
+- ECMAScript
+
+  ```
+  import * as lark from '@larksuiteoapi/node-sdk';
+  ```
+  
+## 后续操作
+
+- [调用服务端 API](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/invoke-server-api)：介绍如何通过 SDK，自行构建 API Client、构造 API 请求、最终成功调用服务端 API。
+- [处理事件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/handling-events)：介绍如何通过 SDK 封装的长连接方式处理事件、如何自建 HTTP 服务器处理事件。
+- [处理回调](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/handling-callbacks)：介绍如何通过 SDK 封装的长连接方式处理回调、如何自建 HTTP 服务器处理回调。
+- [场景示例](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/server-side-sdk/nodejs-sdk/scenario-example)：提供基于 SDK 实现的各类场景示例。

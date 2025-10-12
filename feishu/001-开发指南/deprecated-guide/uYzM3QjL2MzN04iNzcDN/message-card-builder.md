@@ -1,0 +1,118 @@
+<!--
+title: 消息卡片搭建工具概述
+id: 7207782744268455940
+fullPath: /ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/message-card-builder
+updatedAt: 1723618463000
+source: https://open.feishu.cn/document/common-capabilities/message-card/message-card-builder
+-->
+# 消息卡片搭建工具概述
+
+飞书开放平台提供了可视化的消息卡片搭建工具，你可以在该工具内构建、浏览、保存消息卡片。在搭建工具内提供了可视化操作模式和 JSON 编辑模式，便于你灵活构建消息卡片。本文将提供工具入口，并介绍工具支持的能力。
+:::html
+<md-alert type="warn">
+消息卡片搭建工具为旧版本工具，已不再更新迭代。你可前往新版[飞书卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs_earlier_version_overview)并参考[飞书卡片搭建工具文档](/ssl:ttdoc/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/feishu-cardkit-overview)搭建卡片。
+</md-alert>
+:::
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/272037655e7d0b0b9252e788132bfa70_eqD9TOd5Ei.gif?height=474&lazyload=true&maxWidth=750&width=1110)
+
+## 工具入口
+
+[消息卡片搭建工具](https://open.feishu.cn/tool/cardbuilder)
+
+## 功能简介
+
+进入消息卡片搭建工具后，页面展示如下图。你可以在不同的功能模块内完成消息卡片相关的管理操作。
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/018e1b2a2cd54a6a122a2e312584b7e0_YgMe8DlkKo.png?height=1436&lazyload=true&maxWidth=750&width=2882)
+
+:::html
+<md-table>
+<md-thead>
+<tr>
+<md-th width="25%">图示区域</md-th>
+<md-th width="75%">功能描述</md-th>
+</tr>
+</md-thead>
+<md-tbody>
+<md-tr>
+<md-td>
+如上图 ① 左侧功能区域
+</md-td>
+<md-td>
+左侧功能区域包含三个分类，分别是：
+* **参考案例**：此处展示了消息卡片搭建工具内置的卡片模板，你可以选择符合自身需求的卡片模板。
+* **模块组件**：模块组件中展示了消息卡片支持的组件类型，你只需要单击对应的模块组件，即可将其添加至卡片区域底部。
+* **我的卡片**：已经保存和发布的消息卡片将展示在 **我的卡片** 分类中，你可以在此处管理已经保存的卡片。
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>
+如上图 ② 消息卡片展示区域
+</md-td>
+<md-td>
+中间消息卡片展示区域主要用于展示卡片的预览效果。
+- 拖动卡片组件即可调整卡片结构。
+- 选中指定的卡片组件，即可在 **编辑卡片** 区域（如上图 ③ 区域）配置卡片组件。
+- 在该区域左上角，支持调整 **桌面端** 或 **移动端** 的预览模式。支持切换草稿、已保存、已发布版本的内容。
+- 在区域右侧，可以选中 **多语言** 复选框，配置多语言的卡片内容。
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>
+如上图 ③ 编辑卡片区域
+</md-td>
+<md-td>
+在 **编辑卡片** 区域，你可以为选定的组件或元素配置样式、内容或交互方式。示例配置如下，编辑时支持可视化配置模式或者 JSON 编辑模式。
+  
+- 可视化配置
+  
+  - 通过可视化配置项调整组件样式或内容。
+  - 支持查看卡片结构的层级，点击层级名称即可进入该层级进行配置。
+  - 提供了开发文档链接，你可以跳转查看各个组件或元素的详细配置说明。
+
+  ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9bd363b5cedb986e3d217e92ee31fe07_3hR9OUhPsI.png?height=1286&lazyload=true&width=1660)
+  
+- JSON 编辑器
+  
+  支持通过 JSON 描述定义卡片内容。
+  
+  ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6f3e2bfd9927dfa140728bd34fc58b27_S6kN887opN.png?height=1308&lazyload=true&width=1684)
+</md-td>
+</md-tr>
+
+<md-tr>
+<md-td>
+如上图 ④ 变量配置区域
+</md-td>
+<md-td>
+卡片变量的作用是让静态的、面向单一场景的消息卡片，变得灵活可变、支持多种场景下使用。你可以将卡片变量理解为卡片内容的占位符，在为变量赋值前，卡片是包含了组件样式、内容以及占位符的模板。当需要使用该卡片模板发送消息时，根据实际面向的业务场景，动态赋予变量值，即可推送完整的消息卡片。
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/bc46e6e9d50fa94188816755969913bd_UCnT9psG62.png?height=1040&lazyload=true&width=2280)
+</md-td>
+</md-tr>
+<md-tr>
+<md-td>
+如上图 ⑤ 顶部菜单栏
+</md-td>
+<md-td>
+顶部菜单栏包含以下功能： 
+* **导出卡片**：你可以单击导出卡片按钮，下载卡片 JSON 数据。 
+* **导入卡片**：你可以将已有的卡片 JSON，导入到新版消息卡片搭建工具中进行管理。 
+* **新建卡片**：点击 **新建卡片** 按钮，进入 **新建卡片** 页面创建一个新的卡片。 
+* **向我发送预览**：点击 **向我发送预览** 按钮之后，飞书开放平台会通过 **开发者小助手** 发送当前卡片的预览消息，至当前登录用户的飞书客户端内。 
+* **保存并发布**：点击 **保存并发布**，消息卡片将会被保存到 **我的卡片** 内并进行发布。后续使用已发布状态的卡片 ID 可以发送消息卡片。 
+* **保存**：你编辑的卡片内容只在浏览器本地缓存，当完成本次卡片编辑后，你需要点击 **保存** 按钮，将变更内容保存至服务端 **我的卡片** 中。
+</md-td>
+</md-tr>
+</md-tbody>
+</md-table>
+:::
+
+## 相关文档
+
+- 如何创建消息卡片，参见[创建消息卡片](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/create-message-card)。
+- 如何构建卡片内容，参见[构建卡片内容](/ssl:ttdoc/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)。
+- 如何预览、保存消息卡片，参见[预览与发布卡片](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/preview-and-save-cards)。
+- 如何发送消息卡片，参见[使用卡片 JSON 数据发送消息](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/send-message-card/send-messages-using-card-json-data) 或[使用卡片 ID 发送消息](/ssl:ttdoc/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/send-message-card/send-message-using-card-id)。

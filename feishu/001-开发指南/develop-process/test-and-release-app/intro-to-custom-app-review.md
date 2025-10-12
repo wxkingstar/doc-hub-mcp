@@ -1,0 +1,174 @@
+<!--
+title: 发布与审核自建应用
+id: 7177649669916803074
+fullPath: /home/intro-to-custom-app-review
+updatedAt: 1748587786000
+source: https://open.feishu.cn/document/best-practices/intro-to-custom-app-review
+-->
+# 发布与审核自建应用
+
+企业自建应用的审核流程可以保障应用的质量以及数据安全，本文介绍开发者如何发布应用、及企业管理员如何审核应用。
+
+
+
+## 发布自建应用
+
+在开发自建应用的过程中，当应用的 **基本信息**、**权限范围**、**应用功能** 和 **事件订阅** 等信息发生变更时，都需要发布新的应用版本，并且通过企业管理员的审核后才能生效。以下为发布应用的具体步骤。
+
+1. 在[开发者后台](https://open.feishu.cn/app)进入需要发布的应用详情页。
+
+2. 在左侧导航栏，选择 **应用发布** > **版本管理与发布**，并点击 **创建版本**。
+
+	![图片](https://p9-arcosite.byteimg.com/tos-cn-i-goo7wpa0wc/f96fcae3e4f74db28a2dd494d6b7bc05~tplv-goo7wpa0wc-image.image?height=1432&lazyload=true&maxWidth=600&width=2906)
+
+
+5. 在 **版本详情** 页面，配置以下应用信息，并点击 **保存**。
+    
+    - **应用版本号**：对用户展示的自定义版本号信息。首次发布应用时可设置例如 `1.0.0` 的版本号。后续迭代的版本号需要高于上一个版本号。
+    
+    - **更新说明**：本次应用更新的详情，将展示在应用的更新日志中。
+    
+    - **应用能力**、**权限变更**：查看并确保变更配置符合预期。
+    
+    - **可用范围**：应用的可用范围，点击 **编辑** 可以手动调整该范围。
+    :::note
+    在开发及测试阶段，你可以在版本发布时控制应用可用范围，避免开发中的版本被普通用户访问和使用。详情参考[配置应用可用范围](/ssl:ttdoc/home/introduction-to-scope-and-authorization/availability)。
+	:::
+    
+    - **申请理由**：自定义发布应用的原因，用于审核人审核应用时查看。
+
+6. 在弹出的对话框中，点击 **申请线上发布**。
+    
+   等待企业管理员通过审核后，应用即可发布上线。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/96057a73a5af28ba8fa329d4d250ed9a_904jRfaOM0.png?height=1460&lazyload=true&maxWidth=600&width=2882)
+
+	如果你点击了 **取消**，可在当前页面右侧点击 **申请线上发布**。
+    
+   ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/19d788ea4bb05bc7d1a316f058b9311d_XhQj5bM5ej.png?height=750&lazyload=true&maxWidth=600&width=2302)
+
+	如果你需要删除待申请的版本，则可以返回 **版本管理与发布** 页面，在待申请版本右侧点击 **删除**。
+    	
+      ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8c0425f0ca18cb193868dcc76d784205_DdVRBYDm4R.png?height=878&lazyload=true&maxWidth=600&width=2882)
+
+
+## 企业管理员审核应用
+
+当应用的开发者申请发布应用时，需要企业管理员在管理后台进行应用审核。审核方式包括在管理后台审核或者在飞书审批审核。
+
+### 为什么需要审核企业自建应用？
+
+企业自建应用是由企业内部人员或者企业授权的开发人员进行开发，申请在企业内上线，供企业内部人员使用的应用。该类应用可以通过调用[服务端 API ](/ssl:ttdoc/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/server-api-list)的方式获取或修改企业内的敏感数据（例如，获取企业组织架构、操作人员入职离职等）。如果完全脱离企业管理员的审核管控，则可能产生企业重要信息泄露或变更的风险。因此，通过企业管理员的审核，可对自建应用授予必要的权限、允许应用访问特定的数据，并且在审核时对应用质量、可用范围进行把控。
+
+### （可选）调整审核方式
+
+对于企业自建应用的审核，企业管理员可以设置审核规则，选择在管理后台审核或者在飞书审批审核。
+在管理后台审核是默认的审核方式，企业管理员可以手动切换至在飞书审批审核。
+
+1. 登录[管理后台](https://feishu.cn/admin)。
+
+2. 在左侧导航栏，选择 **工作台** > **应用管理**。
+
+3. 在页面右上角，点击 **设置管理规则**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6892a578458a70bba8f1e65a00142689_gS5JThTaDB.png?height=868&lazyload=true&maxWidth=600&width=2882)
+
+4. 在 **自建应用审核规则** 页签内，选择指定的审核方式，并点击 **保存**。
+    
+    :::note
+    如果你选择 **在飞书审批中审核**，则默认由应用审核人审核。你也可以点击 **去配置审批流程**，前往审批功能中自定义配置业务所需要的审核规则（如多轮审核、多审核人等规则）。
+    :::
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/636c917aa75bbd264a69cb84773c1d58_hMCBYxd741.png?height=884&lazyload=true&maxWidth=600&width=2882)
+
+
+### 方式一：在管理后台中审核
+
+1. 登录[管理后台](https://feishu.cn/admin)。
+
+2. 在左侧导航栏，选择 **工作台** > **应用审核**。
+    
+    当存在待审核任务时，选项右上角会出现数值提示。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/527519497561a26ae021c8b48e50748f_kb4Ic0Vtf8.png?height=888&lazyload=true&maxWidth=600&width=2876)
+
+3. 点击应用名称或者 **审核**，进入应用详情页。
+
+4. 查看应用修改详情，并根据实际情况选择以下操作。
+    
+    - 应用无任何问题可点击 **同意**，通过审核。
+    
+    - 应用存在任何问题均可点击 **拒绝**，并填写拒绝理由，不通过审核。
+    
+    - 如果需要加签其他审核人，则点击 **加签**，并配置相应的审核人。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/3c8f12f6c84377528e866f4e467bc939_IkXGwfsZFY.png?height=754&lazyload=true&maxWidth=600&width=2342)
+
+
+### 方式二：在飞书审批中审核
+
+1. 在飞书客户端内，接收由飞书审批机器人推送的审批通知。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a35db386377ca2d74a1106da1eed5232_OshDWF8zYg.png?height=1518&lazyload=true&maxWidth=600&width=2010)
+
+2. 通过 **点击卡片查看详情** 入口，查看应用修改详情。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9ee74184341ca7bb8012e31ad61e02d5_XdjjpfL7fW.png?height=1530&lazyload=true&maxWidth=600&width=2038)
+
+3. 根据实际情况选择以下操作。
+    
+    - 应用无任何问题可点击 **同意**，通过审核。
+    
+    - 应用存在任何问题均可点击 **拒绝**，并填写拒绝理由，不通过审核。
+    
+    - 如果需要加签其他审核人，则点击 **更多** > **加签**，并配置相应的审核人。
+
+## 企业管理员设置应用免审发布
+
+企业管理员可以为具体的应用开启免审，或为特定范围内的自建应用设置免审策略。
+
+### 为具体应用开启免审权限
+
+1. 登录[管理后台](https://feishu.cn/admin)。
+
+2. 在左侧导航栏进入 **工作台** > **应用管理**。
+
+3. 找到指定应用，并在 **操作** 列点击 **配置**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/f8ca564747ff0bf99ec29d56540f6743_O1VQXNhihJ.png?height=870&lazyload=true&maxWidth=600&width=2880)
+
+4. 在应用详情页的右上角，开启 **免审** 开关。
+
+5. 确保已阅读风险提示，并确认无问题后，点击 **确认**。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/66e488f26bece36c8cc324b0c03808c7_tI0C0yRYsu.png?height=1080&lazyload=true&maxWidth=600&width=2380)
+
+
+### 设置免审策略
+
+1. 登录[管理后台](https://feishu.cn/admin)。
+
+2. 在左侧导航栏进入 **工作台** > **应用管理**。
+
+3. 在页面右上角，点击 **设置管理规则**。
+
+4. 在 **自建应用审核规则** 页签，找到 **自建应用免审规则** 区域。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9030b21a48180df8b6ca5415c14e2217_CaMc9S9pvK.png?height=1412&lazyload=true&maxWidth=600&width=2292)
+
+5. 选择开启或关闭免审权限。
+    
+    - 当关闭权限后，所有自建应用的发布均需要审核。
+        
+        :::note
+        如果你单独在具体应用内开启了免审权限，则应用不受此处的配置影响，仍然可以免审。
+        :::
+        
+    - 当开启权限后，你需要根据页面提示完成相应的配置，以划分需要审核的应用范围，不在范围内的应用均支持免审。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7cd7f174b864a53d2ac9ad8c6c263369_yldj3sczMp.png?height=1442&lazyload=true&maxWidth=600&width=2236)
+
+
+## 相关文档
+
+[自建应用发版审核指南](https://www.feishu.cn/hc/zh-CN/articles/374230668270#tabs0%7Clineguid-2QfXf)

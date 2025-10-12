@@ -1,0 +1,189 @@
+<!--
+title: 示例代码介绍
+id: 7036724259775528961
+fullPath: /home/develop-a-gadget-in-5-minutes/perform-global-configuration
+updatedAt: 1699867283000
+source: https://open.feishu.cn/document/develop-gadgets-(not-recommended)/develop-a-gadget-in-5-minutes/perform-global-configuration
+-->
+# 示例代码介绍
+
+本教程代码实现了简单的个人信息签名页的页面视图及页面逻辑，你可以在此基础上结合服务端接口实现真正的更新用户签名。本文将对本教程中用到的代码进行解释。
+
+## 小程序项目结构
+
+一个新创建的小程序项目包含以下文件：
+| 文件 | 是否必须 | 描述 |
+| --- | --- | --- |
+| pages | 是 | 小程序页面。 |
+| └ index | 是 | 一个页面使用一个page表示，每个page下的四个文件必须具有相同的路径和文件名， |
+|     └ index.js | 否 | 使用JavaScript语言编写，用于指定页面的初始数据、生命周期回调、事件处理函数等。详情可参考[小程序逻辑层](/ssl:ttdoc/uYjL24iN/uEDOzUjLxgzM14SM4MTN)。 |
+|     └ index.ttml | 是 | TTML是用来编写页面结构用的标签语言，详情可参考[TTML](/ssl:ttdoc/uYjL24iN/ugzNugzNugzN)。 |
+|     └index.ttss | 否 | 用于描述当前页面的样式，只作用在当前的页面，并会覆盖 app.ttss 中相同的选择器。详情可参考[TTSS](/ssl:ttdoc/uYjL24iN/uYDOuYDOuYDO)。 |
+|     └index.json | 否 | 用于配置当前页面的窗口表现，页面中配置项会覆盖`app.json`文件中`window`属性的属性相同的配置项。 |
+| app.js | 是 | 小程序的入口，你可以在app.js中完成对小程序生命周期函数的监听，可以配置全局共享的数据。详情可参考[小程序代码构成](/ssl:ttdoc/uYjL24iN/uQDNzUjL0QzM14CN0MTN)。 |
+| app.ttss | 是 | 用于配置小程序的全局样式，作用于每一个页面。 |
+| app.json | 是 | 用于对小程序进行全局配置，决定页面文件的路径、全局样式、设置多 tab，设置PC小程序各种模式的默认启动页面等。详情可参考[配置小程序](/ssl:ttdoc/uYjL24iN/uEDNuEDNuEDN)。 |
+| project.config.json | 是 | 项目配置文件里主要包括了针对小程序项目配置的一些信息，例如项目名称，App ID，项目语法，编译配置等内容。详情可参考[小程序项目配置](/ssl:ttdoc/uYjL24iN/uEzMzUjLxMzM14SMzMTN/gadget-project-configuration)。 |
+## index.ttml个人签名页
+在ttml文件中，定义所有的页面组件。组件被包裹在一个最大的`<view class="intro"> </view>`标签中。因此个人签名页内包含了以下两个页面模块：
+* **user-info**：表示个人信息，包括左侧的头像图片（[image](/ssl:ttdoc/uYjL24iN/uUzNuUzNuUzN)组件） 和右侧的个人姓名、个人签名展示（[text](/ssl:ttdoc/uYjL24iN/uEzMuEzMuEzM)组件）。
+  ```HTML
+  <view class="user-info-attr">
+        <image class="user-info-attr-img" tt:if="{{isLogin}}" src="{{userInfo.avatarUrl}}" />
+        <view tt:else class="user-info-attr-img"></view>
+  </view>
+  ```
+
+   * `class="user-info-attr"`表示在`index.ttss`文件中查找定义为`user-info-attr`的样式描述，即：
+      ```css
+      .user-info-attr {
+        margin-right: 15px;
+      } 
+      ```
+
+   * `image`组件中的src属性表示图片链接。更多用法可参考[image](/ssl:ttdoc/uYjL24iN/uUzNuUzNuUzN)组件。
+   * `tt:if`和`tt:else`用于判断用户是否已登录，如果当前用户已登录，那么展示用户的头像。如果未登录，则展示灰色底色。条件判断的具体写法可以参考[TTML-条件渲染](/ssl:ttdoc/uYjL24iN/ugzNugzNugzN#11b7acbb)。
+* **personal-sign**：表示设置签名功能，包括录入个人签名的多行文本框（[textarea](/ssl:ttdoc/uYjL24iN/uIzNuIzNuIzN)组件） 和确定按钮（[button](/ssl:ttdoc/uYjL24iN/uIjNuIjNuIjN)组件）。
+  ```HTML
+  <view class="personal-sign">
+      <view class="personal-sign-text">
+          <span>设置你的个人签名</span>
+      </view>
+      <view >
+          <textarea class="personal-sign-textarea" bindblur="textareaBlur"></textarea>
+      </view>
+      <button bindtap="changeSign" class="personal-sign-button" type="primary" size="large">确定</button>
+  </view>
+  ```
+
+   * `<view class="personal-sign-text"></view>`中的`span`标签用于设置提示文案。
+   * `<textarea></textarea>`为输入框，用户在此处输入签名。
+   *  `<button></button>`为用户确认按钮，在`button`按钮中`bindtap`属性用于绑定组件事件，`type="primary"`用于确定按钮样式类型。更多内容可参考[button](/ssl:ttdoc/uYjL24iN/uIjNuIjNuIjN)。
+## index.js页面逻辑
+
+在index.js文件中实现了用户打开小程序自动获取用户用户头像和姓名，以及用户页面中输入签名并点击确定后，将签名信息展示在用户个人信息中。
+
+### 定义页面变量
+在`data`中定义页面变量及其默认值。
+
+```JavaScript
+//页面变量
+  data: {
+    isLogin: false,//当前用户是否登录
+    userInfo: {},//用户个人信息
+    personalSign: '',//用户在多行文本框中输入的个人签名文本
+    userSign: '',//展示在个人信息中的个人签名文本
+  },
+```
+
+### 获取用户信息
+
+以下示例代码表示，在页面加载 `onLoad` 方法中，获取用户信息，并且将用户信息展示在页面中。
+
+```JavaScript
+onLoad: function () {
+    //页面加载时处理
+    this.initUser()
+  },
+
+  //获取用户个人信息
+  initUser: function() {
+    tt.getUserInfo({
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          userInfo: JSON.parse(res.rawData),
+          isLogin: true
+        })
+      },
+      fail:(res)=>{
+        console.log(res)
+        this.toLogin()
+      }
+    })
+  },
+```
+
+其中[tt.getUserInfo()](/ssl:ttdoc/uYjL24iN/ucjMx4yNyEjL3ITM)为小程序开放接口。
+
+* 如果接口调用成功，会返回已登录用户的基本信息，并将该信息赋值到`userInfo`变量中。
+* 如果接口调用失败，则表示用户还没有登录，调用`toLogin()`方法，实现用户登录逻辑。
+
+```JavaScript
+success: (res) => {
+    this.setData({
+        userInfo: JSON.parse(res.rawData),
+        isLogin: true
+    })
+},
+fail:(res)=>{
+    this.toLogin()
+}
+```
+
+以上代码中的`this`指代该Page对象。如果代码中用以下方式写，那么`this`指代的是success函数，而不是page对象。
+```JavaScript
+success (res) {//这种写法this指代的是success函数，而不是page对象，因此会报错。
+    this.setData({
+        userInfo: JSON.parse(res.rawData),
+        isLogin: true
+    })
+},
+```
+
+### 实现输入签名操作
+1. 在`index.js`文件中定义`textareaBlur`事件。
+	
+    以下代码表示：当个人签名输入框失去焦点（即用户不再更新多行文本框中的内容）时，将当前输入框中的文本内容保存到Page中定义的变量`personalSign`。
+    ```JavaScript
+    //个人签名输入框textarea的bindblur事件
+      textareaBlur: function(e) {
+        console.log(e)
+        this.setData({
+          personalSign: e.detail.value
+        })
+      },
+    ```
+
+2. 在`index.ttml`文件中将[textarea](/ssl:ttdoc/uYjL24iN/uIzNuIzNuIzN)组件的`bindblur`属性绑定`textareaBlur`事件。
+
+	**textarea** 组件的 **bindblur** 属性表示**当输入框失去焦点时触发该事件**。因此`textareaBlur`事件的返回值就是输入框当前的内容。
+    
+    ```html
+    <textarea class="personal-sign-textarea" bindblur="textareaBlur"></textarea> 
+    ```
+
+### 实现签名操作
+1. 在`index.js`文件中定义`changeSign`事件。
+	
+    以下代码表示：将页面变量`personalSign`的值赋值到`userSign`中。
+
+    ```JavaScript
+    changeSign: function() {
+        this.setData({
+            userSign: this.data.personalSign
+        })
+    },
+    ```
+
+2. 在`index.ttml`文件中为button组件绑定点击事件`changeSign`，当用户点击**确定**按钮时，将会触发`changeSign`方法。
+
+    ```HTML
+    <button bindtap="changeSign" class="personal-sign-button" type="primary" size="large ">确定</button> 
+    ```
+
+3. 在`index.ttml`文件中，将`userSign`变量绑定到个人签名部分。
+  
+	当`userSign`的值发生变化时，系统会自动将新的内容展示到个人签名部分。
+
+    ```HTML
+    <view class="info-sign">{{userSign}}</view> 
+    ```
+
+	当页面初始化时候，个人签名部分将展示`index.js`文件中的页面变量的初始值，即 `""`（空值）。
+  
+    ```Plain Text
+    userSign: '',
+    ```
+
+

@@ -1,0 +1,173 @@
+<!--
+title: 色彩
+id: 7462709322369024004
+fullPath: /tools-and-resources/design-specification/design-language/color
+updatedAt: 1739784708000
+source: https://open.feishu.cn/document/design-specification/design-language/color
+-->
+# 色彩
+**色彩系统** 是用于构建产品界面的色彩体系和使用规范，能够强化品牌风格，赋予产品活力、提供视觉识别延续性。同时色彩系统可帮助用户区分信息层级，为操作提供视觉反馈和传达信息状态，是界面设计中基础元素。
+  
+<br>
+## 色彩应用
+
+在界面设计中，色彩的应用需要依从于场景。我们在基础色系中选择出适当的颜色，结合应用场景进行了定义和规范。
+  
+### 品牌色
+
+品牌色是表现产品特性和传达品牌认知最直观的视觉元素之一，设计师通过对飞书品牌DNA的抽象和捕捉，选取基础色中的蓝色`#1456F0` 作为品牌色。应用场景包括：行动号召、选中状态、信息高亮、插画设计等。
+:::html
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #D5D5D6;
+        }
+        
+        td {
+            border: 1px solid #EAEAEA;
+            padding: 0px;
+        }
+    </style>
+</head>
+</html>
+:::
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/af68c2f32fbec4b6af3f485761b25c97_5NexNIafYO.png?height=580&lazyload=true&width=4400)
+  
+### 辅助色
+
+辅助色能够平衡主色的冲击效果和减轻其对观看者产生的视觉疲劳度，起到烘托、融合的作用。
+
+<br>**纯色**
+
+应用场景包括：功能区分、插画设计等。
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7256b30e92d4ea2f5f377c0aaa5a1cbf_rPLp8ln8Mn.png?height=400&lazyload=true&width=1400)
+
+<br>**渐变色**
+
+为增加色彩表现的丰富性，色彩系统规范了渐变辅助色的使用方式。使用场景包括：分类卡片、图形化（插画）等。
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/20a960307921b84f0715ec1075ffba6c_CAFCJHhDn9.png?height=400&lazyload=true&width=1200)
+  
+### 功能色
+
+功能色用来标识界面中的信息状态，在选取时需要遵循用户的认知习惯。在相同产品体系下需要保持一致性，否则会干扰用户的认知习惯。使用场景包括：成功、失败、出错、提醒、链接、高亮等。
+
+<br>**文字**
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ed834ed2c12527dca79b073b6f606b02_Fu1CITN7bZ.png?height=200&lazyload=true&maxWidth=400&width=800)
+
+<br>**内容**
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/10f9c1ca284329308071d61e0ad5bfbc_zBzYnCQGjt.png?height=200&lazyload=true&maxWidth=400&width=800)
+  
+### 中性色
+
+中性色主要应用于文字与通用元素部分，如背景、描边、分割线等。选择中性色时需要考虑深、浅背景下的明度对比差异性。合理地选择中性色能够令页面信息具备良好的主次关系，保障界面元素的可识别性。
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ebb856ed596ee331264b243e15b21a52_OuDgVH10Rj.png?height=400&lazyload=true&width=1600)
+**文字**
+
+| **一、二级主标题<br>一级正文**         | **副标题<br>二级正文**           | **Placeholder<br>次要信息**        | **Disable**        |
+| --------- | --------------- | -------   | ----------- | --------- |
+|#1F2329 | #646A73 | #8F959E| #BBBFC4 |
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/78fb27b0427c2d258ee79e817229206b_FpTCSjtzEe.png?height=200&lazyload=true&maxWidth=400&width=800)
+
+**图标**
+
+| **一级图标**         | **二级图标**           | ****三级图标、表意图标****        | **Disable**        |
+| --------- | --------------- | -------   | ----------- | --------- |
+|#2b2f36 | #646A73 | #8F959E | #8F959E| #BBBFC4 |
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/23470e7857857f3b935bc8dc44ee7e10_BhOg0fjbvn.png?height=400&lazyload=true&maxWidth=400&width=1600)
+> 表意图标是一种用于传达特定信息的图形符号，旨在通过直观的视觉表达，使用户能够迅速理解其含义并采取相应的行动或注意相关事项，例如公共卫生间标示的男性与女性形像的图标。
+
+**背景色**
+
+:::html
+<md-table>
+  <md-thead>
+    <md-tr>
+      <md-th style="width: 10%;">参数</md-th>
+      <md-th style="width: 30%;">Background 1：#EFF0F1</md-th>
+      <md-th style="width: 30%;">Background 2：#F5F6F7</md-th>
+      <md-th style="width: 30%;">Background 3：#F8F9FA</md-th>
+    </md-tr>
+  </md-thead>
+  <md-tbody>
+     <md-tr>
+      <md-td>**场景**</md-td>
+      <md-td>**Web**<br>
+- 输入框 disable 态时的背景色
+- 下拉选框中选项 hover 时的背景色 </md-td>
+      <md-td>**Web**<br>
+- 产品详情页背景色<br>
+- 表单中分组栏的背景色
+
+<br>**Mobile**<br>
+- 设置页背景<br>
+- 气泡背景
+       
+<br>**Desktop**<br>
+- 栏背景<br>
+- 气泡背景<br>
+- 卡片背景
+       </md-td>
+      <md-td>**Web**<br>
+- 弹窗中的数据组的背景色<br>
+- 审批流中数据组的背景色 
+       </md-td>
+     </md-tr>
+</md-tbody>
+</md-table>
+:::
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/21c6c92f4c54a3ab5c4bb06eaf26c4f5_Yeqxwpt9tU.png?height=200&lazyload=true&maxWidth=300&width=600)
+
+**控件**
+
+**灰色 Badge**
+
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/361368b85b39d8239268d4f97b3954d8_2THk2euH0t.png?height=400&lazyload=true&maxWidth=100&width=400)
+
+**Checkbox**
+| **未选中（描边）**         | **选中 disable（描边）**           | **未选中 disable （填充）**        | 
+| --------- | --------------- | -------   | ----------- | --------- |
+|#8F959E | #BBBFC4 | #EFF0F1| 
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/15b76c0d7ffb3145dab109706a260da6_p9p6QuF8Qo.png?height=400&lazyload=true&maxWidth=300&width=1200)
+
+**描边与填充**
+| **Border 1**<br>**可交互控件描边**         | **Border 2**<br>**卡片描边** | **Disable Fill**<br>**Disable填充** | 
+| --------- | --------------- | -------   | ----------- | --------- |
+|#D0D3D6 | #DEE0E3 | #EFF0F1| 
+
+![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/7cc4a0dd33cd562c325ec5a13878d57f_0CQl2sC7PH.png?height=400&lazyload=true&maxWidth=300&width=1200)
+
+<br>
+### 透明度
+
+中性色使用透明度时，只能使用 #1f2329 与 #FFFFFF 两种色号，适用于亮色背景与暗色背景，并适用统一的透明度梯度。
+
+:::html
+<md-table>
+  <md-tbody>
+     <md-tr>
+      <md-td>**透明度梯度**</md-td>
+      <md-td>5%</md-td>
+      <md-td>10%</md-td>
+      <md-td>15%</md-td>
+      <md-td>20%</md-td>
+      <md-td>30%</md-td>
+      <md-td>40%</md-td>
+      <md-td>50%</md-td>
+      <md-td>60%</md-td>
+      <md-td>69%</md-td>
+      <md-td>80%</md-td>
+      <md-td>89%</md-td>
+    </md-tr>
+  </md-tbody>
+</md-table>
+:::
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/45ea87a250e5d3510a563f45ca9e2de1_9mK5FmYzDR.png?height=1040&lazyload=true&width=4928)

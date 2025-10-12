@@ -1,0 +1,93 @@
+<!--
+title: 步骤一：创建并配置应用
+id: 7238816139733417987
+fullPath: /home/quick-start-of-personnel-and-attendance-management-system/step-1-create-and-configure-an-application
+updatedAt: 1720775985000
+source: https://open.feishu.cn/document/quick-start-of-personnel-and-attendance-management-system/step-1-create-and-configure-an-application
+-->
+# 步骤一：创建并配置应用
+
+在本步骤，你将创建一个测试应用，并为应用开启机器人能力及 OpenAPI 权限，为后续通过机器人应用发起审批操作做准备。
+
+## 一、创建测试应用
+
+在本步骤，你将创建一个测试版的企业自建应用。
+
+### 操作步骤
+
+1. 登录 [飞书开发者后台](https://open.feishu.cn/app)。
+
+2. 单击 **创建企业** **自建应用**，然后填写应用 **名称** 和 **应用描述**，单击 **创建**。
+
+	![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/522891e448cfd297ef1c8a47c66676ba_FzTORSUC2S.png?height=1236&lazyload=true&maxWidth=400&width=1036)
+
+    
+3. 在左侧导航栏单击进入 **测试企业和人员** 页面，单击 **创建测试企业**，填写 **测试企业名称**、**手机号**、**验证码**，单击 **确认创建**。
+
+:::note
+为了满足开发测试阶段频繁变更配置的需求，飞书开放平台提供了[测试企业与人员](/ssl:ttdoc/home/introduction-to-custom-app-development/testing-enterprise-and-personnel-functions)功能。在开发阶段，推荐开发者使用测试版应用，此版本中涉及的**权限和配置变更都会直接生效，无需管理员审核**，客户端的测试也将在测试租户进行。在所有的开发测试完成之后，切换、手动同步到正式版应用，仅提交一次审核即可，大大加速了开发效率，也降低了对管理员的打扰。
+:::
+ 
+![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/dc74dca16da2445b0996f0d00e8584af_ydBUEsJwLi.png?height=600&lazyload=true&maxWidth=400&width=1192)
+
+4. 在创建完成的测试企业操作栏，单击 **关联应用**，即可为当前应用自动生成测试版本。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/4202be5e53167a7c40376eb6487b6e08_5lkucwqj46.png?height=660&lazyload=true&maxWidth=600&width=2252)
+
+5. 左侧导航栏，单击应用名称右侧的切换图标并选择 **切换至测试版本**。
+
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/5f1f18e8ea79283471f74d880fdce927_vh66oiBT7S.png?height=870&lazyload=true&maxWidth=600&width=2114)
+
+## 二、开通应用权限
+
+通过本步骤您将为创建的测试应用开启网页应用能力并开通对应的应用权限，用于后续的 OpenAPI 调用。
+
+### 操作步骤
+
+1. 添加应用能力。
+
+    1. 在左侧导航栏，单击 **添加应用能力**。
+    2. 在 **按能力添加** 页签，分别找到 **网页应用** 和 **机器人** 卡片，并单击 **添加**。
+    
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/610d56df8bbb511b5cfdedc9c2385cb7_aAajgBFevI.png?height=936&lazyload=true&maxWidth=600&width=2294)
+        
+2. 在 **权限管理** 页面，为应用开通以下 **API 权限**。
+
+    - `approval:approval`：查看、创建、更新、删除审批应用相关信息
+    - `approval:approval:readonly`：访问审批应用
+    - `attendance:task`：写入打卡数据
+    - `calendar:calendar`：更新日历及日程信息
+    - `calendar:calendar:readonly`：获取日历、日程及忙闲信息
+    - ` calendar:timeoff`：创建或删除请假日程
+    - `im:message:send_as_bot`：以应用的身份发消息
+    - `im:message.group_at_msg:readonly`：接收群聊中@机器人消息事件
+    - `im:message.p2p_msg:readonly`：读取用户发给机器人的单聊消息
+    - `contact:contact`：更新通讯录
+    - `contact:user.employee_id:readonly`：获取用户 User ID
+    - `bitable:app`：查看、评论、编辑和管理多维表格
+    - `contact:contact:readonly_as_app`：以应用身份读取通讯录
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/42c2e1edb36ce4dd495797c7bf45d650_O2wMOBAfGM.png?height=816&lazyload=true&maxWidth=600&width=2266)
+
+## 三、配置网页应用信息
+
+1. 在左侧导航栏，点击进入 **网页应用** 页面，配置 **桌面端主页** 和 **移动端主页**，并单击 **保存**。
+
+    桌面端主页和移动端主页均需要填写 `http://127.0.0.1:3000`。
+    
+    ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b519f66d6005b43306028afe88fe8b9e_RUbtm9qd6e.png?height=1370&lazyload=true&maxWidth=600&width=1770)
+
+2. 在左侧导航栏，点击进入 **安全设置** 页面，在 **重定向 URL**、**H5 可信域名** 区域，依次添加域名。
+
+    - 重定向 URL 填写 **`http://127.0.0.1:3000/`**
+
+      必须以 `/` 结尾，否则免登流程中的 `tt.requestAuthCode` 获取 code 会失败。
+
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8515f69aa9f22df4f990382bc43adf05_eKclVmCFfd.png?height=492&lazyload=true&maxWidth=600&width=2154)
+        
+     - H5 可信域名填写 **`http://127.0.0.1:3000`**
+
+        可信域名需要和上一步中配置的地址保持一致，否则如果访问 [JSAPI](/ssl:ttdoc/uYjL24iN/uMTMuMTMuMTM/) 会失败。
+        
+        ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/fafbadda4b3a6db84bc6a9dacba1b350_cwZwTTQK1C.png?height=1304&lazyload=true&maxWidth=600&width=2218)
