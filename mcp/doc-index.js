@@ -58,44 +58,70 @@ function clampLimit(limit) {
 }
 
 export class DocIndex {
-  constructor(rootDir, namespace = DEFAULT_NAMESPACE) {
-    this.rootDir = rootDir;
+  constructor(rootDirs, namespace = DEFAULT_NAMESPACE) {
+    const entries = Array.isArray(rootDirs) ? rootDirs : [rootDirs];
+    if (entries.length === 0) {
+      throw new Error('DocIndex 需要至少一个文档根目录。');
+    }
+    const labelCounter = new Map();
+    this.rootEntries = entries.map((dir, idx) => {
+      const resolved = path.resolve(dir);
+      let base = path.basename(resolved);
+      if (!base || base === path.sep) {
+        base = `root-${idx + 1}`;
+      }
+      let label = base;
+      let counter = 1;
+      while (labelCounter.has(label)) {
+        counter += 1;
+        label = `${base}-${counter}`;
+      }
+      labelCounter.set(label, true);
+      return {
+        dir: resolved,
+        label
+      };
+    });
     this.namespace = namespace;
     this.docs = [];
     this.docByPath = new Map();
   }
 
   async initialize() {
-    const files = await this.collectMarkdownFiles(this.rootDir);
-    const docs = [];
-    for (const filePath of files) {
-      const relativePath = path.relative(this.rootDir, filePath);
-      try {
-        const raw = await fs.promises.readFile(filePath, 'utf8');
-        const plain = toPlainText(raw);
-        const lowered = plain.toLowerCase();
-        const titleMatch = raw.match(/^#\s+(.+)$/m);
-        const title = titleMatch ? titleMatch[1].trim() : path.basename(relativePath, path.extname(relativePath));
-        const description = plain.slice(0, 160);
-        const resourcePath = encodeResourcePath(relativePath);
-        const doc = {
-          relativePath,
-          resourcePath,
-          absolutePath: filePath,
-          title,
-          description,
-          content: raw,
-          plainText: plain,
-          plainLower: lowered
-        };
-        docs.push(doc);
-        this.docByPath.set(relativePath, doc);
-        this.docByPath.set(resourcePath.replace(/\//g, path.sep), doc);
-      } catch (error) {
-        console.warn(`无法加载文档 ${filePath}: ${error.message}`);
+    this.docs = [];
+    this.docByPath.clear();
+    for (const entry of this.rootEntries) {
+      const files = await this.collectMarkdownFiles(entry.dir);
+      for (const filePath of files) {
+        const relativeWithinRoot = path.relative(entry.dir, filePath);
+        const relativePath = path.join(entry.label, relativeWithinRoot);
+        try {
+          const raw = await fs.promises.readFile(filePath, 'utf8');
+          const plain = toPlainText(raw);
+          const lowered = plain.toLowerCase();
+          const titleMatch = raw.match(/^#\s+(.+)$/m);
+          const title = titleMatch ? titleMatch[1].trim() : path.basename(relativeWithinRoot, path.extname(relativeWithinRoot));
+          const description = plain.slice(0, 160);
+          const resourcePath = encodeResourcePath(relativePath);
+          const doc = {
+            relativePath,
+            resourcePath,
+            absolutePath: filePath,
+            title,
+            description,
+            content: raw,
+            plainText: plain,
+            plainLower: lowered
+          };
+          this.docs.push(doc);
+          this.docByPath.set(relativePath, doc);
+          this.docByPath.set(resourcePath.replace(/\//g, path.sep), doc);
+          this.docByPath.set(relativePath.split(path.sep).join('/'), doc);
+        } catch (error) {
+          console.warn(`无法加载文档 ${filePath}: ${error.message}`);
+        }
       }
     }
-    this.docs = docs;
   }
 
   async collectMarkdownFiles(dirPath) {
@@ -196,23 +222,38 @@ export class DocIndex {
   buildResourceUri(resourcePath) {
     return `doc://${this.namespace}/${resourcePath}`;
   }
+
+  getSourceLabels() {
+    return this.rootEntries.map(entry => entry.label);
+  }
 }
 
 export function resolveDocRoot() {
   const customRoot = process.env.DOC_ROOT;
   if (customRoot) {
-    return path.resolve(customRoot);
+    const segments = customRoot
+      .split(path.delimiter)
+      .map(segment => segment.trim())
+      .filter(Boolean)
+      .map(segment => path.resolve(segment));
+    const existing = segments.filter(segment => fs.existsSync(segment));
+    if (existing.length === 0) {
+      throw new Error(`DOC_ROOT 指定的目录不存在：${customRoot}`);
+    }
+    return existing;
   }
   const candidates = [
     path.resolve('docs'),
     path.resolve('wecom'),
+    path.resolve('feishu'),
     path.join(PACKAGE_ROOT, 'docs'),
-    path.join(PACKAGE_ROOT, 'wecom')
+    path.join(PACKAGE_ROOT, 'wecom'),
+    path.join(PACKAGE_ROOT, 'feishu')
   ];
-  for (const candidate of candidates) {
-    if (fs.existsSync(candidate)) {
-      return candidate;
-    }
+  const existing = candidates.filter(candidate => fs.existsSync(candidate));
+  if (existing.length > 0) {
+    const deduped = Array.from(new Set(existing.map(candidate => path.resolve(candidate))));
+    return deduped;
   }
   throw new Error(
     '无法定位文档目录。请通过 DOC_ROOT 环境变量指定 Markdown 文档根路径。'

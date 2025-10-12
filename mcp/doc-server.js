@@ -8,10 +8,19 @@ import { DocIndex, resolveDocRoot } from './doc-index.js';
 
 async function main() {
   const docRoot = resolveDocRoot();
+  const rootPaths = Array.isArray(docRoot) ? docRoot : [docRoot];
   const namespace = (process.env.DOC_NAMESPACE ?? 'local-docs').trim() || 'local-docs';
   const serverName = process.env.MCP_SERVER_NAME?.trim() || 'local-docs-mcp';
-  const index = new DocIndex(docRoot, namespace);
+  const index = new DocIndex(rootPaths, namespace);
   await index.initialize();
+  const sourceLabels = index.getSourceLabels();
+  const sourceDescription = sourceLabels.length ? sourceLabels.join('、') : '默认目录';
+  const rootDisplay = rootPaths
+    .map(rootPath => {
+      const relative = path.relative(process.cwd(), rootPath);
+      return relative && relative !== '' ? relative : rootPath;
+    })
+    .join('、');
 
   const server = new McpServer(
     {
@@ -20,7 +29,7 @@ async function main() {
     },
     {
       instructions:
-        `使用 search-docs 工具检索本地文档。文档库包含企业微信与飞书开放平台的 Markdown 资料，更新时间截至 2025-10-12。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
+        `使用 search-docs 工具检索本地文档。当前文档库来源：${sourceDescription}，默认包含企业微信与飞书开放平台资料，更新时间截至 2025-10-12。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
     }
   );
 
@@ -29,7 +38,7 @@ async function main() {
     {
       title: '文档检索',
       description:
-        '根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12），返回匹配的资源链接和摘要。',
+        `根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12，源目录：${sourceDescription}），返回匹配的资源链接和摘要。`,
       inputSchema: {
         query: z.string().min(1, '查询内容不能为空'),
         limit: z.number().int().min(1).max(10).optional()
@@ -102,7 +111,7 @@ async function main() {
     docTemplate,
     {
       title: '本地文档集合',
-      description: `本地文档根目录：${path.relative(process.cwd(), docRoot) || '.'}`,
+      description: `本地文档根目录：${rootDisplay}`,
       mimeType: 'text/markdown'
     },
     async (uri, variables) => {
