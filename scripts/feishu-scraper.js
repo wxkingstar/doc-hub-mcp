@@ -72,19 +72,6 @@ function extractFromNpmConfigArgv(name) {
   return null;
 }
 
-function extractFromText(text, name) {
-  if (!text) return null;
-  const regex = new RegExp(`--${name}(?:=|\\s+|["']\\s*,\\s*["'])(\\d+)`, 'i');
-  const match = text.match(regex);
-  if (match) {
-    const value = Number(match[1]);
-    if (Number.isFinite(value) && value > 0) {
-      return Math.floor(value);
-    }
-  }
-  return null;
-}
-
 function extractFromLifecycleScript(name) {
   const script = process.env.npm_lifecycle_script;
   if (!script) return null;
@@ -112,6 +99,13 @@ function scanArgListForNumeric(list, name) {
     }
   }
   return null;
+}
+
+function extractFromText(text, name) {
+  if (!text) return null;
+  const normalized = text.replace(/["',]/g, ' ');
+  const tokens = normalized.split(/\s+/).filter(Boolean);
+  return scanArgListForNumeric(tokens, name);
 }
 
 const axiosInstance = axios.create({
