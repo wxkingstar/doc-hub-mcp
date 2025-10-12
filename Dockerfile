@@ -21,8 +21,5 @@ RUN chmod +x mcp/doc-server.js
 # 设置环境变量
 ENV NODE_ENV=production
 
-# 暴露端口
-EXPOSE 3000
-
-# 启动 MCP HTTP 服务器（用于 Smithery 等 HTTP 传输）
-CMD ["node", "mcp/http-server.js"]
+# 启动 MCP 服务器
+CMD ["node", "mcp/doc-server.js"]

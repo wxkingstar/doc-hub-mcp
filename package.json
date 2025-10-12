@@ -9,8 +9,7 @@
   "scripts": {
     "scrape:feishu": "node scripts/feishu-scraper.js",
     "scrape:wecom": "node scripts/wecom-scraper.js",
-    "mcp:server": "node mcp/doc-server.js",
-    "mcp:http": "node mcp/http-server.js"
+    "mcp:server": "node mcp/doc-server.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.0",
