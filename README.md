@@ -131,6 +131,24 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 2. 记录响应中返回的 `resourceUri`（形如 `doc://local-docs/001-getting-started/...`）。  
 3. 使用客户端提供的 `resources/read` 接口读取该 URI，即可获取完整 Markdown 文档内容。
 
+## 数据抓取（可选）
+
+- 企业微信文档：
+
+  ```bash
+  npm run scrape:wecom -- --limit 20     # 仅抓取 20 篇做快速验证
+  npm run scrape:wecom                   # 全量抓取
+  ```
+
+- 飞书开放平台文档：
+
+  ```bash
+  npm run scrape:feishu -- --limit 20    # 仅抓取 20 篇做快速验证
+  npm run scrape:feishu                  # 全量抓取
+  ```
+
+> 使用 `--limit` 可以控制抓取数量，便于先做增量验证。去掉该参数即执行全量抓取。
+
 ## 故障排查
 
 - **依赖缺失**：确认已执行 `npm install` 且无报错。  
