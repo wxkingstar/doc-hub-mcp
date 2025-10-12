@@ -64,7 +64,23 @@ function extractFromNpmConfigArgv(name) {
       if (value !== null) return value;
     }
   } catch {
-    return null;
+    const fallback = extractFromText(raw, name);
+    if (fallback !== null) return fallback;
+  }
+  const fallback = extractFromText(raw, name);
+  if (fallback !== null) return fallback;
+  return null;
+}
+
+function extractFromText(text, name) {
+  if (!text) return null;
+  const regex = new RegExp(`--${name}(?:=|\\s+|["']\\s*,\\s*["'])(\\d+)`, 'i');
+  const match = text.match(regex);
+  if (match) {
+    const value = Number(match[1]);
+    if (Number.isFinite(value) && value > 0) {
+      return Math.floor(value);
+    }
   }
   return null;
 }
