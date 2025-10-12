@@ -20,7 +20,7 @@ async function main() {
     },
     {
       instructions:
-        `使用 search-docs 工具检索本地文档。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
+        `使用 search-docs 工具检索本地文档。文档库包含企业微信与飞书开放平台的 Markdown 资料，更新时间截至 2025-10-12。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
     }
   );
 
@@ -28,7 +28,8 @@ async function main() {
     'search-docs',
     {
       title: '文档检索',
-      description: '根据关键词检索本地 Markdown 文档，返回匹配的资源链接和摘要。',
+      description:
+        '根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12），返回匹配的资源链接和摘要。',
       inputSchema: {
         query: z.string().min(1, '查询内容不能为空'),
         limit: z.number().int().min(1).max(10).optional()
