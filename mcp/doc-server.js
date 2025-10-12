@@ -29,12 +29,12 @@ async function main() {
     },
     {
       instructions:
-        `使用 search-docs 工具检索本地文档。当前文档库来源：${sourceDescription}，默认包含企业微信与飞书开放平台资料，更新时间截至 2025-10-12。可通过 source 参数（wecom/feishu）指定文档来源以提高检索精确性。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
+        `使用 doc-hub 工具检索本地文档。当前文档库来源：${sourceDescription}，默认包含企业微信与飞书开放平台资料，更新时间截至 2025-10-12。可通过 source 参数（wecom/feishu）指定文档来源以提高检索精确性。检索结果会返回 doc://${namespace}/... 资源链接，可通过 resources/read 获取完整内容。`
     }
   );
 
   server.registerTool(
-    'search-docs',
+    'doc-hub',
     {
       title: '文档检索',
       description:

@@ -29,7 +29,7 @@
 
 ## 功能特性
 
-- **关键字检索**：`search-docs` 工具支持按关键词匹配标题与正文，返回排序后的候选列表。  
+- **关键字检索**：`doc-hub` 工具支持按关键词匹配标题与正文，返回排序后的候选列表。  
 - **全文获取**：默认使用 `doc://local-docs/{+path}` 资源，可通过 `resources/read` 获取 Markdown 原文。  
 - **可配置命名空间**：通过环境变量可自定义资源命名空间与服务名称，利于多知识库并行。  
 - **自定义文档根目录**：默认依次查找运行目录与包内的 `docs/`、`wecom/`、`feishu/`，也可通过 `DOC_ROOT` 指定任意路径。  
@@ -84,7 +84,7 @@ DOC_ROOT=/path/to/docs DOC_NAMESPACE=my-docs npm run mcp:server --silent
 npx @modelcontextprotocol/inspector -s "npm run mcp:server --silent"
 ```
 
-若在 MCP Inspector 中能看到 `search-docs` 工具和 `doc://local-docs/...`（或自定义命名空间）资源，即表示服务工作正常。
+若在 MCP Inspector 中能看到 `doc-hub` 工具和 `doc://local-docs/...`（或自定义命名空间）资源，即表示服务工作正常。
 
 ### 直接通过 `npx` 使用
 
@@ -173,7 +173,7 @@ DOC_ROOT=/data/docs DOC_NAMESPACE=internal-docs npx -y doc-hub-mcp
 
 配置完成后，在支持 MCP 的 AI 编程助手中，可以通过以下方式使用：
 
-1. **直接对话查询**：直接询问相关问题，AI 助手会自动调用 `search-docs` 工具进行检索。例如：
+1. **直接对话查询**：直接询问相关问题，AI 助手会自动调用 `doc-hub` 工具进行检索。例如：
    - "企业微信如何获取外部联系人列表？"
    - "飞书如何发送消息？"
 
