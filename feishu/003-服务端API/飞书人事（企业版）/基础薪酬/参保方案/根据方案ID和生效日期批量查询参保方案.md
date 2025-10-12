@@ -1,6 +1,8 @@
 ---
 title: "根据方案ID和生效日期批量查询参保方案"
 source_url: https://open.feishu.cn/document/corehr-v1/basic-compensation/social_plan/query
+last_remote_update: 2025-08-22
+last_remote_update_timestamp: 1755844166000
 ---
 最后更新于 2025-08-22
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/corehr-v1/basic-compensation/social_
 通过plan_ids列表和effective_date联合过滤数据库中的参保方案数据
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/compensation/v1/social_plans/query
 HTTP Method | POST
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

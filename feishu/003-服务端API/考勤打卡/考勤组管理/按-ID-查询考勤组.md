@@ -1,6 +1,8 @@
 ---
 title: "按 ID 查询考勤组"
 source_url: https://open.feishu.cn/document/server-docs/attendance-v1/group/get
+last_remote_update: 2025-06-05
+last_remote_update_timestamp: 1749126320000
 ---
 最后更新于 2025-06-05
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/attendance-v1/group/get
 通过考勤组 ID 获取考勤组详情。包含基本信息、考勤班次、考勤方式、考勤设置信息
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/attendance/v1/groups/:group_id
 HTTP Method | GET
 接口频率限制 | [50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

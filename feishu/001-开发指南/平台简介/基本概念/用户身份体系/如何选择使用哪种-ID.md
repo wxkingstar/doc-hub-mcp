@@ -1,6 +1,8 @@
 ---
 title: "如何选择使用哪种 ID"
 source_url: https://open.feishu.cn/document/platform-overveiw/basic-concepts/user-identity-introduction/user-id
+last_remote_update: 2023-09-14
+last_remote_update_timestamp: 1694672503000
 ---
 最后更新于 2023-09-14
 

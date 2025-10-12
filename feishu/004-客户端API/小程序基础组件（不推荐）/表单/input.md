@@ -1,6 +1,8 @@
 ---
 title: "input"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/input
+last_remote_update: 2022-10-19
+last_remote_update_timestamp: 1666173991000
 ---
 最后更新于 2022-10-19
 

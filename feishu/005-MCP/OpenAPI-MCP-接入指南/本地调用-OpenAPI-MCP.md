@@ -1,6 +1,8 @@
 ---
 title: "本地调用 OpenAPI MCP"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/mcp_installation
+last_remote_update: 2025-09-02
+last_remote_update_timestamp: 1756810280000
 ---
 最后更新于 2025-09-02
 

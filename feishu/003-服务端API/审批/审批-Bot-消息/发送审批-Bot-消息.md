@@ -1,6 +1,8 @@
 ---
 title: "发送审批 Bot 消息"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/message/send-bot-messages
+last_remote_update: 2025-06-23
+last_remote_update_timestamp: 1750674809000
 ---
 最后更新于 2025-06-23
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/approval-v4/message/send
 此接口可以用来通过飞书审批的 Bot 推送消息给用户，当有新的审批待办，或者审批待办的状态有更新时，可以通过飞书审批的 Bot 告知用户。如果出现推送成功，但是没有收到消息，可能是因为开通了审批机器人的聚合推送。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/approval/v1/message/send
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

@@ -1,6 +1,8 @@
 ---
 title: "批量获取审批实例ID"
 source_url: https://open.feishu.cn/document/server-docs/historic-version/approval/v2/feishu-native-approval/batch-obtain-approval-instance-ids
+last_remote_update: 2022-07-08
+last_remote_update_timestamp: 1657280149000
 ---
 最后更新于 2022-07-08
 
@@ -10,9 +12,8 @@ source_url: https://open.feishu.cn/document/server-docs/historic-version/approva
 默认以审批创建时间排序。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://www.feishu.cn/approval/openapi/v2/instance/list
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

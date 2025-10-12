@@ -1,6 +1,8 @@
 ---
 title: "addMenuItem"
 source_url: https://open.feishu.cn/document/client-docs/block/api/host-api/workplace-api/block-menu-item/addmenuitem
+last_remote_update: 2023-08-28
+last_remote_update_timestamp: 1693188734000
 ---
 最后更新于 2023-08-28
 

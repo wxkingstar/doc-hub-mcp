@@ -1,6 +1,8 @@
 ---
 title: "刷新 user_access_token（v1 版本）"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create
+last_remote_update: 2025-06-26
+last_remote_update_timestamp: 1750920600000
 ---
 最后更新于 2025-06-26
 
@@ -12,9 +14,8 @@ user_access_token 的最大有效期是 2小时左右。当 user_access_token �
 **注意事项**：刷新后请更新本地user_access_token和refresh_token，不要继续使用旧值重复刷新。保证参数是最新值
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v1/refresh_access_token
 HTTP Method | POST
 接口频率限制 | [特殊频控](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

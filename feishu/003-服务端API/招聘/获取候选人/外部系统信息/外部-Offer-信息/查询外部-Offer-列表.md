@@ -1,6 +1,8 @@
 ---
 title: "查询外部 Offer 列表"
 source_url: https://open.feishu.cn/document/hire-v1/get-candidates/import-external-system-information/import-external-offer-info/batch_query
+last_remote_update: 2024-12-03
+last_remote_update_timestamp: 1733205874000
 ---
 最后更新于 2024-12-03
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/hire-v1/get-candidates/import-extern
 可根据外部投递 ID 或外部 Offer ID 列表查询外部 Offer 信息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/external_offers/batch_query
 HTTP Method | POST
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

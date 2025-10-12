@@ -1,6 +1,8 @@
 ---
 title: "卡片 JSON 2.0 版本组件概述"
 source_url: https://open.feishu.cn/document/feishu-cards/card-json-v2-components/component-json-v2-overview
+last_remote_update: 2025-01-02
+last_remote_update_timestamp: 1735814698000
 ---
 最后更新于 2025-01-02
 

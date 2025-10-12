@@ -1,6 +1,8 @@
 ---
 title: "onServerBadgePush"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/appbadge/onserverbadgepush
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737430769000
 ---
 最后更新于 2025-01-21
 

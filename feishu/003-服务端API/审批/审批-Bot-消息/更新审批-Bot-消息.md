@@ -1,6 +1,8 @@
 ---
 title: "更新审批 Bot 消息"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/message/update-bot-messages
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745207136000
 ---
 最后更新于 2025-04-21
 
@@ -17,9 +19,8 @@ source_url: https://open.feishu.cn/document/server-docs/approval-v4/message/upda
 - 只支持更新 30 天以内的审批 bot 消息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/approval/v1/message/update
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

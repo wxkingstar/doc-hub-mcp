@@ -1,6 +1,8 @@
 ---
 title: "获取 access_token"
 source_url: https://open.feishu.cn/document/deprecated-guide/app-login/api-reference/get-access_token
+last_remote_update: 2024-11-29
+last_remote_update_timestamp: 1732848744000
 ---
 最后更新于 2024-11-29
 

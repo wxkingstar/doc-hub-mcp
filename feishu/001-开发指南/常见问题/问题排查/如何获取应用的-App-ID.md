@@ -1,6 +1,8 @@
 ---
 title: "如何获取应用的 App ID"
 source_url: https://open.feishu.cn/document/faq/trouble-shooting/how-to-obtain-app-id
+last_remote_update: 2024-12-03
+last_remote_update_timestamp: 1733215255000
 ---
 最后更新于 2024-12-03
 

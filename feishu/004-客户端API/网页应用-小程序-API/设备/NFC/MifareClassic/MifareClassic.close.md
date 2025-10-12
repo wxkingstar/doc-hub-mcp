@@ -1,6 +1,8 @@
 ---
 title: "MifareClassic.close"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/nfc/mifareclassic/mifareclassic.close
+last_remote_update: 2025-08-25
+last_remote_update_timestamp: 1756093939000
 ---
 最后更新于 2025-08-25
 

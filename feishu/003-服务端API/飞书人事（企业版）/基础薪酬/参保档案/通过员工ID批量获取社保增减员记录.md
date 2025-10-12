@@ -1,6 +1,8 @@
 ---
 title: "通过员工ID批量获取社保增减员记录"
 source_url: https://open.feishu.cn/document/corehr-v1/basic-compensation/social_archive/query-2
+last_remote_update: 2025-09-15
+last_remote_update_timestamp: 1757903068000
 ---
 最后更新于 2025-09-15
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/corehr-v1/basic-compensation/social_
 通过员工ID批量获取社保增减员记录
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/compensation/v1/social_archive_adjust_record/query
 HTTP Method | POST
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

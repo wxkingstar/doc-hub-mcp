@@ -1,6 +1,8 @@
 ---
 title: "使用组件行为 behaviors"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/custom-components/component-behaviors
+last_remote_update: 2023-08-29
+last_remote_update_timestamp: 1693277020000
 ---
 最后更新于 2023-08-29
 

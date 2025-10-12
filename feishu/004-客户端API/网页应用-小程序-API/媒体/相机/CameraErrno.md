@@ -1,6 +1,8 @@
 ---
 title: "CameraErrno"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/camera/cameraerrno
+last_remote_update: 2022-12-07
+last_remote_update_timestamp: 1670386616000
 ---
 最后更新于 2022-12-07
 

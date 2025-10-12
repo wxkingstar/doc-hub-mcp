@@ -1,6 +1,8 @@
 ---
 title: "BeaconInfo"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/ibeacon/ibeaconinfo
+last_remote_update: 2022-12-06
+last_remote_update_timestamp: 1670294358000
 ---
 最后更新于 2022-12-06
 

@@ -1,6 +1,8 @@
 ---
 title: "closeWindow（网页应用）"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/navigation/closewindow
+last_remote_update: 2025-04-24
+last_remote_update_timestamp: 1745488839000
 ---
 最后更新于 2025-04-24
 

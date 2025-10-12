@@ -1,6 +1,8 @@
 ---
 title: "更新 Offer 申请表自定义字段"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/offer-settings/offer_application_form/update
+last_remote_update: 2024-08-08
+last_remote_update_timestamp: 1723086407000
 ---
 最后更新于 2024-08-08
 
@@ -15,9 +17,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-rela
 - 本接口不支持修改字段类型为「公式」类型的字段值。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offer_custom_fields/:offer_custom_field_id
 HTTP Method | PUT
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

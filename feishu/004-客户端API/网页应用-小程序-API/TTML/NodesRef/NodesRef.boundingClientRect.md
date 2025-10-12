@@ -1,6 +1,8 @@
 ---
 title: "NodesRef.boundingClientRect"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/ttml/nodesref/boundingclientrect
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737434625000
 ---
 最后更新于 2025-01-21
 

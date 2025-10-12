@@ -1,6 +1,8 @@
 ---
 title: "iOS Logger能力_OC(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/logger-capability/loggerexternal_oc/loggerexternal_oc_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215563000
 ---
 最后更新于 2025-04-21
 

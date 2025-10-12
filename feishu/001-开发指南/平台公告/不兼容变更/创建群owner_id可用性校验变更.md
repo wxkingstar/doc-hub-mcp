@@ -1,6 +1,8 @@
 ---
 title: "创建群owner_id可用性校验变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/create-group-owner_id-availability-check-change
+last_remote_update: 2023-05-10
+last_remote_update_timestamp: 1683713954000
 ---
 最后更新于 2023-05-10
 

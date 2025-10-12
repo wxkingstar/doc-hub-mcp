@@ -1,6 +1,8 @@
 ---
 title: "如何选择使用不同类型的 Token"
 source_url: https://open.feishu.cn/document/faq/trouble-shooting/how-to-choose-which-type-of-token-to-use
+last_remote_update: 2024-12-03
+last_remote_update_timestamp: 1733215323000
 ---
 最后更新于 2024-12-03
 

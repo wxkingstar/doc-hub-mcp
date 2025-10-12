@@ -1,6 +1,8 @@
 ---
 title: "飞书会议室部分 API 接口下线 user_access_token 的访问"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/access-to-uat-offline-meeting-room
+last_remote_update: 2024-03-13
+last_remote_update_timestamp: 1710318757000
 ---
 最后更新于 2024-03-13
 

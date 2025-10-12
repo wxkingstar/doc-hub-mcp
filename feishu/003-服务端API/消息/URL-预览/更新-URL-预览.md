@@ -1,6 +1,8 @@
 ---
 title: "更新 URL 预览"
 source_url: https://open.feishu.cn/document/im-v1/url_preview/batch_update
+last_remote_update: 2024-08-23
+last_remote_update_timestamp: 1724405575000
 ---
 最后更新于 2024-08-23
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/im-v1/url_preview/batch_update
 **注意事项**：**注意**：更新链接预览时需要注意更新频率，如果更新时不指定用户，则可能会造成链接预览请求放大。例如，群聊中的链接预览，所有群成员均会尝试重新拉取预览请求。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/im/v2/url_previews/batch_update
 HTTP Method | POST
 接口频率限制 | [5 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

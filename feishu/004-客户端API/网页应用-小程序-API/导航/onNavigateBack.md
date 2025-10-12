@@ -1,6 +1,8 @@
 ---
 title: "onNavigateBack"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/navigation/onnavigateback
+last_remote_update: 2025-05-14
+last_remote_update_timestamp: 1747188501000
 ---
 最后更新于 2025-05-14
 

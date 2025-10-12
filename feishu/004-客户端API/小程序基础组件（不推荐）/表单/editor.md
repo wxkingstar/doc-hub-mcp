@@ -1,6 +1,8 @@
 ---
 title: "editor"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/editor
+last_remote_update: 2023-06-15
+last_remote_update_timestamp: 1686821779000
 ---
 最后更新于 2023-06-15
 

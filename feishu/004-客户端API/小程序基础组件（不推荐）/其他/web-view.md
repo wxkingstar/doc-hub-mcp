@@ -1,6 +1,8 @@
 ---
 title: "web-view"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/other/web-view
+last_remote_update: 2024-06-06
+last_remote_update_timestamp: 1717644052000
 ---
 最后更新于 2024-06-06
 

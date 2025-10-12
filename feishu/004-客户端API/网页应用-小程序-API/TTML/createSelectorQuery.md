@@ -1,6 +1,8 @@
 ---
 title: "createSelectorQuery"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/ttml/createselectorquery
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737434476000
 ---
 最后更新于 2025-01-21
 

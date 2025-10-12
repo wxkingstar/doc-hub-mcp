@@ -1,6 +1,8 @@
 ---
 title: "offThemeChange"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/interface/darkmode/offthemechange
+last_remote_update: 2022-03-08
+last_remote_update_timestamp: 1646734367000
 ---
 最后更新于 2022-03-08
 

@@ -1,6 +1,8 @@
 ---
 title: "video"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/media/video
+last_remote_update: 2023-08-17
+last_remote_update_timestamp: 1692260952000
 ---
 最后更新于 2023-08-17
 

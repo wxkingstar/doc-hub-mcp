@@ -1,6 +1,8 @@
 ---
 title: "MultipleSelect"
 source_url: https://open.feishu.cn/document/base-extension/base-automation-extensions/component/multipleselect
+last_remote_update: 2024-09-06
+last_remote_update_timestamp: 1725594728000
 ---
 最后更新于 2024-09-06
 

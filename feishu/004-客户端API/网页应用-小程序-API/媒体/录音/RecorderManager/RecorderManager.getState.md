@@ -1,6 +1,8 @@
 ---
 title: "RecorderManager.getState"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/media/record/recordermanager/getstate
+last_remote_update: 2025-05-08
+last_remote_update_timestamp: 1746694167000
 ---
 最后更新于 2025-05-08
 

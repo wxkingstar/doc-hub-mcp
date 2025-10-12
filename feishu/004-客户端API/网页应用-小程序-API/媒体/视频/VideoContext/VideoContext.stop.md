@@ -1,6 +1,8 @@
 ---
 title: "VideoContext.stop"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/video/videocontext/stop
+last_remote_update: 2025-07-04
+last_remote_update_timestamp: 1751624414000
 ---
 最后更新于 2025-07-04
 

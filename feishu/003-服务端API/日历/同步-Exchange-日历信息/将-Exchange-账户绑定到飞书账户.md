@@ -1,6 +1,8 @@
 ---
 title: "将 Exchange 账户绑定到飞书账户"
 source_url: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_binding/create
+last_remote_update: 2024-07-10
+last_remote_update_timestamp: 1720582462000
 ---
 最后更新于 2024-07-10
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_bin
 **注意事项**：当前身份需要是企业超级管理员。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/calendar/v4/exchange_bindings
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

@@ -1,6 +1,8 @@
 ---
 title: "iOS Passport能力_Swift(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/passport-capability/ios-passportexternal_swift/ios-passportexternal_swift_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215563000
 ---
 最后更新于 2025-04-21
 

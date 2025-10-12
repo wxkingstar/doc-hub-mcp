@@ -1,6 +1,8 @@
 ---
 title: "Chrome 禁用三方 Cookies 对云文档小组件的影响说明"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/chrome-disabling-third-party-cookies-on-document-widgets
+last_remote_update: 2024-01-24
+last_remote_update_timestamp: 1706078833000
 ---
 最后更新于 2024-01-24
 

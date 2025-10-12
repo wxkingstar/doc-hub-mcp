@@ -1,6 +1,8 @@
 ---
 title: "SDK开发文档"
 source_url: https://open.feishu.cn/document/common-capabilities/sso/mobile-app/sdk
+last_remote_update: 2025-02-17
+last_remote_update_timestamp: 1739790391000
 ---
 最后更新于 2025-02-17
 

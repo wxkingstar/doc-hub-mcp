@@ -1,6 +1,8 @@
 ---
 title: "npm 支持"
 source_url: https://open.feishu.cn/document/tools-and-resources/development-tools/npm-support
+last_remote_update: 2023-06-15
+last_remote_update_timestamp: 1686837445000
 ---
 最后更新于 2023-06-15
 

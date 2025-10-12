@@ -1,6 +1,8 @@
 ---
 title: "FileSystemManager.accessSync"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/file/file_system_manager/access_sync
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737433449000
 ---
 最后更新于 2025-01-21
 

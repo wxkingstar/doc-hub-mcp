@@ -1,6 +1,8 @@
 ---
 title: "自建应用获取 tenant_access_token"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token_internal
+last_remote_update: 2025-03-26
+last_remote_update_timestamp: 1742984604000
 ---
 最后更新于 2025-03-26
 
@@ -16,9 +18,8 @@ source_url: https://open.feishu.cn/document/server-docs/authentication-managemen
 - 剩余有效期大于等于 30 分钟时，调用本接口会返回原有的 `tenant_access_token`。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal
 HTTP Method | POST
 支持的应用类型 | 自建应用

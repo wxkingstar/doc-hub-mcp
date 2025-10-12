@@ -1,6 +1,8 @@
 ---
 title: "createCameraContext"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/camera/createcameracontext
+last_remote_update: 2024-09-18
+last_remote_update_timestamp: 1726645178000
 ---
 最后更新于 2024-09-18
 

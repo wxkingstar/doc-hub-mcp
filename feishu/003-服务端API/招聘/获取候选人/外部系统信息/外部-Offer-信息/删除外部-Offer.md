@@ -1,6 +1,8 @@
 ---
 title: "删除外部 Offer"
 source_url: https://open.feishu.cn/document/hire-v1/get-candidates/import-external-system-information/import-external-offer-info/delete
+last_remote_update: 2024-12-03
+last_remote_update_timestamp: 1733205885000
 ---
 最后更新于 2024-12-03
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/hire-v1/get-candidates/import-extern
 根据外部 Offer ID 删除外部 Offer。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/external_offers/:external_offer_id
 HTTP Method | DELETE
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

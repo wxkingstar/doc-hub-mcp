@@ -1,6 +1,8 @@
 ---
 title: "canvas"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/other/canvas
+last_remote_update: 2022-09-08
+last_remote_update_timestamp: 1662636631000
 ---
 最后更新于 2022-09-08
 

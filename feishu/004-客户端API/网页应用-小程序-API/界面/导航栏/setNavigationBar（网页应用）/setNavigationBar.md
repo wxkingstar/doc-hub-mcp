@@ -1,6 +1,8 @@
 ---
 title: "setNavigationBar"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/interface/navigation/a/setnavigationbar
+last_remote_update: 2025-04-24
+last_remote_update_timestamp: 1745488862000
 ---
 最后更新于 2025-04-24
 

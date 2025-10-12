@@ -1,6 +1,8 @@
 ---
 title: "获取 user_access_token"
 source_url: https://open.feishu.cn/document/historic-version/authen/create-3
+last_remote_update: 2025-06-26
+last_remote_update_timestamp: 1750920505000
 ---
 最后更新于 2025-06-26
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/historic-version/authen/create-3
 - user_access_token 有效期为 2 小时左右，具体剩余有效期可通过当前接口返回的 expires_in 参数获取。如果 user_access_token 过期可以[刷新 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-refresh_access_token/create)。当前接口返回结果中包含用于刷新 user_access_token 的 refresh_token 参数，注意该参数也存在有效期（30 天左右），具体剩余有效期可通过返回的 refresh_expires_in 参数获取。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v1/oidc/access_token
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

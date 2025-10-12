@@ -1,6 +1,8 @@
 ---
 title: "获取 Offer 申请表详细信息"
 source_url: https://open.feishu.cn/document/server-docs/historic-version/hire_internal/offer/get
+last_remote_update: 2021-05-24
+last_remote_update_timestamp: 1621859616000
 ---
 最后更新于 2021-05-24
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/historic-version/hire_in
 根据 Offer 申请表 ID，获取 Offer 申请表的详细信息
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offer_schemas/:offer_schema_id
 HTTP Method | GET
 权限要求  

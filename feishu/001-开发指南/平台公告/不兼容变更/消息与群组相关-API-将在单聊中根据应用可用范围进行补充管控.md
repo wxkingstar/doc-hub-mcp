@@ -1,6 +1,8 @@
 ---
 title: "消息与群组相关 API 将在单聊中根据应用可用范围进行补充管控"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/app-availability-range-additional-control
+last_remote_update: 2024-11-27
+last_remote_update_timestamp: 1732700102000
 ---
 最后更新于 2024-11-27
 

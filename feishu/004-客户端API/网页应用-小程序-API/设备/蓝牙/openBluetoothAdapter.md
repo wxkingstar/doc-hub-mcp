@@ -1,6 +1,8 @@
 ---
 title: "openBluetoothAdapter"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/bluetooth/openbluetoothadapter
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683446000
 ---
 最后更新于 2025-04-15
 

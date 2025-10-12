@@ -1,6 +1,8 @@
 ---
 title: "openSchema"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/navigation/openschema
+last_remote_update: 2025-02-24
+last_remote_update_timestamp: 1740397101000
 ---
 最后更新于 2025-02-24
 

@@ -1,6 +1,8 @@
 ---
 title: "table.getFieldMetaList"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/table/base_getfieldmetalist
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690343178000
 ---
 最后更新于 2023-07-26
 

@@ -1,6 +1,8 @@
 ---
 title: "CanvasContext.setFontSize"
 source_url: https://open.feishu.cn/document/client-docs/block/api/canvas/canvascontext/canvascontext-setFontSize
+last_remote_update: 2023-10-27
+last_remote_update_timestamp: 1698399900000
 ---
 最后更新于 2023-10-27
 

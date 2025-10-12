@@ -1,6 +1,8 @@
 ---
 title: "onRightNavigationBarClick"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/interface/navigation/a/onrightnavigationbarclick
+last_remote_update: 2022-05-18
+last_remote_update_timestamp: 1652861672000
 ---
 最后更新于 2022-05-18
 

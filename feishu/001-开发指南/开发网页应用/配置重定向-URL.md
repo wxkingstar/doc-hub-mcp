@@ -1,6 +1,8 @@
 ---
 title: "配置重定向 URL"
 source_url: https://open.feishu.cn/document/develop-web-apps/configure-redirect-urls
+last_remote_update: 2024-11-27
+last_remote_update_timestamp: 1732693615000
 ---
 最后更新于 2024-11-27
 

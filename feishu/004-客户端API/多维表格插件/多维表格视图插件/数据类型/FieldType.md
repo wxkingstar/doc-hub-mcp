@@ -1,6 +1,8 @@
 ---
 title: "FieldType"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/data-type/fieldtype
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690343248000
 ---
 最后更新于 2023-07-26
 

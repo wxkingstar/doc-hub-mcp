@@ -1,6 +1,8 @@
 ---
 title: "调用服务端 API"
 source_url: https://open.feishu.cn/document/server-side-sdk/nodejs-sdk/invoke-server-api
+last_remote_update: 2024-11-29
+last_remote_update_timestamp: 1732874416000
 ---
 最后更新于 2024-11-29
 

@@ -1,6 +1,8 @@
 ---
 title: "考勤统计 查询相关接口对user_id鉴权"
 source_url: https://open.feishu.cn/document/faq/breaking-change/query-interfaces-to-authenticate-user_id
+last_remote_update: 2023-03-30
+last_remote_update_timestamp: 1680176555000
 ---
 最后更新于 2023-03-30
 

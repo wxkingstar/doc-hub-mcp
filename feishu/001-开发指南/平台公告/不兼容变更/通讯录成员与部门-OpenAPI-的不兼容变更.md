@@ -1,6 +1,8 @@
 ---
 title: "通讯录成员与部门 OpenAPI 的不兼容变更"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/update-for-contact-members-and-departments
+last_remote_update: 2024-03-19
+last_remote_update_timestamp: 1710830509000
 ---
 最后更新于 2024-03-19
 

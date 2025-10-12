@@ -1,6 +1,8 @@
 ---
 title: "PC端飞书浏览器内核升级"
 source_url: https://open.feishu.cn/document/faq/breaking-change/tbd
+last_remote_update: 2022-07-13
+last_remote_update_timestamp: 1657678647000
 ---
 最后更新于 2022-07-13
 

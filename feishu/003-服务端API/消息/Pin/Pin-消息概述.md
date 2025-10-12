@@ -1,6 +1,8 @@
 ---
 title: "Pin 消息概述"
 source_url: https://open.feishu.cn/document/im-v1/pin/pin-overview
+last_remote_update: 2024-08-23
+last_remote_update_timestamp: 1724405561000
 ---
 最后更新于 2024-08-23
 

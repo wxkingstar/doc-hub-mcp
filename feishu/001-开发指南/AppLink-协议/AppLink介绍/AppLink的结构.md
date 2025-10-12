@@ -1,6 +1,8 @@
 ---
 title: "AppLink的结构"
 source_url: https://open.feishu.cn/document/common-capabilities/applink-protocol/applink-introduction/applink-structure
+last_remote_update: 2024-08-02
+last_remote_update_timestamp: 1722587599000
 ---
 最后更新于 2024-08-02
 

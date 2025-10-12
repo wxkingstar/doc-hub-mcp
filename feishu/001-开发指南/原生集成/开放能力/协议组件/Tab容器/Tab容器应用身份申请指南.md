@@ -1,6 +1,8 @@
 ---
 title: "Tab容器应用身份申请指南"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/tab-container/tab-container-applic
+last_remote_update: 2024-05-10
+last_remote_update_timestamp: 1715328683000
 ---
 最后更新于 2024-05-10
 

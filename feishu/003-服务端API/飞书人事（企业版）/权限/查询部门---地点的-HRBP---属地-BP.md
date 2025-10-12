@@ -1,6 +1,8 @@
 ---
 title: "查询部门 / 地点的 HRBP / 属地 BP"
 source_url: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query
+last_remote_update: 2024-12-17
+last_remote_update_timestamp: 1734434037000
 ---
 最后更新于 2024-12-17
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/
 通过部门或工作地点，查询对应的 HRBP / 属地 BP，返回的信息中包含BP的员工ID、部门ID、属地ID等信息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/corehr/v1/security_groups/query
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

@@ -1,6 +1,8 @@
 ---
 title: "API 调试台使用指南"
 source_url: https://open.feishu.cn/document/tools-and-sdks/api-explorer-guide
+last_remote_update: 2025-03-03
+last_remote_update_timestamp: 1740983747000
 ---
 最后更新于 2025-03-03
 

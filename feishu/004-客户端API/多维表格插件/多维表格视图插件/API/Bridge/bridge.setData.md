@@ -1,6 +1,8 @@
 ---
 title: "bridge.setData"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/bridge/bridge_setdata
+last_remote_update: 2024-03-07
+last_remote_update_timestamp: 1709800986000
 ---
 最后更新于 2024-03-07
 

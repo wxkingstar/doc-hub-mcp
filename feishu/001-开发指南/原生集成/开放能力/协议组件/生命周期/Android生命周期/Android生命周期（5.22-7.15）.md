@@ -1,6 +1,8 @@
 ---
 title: "Android生命周期（5.22-7.15）"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/life-cycle/android/android-life-cycle
+last_remote_update: 2024-10-18
+last_remote_update_timestamp: 1729233561000
 ---
 最后更新于 2024-10-18
 

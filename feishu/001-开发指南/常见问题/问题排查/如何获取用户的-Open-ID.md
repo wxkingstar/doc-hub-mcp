@@ -1,6 +1,8 @@
 ---
 title: "如何获取用户的 Open ID"
 source_url: https://open.feishu.cn/document/faq/trouble-shooting/how-to-obtain-openid
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737444617000
 ---
 最后更新于 2025-01-21
 

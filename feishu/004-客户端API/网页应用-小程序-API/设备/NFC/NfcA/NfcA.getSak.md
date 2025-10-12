@@ -1,6 +1,8 @@
 ---
 title: "NfcA.getSak"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/nfc/nfca/nfca.getsak
+last_remote_update: 2025-08-25
+last_remote_update_timestamp: 1756093709000
 ---
 最后更新于 2025-08-25
 

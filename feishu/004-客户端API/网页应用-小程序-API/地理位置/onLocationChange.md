@@ -1,6 +1,8 @@
 ---
 title: "onLocationChange"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/location/onlocationchange
+last_remote_update: 2025-09-02
+last_remote_update_timestamp: 1756779792000
 ---
 最后更新于 2025-09-02
 

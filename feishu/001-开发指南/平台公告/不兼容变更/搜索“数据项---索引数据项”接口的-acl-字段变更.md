@@ -1,6 +1,8 @@
 ---
 title: "搜索“数据项 - 索引数据项”接口的 acl 字段变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/acl-field-changes
+last_remote_update: 2022-03-03
+last_remote_update_timestamp: 1646287310000
 ---
 最后更新于 2022-03-03
 

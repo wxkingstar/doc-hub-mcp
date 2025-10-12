@@ -1,6 +1,8 @@
 ---
 title: "HTTP 请求全链路追踪"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/network/initiating-request/http-request-full-link-tracing
+last_remote_update: 2023-08-31
+last_remote_update_timestamp: 1693474210000
 ---
 最后更新于 2023-08-31
 

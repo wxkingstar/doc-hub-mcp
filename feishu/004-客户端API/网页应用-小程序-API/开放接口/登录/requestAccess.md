@@ -1,6 +1,8 @@
 ---
 title: "requestAccess"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/open-ability/login/requestaccess
+last_remote_update: 2025-03-27
+last_remote_update_timestamp: 1743064015000
 ---
 最后更新于 2025-03-27
 

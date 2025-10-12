@@ -1,6 +1,8 @@
 ---
 title: "slider"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/slider
+last_remote_update: 2022-03-08
+last_remote_update_timestamp: 1646733934000
 ---
 最后更新于 2022-03-08
 

@@ -1,6 +1,8 @@
 ---
 title: "enterChat"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/chat/enterchat
+last_remote_update: 2025-05-13
+last_remote_update_timestamp: 1747124840000
 ---
 最后更新于 2025-05-13
 

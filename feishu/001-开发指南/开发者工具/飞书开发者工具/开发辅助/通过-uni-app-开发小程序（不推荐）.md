@@ -1,6 +1,8 @@
 ---
 title: "通过 uni-app 开发小程序（不推荐）"
 source_url: https://open.feishu.cn/document/tools-and-resources/development-tools/develop-gadget-with-uni-app
+last_remote_update: 2024-12-05
+last_remote_update_timestamp: 1733390562000
 ---
 最后更新于 2024-12-05
 

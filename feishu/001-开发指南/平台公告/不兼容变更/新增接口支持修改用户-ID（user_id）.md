@@ -1,6 +1,8 @@
 ---
 title: "新增接口支持修改用户 ID（user_id）"
 source_url: https://open.feishu.cn/document/faq/breaking-change/the-update-member-api-supports-modifying-the-user-id
+last_remote_update: 2023-07-20
+last_remote_update_timestamp: 1689823301000
 ---
 最后更新于 2023-07-20
 

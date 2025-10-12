@@ -1,6 +1,8 @@
 ---
 title: "AuthSetting"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/setting/authsetting
+last_remote_update: 2023-05-15
+last_remote_update_timestamp: 1684118304000
 ---
 最后更新于 2023-05-15
 

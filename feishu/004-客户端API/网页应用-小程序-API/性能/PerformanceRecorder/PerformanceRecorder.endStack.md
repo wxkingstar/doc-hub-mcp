@@ -1,6 +1,8 @@
 ---
 title: "PerformanceRecorder.endStack"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/performance/PerformanceRecorder/endstack
+last_remote_update: 2023-04-18
+last_remote_update_timestamp: 1681804248000
 ---
 最后更新于 2023-04-18
 

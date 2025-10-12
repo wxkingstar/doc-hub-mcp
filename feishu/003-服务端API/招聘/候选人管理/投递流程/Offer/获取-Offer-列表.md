@@ -1,6 +1,8 @@
 ---
 title: "获取 Offer 列表"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/list
+last_remote_update: 2025-06-23
+last_remote_update_timestamp: 1750651200000
 ---
 最后更新于 2025-06-23
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 根据人才 ID 获取 Offer 列表。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offers
 HTTP Method | GET
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

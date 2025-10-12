@@ -1,6 +1,8 @@
 ---
 title: "新旧版客户端API映射"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/comparison-of-old-and-new-client-apis
+last_remote_update: 2025-09-02
+last_remote_update_timestamp: 1756779723000
 ---
 最后更新于 2025-09-02
 

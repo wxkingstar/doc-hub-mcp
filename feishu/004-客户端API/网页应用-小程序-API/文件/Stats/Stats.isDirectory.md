@@ -1,6 +1,8 @@
 ---
 title: "Stats.isDirectory"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/file/stat/stats_is_directory
+last_remote_update: 2025-03-12
+last_remote_update_timestamp: 1741768346000
 ---
 最后更新于 2025-03-12
 

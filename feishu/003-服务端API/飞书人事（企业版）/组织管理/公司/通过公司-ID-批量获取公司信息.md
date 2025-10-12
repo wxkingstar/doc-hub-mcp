@@ -1,6 +1,8 @@
 ---
 title: "通过公司 ID 批量获取公司信息"
 source_url: https://open.feishu.cn/document/corehr-v1/organization-management/company/batch_get
+last_remote_update: 2024-11-27
+last_remote_update_timestamp: 1732680232000
 ---
 最后更新于 2024-11-27
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/corehr-v1/organization-management/co
 - **响应体registered_office_address_info （注册地址）、office_address_info （办公地址）下的full_address_local_script（完整地址，本地文字）、full_address_western_script（完整地址，西方文字）字段为计算字段，延迟5s以内，堆积时会延长**
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/corehr/v2/companies/batch_get
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

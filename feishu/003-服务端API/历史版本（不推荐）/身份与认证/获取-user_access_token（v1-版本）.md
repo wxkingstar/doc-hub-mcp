@@ -1,6 +1,8 @@
 ---
 title: "获取 user_access_token（v1 版本）"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create-2
+last_remote_update: 2025-06-26
+last_remote_update_timestamp: 1750920600000
 ---
 最后更新于 2025-06-26
 
@@ -12,9 +14,8 @@ source_url: https://open.feishu.cn/document/server-docs/authentication-managemen
 **注意事项**：本接口用于网页应用免登录应用场景，小程序应用获取 user_access_token 的方法，请参考小程序应用提供的 [code2session](https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN) 接口。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v1/access_token
 HTTP Method | POST
 接口频率限制 | [特殊频控](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

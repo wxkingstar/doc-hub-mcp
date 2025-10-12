@@ -1,6 +1,8 @@
 ---
 title: "远程调用飞书 MCP Server（内测中）"
 source_url: https://open.feishu.cn/document/mcp_open_tools/call-feishu-mcp-server-in-remote-mode
+last_remote_update: 2025-08-19
+last_remote_update_timestamp: 1755586832000
 ---
 最后更新于 2025-08-19
 

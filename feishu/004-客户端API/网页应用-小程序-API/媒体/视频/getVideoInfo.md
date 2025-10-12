@@ -1,6 +1,8 @@
 ---
 title: "getVideoInfo"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/media/video/getvideoinfo
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683858000
 ---
 最后更新于 2025-04-15
 

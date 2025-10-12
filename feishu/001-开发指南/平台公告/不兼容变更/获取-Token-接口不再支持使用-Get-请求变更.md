@@ -1,6 +1,8 @@
 ---
 title: "获取 Token 接口不再支持使用 Get 请求变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/the-get-token-api-no-longer-supports-using-get-requests
+last_remote_update: 2022-12-26
+last_remote_update_timestamp: 1672064374000
 ---
 最后更新于 2022-12-26
 

@@ -1,6 +1,8 @@
 ---
 title: "更新实习 Offer 入/离职状态"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/intern_offer_status
+last_remote_update: 2024-07-11
+last_remote_update_timestamp: 1720669861000
 ---
 最后更新于 2024-07-11
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 对「实习待入职」状态的实习 Offer 确认入职、放弃入职，或对「实习已入职」状态的实习 Offer 操作离职。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offers/:offer_id/intern_offer_status
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

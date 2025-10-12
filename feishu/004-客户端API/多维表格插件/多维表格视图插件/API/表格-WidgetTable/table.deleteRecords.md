@@ -1,6 +1,8 @@
 ---
 title: "table.deleteRecords"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/table/table_deleterecords
+last_remote_update: 2023-09-21
+last_remote_update_timestamp: 1695278712000
 ---
 最后更新于 2023-09-21
 

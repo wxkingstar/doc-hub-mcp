@@ -1,6 +1,8 @@
 ---
 title: "获取 Top 用户列表"
 source_url: https://open.feishu.cn/document/server-docs/vc-v1/report/get_top_user
+last_remote_update: 2024-04-29
+last_remote_update_timestamp: 1714359532000
 ---
 最后更新于 2024-04-29
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/vc-v1/report/get_top_use
 **注意事项**：支持最近90天内的数据查询；默认返回前10位，最多可查询前100位
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/vc/v1/reports/get_top_user
 HTTP Method | GET
 接口频率限制 | [特殊频控](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

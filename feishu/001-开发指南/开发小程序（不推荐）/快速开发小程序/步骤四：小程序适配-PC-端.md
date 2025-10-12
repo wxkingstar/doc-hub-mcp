@@ -1,6 +1,8 @@
 ---
 title: "步骤四：小程序适配 PC 端"
 source_url: https://open.feishu.cn/document/develop-gadgets-(not-recommended)/develop-a-gadget-in-5-minutes/adapt-to-pc
+last_remote_update: 2023-08-25
+last_remote_update_timestamp: 1692952786000
 ---
 最后更新于 2023-08-25
 

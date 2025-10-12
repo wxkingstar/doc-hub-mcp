@@ -1,6 +1,8 @@
 ---
 title: "获取用户的 OKR 列表"
 source_url: https://open.feishu.cn/document/server-docs/okr-v1/okr/list
+last_remote_update: 2024-04-25
+last_remote_update_timestamp: 1714017377000
 ---
 最后更新于 2024-04-25
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/okr-v1/okr/list
 **注意事项**：使用`tenant_access_token`需要额外申请权限以应用身份访问OKR信息
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/okr/v1/users/:user_id/okrs
 HTTP Method | GET
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

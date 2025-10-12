@@ -1,6 +1,8 @@
 ---
 title: "background-position"
 source_url: https://open.feishu.cn/document/client-docs/block/block-frame/code-components-and-structure/view-layer/ttss/attributes/background/background-position
+last_remote_update: 2022-07-15
+last_remote_update_timestamp: 1657871782000
 ---
 最后更新于 2022-07-15
 

@@ -1,6 +1,8 @@
 ---
 title: "Block消息推送"
 source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/create-2
+last_remote_update: 2022-07-15
+last_remote_update_timestamp: 1657872319000
 ---
 最后更新于 2022-07-15
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/creat
 根据BlockID向指定用户列表推送消息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/block/v2/message
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

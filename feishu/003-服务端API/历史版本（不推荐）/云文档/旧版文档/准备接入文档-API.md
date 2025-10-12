@@ -1,6 +1,8 @@
 ---
 title: "准备接入文档 API"
 source_url: https://open.feishu.cn/document/server-docs/docs/docs/docs/getting-start
+last_remote_update: 2022-06-15
+last_remote_update_timestamp: 1655284306000
 ---
 最后更新于 2022-06-15
 

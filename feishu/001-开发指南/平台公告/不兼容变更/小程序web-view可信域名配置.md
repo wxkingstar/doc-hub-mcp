@@ -1,6 +1,8 @@
 ---
 title: "小程序web-view可信域名配置"
 source_url: https://open.feishu.cn/document/faq/breaking-change/web-view-component-update
+last_remote_update: 2022-03-03
+last_remote_update_timestamp: 1646287338000
 ---
 最后更新于 2022-03-03
 

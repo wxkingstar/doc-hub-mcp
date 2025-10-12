@@ -1,6 +1,8 @@
 ---
 title: "image"
 source_url: https://open.feishu.cn/document/client-docs/block/component/media-component/image
+last_remote_update: 2023-04-12
+last_remote_update_timestamp: 1681312930000
 ---
 最后更新于 2023-04-12
 

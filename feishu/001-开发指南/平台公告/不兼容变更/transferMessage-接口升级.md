@@ -1,6 +1,8 @@
 ---
 title: "transferMessage 接口升级"
 source_url: https://open.feishu.cn/document/faq/breaking-change/upgrade-transfermessage-api
+last_remote_update: 2023-11-13
+last_remote_update_timestamp: 1699862219000
 ---
 最后更新于 2023-11-13
 

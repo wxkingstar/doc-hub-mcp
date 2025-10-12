@@ -1,6 +1,8 @@
 ---
 title: "获取 user_access_token（仅字节）"
 source_url: https://open.feishu.cn/document/historic-version/authen/get-user_access_token-bytedance
+last_remote_update: 2025-06-26
+last_remote_update_timestamp: 1750920552000
 ---
 最后更新于 2025-06-26
 
@@ -14,9 +16,8 @@ source_url: https://open.feishu.cn/document/historic-version/authen/get-user_acc
 - 为了让流程更加规范，本接口不再返回用户信息，只返回token相关的字段。如需用户信息，请通过 [获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)接口获取数据
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v1/oidc/access_token
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

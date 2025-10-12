@@ -1,6 +1,8 @@
 ---
 title: "新版获取地理位置 API 适配指南"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/location/locationUpdateDocument
+last_remote_update: 2025-01-22
+last_remote_update_timestamp: 1737513949000
 ---
 最后更新于 2025-01-22
 

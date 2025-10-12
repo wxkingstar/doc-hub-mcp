@@ -1,6 +1,8 @@
 ---
 title: "ISV 相关"
 source_url: https://open.feishu.cn/document/faq/questions-related-to-isv
+last_remote_update: 2024-07-19
+last_remote_update_timestamp: 1721355376000
 ---
 最后更新于 2024-07-19
 

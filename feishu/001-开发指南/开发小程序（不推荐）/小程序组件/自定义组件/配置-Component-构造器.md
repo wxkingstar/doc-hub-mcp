@@ -1,6 +1,8 @@
 ---
 title: "配置 Component 构造器"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/custom-components/component-builder
+last_remote_update: 2023-08-29
+last_remote_update_timestamp: 1693277031000
 ---
 最后更新于 2023-08-29
 

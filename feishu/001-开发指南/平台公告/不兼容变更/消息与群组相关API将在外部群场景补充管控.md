@@ -1,6 +1,8 @@
 ---
 title: "消息与群组相关API将在外部群场景补充管控"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/breaking-change/messenger-and-group-chat-apis-in-external-chat
+last_remote_update: 2025-05-23
+last_remote_update_timestamp: 1747979914000
 ---
 最后更新于 2025-05-23
 

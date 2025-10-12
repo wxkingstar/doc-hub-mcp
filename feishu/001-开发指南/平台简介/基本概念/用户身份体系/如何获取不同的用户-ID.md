@@ -1,6 +1,8 @@
 ---
 title: "如何获取不同的用户 ID"
 source_url: https://open.feishu.cn/document/platform-overveiw/basic-concepts/user-identity-introduction/open-id
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737444605000
 ---
 最后更新于 2025-01-21
 

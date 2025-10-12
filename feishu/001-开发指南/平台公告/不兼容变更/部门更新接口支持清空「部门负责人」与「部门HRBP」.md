@@ -1,6 +1,8 @@
 ---
 title: "部门更新接口支持清空「部门负责人」与「部门HRBP」"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/department-supervisor-and-department-hrbp-data-clearance
+last_remote_update: 2023-07-18
+last_remote_update_timestamp: 1689670524000
 ---
 最后更新于 2023-07-18
 

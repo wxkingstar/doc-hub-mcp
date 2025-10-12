@@ -1,6 +1,8 @@
 ---
 title: "以机器人身份调用拉人进群 API 时，邀请者将展示为机器人名称"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/prompts-use-robot-name-when-robot-add-user-to-group
+last_remote_update: 2024-10-10
+last_remote_update_timestamp: 1728528818000
 ---
 最后更新于 2024-10-10
 

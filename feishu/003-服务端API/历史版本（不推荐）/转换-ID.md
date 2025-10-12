@@ -1,6 +1,8 @@
 ---
 title: "转换 ID"
 source_url: https://open.feishu.cn/document/historic-version/id_convert
+last_remote_update: 2025-03-07
+last_remote_update_timestamp: 1741353057000
 ---
 最后更新于 2025-03-07
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/historic-version/id_convert
 ## 提示
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/cardkit/v1/cards/id_convert
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

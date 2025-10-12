@@ -1,6 +1,8 @@
 ---
 title: "创建 BlockEntity"
 source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/create
+last_remote_update: 2024-10-10
+last_remote_update_timestamp: 1728556805000
 ---
 最后更新于 2024-10-10
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/creat
 开发者可以通过该接口将部分或全部数据存放于 BlockEntity。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/block/v2/entities
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

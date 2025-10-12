@@ -1,6 +1,8 @@
 ---
 title: "安装并使用文档检索 MCP"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/install-and-use-document-search-mcp
+last_remote_update: 2025-05-14
+last_remote_update_timestamp: 1747213000000
 ---
 最后更新于 2025-05-14
 

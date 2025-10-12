@@ -1,6 +1,8 @@
 ---
 title: "如何获取各类云文档资源的 token"
 source_url: https://open.feishu.cn/document/faq/trouble-shooting/how-to-get-docs-tokens
+last_remote_update: 2024-08-14
+last_remote_update_timestamp: 1723628673000
 ---
 最后更新于 2024-08-14
 

@@ -1,6 +1,8 @@
 ---
 title: "通过员工 ID 获取入职信息"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/get
+last_remote_update: 2024-09-09
+last_remote_update_timestamp: 1725885851000
 ---
 最后更新于 2024-09-09
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 通过员工 ID 获取入职信息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/employees/:employee_id
 HTTP Method | GET
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

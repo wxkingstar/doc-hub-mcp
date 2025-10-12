@@ -1,6 +1,8 @@
 ---
 title: "Service.Fold.toggleFold"
 source_url: https://open.feishu.cn/document/client-docs/docs-add-on/05-api-doc/service/Fold/Service.Fold.toggleFold
+last_remote_update: 2025-07-31
+last_remote_update_timestamp: 1753960542000
 ---
 最后更新于 2025-07-31
 

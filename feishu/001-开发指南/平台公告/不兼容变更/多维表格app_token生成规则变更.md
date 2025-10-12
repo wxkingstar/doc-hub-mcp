@@ -1,6 +1,8 @@
 ---
 title: "多维表格app_token生成规则变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/the-unique-identifier-of-bitable-generation-rule-adjustment
+last_remote_update: 2022-12-23
+last_remote_update_timestamp: 1671777962000
 ---
 最后更新于 2022-12-23
 

@@ -1,6 +1,8 @@
 ---
 title: "更新 OKR 进展记录"
 source_url: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/update
+last_remote_update: 2025-07-25
+last_remote_update_timestamp: 1753428958000
 ---
 最后更新于 2025-07-25
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/u
 根据 OKR 进展记录 ID 更新进展详情。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/okr/v1/progress_records/:progress_id
 HTTP Method | PUT
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

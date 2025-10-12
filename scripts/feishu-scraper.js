@@ -38,12 +38,65 @@ function readNumericOption(name, defaultValue = null) {
   if (Number.isFinite(npmValue) && npmValue > 0) {
     return Math.floor(npmValue);
   }
+  const npmArgvValue = extractFromNpmConfigArgv(name);
+  if (npmArgvValue !== null) {
+    return npmArgvValue;
+  }
+  const lifecycleValue = extractFromLifecycleScript(name);
+  if (lifecycleValue !== null) {
+    return lifecycleValue;
+  }
   return defaultValue;
 }
 
 const MAX_DOCS = readNumericOption('limit');
 const concurrencyRaw = readNumericOption('concurrency');
 const CONCURRENCY = concurrencyRaw ? Math.min(concurrencyRaw, 16) : 6;
+
+function extractFromNpmConfigArgv(name) {
+  const raw = process.env.npm_config_argv;
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    const candidates = [parsed.original, parsed.cooked, parsed.remain].filter(Array.isArray);
+    for (const list of candidates) {
+      const value = scanArgListForNumeric(list, name);
+      if (value !== null) return value;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function extractFromLifecycleScript(name) {
+  const script = process.env.npm_lifecycle_script;
+  if (!script) return null;
+  const tokens = script.match(/(?:[^\s"']+|"[^"]*"|'[^']*')+/g);
+  if (!tokens) return null;
+  const normalized = tokens.map((token) => token.replace(/^['"]|['"]$/g, ''));
+  return scanArgListForNumeric(normalized, name);
+}
+
+function scanArgListForNumeric(list, name) {
+  if (!Array.isArray(list)) return null;
+  const dashed = `--${name}`;
+  for (let i = 0; i < list.length; i += 1) {
+    const token = String(list[i]);
+    if (!token.startsWith('--')) continue;
+    if (token.startsWith(`${dashed}=`)) {
+      const value = Number(token.slice(dashed.length + 1));
+      if (Number.isFinite(value) && value > 0) return Math.floor(value);
+    }
+    if (token === dashed) {
+      const next = list[i + 1];
+      if (next === undefined) continue;
+      const value = Number(next);
+      if (Number.isFinite(value) && value > 0) return Math.floor(value);
+    }
+  }
+  return null;
+}
 
 const axiosInstance = axios.create({
   headers: {
@@ -311,6 +364,23 @@ function detectLocale(fullPath, aliasPath, docName) {
   return 'en';
 }
 
+function extractFrontMatter(content) {
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return {};
+  const lines = match[1].split('\n');
+  const data = {};
+  lines.forEach((line) => {
+    if (!line.includes(':')) return;
+    const idx = line.indexOf(':');
+    const key = line.slice(0, idx).trim();
+    const value = line.slice(idx + 1).trim();
+    if (key) {
+      data[key] = value;
+    }
+  });
+  return data;
+}
+
 async function fetchDirectoryTree() {
   const response = await axiosInstance.get(DIRECTORY_URL);
   if (!response.data || response.data.code !== 0) {
@@ -431,7 +501,7 @@ async function main() {
     }
 
     const baseDir = path.join(OUTPUT_ROOT, rootConfig.dir);
-    await fs.emptyDir(baseDir);
+    await fs.ensureDir(baseDir);
     console.log(`开始处理【${rootConfig.title}】，输出目录：${baseDir}`);
 
     const usedSegments = new Map();
@@ -483,16 +553,36 @@ async function main() {
               const fileExists = await fs.pathExists(filePath);
               let localDate = null;
               let localContent = '';
+              let frontMatterData = {};
+              let localTimestamp = null;
               if (fileExists) {
                 try {
                   localContent = await fs.readFile(filePath, 'utf8');
+                  frontMatterData = extractFrontMatter(localContent);
                   localDate = extractUpdatedDateFromMarkdown(localContent);
+                  if (!localDate && frontMatterData.last_remote_update) {
+                    localDate = extractUpdatedDateFromMarkdown(`最后更新于 ${frontMatterData.last_remote_update}`);
+                  }
+                  if (frontMatterData.last_remote_update_timestamp) {
+                    const parsedTimestamp = Number(frontMatterData.last_remote_update_timestamp);
+                    if (Number.isFinite(parsedTimestamp) && parsedTimestamp > 0) {
+                      localTimestamp = parsedTimestamp;
+                    }
+                  }
                 } catch (readErr) {
                   console.warn(`读取本地文档失败：${filePath} —— ${readErr.message}`);
                 }
               }
               const localDateStr = localDate ? formatDate(localDate) : '';
               const needsMigration = fileExists && localContent.trimStart().startsWith('<!--');
+              const remoteTimestamp = doc.updateTime ? Number(doc.updateTime) : null;
+              if (!needsMigration && remoteTimestamp && localTimestamp && remoteTimestamp === localTimestamp) {
+                skippedCount += 1;
+                const remoteMarker = remoteDateStr || formatDate(timestampToDate(remoteTimestamp));
+                const localMarker = localDateStr || formatDate(timestampToDate(localTimestamp));
+                console.log(`跳过：${title} —— 远端 ${remoteMarker} —— 本地 ${localMarker} —— ${url}`);
+                return;
+              }
               if (!needsMigration && remoteDateStr && localDateStr && remoteDateStr === localDateStr) {
                 skippedCount += 1;
                 console.log(`跳过：${title} —— 远端 ${remoteDateStr} —— 本地 ${localDateStr} —— ${url}`);
@@ -500,13 +590,25 @@ async function main() {
               }
               const updateLine = remoteDateStr ? `最后更新于 ${remoteDateStr}` : '最后更新于 未知';
               const transformedBody = transformContent(doc.content || '', locale);
-              const frontMatter = [
+              const frontMatterLines = [
                 '---',
                 `title: "${title.replace(/"/g, '\\"')}"`,
-                `source_url: ${url}`,
-                '---',
-                ''
-              ].join('\n');
+                `source_url: ${url}`
+              ];
+              if (remoteDateStr) {
+                frontMatterLines.push(`last_remote_update: ${remoteDateStr}`);
+              } else if (frontMatterData.last_remote_update) {
+                frontMatterLines.push(`last_remote_update: ${frontMatterData.last_remote_update}`);
+              }
+              if (remoteTimestamp) {
+                frontMatterLines.push(`last_remote_update_timestamp: ${remoteTimestamp}`);
+              } else if (localTimestamp) {
+                frontMatterLines.push(`last_remote_update_timestamp: ${localTimestamp}`);
+              } else {
+                frontMatterLines.push('last_remote_update_timestamp: ');
+              }
+              frontMatterLines.push('---', '');
+              const frontMatter = frontMatterLines.join('\n');
               const finalContent = `${frontMatter}${updateLine}\n\n${transformedBody}\n`;
               await fs.outputFile(filePath, finalContent, 'utf8');
               if (fileExists) {

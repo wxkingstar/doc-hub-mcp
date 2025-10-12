@@ -1,6 +1,8 @@
 ---
 title: "小程序 App 函数"
 source_url: https://open.feishu.cn/document/client-docs/gadget/framework/framework-interface/launching-apps
+last_remote_update: 2023-08-25
+last_remote_update_timestamp: 1692954186000
 ---
 最后更新于 2023-08-25
 

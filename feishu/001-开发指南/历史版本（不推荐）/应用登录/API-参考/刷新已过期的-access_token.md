@@ -1,6 +1,8 @@
 ---
 title: "刷新已过期的 access_token"
 source_url: https://open.feishu.cn/document/deprecated-guide/app-login/api-reference/refresh-access_token
+last_remote_update: 2024-11-29
+last_remote_update_timestamp: 1732848874000
 ---
 最后更新于 2024-11-29
 

@@ -1,6 +1,8 @@
 ---
 title: "生成 CalDAV 配置"
 source_url: https://open.feishu.cn/document/server-docs/calendar-v4/setting/generate_caldav_conf
+last_remote_update: 2024-07-10
+last_remote_update_timestamp: 1720582462000
 ---
 最后更新于 2024-07-10
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/calendar-v4/setting/gene
 调用该接口为当前用户生成一个 CalDAV 账号密码，用于将飞书日历信息同步到本地设备日历。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/calendar/v4/settings/generate_caldav_conf
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

@@ -1,6 +1,8 @@
 ---
 title: "transferMessage 不一致梳理 及 对齐方案"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/transfermessage-inconsistency-sorting-and-alignment-solution
+last_remote_update: 2023-11-13
+last_remote_update_timestamp: 1699862206000
 ---
 最后更新于 2023-11-13
 

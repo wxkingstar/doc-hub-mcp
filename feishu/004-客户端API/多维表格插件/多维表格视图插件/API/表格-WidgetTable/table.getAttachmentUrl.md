@@ -1,6 +1,8 @@
 ---
 title: "table.getAttachmentUrl"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/table/table_getattachmenturl
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690343119000
 ---
 最后更新于 2023-07-26
 

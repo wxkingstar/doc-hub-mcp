@@ -1,6 +1,8 @@
 ---
 title: "使用卡片 JSON 数据发送消息"
 source_url: https://open.feishu.cn/document/deprecated-guide/message-card/send-message-card/send-messages-using-card-json-data
+last_remote_update: 2024-08-20
+last_remote_update_timestamp: 1724163177000
 ---
 最后更新于 2024-08-20
 

@@ -1,6 +1,8 @@
 ---
 title: "更新 BlockEntity"
 source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/update
+last_remote_update: 2022-08-04
+last_remote_update_timestamp: 1659616871000
 ---
 最后更新于 2022-08-04
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/client-docs/block/api/block-v2/updat
 开发者通过该接口可以更新存储在BlockEntity中的数据，并实时推送到端侧。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/block/v2/entities/:block_id
 HTTP Method | PUT
 支持的应用类型 | 自建应用、商店应用

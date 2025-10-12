@@ -1,6 +1,8 @@
 ---
 title: "获取日程参与群成员列表API加强鉴权"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/calendar-obtain-group-members-to-enhance-uat-authentication
+last_remote_update: 2024-03-13
+last_remote_update_timestamp: 1710320347000
 ---
 最后更新于 2024-03-13
 

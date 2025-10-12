@@ -1,6 +1,8 @@
 ---
 title: "API Mock​"
 source_url: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-gadget-in-tools/gadget-debugging/feishu-developer-tools-api-mock
+last_remote_update: 2022-02-27
+last_remote_update_timestamp: 1645952314000
 ---
 最后更新于 2022-02-27
 

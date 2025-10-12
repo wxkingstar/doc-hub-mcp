@@ -1,6 +1,8 @@
 ---
 title: "TTSS"
 source_url: https://open.feishu.cn/document/client-docs/gadget/framework/ui-layer/ttss
+last_remote_update: 2023-08-25
+last_remote_update_timestamp: 1692954148000
 ---
 最后更新于 2023-08-25
 

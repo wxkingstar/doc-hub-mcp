@@ -1,6 +1,8 @@
 ---
 title: "开发 OpenAPI MCP 智能助手机器人"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/develop-mcp-intelligent-assistant-bot
+last_remote_update: 2025-08-01
+last_remote_update_timestamp: 1754020858000
 ---
 最后更新于 2025-08-01
 

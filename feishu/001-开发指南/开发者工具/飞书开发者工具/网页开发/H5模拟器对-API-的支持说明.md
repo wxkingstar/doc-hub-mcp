@@ -1,6 +1,8 @@
 ---
 title: "H5模拟器对 API 的支持说明"
 source_url: https://open.feishu.cn/document/tools-and-resources/development-tools/development-of-h5-in-tools/how-to-debug-apis-in-monitor-of-h5-
+last_remote_update: 2024-06-17
+last_remote_update_timestamp: 1718623591000
 ---
 最后更新于 2024-06-17
 

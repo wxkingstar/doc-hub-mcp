@@ -1,6 +1,8 @@
 ---
 title: "重新获取 app_ticket"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/app_ticket_resend
+last_remote_update: 2024-05-17
+last_remote_update_timestamp: 1715917838000
 ---
 最后更新于 2024-05-17
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/authentication-managemen
 开放平台每隔 1 小时会向应用推送 app_ticket 事件，事件体内包含了 app_ticket。应用也可以主动调用此接口，触发开放平台即时推送 app_ticket 事件。了解事件信息可参见[app_ticket 事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app_ticket-events)。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/auth/v3/app_ticket/resend
 HTTP Method | POST
 支持的应用类型 | 商店应用

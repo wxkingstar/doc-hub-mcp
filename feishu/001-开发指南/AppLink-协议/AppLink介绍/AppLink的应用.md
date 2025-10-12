@@ -1,6 +1,8 @@
 ---
 title: "AppLink的应用"
 source_url: https://open.feishu.cn/document/common-capabilities/applink-protocol/applink-introduction/applink-application
+last_remote_update: 2022-05-06
+last_remote_update_timestamp: 1651824924000
 ---
 最后更新于 2022-05-06
 

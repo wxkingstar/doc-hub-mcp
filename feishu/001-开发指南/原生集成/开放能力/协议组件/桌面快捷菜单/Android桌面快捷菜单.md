@@ -1,6 +1,8 @@
 ---
 title: "Android桌面快捷菜单"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/desktop-shortcut-menu/android-desktop-shortcut-menu
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745906654000
 ---
 最后更新于 2025-04-29
 

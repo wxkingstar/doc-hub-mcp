@@ -1,6 +1,8 @@
 ---
 title: "testAction"
 source_url: https://open.feishu.cn/document/base-extension/base-automation-extensions/api/testaction
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690342965000
 ---
 最后更新于 2023-07-26
 

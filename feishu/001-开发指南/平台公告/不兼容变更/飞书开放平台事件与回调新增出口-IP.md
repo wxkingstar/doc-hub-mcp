@@ -1,6 +1,8 @@
 ---
 title: "飞书开放平台事件与回调新增出口 IP"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/new-outbound-ips-events-and-callbacks
+last_remote_update: 2024-12-05
+last_remote_update_timestamp: 1733389989000
 ---
 最后更新于 2024-12-05
 

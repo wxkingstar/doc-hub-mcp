@@ -1,6 +1,8 @@
 ---
 title: "UpdateManager.onCheckForUpdate"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/update/getUpdateManager/oncheckforupdate
+last_remote_update: 2022-07-13
+last_remote_update_timestamp: 1657678663000
 ---
 最后更新于 2022-07-13
 

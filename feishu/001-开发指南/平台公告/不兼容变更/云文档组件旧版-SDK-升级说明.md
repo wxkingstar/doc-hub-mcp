@@ -1,6 +1,8 @@
 ---
 title: "云文档组件旧版 SDK 升级说明"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/upgrade-old-version-of-the-cloud-documents-sdk
+last_remote_update: 2024-12-05
+last_remote_update_timestamp: 1733381552000
 ---
 最后更新于 2024-12-05
 

@@ -1,6 +1,8 @@
 ---
 title: "删除 ACL"
 source_url: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/events/deleted
+last_remote_update: 2024-07-16
+last_remote_update_timestamp: 1721110938000
 ---
 最后更新于 2024-07-16
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl
 **注意事项**：你需要先为用户[订阅日历访问控制变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription)，并且需要在应用中配置事件订阅，这样才可以在事件触发时接收到事件数据。了解事件订阅参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 
 ## 事件
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 事件类型 | calendar.calendar.acl.deleted_v4
 支持的应用类型 | 自建应用、商店应用
 权限要求  

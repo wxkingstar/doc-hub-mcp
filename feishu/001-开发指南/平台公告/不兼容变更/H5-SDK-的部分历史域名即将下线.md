@@ -1,6 +1,8 @@
 ---
 title: "H5 SDK 的部分历史域名即将下线"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/scheduled-sunsetting-of-selected-legacy-h5-sdk-domains
+last_remote_update: 2024-11-26
+last_remote_update_timestamp: 1732589781000
 ---
 最后更新于 2024-11-26
 

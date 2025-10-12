@@ -1,6 +1,8 @@
 ---
 title: "使用卡片 ID 发送消息"
 source_url: https://open.feishu.cn/document/deprecated-guide/message-card/send-message-card/send-message-using-card-id
+last_remote_update: 2024-08-20
+last_remote_update_timestamp: 1724163199000
 ---
 最后更新于 2024-08-20
 

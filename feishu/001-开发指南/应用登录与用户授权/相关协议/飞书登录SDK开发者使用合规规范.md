@@ -1,6 +1,8 @@
 ---
 title: "飞书登录SDK开发者使用合规规范"
 source_url: https://open.feishu.cn/document/sso/related-agreements/developers-use-compliance-specifications
+last_remote_update: 2023-10-20
+last_remote_update_timestamp: 1697784099000
 ---
 最后更新于 2023-10-20
 

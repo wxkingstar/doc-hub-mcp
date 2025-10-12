@@ -1,6 +1,8 @@
 ---
 title: "OKR 概述"
 source_url: https://open.feishu.cn/document/server-docs/okr-v1/okr-guide
+last_remote_update: 2024-11-08
+last_remote_update_timestamp: 1731048913000
 ---
 最后更新于 2024-11-08
 

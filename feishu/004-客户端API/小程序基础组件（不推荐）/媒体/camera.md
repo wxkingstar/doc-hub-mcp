@@ -1,6 +1,8 @@
 ---
 title: "camera"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/media/camera
+last_remote_update: 2023-08-10
+last_remote_update_timestamp: 1691634624000
 ---
 最后更新于 2023-08-10
 

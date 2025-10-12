@@ -1,6 +1,8 @@
 ---
 title: "map"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/map/map
+last_remote_update: 2024-03-25
+last_remote_update_timestamp: 1711360827000
 ---
 最后更新于 2024-03-25
 

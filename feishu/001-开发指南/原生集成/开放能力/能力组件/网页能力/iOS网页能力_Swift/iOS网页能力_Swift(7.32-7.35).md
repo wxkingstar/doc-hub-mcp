@@ -1,6 +1,8 @@
 ---
 title: "iOS网页能力_Swift(7.32-7.35)"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/capability-components/web-capabilities/ios-web-capability/ios-web-capabil
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215563000
 ---
 最后更新于 2025-04-21
 

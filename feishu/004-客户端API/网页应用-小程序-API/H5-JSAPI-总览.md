@@ -1,6 +1,8 @@
 ---
 title: "H5 JSAPI 总览"
 source_url: https://open.feishu.cn/document/client-docs/h5/
+last_remote_update: 2025-08-01
+last_remote_update_timestamp: 1754044045000
 ---
 最后更新于 2025-08-01
 

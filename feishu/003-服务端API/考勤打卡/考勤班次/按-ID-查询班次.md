@@ -1,6 +1,8 @@
 ---
 title: "按 ID 查询班次"
 source_url: https://open.feishu.cn/document/server-docs/attendance-v1/shift/get
+last_remote_update: 2025-09-12
+last_remote_update_timestamp: 1757646480000
 ---
 最后更新于 2025-09-12
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/attendance-v1/shift/get
 通过班次 ID 获取班次详情。对应功能为假勤设置-[班次设置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)班次列表中的具体班次，班次信息可以点击班次名称查看
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/attendance/v1/shifts/:shift_id
 HTTP Method | GET
 接口频率限制 | [50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

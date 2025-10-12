@@ -1,6 +1,8 @@
 ---
 title: "checkbox-group"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/checkbox-group
+last_remote_update: 2022-03-08
+last_remote_update_timestamp: 1646733929000
 ---
 最后更新于 2022-03-08
 

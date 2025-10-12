@@ -1,6 +1,8 @@
 ---
 title: "开发文档检索 MCP 概述"
 source_url: https://open.feishu.cn/document/mcp_open_tools/development-document-search-mcp-integration/development-document-search-mcp-overview
+last_remote_update: 2025-05-14
+last_remote_update_timestamp: 1747211606000
 ---
 最后更新于 2025-05-14
 

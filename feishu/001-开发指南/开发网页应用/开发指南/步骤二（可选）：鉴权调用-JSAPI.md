@@ -1,6 +1,8 @@
 ---
 title: "步骤二（可选）：鉴权调用 JSAPI"
 source_url: https://open.feishu.cn/document/client-docs/h5/development-guide/step-2:-call-jsapi(optional)
+last_remote_update: 2025-02-26
+last_remote_update_timestamp: 1740553580000
 ---
 最后更新于 2025-02-26
 

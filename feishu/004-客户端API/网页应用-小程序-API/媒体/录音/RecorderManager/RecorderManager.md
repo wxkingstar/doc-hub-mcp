@@ -1,6 +1,8 @@
 ---
 title: "RecorderManager"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/record/recordermanager/recordermanager
+last_remote_update: 2025-05-08
+last_remote_update_timestamp: 1746694156000
 ---
 最后更新于 2025-05-08
 

@@ -1,6 +1,8 @@
 ---
 title: "调用服务端 API"
 source_url: https://open.feishu.cn/document/server-side-sdk/golang-sdk-guide/calling-server-side-apis
+last_remote_update: 2025-02-14
+last_remote_update_timestamp: 1739512009000
 ---
 最后更新于 2025-02-14
 

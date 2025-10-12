@@ -1,6 +1,8 @@
 ---
 title: "国家/地区 Code 参照表"
 source_url: https://open.feishu.cn/document/server-docs/contact-v3/user/country-code-description
+last_remote_update: 2025-05-28
+last_remote_update_timestamp: 1748429893000
 ---
 最后更新于 2025-05-28
 

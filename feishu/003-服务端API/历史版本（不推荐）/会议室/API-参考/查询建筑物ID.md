@@ -1,6 +1,8 @@
 ---
 title: "查询建筑物ID"
 source_url: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-building-id
+last_remote_update: 2022-07-20
+last_remote_update_timestamp: 1658308249000
 ---
 最后更新于 2022-07-20
 
@@ -8,9 +10,8 @@ source_url: https://open.feishu.cn/document/server-docs/historic-version/meeting
 
 该接口用于根据租户自定义建筑 ID 查询建筑 ID。
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/meeting_room/building/batch_get_id?custom_building_ids=test01&custom_building_ids=test02
 HTTP Method | GET
 支持的应用类型 | 自建应用、商店应用

@@ -1,6 +1,8 @@
 ---
 title: "checkSession"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/checksession
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737430332000
 ---
 最后更新于 2025-01-21
 

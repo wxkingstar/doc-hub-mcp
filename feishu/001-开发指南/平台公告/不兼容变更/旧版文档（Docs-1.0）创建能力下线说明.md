@@ -1,6 +1,8 @@
 ---
 title: "旧版文档（Docs 1.0）创建能力下线说明"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/docs-create-ability-offline
+last_remote_update: 2024-10-11
+last_remote_update_timestamp: 1728632555000
 ---
 最后更新于 2024-10-11
 

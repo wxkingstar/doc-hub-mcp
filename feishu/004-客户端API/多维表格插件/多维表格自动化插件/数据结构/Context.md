@@ -1,6 +1,8 @@
 ---
 title: "Context"
 source_url: https://open.feishu.cn/document/base-extension/base-automation-extensions/data-type/context
+last_remote_update: 2025-08-04
+last_remote_update_timestamp: 1754292347000
 ---
 最后更新于 2025-08-04
 

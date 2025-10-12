@@ -1,6 +1,8 @@
 ---
 title: "Android Tab容器"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/tab-container/android-tab-containe
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745906634000
 ---
 最后更新于 2025-04-29
 

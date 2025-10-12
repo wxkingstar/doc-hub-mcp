@@ -1,6 +1,8 @@
 ---
 title: "卡片 JSON 2.0 版本更新说明"
 source_url: https://open.feishu.cn/document/feishu-cards/card-json-v2-breaking-changes-release-notes
+last_remote_update: 2025-03-07
+last_remote_update_timestamp: 1741353016000
 ---
 最后更新于 2025-03-07
 

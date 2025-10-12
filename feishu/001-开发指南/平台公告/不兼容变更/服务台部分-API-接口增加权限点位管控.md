@@ -1,6 +1,8 @@
 ---
 title: "服务台部分 API 接口增加权限点位管控"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/some-api-of-help-desk-add-permission-control
+last_remote_update: 2024-03-06
+last_remote_update_timestamp: 1709724838000
 ---
 最后更新于 2024-03-06
 

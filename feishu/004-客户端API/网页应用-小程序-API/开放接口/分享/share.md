@@ -1,6 +1,8 @@
 ---
 title: "share"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/share/thirdShare
+last_remote_update: 2025-06-04
+last_remote_update_timestamp: 1749004349000
 ---
 最后更新于 2025-06-04
 

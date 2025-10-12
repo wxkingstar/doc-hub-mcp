@@ -1,6 +1,8 @@
 ---
 title: "旧版审批 API TLS 版本升级通知"
 source_url: https://open.feishu.cn/document/faq/breaking-change/update-tls
+last_remote_update: 2023-11-02
+last_remote_update_timestamp: 1698893380000
 ---
 最后更新于 2023-11-02
 

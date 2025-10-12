@@ -1,6 +1,8 @@
 ---
 title: "快速调用服务端 API（发送消息）"
 source_url: https://open.feishu.cn/document/introduction
+last_remote_update: 2025-02-10
+last_remote_update_timestamp: 1739193373000
 ---
 最后更新于 2025-02-10
 

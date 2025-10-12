@@ -1,6 +1,8 @@
 ---
 title: "Offer 状态变更"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/events/status_changed
+last_remote_update: 2024-09-02
+last_remote_update_timestamp: 1725283753000
 ---
 最后更新于 2024-09-02
 
@@ -12,9 +14,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 ![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/6faaeda86bbe8f1b9f2c7ef91062edd2_xU7rL7qrof.png)
 
 ## 事件
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 事件类型 | hire.offer.status_changed_v1
 支持的应用类型 | 自建应用、商店应用
 权限要求  

@@ -1,6 +1,8 @@
 ---
 title: "swiper"
 source_url: https://open.feishu.cn/document/client-docs/block/component/container-component/swiper
+last_remote_update: 2023-04-20
+last_remote_update_timestamp: 1681987895000
 ---
 最后更新于 2023-04-20
 

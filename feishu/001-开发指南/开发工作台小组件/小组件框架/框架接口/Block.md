@@ -1,6 +1,8 @@
 ---
 title: "Block"
 source_url: https://open.feishu.cn/document/client-docs/block/block-frame/framework-interface/block
+last_remote_update: 2023-04-13
+last_remote_update_timestamp: 1681355664000
 ---
 最后更新于 2023-04-13
 

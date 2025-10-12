@@ -1,6 +1,8 @@
 ---
 title: "VChart 图表组件"
 source_url: https://open.feishu.cn/document/develop-gadgets-(not-recommended)/gadget-components/extension/vcharts-component
+last_remote_update: 2023-08-31
+last_remote_update_timestamp: 1693473704000
 ---
 最后更新于 2023-08-31
 

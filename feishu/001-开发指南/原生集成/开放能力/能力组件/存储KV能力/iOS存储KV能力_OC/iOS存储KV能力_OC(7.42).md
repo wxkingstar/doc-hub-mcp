@@ -1,6 +1,8 @@
 ---
 title: "iOS存储KV能力_OC(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/storage-kv-capability/ios-storage-kv-capability_oc/ios-storage-kv-capability_oc_742
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745895177000
 ---
 最后更新于 2025-04-29
 

@@ -1,6 +1,8 @@
 ---
 title: "field.getCellString"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/field/field_getcellstring
+last_remote_update: 2024-07-26
+last_remote_update_timestamp: 1721978200000
 ---
 最后更新于 2024-07-26
 

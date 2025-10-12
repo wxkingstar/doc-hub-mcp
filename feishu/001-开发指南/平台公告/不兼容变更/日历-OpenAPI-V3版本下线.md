@@ -1,6 +1,8 @@
 ---
 title: "日历 OpenAPI V3版本下线"
 source_url: https://open.feishu.cn/document/faq/breaking-change/calendar-openapi-v3-will-be-offline-soon
+last_remote_update: 2023-04-06
+last_remote_update_timestamp: 1680779981000
 ---
 最后更新于 2023-04-06
 

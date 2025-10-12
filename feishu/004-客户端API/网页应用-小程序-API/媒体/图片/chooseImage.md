@@ -1,6 +1,8 @@
 ---
 title: "chooseImage"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/image/chooseimage
+last_remote_update: 2025-08-01
+last_remote_update_timestamp: 1754044291000
 ---
 最后更新于 2025-08-01
 

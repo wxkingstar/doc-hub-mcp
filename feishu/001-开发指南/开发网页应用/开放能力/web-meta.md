@@ -1,6 +1,8 @@
 ---
 title: "web-meta"
 source_url: https://open.feishu.cn/document/client-docs/h5/web-app-open-ability/web-meta
+last_remote_update: 2023-08-24
+last_remote_update_timestamp: 1692868775000
 ---
 最后更新于 2023-08-24
 

@@ -1,6 +1,8 @@
 ---
 title: "获取事件出口 IP"
 source_url: https://open.feishu.cn/document/server-docs/event-subscription-guide/list
+last_remote_update: 2023-11-09
+last_remote_update_timestamp: 1699517001000
 ---
 最后更新于 2023-11-09
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/event-subscription-guide
 **注意事项**：IP 地址有变更可能，建议定期拉取最新 IP 地址，并自动更新至防火墙规则。此外， IP 变更时，开放平台将会推送卡片消息和发布更新日志提前告知开发者。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/event/v1/outbound_ip
 HTTP Method | GET
 支持的应用类型 | 自建应用、商店应用

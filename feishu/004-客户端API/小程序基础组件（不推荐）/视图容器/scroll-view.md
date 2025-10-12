@@ -1,6 +1,8 @@
 ---
 title: "scroll-view"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/view-container/scroll-view
+last_remote_update: 2024-06-26
+last_remote_update_timestamp: 1719397484000
 ---
 最后更新于 2024-06-26
 

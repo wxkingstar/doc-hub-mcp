@@ -1,6 +1,8 @@
 ---
 title: "grantScreenShot"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/device/user-screenshot-event/grantscreenshot
+last_remote_update: 2025-03-12
+last_remote_update_timestamp: 1741768323000
 ---
 最后更新于 2025-03-12
 

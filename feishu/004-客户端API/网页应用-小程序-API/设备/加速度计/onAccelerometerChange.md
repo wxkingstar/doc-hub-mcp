@@ -1,6 +1,8 @@
 ---
 title: "onAccelerometerChange"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/accelerometer/onaccelerometerchange
+last_remote_update: 2025-01-21
+last_remote_update_timestamp: 1737433192000
 ---
 最后更新于 2025-01-21
 

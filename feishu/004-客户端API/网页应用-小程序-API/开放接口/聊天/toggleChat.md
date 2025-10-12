@@ -1,6 +1,8 @@
 ---
 title: "toggleChat"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/chat/toggleChat
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683294000
 ---
 最后更新于 2025-04-15
 

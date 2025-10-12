@@ -1,6 +1,8 @@
 ---
 title: "iOS WebContainer_Swift(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/webcontainer/ios-webcontainerexternal_swift/ios-webcontainer_swift_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215516000
 ---
 最后更新于 2025-04-21
 

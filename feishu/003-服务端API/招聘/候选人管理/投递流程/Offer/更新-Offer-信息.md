@@ -1,6 +1,8 @@
 ---
 title: "更新 Offer 信息"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/update
+last_remote_update: 2025-07-30
+last_remote_update_timestamp: 1753877023000
 ---
 最后更新于 2025-07-30
 
@@ -15,9 +17,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 - 该接口会对原 Offer 内容进行全量覆盖更新，若非必填参数未填写则会清空原有内容，必填参数未填写会拦截报错。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offers/:offer_id
 HTTP Method | PUT
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

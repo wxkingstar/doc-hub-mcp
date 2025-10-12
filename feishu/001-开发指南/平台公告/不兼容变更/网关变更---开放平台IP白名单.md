@@ -1,6 +1,8 @@
 ---
 title: "网关变更 - 开放平台IP白名单"
 source_url: https://open.feishu.cn/document/faq/breaking-change/gateway-change-ip-allowlist
+last_remote_update: 2022-05-27
+last_remote_update_timestamp: 1653636213000
 ---
 最后更新于 2022-05-27
 

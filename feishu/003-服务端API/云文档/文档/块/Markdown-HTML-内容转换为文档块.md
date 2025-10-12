@@ -1,6 +1,8 @@
 ---
 title: "Markdown/HTML 内容转换为文档块"
 source_url: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/convert
+last_remote_update: 2025-08-29
+last_remote_update_timestamp: 1756439436000
 ---
 最后更新于 2025-08-29
 
@@ -23,9 +25,8 @@ source_url: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docume
 - 当转换后的块数量过多时，需分批调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口，单次调用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口最多可插入 1000 个块。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/docx/v1/documents/blocks/convert
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

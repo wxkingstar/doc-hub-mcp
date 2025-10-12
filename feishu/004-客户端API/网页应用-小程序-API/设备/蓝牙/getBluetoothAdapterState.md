@@ -1,6 +1,8 @@
 ---
 title: "getBluetoothAdapterState"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/bluetooth/getbluetoothadapterstate
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683468000
 ---
 最后更新于 2025-04-15
 

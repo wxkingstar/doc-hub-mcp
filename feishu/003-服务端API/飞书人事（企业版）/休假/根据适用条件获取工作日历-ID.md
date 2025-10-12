@@ -1,6 +1,8 @@
 ---
 title: "根据适用条件获取工作日历 ID"
 source_url: https://open.feishu.cn/document/corehr-v1/leave/calendar_by_scope
+last_remote_update: 2025-02-21
+last_remote_update_timestamp: 1740107338000
 ---
 最后更新于 2025-02-21
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/corehr-v1/leave/calendar_by_scope
 根据日历的适用范围，获取工作日历 ID。适用范围包含工作地点，工时制度等。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/corehr/v1/leaves/calendar_by_scope
 HTTP Method | GET
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

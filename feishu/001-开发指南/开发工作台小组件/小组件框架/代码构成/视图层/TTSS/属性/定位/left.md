@@ -1,6 +1,8 @@
 ---
 title: "left"
 source_url: https://open.feishu.cn/document/client-docs/block/block-frame/code-components-and-structure/view-layer/ttss/attributes/position/left
+last_remote_update: 2022-07-15
+last_remote_update_timestamp: 1657871780000
 ---
 最后更新于 2022-07-15
 

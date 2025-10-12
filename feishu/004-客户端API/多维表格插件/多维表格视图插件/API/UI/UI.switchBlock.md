@@ -1,6 +1,8 @@
 ---
 title: "UI.switchBlock"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/ui/ui_switchblock
+last_remote_update: 2023-12-26
+last_remote_update_timestamp: 1703572835000
 ---
 最后更新于 2023-12-26
 

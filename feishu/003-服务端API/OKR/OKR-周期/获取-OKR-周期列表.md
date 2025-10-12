@@ -1,6 +1,8 @@
 ---
 title: "获取 OKR 周期列表"
 source_url: https://open.feishu.cn/document/server-docs/okr-v1/period/list
+last_remote_update: 2023-07-03
+last_remote_update_timestamp: 1688380954000
 ---
 最后更新于 2023-07-03
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/okr-v1/period/list
 **注意事项**：使用`tenant_access_token`需要额外申请权限以应用身份访问OKR信息
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/okr/v1/periods
 HTTP Method | GET
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

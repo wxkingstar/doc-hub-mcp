@@ -1,6 +1,8 @@
 ---
 title: "text"
 source_url: https://open.feishu.cn/document/client-docs/block/component/basic-content/text
+last_remote_update: 2022-07-15
+last_remote_update_timestamp: 1657871937000
 ---
 最后更新于 2022-07-15
 

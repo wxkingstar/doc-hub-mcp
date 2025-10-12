@@ -1,6 +1,8 @@
 ---
 title: "基于 OpenAPI MCP 快速开发 Agent"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/quick-start-guides/quick-integration-with-openapi-mcp
+last_remote_update: 2025-08-12
+last_remote_update_timestamp: 1754988547000
 ---
 最后更新于 2025-08-12
 

@@ -1,6 +1,8 @@
 ---
 title: "iOS消息能力_Swift(7.18-7.31)"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/capability-components/message-capabilities/ios-message-capabilities
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745895220000
 ---
 最后更新于 2025-04-29
 

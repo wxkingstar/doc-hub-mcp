@@ -1,6 +1,8 @@
 ---
 title: "Ndef.writeNdefMessage"
 source_url: https://open.feishu.cn/document/uYjL24iN/uQzM4YjL0MDO24CNzgjN/ndef/ndef_writendefmessage
+last_remote_update: 2025-08-25
+last_remote_update_timestamp: 1756094000000
 ---
 最后更新于 2025-08-25
 

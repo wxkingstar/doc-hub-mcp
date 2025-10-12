@@ -1,6 +1,8 @@
 ---
 title: "获取 user_access_token（小程序）"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session
+last_remote_update: 2023-06-26
+last_remote_update_timestamp: 1687769386000
 ---
 最后更新于 2023-06-26
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open
 本接口适用于 [小程序登录](https://open.feishu.cn/document/uYjL24iN/uETO5QjLxkTO04SM5kDN) 及[小组件登录](https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/block/guide/open-ability/block-login)。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/mina/v2/tokenLoginValidate
 HTTP Method | POST
 支持的应用类型 | 自建应用、商店应用

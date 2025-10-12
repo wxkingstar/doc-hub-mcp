@@ -1,6 +1,8 @@
 ---
 title: "自建应用 API 调用量上限调整说明"
 source_url: https://open.feishu.cn/document/platform-notices/platform-updates-/custom-app-api-call-limit
+last_remote_update: 2024-11-05
+last_remote_update_timestamp: 1730798859000
 ---
 最后更新于 2024-11-05
 

@@ -1,6 +1,8 @@
 ---
 title: "setI18n"
 source_url: https://open.feishu.cn/document/base-extension/base-automation-extensions/api/seti18n
+last_remote_update: 2023-08-01
+last_remote_update_timestamp: 1690887274000
 ---
 最后更新于 2023-08-01
 

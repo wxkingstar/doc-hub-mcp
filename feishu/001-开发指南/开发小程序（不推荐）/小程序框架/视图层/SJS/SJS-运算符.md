@@ -1,6 +1,8 @@
 ---
 title: "SJS 运算符"
 source_url: https://open.feishu.cn/document/client-docs/gadget/framework/ui-layer/sjs/sjs-operator
+last_remote_update: 2023-08-25
+last_remote_update_timestamp: 1692954160000
 ---
 最后更新于 2023-08-25
 

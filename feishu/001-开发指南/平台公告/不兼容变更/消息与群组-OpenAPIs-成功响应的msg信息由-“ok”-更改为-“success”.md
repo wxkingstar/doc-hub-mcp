@@ -1,6 +1,8 @@
 ---
 title: "消息与群组 OpenAPIs 成功响应的msg信息由 “ok” 更改为 “success”"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/the-msg-of-successfully-response-of-apis-are-changed
+last_remote_update: 2023-09-19
+last_remote_update_timestamp: 1695125732000
 ---
 最后更新于 2023-09-19
 

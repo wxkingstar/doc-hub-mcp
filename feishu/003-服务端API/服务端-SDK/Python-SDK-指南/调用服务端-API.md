@@ -1,6 +1,8 @@
 ---
 title: "调用服务端 API"
 source_url: https://open.feishu.cn/document/server-side-sdk/python--sdk/invoke-server-api
+last_remote_update: 2025-02-20
+last_remote_update_timestamp: 1740036410000
 ---
 最后更新于 2025-02-20
 

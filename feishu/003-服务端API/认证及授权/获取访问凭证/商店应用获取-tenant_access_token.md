@@ -1,6 +1,8 @@
 ---
 title: "商店应用获取 tenant_access_token"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token
+last_remote_update: 2023-03-10
+last_remote_update_timestamp: 1678432512000
 ---
 最后更新于 2023-03-10
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/authentication-managemen
 **说明** **：** `tenant_access_token` 的最大有效期是 2 小时。如果在有效期小于 30 分钟的情况下，调用本接口，会返回一个新的 `tenant_access_token`，这会同时存在两个有效的 `tenant_access_token`。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/auth/v3/tenant_access_token
 HTTP Method | POST
 支持的应用类型 | 商店应用

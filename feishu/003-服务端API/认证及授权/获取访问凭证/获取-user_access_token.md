@@ -1,6 +1,8 @@
 ---
 title: "获取 user_access_token"
 source_url: https://open.feishu.cn/document/authentication-management/access-token/get-user-access-token
+last_remote_update: 2025-06-25
+last_remote_update_timestamp: 1750847814000
 ---
 最后更新于 2025-06-25
 
@@ -14,9 +16,8 @@ OAuth 令牌接口，可用于获取 <code>user_access_token</code> 以及 <code
 **注意事项**：本接口实现遵循 [RFC 6749 - The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749) ，你可以使用[标准的 OAuth 客户端库](https://oauth.net/code/)进行接入（**推荐**）
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v2/oauth/token
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

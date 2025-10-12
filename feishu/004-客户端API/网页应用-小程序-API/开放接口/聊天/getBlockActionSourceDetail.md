@@ -1,6 +1,8 @@
 ---
 title: "getBlockActionSourceDetail"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/chat/getBlockActionSourceDetail
+last_remote_update: 2024-10-10
+last_remote_update_timestamp: 1728531146000
 ---
 最后更新于 2024-10-10
 

@@ -1,6 +1,8 @@
 ---
 title: "快速调用服务端 API（创建一个多维表格）"
 source_url: https://open.feishu.cn/document/introduction-2
+last_remote_update: 2025-03-07
+last_remote_update_timestamp: 1741352954000
 ---
 最后更新于 2025-03-07
 

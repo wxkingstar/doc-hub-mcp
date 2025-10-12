@@ -1,6 +1,8 @@
 ---
 title: "getTriggerContext"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/open-ability/chat/gettriggercontext
+last_remote_update: 2024-12-04
+last_remote_update_timestamp: 1733301469000
 ---
 最后更新于 2024-12-04
 

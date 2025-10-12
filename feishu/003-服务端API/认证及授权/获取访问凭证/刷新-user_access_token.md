@@ -1,6 +1,8 @@
 ---
 title: "刷新 user_access_token"
 source_url: https://open.feishu.cn/document/authentication-management/access-token/refresh-user-access-token
+last_remote_update: 2025-06-25
+last_remote_update_timestamp: 1750847835000
 ---
 最后更新于 2025-06-25
 
@@ -43,9 +45,8 @@ https://accounts.feishu.cn/open-apis/authen/v1/authorize?client_id=cli_a5d611352
 ## 请求
 **注意事项**：为了避免刷新 `user_access_token` 的行为被滥用，在用户授权应用 365 天后，应用必须通过用户[重新授权](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/get-user-access-token)的方式来获取 `user_access_token` 与 `refresh_token`。如果 `refresh_token` 到期后继续刷新`user_access_token`将报错（错误码为 20037），可参考以下[错误码描述信息](#错误码)进行处理。
 **注意事项**：刷新后请更新本地 `user_access_token` 和 `refresh_token`，原令牌将无法再使用（`user_access_token` 会有一分钟的豁免时间以供应用完成令牌轮转）。
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/authen/v2/oauth/token
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

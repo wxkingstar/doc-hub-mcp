@@ -1,6 +1,8 @@
 ---
 title: "导入 e-HR"
 source_url: https://open.feishu.cn/document/hire-v1/candidate-management/delivery-process-management/onboard/events/imported-2
+last_remote_update: 2024-06-29
+last_remote_update_timestamp: 1719634086000
 ---
 最后更新于 2024-06-29
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/hire-v1/candidate-management/deliver
 **注意事项**：该事件仅通知变更相关 ID，需要配合另外的查询接口反查实际的数据，当导入完成后，需调用[更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)完成任务。
 
 ## 事件
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 事件类型 | hire.ehr_import_task.imported_v1
 支持的应用类型 | 自建应用
 权限要求  

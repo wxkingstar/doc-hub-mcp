@@ -1,6 +1,8 @@
 ---
 title: "OpenAPI MCP 概述"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/mcp_introduction
+last_remote_update: 2025-07-01
+last_remote_update_timestamp: 1751336847000
 ---
 最后更新于 2025-07-01
 

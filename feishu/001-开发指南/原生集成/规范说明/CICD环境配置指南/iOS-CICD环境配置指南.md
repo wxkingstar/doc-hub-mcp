@@ -1,6 +1,8 @@
 ---
 title: "iOS CICD环境配置指南"
 source_url: https://open.feishu.cn/document/native-integration/specification-description/cicd/ios-cicd
+last_remote_update: 2023-10-08
+last_remote_update_timestamp: 1696745251000
 ---
 最后更新于 2023-10-08
 

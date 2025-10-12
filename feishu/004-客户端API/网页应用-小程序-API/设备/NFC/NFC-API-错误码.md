@@ -1,6 +1,8 @@
 ---
 title: "NFC API 错误码"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/nfc/nfc-error-codes
+last_remote_update: 2025-08-01
+last_remote_update_timestamp: 1754044135000
 ---
 最后更新于 2025-08-01
 

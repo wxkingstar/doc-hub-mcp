@@ -1,6 +1,8 @@
 ---
 title: "端内web-view访问指定URL"
 source_url: https://open.feishu.cn/document/common-capabilities/applink-protocol/supported-protocol/open-the-web-view-in-feishu-to-access-the-specified-url
+last_remote_update: 2025-01-13
+last_remote_update_timestamp: 1736739552000
 ---
 最后更新于 2025-01-13
 

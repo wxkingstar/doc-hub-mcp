@@ -1,6 +1,8 @@
 ---
 title: "二维码 SDK 接入文档"
 source_url: https://open.feishu.cn/document/sso/web-application-sso/qr-sdk-documentation
+last_remote_update: 2024-11-29
+last_remote_update_timestamp: 1732848765000
 ---
 最后更新于 2024-11-29
 

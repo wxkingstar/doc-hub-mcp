@@ -1,6 +1,8 @@
 ---
 title: "iOS桌面快捷菜单_OC(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/desktop-shortcut-menu/ios-shortcutexternal_oc/ios-shortcutexternal_oc_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215551000
 ---
 最后更新于 2025-04-21
 

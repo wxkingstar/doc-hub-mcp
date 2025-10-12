@@ -1,6 +1,8 @@
 ---
 title: "飞书登录 SDK 隐私政策"
 source_url: https://open.feishu.cn/document/common-capabilities/sso/related-agreements/feishu-login-sdk-privacy-policy
+last_remote_update: 2025-05-19
+last_remote_update_timestamp: 1747649802000
 ---
 最后更新于 2025-05-19
 

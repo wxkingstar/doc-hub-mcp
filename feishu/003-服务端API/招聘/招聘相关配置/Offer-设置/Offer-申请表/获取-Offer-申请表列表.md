@@ -1,6 +1,8 @@
 ---
 title: "获取 Offer 申请表列表"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/offer-settings/offer_application_form/list
+last_remote_update: 2024-10-25
+last_remote_update_timestamp: 1729853701000
 ---
 最后更新于 2024-10-25
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-rela
 获取 Offer 申请表列表，可获取的信息包括申请表名称、创建时间等。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offer_application_forms
 HTTP Method | GET
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

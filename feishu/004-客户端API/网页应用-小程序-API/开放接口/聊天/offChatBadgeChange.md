@@ -1,6 +1,8 @@
 ---
 title: "offChatBadgeChange"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/chat/offchatbadgechange
+last_remote_update: 2024-02-02
+last_remote_update_timestamp: 1706851782000
 ---
 最后更新于 2024-02-02
 

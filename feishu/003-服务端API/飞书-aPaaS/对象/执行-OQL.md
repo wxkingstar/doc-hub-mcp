@@ -1,6 +1,8 @@
 ---
 title: "执行 OQL"
 source_url: https://open.feishu.cn/document/apaas-v1/application-object-record/oql_query
+last_remote_update: 2024-09-23
+last_remote_update_timestamp: 1727087294000
 ---
 最后更新于 2024-09-23
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/apaas-v1/application-object-record/o
 在应用内执行 OQL 语句
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/apaas/v1/applications/:namespace/objects/oql_query
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

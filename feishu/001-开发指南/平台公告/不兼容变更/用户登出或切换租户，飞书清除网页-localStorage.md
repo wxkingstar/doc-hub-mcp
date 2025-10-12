@@ -1,6 +1,8 @@
 ---
 title: "用户登出或切换租户，飞书清除网页 localStorage"
 source_url: https://open.feishu.cn/document/faq/breaking-change/clear-webview-localstorage
+last_remote_update: 2023-08-29
+last_remote_update_timestamp: 1693314768000
 ---
 最后更新于 2023-08-29
 

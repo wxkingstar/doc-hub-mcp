@@ -1,6 +1,8 @@
 ---
 title: "table.setField"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/table/table_setfield
+last_remote_update: 2023-09-15
+last_remote_update_timestamp: 1694758517000
 ---
 最后更新于 2023-09-15
 

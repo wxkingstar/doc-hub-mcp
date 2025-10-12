@@ -1,6 +1,8 @@
 ---
 title: "卡片 JSON 2.0 结构"
 source_url: https://open.feishu.cn/document/feishu-cards/card-json-v2-structure
+last_remote_update: 2025-06-23
+last_remote_update_timestamp: 1750681782000
 ---
 最后更新于 2025-06-23
 

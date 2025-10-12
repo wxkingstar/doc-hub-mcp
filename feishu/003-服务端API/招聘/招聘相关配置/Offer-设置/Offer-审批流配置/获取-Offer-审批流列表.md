@@ -1,6 +1,8 @@
 ---
 title: "获取 Offer 审批流列表"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/offer-settings/offer_approval_template/list
+last_remote_update: 2025-08-19
+last_remote_update_timestamp: 1755587738000
 ---
 最后更新于 2025-08-19
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-rela
 **注意事项**：若当前租户开通了「飞书人事」，且使用了「流程平台」配置的审批流，当前接口无法获取「流程平台」配置的审批流。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offer_approval_templates
 HTTP Method | GET
 接口频率限制 | [10 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

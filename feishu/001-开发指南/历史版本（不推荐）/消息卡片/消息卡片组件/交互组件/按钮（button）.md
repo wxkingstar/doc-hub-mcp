@@ -1,6 +1,8 @@
 ---
 title: "按钮（button）"
 source_url: https://open.feishu.cn/document/common-capabilities/message-card/add-card-interaction/interactive-components/button
+last_remote_update: 2024-08-20
+last_remote_update_timestamp: 1724163378000
 ---
 最后更新于 2024-08-20
 

@@ -1,6 +1,8 @@
 ---
 title: "自建应用获取 app_access_token"
 source_url: https://open.feishu.cn/document/server-docs/authentication-management/access-token/app_access_token_internal
+last_remote_update: 2024-06-26
+last_remote_update_timestamp: 1719396900000
 ---
 最后更新于 2024-06-26
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/server-docs/authentication-managemen
 - 如果在有效期大于等于 30 分钟的情况下，调用本接口，会返回原有的 `app_access_token`。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/auth/v3/app_access_token/internal
 HTTP Method | POST
 支持的应用类型 | 自建应用

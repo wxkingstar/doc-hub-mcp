@@ -1,6 +1,8 @@
 ---
 title: "关于部分网页应用 API 下线的适配 FAQ"
 source_url: https://open.feishu.cn/document/faq/breaking-change/faqs-on-removal-of-4-deprecated-web-app-apis
+last_remote_update: 2022-10-21
+last_remote_update_timestamp: 1666339132000
 ---
 最后更新于 2022-10-21
 

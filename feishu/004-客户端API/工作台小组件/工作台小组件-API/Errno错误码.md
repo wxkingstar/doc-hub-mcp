@@ -1,6 +1,8 @@
 ---
 title: "Errno错误码"
 source_url: https://open.feishu.cn/document/client-docs/block/api/introduce-of-errno
+last_remote_update: 2022-08-17
+last_remote_update_timestamp: 1660722775000
 ---
 最后更新于 2022-08-17
 

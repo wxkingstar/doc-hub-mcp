@@ -1,6 +1,8 @@
 ---
 title: "CustomizedInput.hide"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/interface/customized-input/customizedinput/hide
+last_remote_update: 2025-07-04
+last_remote_update_timestamp: 1751618826000
 ---
 最后更新于 2025-07-04
 

@@ -1,6 +1,8 @@
 ---
 title: "CustomizedInput.onModelSelect"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/interface/customized-input/customizedinput/onmodelselect
+last_remote_update: 2023-06-05
+last_remote_update_timestamp: 1685952576000
 ---
 最后更新于 2023-06-05
 

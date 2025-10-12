@@ -1,6 +1,8 @@
 ---
 title: "批量获取人才ID"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/batch_get_id
+last_remote_update: 2024-09-06
+last_remote_update_timestamp: 1725615241000
 ---
 最后更新于 2024-09-06
 
@@ -12,9 +14,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 - 入参的手机号、邮箱、证件号是AND的逻辑关系。也就是当条件同时满足时才会返回人才数据。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/talents/batch_get_id
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

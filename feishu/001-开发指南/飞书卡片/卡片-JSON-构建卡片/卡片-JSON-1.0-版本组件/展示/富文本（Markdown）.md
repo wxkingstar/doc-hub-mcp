@@ -1,6 +1,8 @@
 ---
 title: "富文本（Markdown）"
 source_url: https://open.feishu.cn/document/feishu-cards/card-components/content-components/rich-text
+last_remote_update: 2025-04-08
+last_remote_update_timestamp: 1744118577000
 ---
 最后更新于 2025-04-08
 

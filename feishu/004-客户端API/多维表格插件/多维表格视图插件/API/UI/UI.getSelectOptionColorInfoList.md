@@ -1,6 +1,8 @@
 ---
 title: "UI.getSelectOptionColorInfoList"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/ui/ui_getselectoptioncolorinfolist
+last_remote_update: 2023-09-15
+last_remote_update_timestamp: 1694758503000
 ---
 最后更新于 2023-09-15
 

@@ -1,6 +1,8 @@
 ---
 title: "更新 Offer 状态"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer_status
+last_remote_update: 2024-09-05
+last_remote_update_timestamp: 1725526529000
 ---
 最后更新于 2024-09-05
 
@@ -29,9 +31,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 ![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/6faaeda86bbe8f1b9f2c7ef91062edd2_xU7rL7qrof.png)
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/offers/:offer_id/offer_status
 HTTP Method | PATCH
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

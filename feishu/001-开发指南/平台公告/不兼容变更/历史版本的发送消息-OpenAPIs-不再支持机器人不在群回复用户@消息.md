@@ -1,6 +1,8 @@
 ---
 title: "历史版本的发送消息 OpenAPIs 不再支持机器人不在群回复用户@消息"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/reply-to-mentioned-messages-when-not-in-the-group
+last_remote_update: 2024-08-20
+last_remote_update_timestamp: 1724124340000
 ---
 最后更新于 2024-08-20
 

@@ -1,6 +1,8 @@
 ---
 title: "button"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/button
+last_remote_update: 2022-06-21
+last_remote_update_timestamp: 1655800293000
 ---
 最后更新于 2022-06-21
 

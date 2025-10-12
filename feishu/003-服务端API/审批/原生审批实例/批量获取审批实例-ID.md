@@ -1,6 +1,8 @@
 ---
 title: "批量获取审批实例 ID"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/instance/list
+last_remote_update: 2025-08-29
+last_remote_update_timestamp: 1756436658000
 ---
 最后更新于 2025-08-29
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/approval-v4/instance/lis
 根据审批定义的 approval_code 批量获取审批实例的 instance_code，用于拉取企业下某个审批定义的全部审批实例。默认以审批创建时间先后顺序排列。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/approval/v4/instances
 HTTP Method | GET
 接口频率限制 | [100 次/分钟](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

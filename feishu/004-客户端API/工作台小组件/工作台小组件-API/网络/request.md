@@ -1,6 +1,8 @@
 ---
 title: "request"
 source_url: https://open.feishu.cn/document/client-docs/block/api/network/request
+last_remote_update: 2023-11-24
+last_remote_update_timestamp: 1700812339000
 ---
 最后更新于 2023-11-24
 

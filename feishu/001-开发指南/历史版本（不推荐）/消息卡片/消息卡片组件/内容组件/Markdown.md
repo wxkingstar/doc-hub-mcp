@@ -1,6 +1,8 @@
 ---
 title: "Markdown"
 source_url: https://open.feishu.cn/document/common-capabilities/message-card/message-cards-content/using-markdown-tags
+last_remote_update: 2024-08-20
+last_remote_update_timestamp: 1724163288000
 ---
 最后更新于 2024-08-20
 

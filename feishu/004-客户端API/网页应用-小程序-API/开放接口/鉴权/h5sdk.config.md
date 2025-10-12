@@ -1,6 +1,8 @@
 ---
 title: "h5sdk.config"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/open-ability/authentication/h5sdkconfig
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683273000
 ---
 最后更新于 2025-04-15
 

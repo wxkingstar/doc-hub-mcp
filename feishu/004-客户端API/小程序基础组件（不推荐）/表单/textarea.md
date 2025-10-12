@@ -1,6 +1,8 @@
 ---
 title: "textarea"
 source_url: https://open.feishu.cn/document/client-docs/gadget/component-component/basic-component/form/textarea
+last_remote_update: 2023-03-07
+last_remote_update_timestamp: 1678170615000
 ---
 最后更新于 2023-03-07
 

@@ -1,6 +1,8 @@
 ---
 title: "addAction"
 source_url: https://open.feishu.cn/document/base-extension/base-automation-extensions/api/addaction
+last_remote_update: 2025-08-04
+last_remote_update_timestamp: 1754292323000
 ---
 最后更新于 2025-08-04
 

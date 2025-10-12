@@ -1,6 +1,8 @@
 ---
 title: "iOS生命周期能力_Swift(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/life-cycle/ios-life-cycle-contents/lifecycleexternal_swift_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215539000
 ---
 最后更新于 2025-04-21
 

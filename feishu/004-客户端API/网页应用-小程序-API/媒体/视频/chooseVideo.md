@@ -1,6 +1,8 @@
 ---
 title: "chooseVideo"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/media/video/choosevideo
+last_remote_update: 2023-06-09
+last_remote_update_timestamp: 1686281375000
 ---
 最后更新于 2023-06-09
 

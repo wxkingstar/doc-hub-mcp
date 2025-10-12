@@ -1,6 +1,8 @@
 ---
 title: "API 权限"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/api-scopes
+last_remote_update: 2023-11-13
+last_remote_update_timestamp: 1699843826000
 ---
 最后更新于 2023-11-13
 

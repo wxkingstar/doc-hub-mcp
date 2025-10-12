@@ -1,6 +1,8 @@
 ---
 title: "通过手机号或邮箱获取用户 ID"
 source_url: https://open.feishu.cn/document/server-docs/contact-v3/user/batch_get_id
+last_remote_update: 2024-07-05
+last_remote_update_timestamp: 1720166718000
 ---
 最后更新于 2024-07-05
 
@@ -19,9 +21,8 @@ source_url: https://open.feishu.cn/document/server-docs/contact-v3/user/batch_ge
 - 所查询的用户已离职，如果请求参数 include_resigned 取值为 false，则不会返回离职用户 ID。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/contact/v3/users/batch_get_id
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

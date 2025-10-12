@@ -1,6 +1,8 @@
 ---
 title: "申请 API 权限"
 source_url: https://open.feishu.cn/document/server-docs/application-scope/introduction
+last_remote_update: 2025-05-20
+last_remote_update_timestamp: 1747723848000
 ---
 最后更新于 2025-05-20
 

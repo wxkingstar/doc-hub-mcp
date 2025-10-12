@@ -1,6 +1,8 @@
 ---
 title: "组件SDK鉴权流程"
 source_url: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
+last_remote_update: 2025-03-13
+last_remote_update_timestamp: 1741846188000
 ---
 最后更新于 2025-03-13
 

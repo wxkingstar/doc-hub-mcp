@@ -1,6 +1,8 @@
 ---
 title: "将用户或机器人拉入群聊 API 无效ID错误处理方式与错误码变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/add-users-or-bots-to-a-group-changes
+last_remote_update: 2023-02-16
+last_remote_update_timestamp: 1676530714000
 ---
 最后更新于 2023-02-16
 

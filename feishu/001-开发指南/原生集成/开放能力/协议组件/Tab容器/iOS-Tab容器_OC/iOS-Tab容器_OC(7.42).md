@@ -1,6 +1,8 @@
 ---
 title: "iOS Tab容器_OC(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/tab-container/ios-tabexternal_oc/ios-tabexternal_oc_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215540000
 ---
 最后更新于 2025-04-21
 

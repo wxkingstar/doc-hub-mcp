@@ -1,6 +1,8 @@
 ---
 title: "updateBadge"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/appbadge/updagebadge
+last_remote_update: 2023-12-04
+last_remote_update_timestamp: 1701656498000
 ---
 最后更新于 2023-12-04
 

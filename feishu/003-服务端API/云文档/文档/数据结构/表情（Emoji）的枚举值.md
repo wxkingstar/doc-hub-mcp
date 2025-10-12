@@ -1,6 +1,8 @@
 ---
 title: "表情（Emoji）的枚举值"
 source_url: https://open.feishu.cn/document/docs/docs/data-structure/emoji
+last_remote_update: 2024-11-08
+last_remote_update_timestamp: 1731061245000
 ---
 最后更新于 2024-11-08
 

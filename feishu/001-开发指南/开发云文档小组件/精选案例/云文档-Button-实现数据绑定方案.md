@@ -1,6 +1,8 @@
 ---
 title: "云文档 Button 实现数据绑定方案"
 source_url: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/docs-add-on/featured-case-studies/cloud-document-button-implements-data-binding-solution
+last_remote_update: 2025-05-29
+last_remote_update_timestamp: 1748507284000
 ---
 最后更新于 2025-05-29
 

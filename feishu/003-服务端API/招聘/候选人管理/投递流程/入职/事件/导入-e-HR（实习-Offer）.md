@@ -1,6 +1,8 @@
 ---
 title: "导入 e-HR（实习 Offer）"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/events/imported
+last_remote_update: 2024-08-28
+last_remote_update_timestamp: 1724827681000
 ---
 最后更新于 2024-08-28
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-manage
 - 可以使用`offer_id ` [更新实习 Offer 入/离职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status)
 
 ## 事件
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 事件类型 | hire.ehr_import_task_for_internship_offer.imported_v1
 支持的应用类型 | 自建应用
 权限要求  

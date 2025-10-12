@@ -1,6 +1,8 @@
 ---
 title: "通过地点 ID 批量获取地点信息"
 source_url: https://open.feishu.cn/document/corehr-v1/organization-management/location/batch_get
+last_remote_update: 2024-12-06
+last_remote_update_timestamp: 1733479516000
 ---
 最后更新于 2024-12-06
 
@@ -11,9 +13,8 @@ source_url: https://open.feishu.cn/document/corehr-v1/organization-management/lo
 **注意事项**：延迟说明：数据库主从延迟 2s 以内，即：直接创建地点后2s内调用此接口可能查询不到数据。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/corehr/v2/locations/batch_get
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

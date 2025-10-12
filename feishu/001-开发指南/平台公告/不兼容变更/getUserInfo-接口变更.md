@@ -1,6 +1,8 @@
 ---
 title: "getUserInfo 接口变更"
 source_url: https://open.feishu.cn/document/faq/breaking-change/getuserinfo-api-change
+last_remote_update: 2022-03-03
+last_remote_update_timestamp: 1646287333000
 ---
 最后更新于 2022-03-03
 

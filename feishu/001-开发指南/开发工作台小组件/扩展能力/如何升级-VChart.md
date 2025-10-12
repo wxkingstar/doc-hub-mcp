@@ -1,6 +1,8 @@
 ---
 title: "如何升级 VChart"
 source_url: https://open.feishu.cn/document/block/extend/how-to-upgrade-to-vchart
+last_remote_update: 2024-02-02
+last_remote_update_timestamp: 1706855292000
 ---
 最后更新于 2024-02-02
 

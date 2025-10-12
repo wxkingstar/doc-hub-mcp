@@ -1,6 +1,8 @@
 ---
 title: "picker"
 source_url: https://open.feishu.cn/document/client-docs/block/component/form/picker
+last_remote_update: 2024-11-06
+last_remote_update_timestamp: 1730865156000
 ---
 最后更新于 2024-11-06
 

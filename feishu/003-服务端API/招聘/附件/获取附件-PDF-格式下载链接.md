@@ -1,6 +1,8 @@
 ---
 title: "获取附件 PDF 格式下载链接"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/attachment/preview
+last_remote_update: 2024-07-11
+last_remote_update_timestamp: 1720671231000
 ---
 最后更新于 2024-07-11
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/server-docs/hire-v1/attachment/previ
 - 飞书招聘系统支持将文件后缀名为 `.doc`、`.docx`、`.ppt`、`.pptx` 和 `.txt`的人才简历附件转换为 PDF 格式。若转换 PDF 失败，该接口会返回附件原文件的下载地址。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/hire/v1/attachments/:attachment_id/preview
 HTTP Method | GET
 接口频率限制 | [20 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

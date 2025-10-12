@@ -1,6 +1,8 @@
 ---
 title: "消息相关事件及 API 将进行历史消息可见性管控"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/visibility-control-of-historical-messages
+last_remote_update: 2024-10-14
+last_remote_update_timestamp: 1728877977000
 ---
 最后更新于 2024-10-14
 

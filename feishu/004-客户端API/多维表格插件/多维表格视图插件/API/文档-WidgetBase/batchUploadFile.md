@@ -1,6 +1,8 @@
 ---
 title: "batchUploadFile"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/base/batchuploadfile
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690343201000
 ---
 最后更新于 2023-07-26
 

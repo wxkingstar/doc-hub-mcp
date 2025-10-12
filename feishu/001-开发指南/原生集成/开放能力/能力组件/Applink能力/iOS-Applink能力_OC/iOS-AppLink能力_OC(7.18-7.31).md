@@ -1,6 +1,8 @@
 ---
 title: "iOS AppLink能力_OC(7.18-7.31)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/capability-components/applink-capability/ios-applink-capability_oc/ios-applink-capability_oc-718
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745895177000
 ---
 最后更新于 2025-04-29
 

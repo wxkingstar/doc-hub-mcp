@@ -1,6 +1,8 @@
 ---
 title: "蓝牙 API 错误码"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/bluetooth/bluetooth-api-error-codes
+last_remote_update: 2022-03-08
+last_remote_update_timestamp: 1646734469000
 ---
 最后更新于 2022-03-08
 

@@ -1,6 +1,8 @@
 ---
 title: "table.getRecordIdList"
 source_url: https://open.feishu.cn/document/base-extension/base-view-extensions/api/table/table_getrecordidlist
+last_remote_update: 2023-07-26
+last_remote_update_timestamp: 1690343154000
 ---
 最后更新于 2023-07-26
 

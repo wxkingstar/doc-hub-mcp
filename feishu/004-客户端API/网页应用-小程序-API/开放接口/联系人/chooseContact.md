@@ -1,6 +1,8 @@
 ---
 title: "chooseContact"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/contact/choosecontact
+last_remote_update: 2025-04-15
+last_remote_update_timestamp: 1744683338000
 ---
 最后更新于 2025-04-15
 

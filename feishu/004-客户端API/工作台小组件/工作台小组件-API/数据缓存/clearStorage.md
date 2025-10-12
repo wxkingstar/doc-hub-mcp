@@ -1,6 +1,8 @@
 ---
 title: "clearStorage"
 source_url: https://open.feishu.cn/document/client-docs/block/api/data-cache/clearstorage
+last_remote_update: 2022-11-03
+last_remote_update_timestamp: 1667490517000
 ---
 最后更新于 2022-11-03
 

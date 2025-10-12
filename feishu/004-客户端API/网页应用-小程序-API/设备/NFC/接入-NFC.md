@@ -1,6 +1,8 @@
 ---
 title: "接入 NFC"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/device/nfc/nfc-development-guide
+last_remote_update: 2024-04-19
+last_remote_update_timestamp: 1713507678000
 ---
 最后更新于 2024-04-19
 

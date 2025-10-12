@@ -1,6 +1,8 @@
 ---
 title: "iOS消息菜单容器_Swift(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/message-menu-container/menusexternal_swift/ios-menusexternal_swift_742
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745215551000
 ---
 最后更新于 2025-04-21
 

@@ -1,6 +1,8 @@
 ---
 title: "获取 JSAPI 临时授权凭证"
 source_url: https://open.feishu.cn/document/authentication-management/access-token/authorization
+last_remote_update: 2024-08-02
+last_remote_update_timestamp: 1722566061000
 ---
 最后更新于 2024-08-02
 
@@ -15,9 +17,8 @@ source_url: https://open.feishu.cn/document/authentication-management/access-tok
 - 获取 jsapi_ticket 后请结合返回的有效时间参数（expire_in），设置定时获取 jsapi_ticket 的逻辑，避免因凭证过期导致的业务异常。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/jssdk/ticket/get
 HTTP Method | POST
 

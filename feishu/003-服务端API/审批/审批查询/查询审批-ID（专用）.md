@@ -1,6 +1,8 @@
 ---
 title: "查询审批 ID（专用）"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search-approval-id-(dedicated)
+last_remote_update: 2025-04-21
+last_remote_update_timestamp: 1745207231000
 ---
 最后更新于 2025-04-21
 
@@ -9,9 +11,8 @@ source_url: https://open.feishu.cn/document/server-docs/approval-v4/approval-sea
 用于灰度企业内的 userID、larkID 相互转换。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://www.feishu.cn/approval/openapi/v1/id/get
 HTTP Method | POST
 

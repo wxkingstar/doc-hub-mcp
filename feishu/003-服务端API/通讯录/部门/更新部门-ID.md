@@ -1,6 +1,8 @@
 ---
 title: "更新部门 ID"
 source_url: https://open.feishu.cn/document/contact-v3/department/update_department_id
+last_remote_update: 2024-07-05
+last_remote_update_timestamp: 1720167100000
 ---
 最后更新于 2024-07-05
 
@@ -13,9 +15,8 @@ source_url: https://open.feishu.cn/document/contact-v3/department/update_departm
 本接口仅支持使用应用身份（tenant_access_token）调用。调用时，应用的通讯录权限范围内需要包含当前被操作的部门。了解权限范围参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/contact/v3/departments/:department_id/update_department_id
 HTTP Method | PATCH
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

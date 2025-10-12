@@ -1,6 +1,8 @@
 ---
 title: "DarkMode 适配"
 source_url: https://open.feishu.cn/document/client-docs/block/api/darkmode/darkmode
+last_remote_update: 2022-07-15
+last_remote_update_timestamp: 1657872303000
 ---
 最后更新于 2022-07-15
 

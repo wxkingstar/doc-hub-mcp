@@ -1,6 +1,8 @@
 ---
 title: "NFCAdapter.updateAlertMessage"
 source_url: https://open.feishu.cn/document/uYjL24iN/uUzM4YjL1MDO24SNzgjN/updatealertmessage
+last_remote_update: 2025-08-25
+last_remote_update_timestamp: 1756093515000
 ---
 最后更新于 2025-08-25
 

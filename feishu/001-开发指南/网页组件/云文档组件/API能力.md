@@ -1,6 +1,8 @@
 ---
 title: "API能力"
 source_url: https://open.feishu.cn/document/web-components/uYDO3YjL2gzN24iN3cjN/api-capabilities
+last_remote_update: 2025-04-27
+last_remote_update_timestamp: 1745754586000
 ---
 最后更新于 2025-04-27
 

@@ -1,6 +1,8 @@
 ---
 title: "审批事件 FAQ"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/event/approval-events-faq
+last_remote_update: 2025-03-24
+last_remote_update_timestamp: 1742781451000
 ---
 最后更新于 2025-03-24
 

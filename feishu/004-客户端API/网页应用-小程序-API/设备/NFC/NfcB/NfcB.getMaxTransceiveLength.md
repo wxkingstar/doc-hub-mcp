@@ -1,6 +1,8 @@
 ---
 title: "NfcB.getMaxTransceiveLength"
 source_url: https://open.feishu.cn/document/web-app/gadget-api/device/nfc/nfcb/getmaxtransceivelength
+last_remote_update: 2025-08-25
+last_remote_update_timestamp: 1756093770000
 ---
 最后更新于 2025-08-25
 

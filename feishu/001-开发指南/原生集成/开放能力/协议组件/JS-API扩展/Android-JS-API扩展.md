@@ -1,6 +1,8 @@
 ---
 title: "Android JS API扩展"
 source_url: https://open.feishu.cn/document/native-integration/open-capability/protocol-components/js-api-extension/android-js-api-ex
+last_remote_update: 2025-07-02
+last_remote_update_timestamp: 1751449528000
 ---
 最后更新于 2025-07-02
 

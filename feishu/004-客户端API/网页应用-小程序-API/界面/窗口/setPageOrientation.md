@@ -1,6 +1,8 @@
 ---
 title: "setPageOrientation"
 source_url: https://open.feishu.cn/document/client-docs/gadget/open-capabilities/autorotate/setpageorientation
+last_remote_update: 2025-09-02
+last_remote_update_timestamp: 1756779733000
 ---
 最后更新于 2025-09-02
 

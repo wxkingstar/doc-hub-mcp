@@ -1,6 +1,8 @@
 ---
 title: "将用户或机器人拉入群聊 API 补充沟通权限管控"
 source_url: https://open.feishu.cn/document/platform-notices/breaking-change/additional-communication-controls-for-add-to-group-api
+last_remote_update: 2025-03-10
+last_remote_update_timestamp: 1741608117000
 ---
 最后更新于 2025-03-10
 

@@ -1,6 +1,8 @@
 ---
 title: "getLocation"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/location/getlocation
+last_remote_update: 2025-09-02
+last_remote_update_timestamp: 1756779772000
 ---
 最后更新于 2025-09-02
 

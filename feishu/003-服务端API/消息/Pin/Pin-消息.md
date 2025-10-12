@@ -1,6 +1,8 @@
 ---
 title: "Pin 消息"
 source_url: https://open.feishu.cn/document/server-docs/im-v1/pin/create
+last_remote_update: 2024-12-11
+last_remote_update_timestamp: 1733886821000
 ---
 最后更新于 2024-12-11
 
@@ -23,9 +25,8 @@ Pin 一条指定的消息。Pin 消息的效果可参见[Pin 消息概述](https
 如果消息已经被 Pin，则该接口会返回该 Pin 的操作信息。
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/im/v1/pins
 HTTP Method | POST
 接口频率限制 | [1000 次/分钟、50 次/秒](https://open.feishu.cn/document/ukTMukTMukTM/uUzN04SN3QjL1cDN)

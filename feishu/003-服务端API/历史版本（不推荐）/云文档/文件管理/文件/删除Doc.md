@@ -1,6 +1,8 @@
 ---
 title: "删除Doc"
 source_url: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/file/delete-a-doc
+last_remote_update: 2022-05-07
+last_remote_update_timestamp: 1651916140000
 ---
 最后更新于 2022-05-07
 
@@ -15,9 +17,8 @@ source_url: https://open.feishu.cn/document/server-docs/historic-version/docs/dr
 该接口不支持并发调用，且调用频率上限为5QPS
 
 ## 请求
-
-基本 | 
---- | ---
+名称 | 值
+---|---
 HTTP URL | https://open.feishu.cn/open-apis/drive/explorer/v2/file/docs/:docToken
 HTTP Method | DELETE
 支持的应用类型 | 自建应用、商店应用

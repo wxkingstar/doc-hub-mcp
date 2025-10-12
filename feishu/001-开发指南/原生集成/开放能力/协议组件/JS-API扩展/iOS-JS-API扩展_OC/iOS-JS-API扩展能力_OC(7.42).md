@@ -1,6 +1,8 @@
 ---
 title: "iOS JS API扩展能力_OC(7.42)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/js-api-extension/jsapiexternal_oc/jsapiexternal_oc_742
+last_remote_update: 2025-04-17
+last_remote_update_timestamp: 1744872803000
 ---
 最后更新于 2025-04-17
 

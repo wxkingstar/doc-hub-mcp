@@ -1,6 +1,8 @@
 ---
 title: "iOS WebContainerExternal_OC(7.18-7.31)"
 source_url: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/webcontainer/ios-webcontainerexternal_oc/ios-webcontainerexternal_oc718
+last_remote_update: 2025-04-29
+last_remote_update_timestamp: 1745895068000
 ---
 最后更新于 2025-04-29
 
