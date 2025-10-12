@@ -40,8 +40,8 @@ async function main() {
       description:
         `根据关键词检索企业微信与飞书开放平台的本地 Markdown 文档（更新至 2025-10-12，源目录：${sourceDescription}）。支持通过 source 参数指定文档来源（wecom/feishu），提高检索精确性。`,
       inputSchema: {
-        query: z.string().min(1, '查询内容不能为空'),
-        limit: z.number().int().min(1).max(10).optional(),
+        query: z.string().min(1, '查询内容不能为空').describe('搜索关键词，支持多个关键词空格分隔，会在文档标题和正文中进行匹配'),
+        limit: z.number().int().min(1).max(20).optional().describe('可选：返回结果的最大数量，默认为 8 条，最多 20 条'),
         source: z.enum(['wecom', 'feishu']).optional().describe('可选：指定文档来源，wecom=企业微信，feishu=飞书开放平台')
       },
       outputSchema: {

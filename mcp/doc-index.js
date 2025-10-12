@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const DEFAULT_MAX_RESULTS = 8;
+const MAX_LIMIT = 20;
 const DEFAULT_NAMESPACE = 'local-docs';
 const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(MODULE_DIR, '..');
@@ -54,7 +55,7 @@ function clampLimit(limit) {
   if (!Number.isFinite(limit)) {
     return DEFAULT_MAX_RESULTS;
   }
-  return Math.min(Math.max(1, Math.floor(limit)), DEFAULT_MAX_RESULTS);
+  return Math.min(Math.max(1, Math.floor(limit)), MAX_LIMIT);
 }
 
 export class DocIndex {
