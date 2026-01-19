@@ -4,7 +4,7 @@ doc_id: 39850
 category_id: 101134
 source_url: https://developer.work.weixin.qq.com/document/path/101134
 ---
-最后更新：2024/01/24
+最后更新：2025/11/17
 
 [TOC]
 
@@ -54,6 +54,7 @@ source_url: https://developer.work.weixin.qq.com/document/path/101134
 >当前授权企业必须已认证或已验证
 >unionid（即微信开放平台账号主体）与openid（即小程序或服务号账号主体）需要认证，且主体名称需与当前授权企业的主体名称一致（[查看由服务商代注册的开放平台账号认证流程](https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/product/Open_Platform_Account_Management.html#%E5%9B%9B%E3%80%81%E8%AE%A4%E8%AF%81%E4%BB%A3%E6%B3%A8%E5%86%8C%E7%9A%84%E5%B8%90%E5%8F%B7)），或者主体名称需与服务商的主体名称一致。
 >openid与unionid必须是在同一个小程序获取到的
+>「营销获客」应用只能获取到该应用带来的客户的external_userid
 
 **返回结果：**
 
@@ -77,6 +78,7 @@ source_url: https://developer.work.weixin.qq.com/document/path/101134
 > 注：
 > 1. pending_id仅用于关联unionid与external_userid，并无法当成external_userid调用接口。
 > 2. 当微信客户的跟进人或所在客户群的群主不在应用可见范围，也不返回external_userid，而是返回pending_id。
+> 3. 营销获客应用的微信客户的跟进人或所在客户群的群主不在应用可见范围或客户可建联的成员范围，不返回external_userid，而是返回pending_id
 
 ## external_userid查询pending_id
 该接口可用于当一个微信用户成为企业客户前已经使用过服务商服务（服务商曾通过[unionid查询external_userid](#unionid转换为第三方external_userid)接口获取到pending_id）的场景。本接口获取到的pending_id可以维持unionid和external_userid的关联关系。pending_id有效期为90天，超过有效期之后，将无法通过该接口将external_userid换取对应的pending_id。
@@ -105,7 +107,8 @@ source_url: https://developer.work.weixin.qq.com/document/path/101134
 
 **权限说明：**
 >仅认证企业可调用
->该客户的跟进人或其所在客户群群主必须在应用的可见范围之内
+> 该客户的跟进人或其所在客户群群主必须在应用的可见范围之内
+> 「营销获客」应用只能获取到该应用带来的客户，同时跟进人或其所在客户群群主在应用可见范围或客户可建联的成员范围
 
 **返回结果：**
 

@@ -1,16 +1,16 @@
 ---
 title: "Block.insertBlock"
 source_url: https://open.feishu.cn/document/client-docs/docs-add-on/05-api-doc/block/Block.insertBlock
-last_remote_update: 2025-07-31
-last_remote_update_timestamp: 1753960118000
+last_remote_update: 2025-12-04
+last_remote_update_timestamp: 1764855801000
 ---
-最后更新于 2025-07-31
+最后更新于 2025-12-04
 
 # Block.insertBlock
 在父 Block 的指定位置插入一个新 Block，返回新插入的 Block 的快照信息，该方法为异步调用。
 
 ## 注意事项
-**Notice**：以下 Block 暂不支持插入：BITABLE、CELL、CHAT_CARD、DIAGRAM、FILE、GRID、GRID_COLUMN、IFRAME、IMAGE、ISV、MINDNOTE、PAGE、SHEET、TABLE、VIEW
+**Notice**：以下 Block 暂不支持插入：BITABLE、CELL、CHAT_CARD、DIAGRAM、FILE、GRID、GRID_COLUMN、IFRAME、IMAGE、MINDNOTE、PAGE、SHEET、TABLE、VIEW
 
 ## 可用性说明
 

@@ -1,10 +1,10 @@
 ---
 title: "创建 Offer"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/create
-last_remote_update: 2025-07-30
-last_remote_update_timestamp: 1753877022000
+last_remote_update: 2026-01-08
+last_remote_update_timestamp: 1767869960000
 ---
-最后更新于 2025-07-30
+最后更新于 2026-01-08
 
 # 创建 Offer
 
@@ -173,6 +173,7 @@ value | string | 否 | 自定义字段信息，以字符串形式传入，如：
 7. 多行文本："xxx "  
 8. 数字："123"  
 9. 金额："123.1"  
+10. 附件："[{\"common_attachment_id\":\"通用附件 ID\"},...]"  
 **示例值**："1"
 
 ### 请求体示例
@@ -382,11 +383,11 @@ HTTP状态码 | 错误码 | 描述 | 排查建议
 400 | 1002072 | 序列已停用 | 请检查`job_family_id `参数
 400 | 1002073 | 职级不存在 | 请检查`job_level_id `参数
 400 | 1002074 | 职级已停用 | 请检查`job_level_id `参数
-400 | 1002075 | 职等不存在 | \-
-400 | 1002076 | 职等已停用 | \-
+400 | 1002075 | 职等不存在 | 请检查`job_grade_id`参数
+400 | 1002076 | 职等已停用 | 请检查`job_grade_id`参数
 400 | 1002077 | 职务、序列不匹配 | 请检查`employment_job_id `、`job_family_id `参数
 400 | 1002078 | 职务、职级不匹配 | 请检查`employment_job_id `、`job_level_id `参数
 400 | 1002079 | 序列、职级不匹配(在序列与职级在生效时间内未查询到关联的生效职务) | 请检查`job_family_id `、`job_level_id `参数
-400 | 1002080 | 职级、职等不匹配 | \-
+400 | 1002080 | 职级、职等不匹配 | 请检查`job_level_id`、`job_grade_id`参数
 400 | 1002082 | Offer 附件数量超过限制 | Offer 附件每个请求最多 20 个，请减少请求中的 Offer 附件数量
 400 | 1002083 | Offer 附件对应的文件不存在 | 请检查附件 ID 是否合法

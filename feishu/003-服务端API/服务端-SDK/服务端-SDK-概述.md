@@ -1,10 +1,10 @@
 ---
 title: "服务端 SDK 概述"
 source_url: https://open.feishu.cn/document/server-docs/server-side-sdk
-last_remote_update: 2025-02-10
-last_remote_update_timestamp: 1739158187000
+last_remote_update: 2025-12-11
+last_remote_update_timestamp: 1765424180000
 ---
-最后更新于 2025-02-10
+最后更新于 2025-12-11
 
 # 服务端 SDK 概述
 
@@ -49,7 +49,7 @@ SDK 提供的主要能力包括：
 
 | Java SDK 交流群       | Python SDK 交流群           | Go SDK 交流群         | 
 | --------- | --------------- | -------   | 
-|[单击此处](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=a53jb5f6-87de-4974-9ad6-8a88563d0e89)或扫码加入 SDK 交流群。<br>![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/6715ef101de19f6b3268c2c6865fef7d_J8znWEWfVm.png?height=243&lazyload=true&maxWidth=150&width=242) | [单击此处](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=575k28fa-2c12-400a-80c0-2d8924e00d38)或扫码加入 SDK 交流群。<br>![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/25f6ee1bca77228a74667873448e37fd_Q7u0LgpwSc.png?height=748&lazyload=true&maxWidth=150&width=758) | [单击此处](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=21cn476d-b859-4c15-9048-5ecf49f1a951)或扫码加入 SDK 交流群。<br>![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/f4bdf852c25c8d7686ed9f0492e69dda_PbL2cQgY8U.png?height=284&lazyload=true&maxWidth=150&width=286) | 
+|[单击此处](https://go.larkoffice.com/join-chat/b4alc1f1-3981-4ec8-8ff2-ec40923854fb)或扫码加入 SDK 交流群。<br>![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/7c777b575a28f086b0e7376e3f344cd2_Cir7mOLIAd.png?height=576&lazyload=true&maxWidth=150&width=582) |[单击此处](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=575k28fa-2c12-400a-80c0-2d8924e00d38)或扫码加入 SDK 交流群。<br>![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/25f6ee1bca77228a74667873448e37fd_Q7u0LgpwSc.png?height=748&lazyload=true&maxWidth=150&width=758) | [单击此处](https://go.larkoffice.com/join-chat/d0fmce97-a4dd-4b40-aa8a-f3cdbe89aaf5)或扫码加入 SDK 交流群。<br>![](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/f5d045fffa88675b1ed1efacd88000d2_Jlvr8bhevg.png?height=278&lazyload=true&maxWidth=150&width=288) | 
 
 NodeJS SDK 问题可直接提交[Issues](https://github.com/larksuite/node-sdk/issues)。
 

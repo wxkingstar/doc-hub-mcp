@@ -23,6 +23,7 @@
     "html-entities": "^2.6.0",
     "html-to-markdown": "^1.0.0",
     "p-queue": "^8.0.1",
+    "playwright": "^1.57.0",
     "sanitize-filename": "^1.6.3",
     "tough-cookie": "^5.1.2",
     "zod": "^3.25.76"

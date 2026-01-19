@@ -1,10 +1,10 @@
 ---
 title: "获取 user_access_token"
 source_url: https://open.feishu.cn/document/authentication-management/access-token/get-user-access-token
-last_remote_update: 2025-06-25
-last_remote_update_timestamp: 1750847814000
+last_remote_update: 2025-12-22
+last_remote_update_timestamp: 1766383301000
 ---
-最后更新于 2025-06-25
+最后更新于 2025-12-22
 
 # 获取 user_access_token
 OAuth 令牌接口，可用于获取 <code>user_access_token</code> 以及 <code>refresh_token</code>。<code>user_access_token</code> 为用户访问凭证，使用该凭证可以以用户身份调用 OpenAPI。<code>refresh_token</code> 为刷新凭证，可以用来获取新的 <code>user_access_token</code>。
@@ -54,7 +54,6 @@ client_secret | string | 是 | 应用的 App Secret。应用凭证 App ID 和 Ap
 code | string | 是 | 授权码，详见[获取授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code)。  
 **示例值：**`a61hb967bd094dge949h79bbexd16dfe`
 redirect_uri | string | 否 | 在构造授权页页面链接时所拼接的应用回调地址。  
-**注意事项**：网页应用授权场景必填，且需要**严格**与获取授权码时设置的 `redirect_uri` 保持一致，小程序授权场景无需传递                
 **示例值：**`https://example.com/api/oauth/callback`
 code_verifier | string | 否 | 在发起授权前，本地生成的随机字符串，用于 PKCE（Proof Key for Code Exchange）流程。使用 PKCE 时，该值为必填项。    
 有关 PKCE 的详细介绍，请参阅 [RFC 7636 - Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636)。  

@@ -1,10 +1,10 @@
 ---
 title: "搜索 Wiki"
 source_url: https://open.feishu.cn/document/server-docs/docs/wiki-v2/search_wiki
-last_remote_update: 2025-09-15
-last_remote_update_timestamp: 1757933329000
+last_remote_update: 2025-12-22
+last_remote_update_timestamp: 1766400136000
 ---
-最后更新于 2025-09-15
+最后更新于 2025-12-22
 
 # 搜索 Wiki
 搜索 Wiki，用户通过关键词查询 Wiki，只能查找自己可见的 wiki
@@ -70,11 +70,12 @@ last_remote_update_timestamp: 1757933329000
 |3|Bitable|
 |4|Mindnote|
 |5|File|
-|6|Slide|
+|6|Slide(已废弃)|
 |7|Wiki|
 |8|Docx|
 |9|Folder|
 |10|Catalog|
+|11|Slides|
 
 ### 响应体示例
 ``` json

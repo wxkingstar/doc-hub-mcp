@@ -1,10 +1,10 @@
 ---
 title: "docsPicker"
 source_url: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/file/docspicker
-last_remote_update: 2025-08-01
-last_remote_update_timestamp: 1754044269000
+last_remote_update: 2025-10-21
+last_remote_update_timestamp: 1761014057000
 ---
-最后更新于 2025-08-01
+最后更新于 2025-10-21
 
 # docsPicker(Object object)
 
@@ -23,7 +23,6 @@ last_remote_update_timestamp: 1754044269000
 
 名称 | 数据类型 | 必填 | 默认值 | 描述
 --- | --- | --- | --- | ---
-maxNum | number | 否 | 10 | 最大文件选择数量
 pickerTitle | string | 否 | Select Docs | 允许开发者自定义组件的标题文案
 pickerConfirm | string | 否 | Select | 允许开发者自定义组件的选择按钮文案
 
@@ -54,7 +53,6 @@ fileName | string | docs 文件名
 
 ```js
 tt.docsPicker({
-  maxNum: 5,
   pickerTitle: "Select Docs",
   pickerConfirm: "Select",
   success(res) {

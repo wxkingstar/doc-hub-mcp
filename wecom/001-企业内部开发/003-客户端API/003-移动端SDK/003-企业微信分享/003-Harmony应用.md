@@ -4,7 +4,7 @@ doc_id: 59012
 category_id: 101022
 source_url: https://developer.work.weixin.qq.com/document/path/101022
 ---
-最后更新：2025/08/19
+最后更新：2025/11/21
 
 [TOC]
 ## Harmony接入指南
@@ -19,7 +19,7 @@ source_url: https://developer.work.weixin.qq.com/document/path/101022
 ○ 鸿蒙 Bundle ID: [文档中心](https://developer.huawei.com/consumer/cn/doc/app/agc-help-createharmonyapp-0000001945392297)
 ○ 鸿蒙 APP ID，从管理端获取: [文档中心](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/js-apis-bundlemanager-bundleinfo-V5)
 > 企业微信分享的设置，复用企业微信授权登录的设置，设置以后登录、分享任何一个都可以使用。
-4. 下载企业微信鸿蒙OpenSDK：[lib_wwapi.har](https://drive.weixin.qq.com/s?k=AJEAIQdfAAokkoWlNXANcAzQbdAFw)
+4. 下载企业微信鸿蒙OpenSDK：[lib_wwapi.har](https://dldir1.qq.com/wework/work_weixin/lib_wwapi.har)
 > SDK名称：企业微信登录/分享SDK
 > 主要功能：通过企业微信登录/分享SDK，企业可在自建的app引入sdk，从而可使用企业微信账号登录app，并且在app中分享消息到企业微信。
 > 使用说明：详见本接入指南

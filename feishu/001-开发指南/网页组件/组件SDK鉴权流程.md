@@ -1,10 +1,10 @@
 ---
 title: "组件SDK鉴权流程"
 source_url: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
-last_remote_update: 2025-03-13
-last_remote_update_timestamp: 1741846188000
+last_remote_update: 2025-10-28
+last_remote_update_timestamp: 1761644570000
 ---
-最后更新于 2025-03-13
+最后更新于 2025-10-28
 
 # 组件SDK鉴权流程
 通过在你的网页中引入**飞书网页组件**，可在你的网页中直接使用飞书的功能。
@@ -95,7 +95,7 @@ window.webComponent.config({
   openId,    // 当前登录用户的open id，要确保与生成 signature 使用的 user_access_token 相对应，使用 app_access_token 时此项不填。注意：仅云文档组件可使用app_access_token
   signature, // 签名
   appId,     // 应用 appId
-  timestamp, // 时间戳（毫秒）
+  timestamp, // 时间戳（毫秒[number]）
   nonceStr,  // 随机字符串
   url,       // 第3步参与加密计算的url
   jsApiList, // 指定要使用的组件列表，请根据对应组件的开发文档填写。如云文档组件，填写['DocsComponent']

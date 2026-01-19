@@ -1,10 +1,10 @@
 ---
 title: "批量获取审批实例 ID"
 source_url: https://open.feishu.cn/document/server-docs/approval-v4/instance/list
-last_remote_update: 2025-08-29
-last_remote_update_timestamp: 1756436658000
+last_remote_update: 2026-01-14
+last_remote_update_timestamp: 1768361098000
 ---
-最后更新于 2025-08-29
+最后更新于 2026-01-14
 
 # 批量获取审批实例 ID
 

@@ -1,10 +1,10 @@
 ---
 title: "创建外部 Offer"
 source_url: https://open.feishu.cn/document/hire-v1/get-candidates/import-external-system-information/import-external-offer-info/create
-last_remote_update: 2024-12-03
-last_remote_update_timestamp: 1733205863000
+last_remote_update: 2025-12-02
+last_remote_update_timestamp: 1764644266000
 ---
-最后更新于 2024-12-03
+最后更新于 2025-12-02
 
 # 创建外部 Offer
 
@@ -50,7 +50,7 @@ attachment_id_list | string\[\] | 否 | Offer 详情附件 ID 列表，可通过
 接口返回  
 **示例值**：["7404675264888097068"]  
 **数据校验规则**：  
-- 长度范围：`0` ～ `10`
+- 长度范围：`0` ～ `20`
 
 ### 请求体示例
 ```json
@@ -114,5 +114,5 @@ size | int | 附件大小（单位：字节）
 
 HTTP状态码 | 错误码 | 描述 | 排查建议
 --- | --- | --- | ---
-500 | 1002001 | 系统异常 | 请根据实际报错信息定位问题或联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
-400 | 1002002 | 参数错误 | 检查参数是否正确，例如类型，大小
+500 | 1002001 | System exception | 请根据实际报错信息定位问题或联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+400 | 1002002 | Invalid parameter | 检查参数是否正确，例如类型，大小

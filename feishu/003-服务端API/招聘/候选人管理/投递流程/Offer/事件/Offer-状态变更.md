@@ -1,14 +1,14 @@
 ---
 title: "Offer 状态变更"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/events/status_changed
-last_remote_update: 2024-09-02
-last_remote_update_timestamp: 1725283753000
+last_remote_update: 2025-12-02
+last_remote_update_timestamp: 1764644289000
 ---
-最后更新于 2024-09-02
+最后更新于 2025-12-02
 
 # Offer 状态变更
 
-当 Offer 状态发生变更时发送该事件。除 Offer 创建时不会发送以外，其它 Offer 状态变更均会发送事件，Offer 状态变更场景可参考「Offer 状态流转图」。
+当 Offer 状态发生变更时发送该事件。除 Offer 创建时不会发送以外，其它 Offer 状态变更均会发送事件，Offer 状态变更场景可参考「Offer 状态流转图」。注意：仅推送正式 Offer 的状态变更信息，实习 Offer 相关状态不推送。
 
 ### Offer 状态流转图
 ![image.png](https://sf3-cn.feishucdn.com/obj/open-platform-opendoc/6faaeda86bbe8f1b9f2c7ef91062edd2_xU7rL7qrof.png)

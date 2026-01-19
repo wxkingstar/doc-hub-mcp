@@ -9,6 +9,7 @@ import converter from 'html-to-markdown';
 import { load } from 'cheerio';
 import sanitize from 'sanitize-filename';
 import { decode } from 'html-entities';
+import { chromium } from 'playwright';
 
 const ROOT_OUTPUT = path.resolve('wecom');
 const BASE_REFERER = 'https://developer.work.weixin.qq.com/document/path/90664';
@@ -144,6 +145,157 @@ function importCookiesFromFile(filePath) {
 
 importCookiesFromEnv(process.env.WECOM_COOKIES || '');
 importCookiesFromFile(COOKIE_FILE);
+
+/**
+ * 打开浏览器让用户登录，登录成功后自动保存 cookies
+ * @param {string} targetUrl - 需要访问的目标页面 URL
+ * @returns {Promise<boolean>} - 登录是否成功
+ */
+async function openBrowserForLogin(targetUrl = `${BASE_URL}/document/path/90664`) {
+  console.log('\n🌐 正在打开浏览器进行登录...');
+  console.log('请在浏览器中完成登录/验证，完成后页面会自动关闭。\n');
+
+  const browser = await chromium.launch({
+    headless: false,
+    args: ['--start-maximized']
+  });
+
+  const context = await browser.newContext({
+    viewport: null,
+    userAgent: USER_AGENT
+  });
+
+  const page = await context.newPage();
+
+  try {
+    await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 60000 });
+
+    // 等待用户完成登录/验证
+    // 检测条件：页面上出现文档内容（表示已登录）或者 cookies 中包含关键登录凭证
+    console.log('⏳ 等待登录/验证完成...');
+
+    await page.waitForFunction(() => {
+      // 检查是否有文档内容加载（登录成功的标志）
+      const docContent = document.querySelector('.doc-content, .markdown-body, [class*="doc-"]');
+      const loginForm = document.querySelector('[class*="login"], [class*="captcha"], [class*="verify"]');
+      // 如果有文档内容且没有登录/验证表单，说明已登录
+      return docContent && !loginForm;
+    }, { timeout: 300000 }); // 5分钟超时
+
+    console.log('✅ 检测到登录/验证成功！');
+
+    // 获取所有 cookies
+    const cookies = await context.cookies();
+    const relevantCookies = cookies.filter(c =>
+      c.domain.includes('work.weixin.qq.com') ||
+      c.domain.includes('weixin.qq.com')
+    );
+
+    if (relevantCookies.length > 0) {
+      // 保存 cookies 到文件
+      await fs.writeJson(COOKIE_FILE, relevantCookies, { spaces: 2 });
+      console.log(`💾 已保存 ${relevantCookies.length} 个 cookies 到 ${COOKIE_FILE}`);
+
+      // 导入 cookies 到 axios jar
+      relevantCookies.forEach((cookie) => {
+        const domain = cookie.domain.startsWith('.') ? cookie.domain : `.${cookie.domain}`;
+        try {
+          jar.setCookieSync(
+            `${cookie.name}=${cookie.value}; Domain=${domain}; Path=${cookie.path || '/'}`,
+            BASE_URL
+          );
+        } catch (err) {
+          // 忽略 cookie 设置错误
+        }
+      });
+
+      console.log('🔄 已将 cookies 导入到请求客户端\n');
+      return true;
+    } else {
+      console.warn('⚠️ 未获取到有效的 cookies');
+      return false;
+    }
+  } catch (error) {
+    if (error.name === 'TimeoutError') {
+      console.error('❌ 登录超时（5分钟），请重试');
+    } else {
+      console.error('❌ 登录过程出错:', error.message);
+    }
+    return false;
+  } finally {
+    await browser.close();
+  }
+}
+
+/**
+ * 处理单个文档的抓取
+ */
+async function processDocument(node, filePath) {
+  const doc = await fetchDocContent(node.doc_id);
+  const rawHtml = doc.content_html_v2 || doc.content_html || '';
+  const remoteUpdatedAt = (() => {
+    const preferred = timestampToDate(doc.time);
+    if (preferred) {
+      return preferred;
+    }
+    const fromHtml = extractLastUpdatedFromHtml(rawHtml) ?? extractLastUpdatedFromHtml(doc.pageHtml);
+    const candidates = [
+      fromHtml,
+      timestampToDate(doc.extra?.update_time),
+      timestampToDate(doc.last_update_time),
+      doc.last_update_time_str ? new Date(doc.last_update_time_str) : null
+    ].filter(Boolean);
+    if (candidates.length === 0) return null;
+    return new Date(Math.max(...candidates.map(date => date.getTime())));
+  })();
+  const docPathId = node.category_id || doc.doc_id || node.doc_id;
+
+  const fileExists = await fs.pathExists(filePath);
+  let localUpdatedAt = null;
+  if (!remoteUpdatedAt) {
+    console.warn(`未在页面中找到最后更新时间：${node.title} —— ${BASE_URL}/document/path/${docPathId}`);
+  }
+  if (fileExists) {
+    try {
+      const localContent = await fs.readFile(filePath, 'utf8');
+      localUpdatedAt = extractLastUpdatedFromMarkdown(localContent);
+    } catch (readError) {
+      console.warn(`无法读取本地文档 ${filePath}:`, readError.message);
+    }
+  }
+
+  const remoteDateStr = remoteUpdatedAt ? formatDate(remoteUpdatedAt) : null;
+  const localDateStr = localUpdatedAt ? formatDate(localUpdatedAt) : null;
+  if (remoteDateStr && localDateStr && remoteDateStr === localDateStr) {
+    return { status: 'skipped', remoteDateStr, localDateStr, docPathId };
+  }
+
+  const processedHtml = preprocessHtml(rawHtml);
+  let markdownBody;
+  if (doc.content_md && doc.content_md.trim()) {
+    markdownBody = doc.content_md.trim();
+  } else {
+    markdownBody = postProcessMarkdown(converter.convert(processedHtml));
+  }
+  const frontMatter = buildFrontMatter({
+    title: JSON.stringify(doc.title || node.title),
+    doc_id: node.doc_id,
+    category_id: node.category_id,
+    source_url: `${BASE_URL}/document/path/${docPathId}`
+  });
+  let cleanedMarkdown = cleanupMarkdown(markdownBody);
+  const effectiveUpdatedAt = remoteDateStr || localDateStr;
+  cleanedMarkdown = injectLastUpdated(cleanedMarkdown, effectiveUpdatedAt);
+  const finalContent = `${frontMatter}${cleanedMarkdown}\n`;
+  await fs.outputFile(filePath, finalContent, 'utf8');
+
+  return {
+    status: fileExists ? 'updated' : 'created',
+    remoteDateStr,
+    localDateStr,
+    docPathId
+  };
+}
 
 async function fetchCategories() {
   const headers = {
@@ -440,125 +592,107 @@ async function main() {
       `Processing docs ${startOffset + 1}-${endOffset} of ${totalDocs} (use --start to adjust).`
     );
   }
-  const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1200 });
-  const humanCheckDocs = new Set();
+
+  // 用于存储需要重试的文档（因 500003 人机验证失败）
+  const failedTasks = new Map(); // doc_id -> { node, filePath }
   let processedCount = 0;
   let createdCount = 0;
   let updatedCount = 0;
   let skippedCount = 0;
-  const totalTasks = tasksToProcess.length;
 
-  await queue.addAll(
-    tasksToProcess.map(({ node, filePath }) => async () => {
-      try {
-        const doc = await fetchDocContent(node.doc_id);
-        const rawHtml = doc.content_html_v2 || doc.content_html || '';
-        const remoteUpdatedAt = (() => {
-          const preferred = timestampToDate(doc.time);
-          if (preferred) {
-            return preferred;
-          }
-          const fromHtml = extractLastUpdatedFromHtml(rawHtml) ?? extractLastUpdatedFromHtml(doc.pageHtml);
-          const candidates = [
-            fromHtml,
-            timestampToDate(doc.extra?.update_time),
-            timestampToDate(doc.last_update_time),
-            doc.last_update_time_str ? new Date(doc.last_update_time_str) : null
-          ].filter(Boolean);
-          if (candidates.length === 0) return null;
-          return new Date(Math.max(...candidates.map(date => date.getTime())));
-        })();
-        const docPathId = node.category_id || doc.doc_id || node.doc_id;
+  /**
+   * 处理文档列表
+   */
+  async function processTasks(tasks, isRetry = false) {
+    const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1200 });
+    const totalTasks = tasks.length;
+    let localProcessed = 0;
 
-        const fileExists = await fs.pathExists(filePath);
-        let localContent = '';
-        let localUpdatedAt = null;
-        if (!remoteUpdatedAt) {
-          console.warn(`未在页面中找到最后更新时间：${node.title} —— ${BASE_URL}/document/path/${docPathId}`);
-        }
-        if (fileExists) {
-          try {
-            localContent = await fs.readFile(filePath, 'utf8');
-            localUpdatedAt = extractLastUpdatedFromMarkdown(localContent);
-          } catch (readError) {
-            console.warn(`无法读取本地文档 ${filePath}:`, readError.message);
-          }
-        }
+    await queue.addAll(
+      tasks.map(({ node, filePath }) => async () => {
+        try {
+          const result = await processDocument(node, filePath);
+          const docLink = `${BASE_URL}/document/path/${result.docPathId}`;
 
-        const remoteDateStr = remoteUpdatedAt ? formatDate(remoteUpdatedAt) : null;
-        const localDateStr = localUpdatedAt ? formatDate(localUpdatedAt) : null;
-        if (remoteDateStr && localDateStr && remoteDateStr === localDateStr) {
-          skippedCount += 1;
-          console.log(`跳过：${node.title} —— 远端 ${remoteDateStr} ，本地 ${localDateStr} —— ${BASE_URL}/document/path/${docPathId}`);
-          return;
-        }
+          if (result.status === 'skipped') {
+            skippedCount += 1;
+            console.log(`跳过：${node.title} —— 远端 ${result.remoteDateStr} ，本地 ${result.localDateStr} —— ${docLink}`);
+          } else if (result.status === 'updated') {
+            updatedCount += 1;
+            const msgParts = [`更新：${node.title}`];
+            if (result.remoteDateStr) msgParts.push(`远端 ${result.remoteDateStr}`);
+            if (result.localDateStr) msgParts.push(`原有 ${result.localDateStr}`);
+            msgParts.push(docLink);
+            console.log(msgParts.join(' —— '));
+          } else if (result.status === 'created') {
+            createdCount += 1;
+            const msgParts = [`新增：${node.title}`];
+            if (result.remoteDateStr) msgParts.push(`远端 ${result.remoteDateStr}`);
+            msgParts.push(docLink);
+            console.log(msgParts.join(' —— '));
+          }
 
-        const processedHtml = preprocessHtml(rawHtml);
-        let markdownBody;
-        if (doc.content_md && doc.content_md.trim()) {
-          markdownBody = doc.content_md.trim();
-        } else {
-          markdownBody = postProcessMarkdown(converter.convert(processedHtml));
-        }
-        const frontMatter = buildFrontMatter({
-          title: JSON.stringify(doc.title || node.title),
-          doc_id: node.doc_id,
-          category_id: node.category_id,
-          source_url: `${BASE_URL}/document/path/${docPathId}`
-        });
-        let cleanedMarkdown = cleanupMarkdown(markdownBody);
-        const effectiveUpdatedAt = remoteDateStr || localDateStr;
-        cleanedMarkdown = injectLastUpdated(cleanedMarkdown, effectiveUpdatedAt);
-        const finalContent = `${frontMatter}${cleanedMarkdown}
-`;
-        await fs.outputFile(filePath, finalContent, 'utf8');
-        const docLink = `${BASE_URL}/document/path/${docPathId}`;
-        if (fileExists) {
-          updatedCount += 1;
-          const msgParts = [`更新：${node.title}`];
-          if (remoteDateStr) {
-            msgParts.push(`远端 ${remoteDateStr}`);
+          // 如果是重试成功，从失败列表中移除
+          if (isRetry && failedTasks.has(node.doc_id)) {
+            failedTasks.delete(node.doc_id);
           }
-          if (localDateStr) {
-            msgParts.push(`原有 ${localDateStr}`);
+        } catch (error) {
+          const message = error?.message || '';
+          if (message.includes('500003') || message.includes('人机验证')) {
+            if (!isRetry) {
+              failedTasks.set(node.doc_id, { node, filePath });
+            }
+            console.error(`❌ 人机验证失败：${node.title} (doc_id: ${node.doc_id})`);
+          } else {
+            console.error(`Failed to process doc ${node.doc_id} (${node.title}):`, message);
           }
-          msgParts.push(docLink);
-          console.log(msgParts.join(' —— '));
-        } else {
-          createdCount += 1;
-          const msgParts = [`新增：${node.title}`];
-          if (remoteDateStr) {
-            msgParts.push(`远端 ${remoteDateStr}`);
+        } finally {
+          processedCount += 1;
+          localProcessed += 1;
+          if (localProcessed % 50 === 0 || localProcessed === totalTasks) {
+            console.log(`Processed ${localProcessed}/${totalTasks}${isRetry ? ' (重试)' : ''}`);
           }
-          msgParts.push(docLink);
-          console.log(msgParts.join(' —— '));
         }
-      } catch (error) {
-        const message = error?.message || '';
-        if (message.includes('500003') || message.includes('人机验证')) {
-          humanCheckDocs.add(node.doc_id);
-        }
-        console.error(`Failed to process doc ${node.doc_id} (${node.title}):`, message);
-      } finally {
-        processedCount += 1;
-        if (processedCount % 50 === 0 || processedCount === totalTasks) {
-          console.log(`Processed ${processedCount}/${totalTasks}`);
+      })
+    );
+  }
+
+  // 第一轮：处理所有文档
+  console.log('\n📚 开始抓取文档...\n');
+  await processTasks(tasksToProcess);
+
+  // 如果有 500003 失败的文档，提示用户登录并重试
+  if (failedTasks.size > 0) {
+    console.log(`\n⚠️ 有 ${failedTasks.size} 个文档因人机验证失败，需要登录后重试。`);
+
+    // 获取第一个失败文档的 URL 用于登录
+    const firstFailed = failedTasks.values().next().value;
+    const loginUrl = `${BASE_URL}/document/path/${firstFailed.node.category_id || firstFailed.node.doc_id}`;
+
+    const loginSuccess = await openBrowserForLogin(loginUrl);
+
+    if (loginSuccess) {
+      console.log(`\n🔄 开始重试 ${failedTasks.size} 个失败的文档...\n`);
+      const retryTasks = Array.from(failedTasks.values());
+      processedCount = 0; // 重置计数器用于重试统计
+      await processTasks(retryTasks, true);
+
+      if (failedTasks.size > 0) {
+        console.warn(`\n⚠️ 仍有 ${failedTasks.size} 个文档抓取失败：`);
+        for (const { node } of failedTasks.values()) {
+          console.warn(`  - ${node.title} (${BASE_URL}/document/path/${node.category_id || node.doc_id})`);
         }
       }
-    })
-  );
+    } else {
+      console.warn('\n❌ 登录失败或取消，跳过重试。');
+      console.warn('您可以稍后使用以下命令单独重试失败的文档：');
+      console.warn('  npm run scrape:wecom');
+    }
+  }
 
   console.log(
-    `Summary: created ${createdCount}, updated ${updatedCount}, skipped ${skippedCount}, total processed ${processedCount}.`
+    `\n✅ 抓取完成！新增 ${createdCount}，更新 ${updatedCount}，跳过 ${skippedCount}，失败 ${failedTasks.size}。`
   );
-  if (humanCheckDocs.size > 0) {
-    console.warn(`
-需要人工完成验证码的人机验证文档数量：${humanCheckDocs.size}`);
-    console.warn('请在浏览器中访问任意失败的文档链接完成验证码，然后复制最新的 Cookies。');
-    console.warn('将 Cookies 写入 .wecom_cookies.json (数组或字符串) 或设置 WECOM_COOKIES 环境变量后重新运行脚本。');
-    console.warn('例如:');
-    console.warn('  WECOM_COOKIES="wwrtx.sid=...; wwrtx.sid2=...; wwrtx.ltype=..." npm run scrape:wecom');
-  }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

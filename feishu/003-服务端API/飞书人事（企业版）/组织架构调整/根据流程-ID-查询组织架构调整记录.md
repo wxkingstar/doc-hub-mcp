@@ -1,17 +1,19 @@
 ---
 title: "根据流程 ID 查询组织架构调整记录"
 source_url: https://open.feishu.cn/document/corehr-v1/approval_groups/get
-last_remote_update: 2025-08-25
-last_remote_update_timestamp: 1756109364000
+last_remote_update: 2025-10-14
+last_remote_update_timestamp: 1760409288000
 ---
-最后更新于 2025-08-25
+最后更新于 2025-10-14
 
 # 根据流程 ID 查询组织架构调整记录
 
-用户通过『飞书人事-我的团队-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。  之后用户可通过流程 process 的单据 ID， 查询到该审批进行的状态， 以及该流程中涉及到的 组织架构信息（包括部门变更、人员变更记录 ID、岗位变更记录 ID）。
-如需查询具体变更详情：
+用户通过『飞书人事-我的团队-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。  之后用户可通过流程的单据 ID， 查询到该审批进行的状态， 以及该流程中涉及到的 组织架构信息（包括部门变更、人员变更记录 ID、岗位变更记录 ID）。
+如需查询具体变更详情可按需调用以下独立的接口：
 
-- 部门变更：[批量查询部门变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_department_change_list_by_ids)
+- 部门变更：[批量查询部门变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_position_change_list_by_ids)
+
+- 岗位变更：[批量查询岗位调整内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_department_change_list_by_ids)
 
 - 员工变更：[批量查询员工变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_job_change_list_by_ids)
 
@@ -43,7 +45,7 @@ Authorization | string | 是 | `tenant_access_token`
 
 名称 | 类型 | 描述
 --- | --- | ---
-process_id | string | 组织架构调整流程 ID， 用户通过『飞书人事-我的团队-组织架构』或『飞书 人事-人员管理-组织架构』 发起一个组织架构调整，并提交审批后，系统会根据管理员在审批流程中配置的规则，生成 一个或多个审批单据。  
+process_id | string | 组织架构调整流程 ID， 用户通过『飞书人事-我的团队-组织架构』或『飞书 人事-人员管理-组织架构』 发起一个组织架构调整，并提交审批后，系统会根据管理员在审批流程中配置的规则，生成 一个或多个审批单据。可通过「组织架构调整状态变更」的事件来获取  
 **示例值**："6893014062142064111"
 
 ### 查询参数

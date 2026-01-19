@@ -1,10 +1,10 @@
 ---
 title: "获取 Offer 详情"
 source_url: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/get
-last_remote_update: 2025-07-30
-last_remote_update_timestamp: 1753877023000
+last_remote_update: 2025-12-02
+last_remote_update_timestamp: 1764644288000
 ---
-最后更新于 2025-07-30
+最后更新于 2025-12-02
 
 # 获取 Offer 详情
 
@@ -95,7 +95,7 @@ offer | offer | Offer 详情
 id | string | Offer ID
 application_id | string | 投递 ID，详情请查看：[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
 basic_info | application_offer_basic_info | 基础信息
-offer_type | int | Offer 类型  
+offer_type | int | Offer 类型，废弃字段  
 **可选值有**：  
 - 1：社招 Offer  
 - 2：校招 Offer  
@@ -262,7 +262,7 @@ customize_info_list | application_offer_custom_value\[\] | 自定义字段的 va
 object_id | string | 自定义字段 ID，详情请参考：[获取 Offer 申请表模版信息](https://open.larkoffice.com/document/server-docs/hire-v1/recruitment-related-configuration/offer-settings/offer_application_form/get)
 customize_value | string | 自定义字段 value
 schema_id | string | 当前 Offer 使用的 Schema
-offer_status | int | Offer 状态  
+offer_status | int | Offer 状态，注意：除标注「仅实习 Offer 适用」的状态外，其余状态对「实习 Offer」与「正式 Offer」通用  
 **可选值有**：  
 - 1：未申请  
 - 2：审批中  
@@ -563,5 +563,5 @@ file_template_type_name | string | 文件模板类型名称
 
 HTTP状态码 | 错误码 | 描述 | 排查建议
 --- | --- | --- | ---
-500 | 1002001 | 系统错误 | 请根据实际报错信息定位或咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)
-400 | 1002002 | 参数错误 | 检查参数是否正确，例如类型，大小
+500 | 1002001 | System error | 请根据实际报错信息定位或咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)
+400 | 1002002 | Parameter error | 检查参数是否正确，例如类型，大小

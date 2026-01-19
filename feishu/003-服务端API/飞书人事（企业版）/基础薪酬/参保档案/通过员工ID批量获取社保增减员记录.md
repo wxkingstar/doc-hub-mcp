@@ -1,10 +1,10 @@
 ---
 title: "通过员工ID批量获取社保增减员记录"
 source_url: https://open.feishu.cn/document/corehr-v1/basic-compensation/social_archive/query-2
-last_remote_update: 2025-09-15
-last_remote_update_timestamp: 1757903068000
+last_remote_update: 2025-11-14
+last_remote_update_timestamp: 1763105443000
 ---
-最后更新于 2025-09-15
+最后更新于 2025-11-14
 
 # 批量获取社保增减员记录
 
@@ -51,7 +51,7 @@ user_id_type | string | 是 | 用户 ID 类型
 
 名称 | 类型 | 必填 | 描述
 --- | --- | --- | ---
-user_id_list | string\[\] | 是 | 用户ID列表，与入参 user_id_type 类型一致  
+user_id_list | string\[\] | 是 | 用户ID列表，与入参 user_id_type 类型一致。ID可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取  
 **示例值**：["7134995965475620396"]  
 **数据校验规则**：  
 - 长度范围：`0` ～ `200`
@@ -142,7 +142,7 @@ payment_frequency | string | 缴纳频率
 - monthly：每月  
 - quarterly：每季度
 payment_months | int\[\] | 缴纳月份，1月～12月
-effective_date | string | 档案生效时间，yyyy-MM-dd
+effective_date | string | 待增员参保年月/待减员停缴年月，HHHH-MM-DD
 
 ### 响应体示例
 ```json
