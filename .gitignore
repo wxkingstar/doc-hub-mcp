@@ -33,6 +33,7 @@ coverage/
 .next/
 
 # 环境配置
+.npmrc
 .env
 .env.local
 .env.development
