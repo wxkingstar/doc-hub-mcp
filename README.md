@@ -1,5 +1,42 @@
 # doc-hub-mcp
 
+> **This project has moved / 项目已迁移**
+>
+> 本项目已停止维护，全新版本已迁移至：**[SpecFusion](https://github.com/wxkingstar/SpecFusion)**
+>
+> This project is no longer maintained. Please use the new repository: **[SpecFusion](https://github.com/wxkingstar/SpecFusion)**
+
+## 为什么迁移？
+
+doc-hub-mcp 采用 MCP Server + Markdown 文件打包的方案，存在以下问题：
+
+- **架构笨重** — 作为 MCP Server 运行，需要独立进程，配置繁琐
+- **包体积过大** — 每次安装需下载 100+ MB 文档数据，首次启动慢
+- **平台覆盖有限** — 仅支持企业微信和飞书两个平台
+- **检索能力弱** — 基于简单的文件名和内容匹配，缺乏中文分词能力
+- **更新不便** — 文档更新需要重新发布 npm 包，用户需重新下载全量数据
+
+## SpecFusion 的改进
+
+新项目 [SpecFusion](https://github.com/wxkingstar/SpecFusion) 从方案到架构做了全面升级，最大的变化是**从 MCP Server 方案转为 Claude Code Skill 方案**：
+
+| | doc-hub-mcp (旧) | SpecFusion (新) |
+|---|---|---|
+| **方案** | MCP Server（独立进程） | Claude Code Skill（零进程，即装即用） |
+| **平台覆盖** | 2 个（企微、飞书） | 15+ 个（企微、飞书、钉钉、淘宝、小红书、抖音、微信小程序、拼多多、支付宝等） |
+| **文档规模** | ~3,000 篇 | 26,800+ 篇，17,900+ 个 API 端点 |
+| **检索方案** | 文件名 + 内容简单匹配 | jieba 中文分词 + SQLite FTS5 全文索引 |
+| **部署方式** | npm 包（文档打包分发） | 云端服务零配置 / Docker 自部署 |
+| **更新机制** | 重新发布 npm 包 | 服务端实时更新，客户端无感 |
+
+Skill 相比 MCP Server 的优势在于：无需启动额外进程、无需管理连接状态、安装只需一条命令、提及平台名即可自动触发检索。
+
+---
+
+以下为旧版说明，仅供参考。
+
+---
+
 企业微信 & 飞书开放平台文档检索 MCP 服务。
 
 让 AI 编程助手直接检索企微/飞书的开发者文档，在写代码时随时查阅接口说明，无需切换浏览器。
